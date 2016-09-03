@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.naming.NamingException;
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 /**
@@ -31,8 +32,6 @@ public class Runner
 
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
-//		Runner r = new Runner();
-//		r.queryDB(1);
 	}
 
 	/**
@@ -67,11 +66,47 @@ public class Runner
 			 rs1.setNumberInBox(rs.getInt("numberInBox"));
 			 rs1.setClassName(rs.getString("className"));
 		}
+		con.close();
 
 		return rs1;
 	}
 
+	public void insertRow(DBReturnSet dbrs) throws ClassNotFoundException, SQLException
+	{
 
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
+		PreparedStatement pst;
+
+
+//		String sqlStatement = ("INSERT INTO 'swe400-12'.InventoryItem VALUES ('" + dbrs.id + "','" + dbrs.upc + "','" + dbrs.manufacturerID + "','" + dbrs.price + "','" +
+//		dbrs.description + "','" + 0 + "','" + dbrs.length + "','" + dbrs.numberInStrip + "','" + dbrs.numberInBox + "','" + dbrs.className + "');" );
+
+		String sqlStatement = "INSERT INTO 'swe400-12'.InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		pst = (PreparedStatement) con.prepareStatement(sqlStatement);
+		pst.setInt(1, dbrs.getId());
+		pst.setString(2, dbrs.getUpc());
+		pst.setInt(3, dbrs.getManufacturerID());
+		pst.setInt(4, dbrs.getPrice());
+		pst.setString(5, dbrs.getDescription());
+		pst.setBoolean(6, dbrs.isBatteryPowered());
+		pst.setLong(7, dbrs.getLength());
+		pst.setInt(8, dbrs.getNumberInStrip());
+		pst.setInt(9, dbrs.getNumberInBox());
+		pst.setString(10, dbrs.getClassName());
+
+		int rowsInserted = pst.executeUpdate();
+		if(rowsInserted > 0)
+			System.out.println("SUCC");
+
+		con.close();
+
+//		System.out.println(sqlStatement);
+//		pst = (PreparedStatement) con.prepareStatement(sqlStatement);
+//		pst.execute();
+//		con.close();
+	}
 
 
 
