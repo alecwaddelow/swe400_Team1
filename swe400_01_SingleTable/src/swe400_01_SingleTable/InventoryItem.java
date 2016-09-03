@@ -13,10 +13,10 @@ import com.mysql.jdbc.Statement;
  */
 public abstract class InventoryItem
 {
-	private int id;
-	private String upc;
-	private int manufacturerID;
-	private int price;
+	protected int id;
+	protected String upc;
+	protected int manufacturerID;
+	protected int price;
 
 
 }
