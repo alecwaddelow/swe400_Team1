@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author Drew Rife
+ * @author Drew Rife and Alec
  *
  */
 public abstract class DBTest
