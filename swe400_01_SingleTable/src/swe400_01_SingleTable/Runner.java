@@ -18,16 +18,16 @@ public class Runner
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
 
-	private int id;
-	private String upc;
-	private int manufacturerID;
-	private int price;
-	private String description;
-	private boolean batteryPowered;
-	private long length;
-	private int numberInStrip;
-	private int numberInBox;
-	private String className;
+//	private int id;
+//	private String upc;
+//	private int manufacturerID;
+//	private int price;
+//	private String description;
+//	private boolean batteryPowered;
+//	private long length;
+//	private int numberInStrip;
+//	private int numberInBox;
+//	private String className;
 
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
@@ -42,9 +42,10 @@ public class Runner
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
+	@SuppressWarnings("null")
 	public DBReturnSet queryDB(int id) throws SQLException, ClassNotFoundException
 	{
-		DBReturnSet rs1;
+		DBReturnSet rs1 = new DBReturnSet();
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
 		Statement st = (Statement) con.createStatement();
@@ -55,19 +56,17 @@ public class Runner
 
 		while(rs.next())
 		{
-			 id = rs.getInt("id");
-			 upc = rs.getString("upc");
-			 manufacturerID = rs.getInt("manufacturerID");
-			 price = rs.getInt("price");
-			 description = rs.getString("description");
-			 batteryPowered = rs.getBoolean("batteryPowered");
-			 length = rs.getLong("length");
-			 numberInStrip = rs.getInt("numberInStrip");
-			 numberInBox = rs.getInt("numberInBox");
-			 className = rs.getString("className");
+			 rs1.setId(rs.getInt("id"));
+			 rs1.setUpc(rs.getString("upc"));
+			 rs1.setManufacturerID(rs.getInt("manufacturerID"));
+			 rs1.setPrice(rs.getInt("price"));
+			 rs1.setDescription(rs.getString("description"));
+			 rs1.setBatteryPowered(rs.getBoolean("batteryPowered"));
+			 rs1.setLength(rs.getLong("length"));
+			 rs1.setNumberInStrip(rs.getInt("numberInStrip"));
+			 rs1.setNumberInBox(rs.getInt("numberInBox"));
+			 rs1.setClassName(rs.getString("className"));
 		}
-
-		rs1 = new DBReturnSet(id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className);
 
 		return rs1;
 	}

@@ -9,16 +9,16 @@ package swe400_01_SingleTable;
  */
 public class DBReturnSet
 {
-	private int id;
-	private String upc;
-	private int manufacturerID;
-	private int price;
-	private String description;
-	private boolean batteryPowered;
-	private long length;
-	private int numberInStrip;
-	private int numberInBox;
-	private String className;
+	protected int id;
+	protected String upc;
+	protected int manufacturerID;
+	protected int price;
+	protected String description;
+	protected boolean batteryPowered;
+	protected long length;
+	protected int numberInStrip;
+	protected int numberInBox;
+	protected String className;
 
 	public DBReturnSet(int id2, String upc2, int manufacturerID2, int price2, String description2,
 			boolean batteryPowered2, long length2, int numberInStrip2, int numberInBox2, String className2) {
@@ -34,103 +34,108 @@ public class DBReturnSet
 		this.className = className;
 	}
 
-	private int getId()
+	public DBReturnSet()
+	{
+		super();
+	}
+
+	protected int getId()
 	{
 		return id;
 	}
 
-	private void setId(int id)
+	protected void setId(int id)
 	{
 		this.id = id;
 	}
 
-	private String getUpc()
+	protected String getUpc()
 	{
 		return upc;
 	}
 
-	private void setUpc(String upc)
+	protected void setUpc(String upc)
 	{
 		this.upc = upc;
 	}
 
-	private int getManufacturerID()
+	protected int getManufacturerID()
 	{
 		return manufacturerID;
 	}
 
-	private void setManufacturerID(int manufacturerID)
+	protected void setManufacturerID(int manufacturerID)
 	{
 		this.manufacturerID = manufacturerID;
 	}
 
-	private int getPrice()
+	protected int getPrice()
 	{
 		return price;
 	}
 
-	private void setPrice(int price)
+	protected void setPrice(int price)
 	{
 		this.price = price;
 	}
 
-	private String getDescription()
+	protected String getDescription()
 	{
 		return description;
 	}
 
-	private void setDescription(String description)
+	protected void setDescription(String description)
 	{
 
 		this.description = description;
 	}
 
-	private boolean isBatteryPowered()
+	protected boolean isBatteryPowered()
 	{
 		return batteryPowered;
 	}
 
-	private void setBatteryPowered(boolean batteryPowered)
+	protected void setBatteryPowered(boolean batteryPowered)
 	{
 		this.batteryPowered = batteryPowered;
 	}
 
-	private long getLength()
+	protected long getLength()
 	{
 		return length;
 	}
 
-	private void setLength(long length)
+	protected void setLength(long length)
 	{
 		this.length = length;
 	}
 
-	private int getNumberInStrip()
+	protected int getNumberInStrip()
 	{
 		return numberInStrip;
 	}
 
-	private void setNumberInStrip(int numberInStrip)
+	protected void setNumberInStrip(int numberInStrip)
 	{
 		this.numberInStrip = numberInStrip;
 	}
 
-	private int getNumberInBox()
+	protected int getNumberInBox()
 	{
 		return numberInBox;
 	}
 
-	private void setNumberInBox(int numberInBox)
+	protected void setNumberInBox(int numberInBox)
 	{
 		this.numberInBox = numberInBox;
 	}
 
-	private String getClassName()
+	protected String getClassName()
 	{
 		return className;
 	}
 
-	private void setClassName(String className)
+	protected void setClassName(String className)
 	{
 		this.className = className;
 	}
