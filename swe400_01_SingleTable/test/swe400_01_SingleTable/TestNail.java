@@ -33,17 +33,17 @@ public class TestNail
 		assertEquals(10, nail.numberInBox);
 	}
 
-	//@Before
-	@Test
-	public void testInsertingObjectIntoRow() throws ClassNotFoundException, SQLException
-	{
-		Nail nail = new Nail(2, "333", 444, 5, "ThisJawn", false, 0, 0, 0, "Nail");
-		assertEquals("333", nail.upc);
-		assertEquals(444, nail.manufacturerID);
-		assertEquals(5, nail.price);
-		assertEquals(0, nail.length);
-		assertEquals(0, nail.numberInBox);
-	}
+//	//@Before
+//	@Test
+//	public void testInsertingObjectIntoRow() throws ClassNotFoundException, SQLException
+//	{
+//		Nail nail = new Nail(2, "333", 444, 5, "ThisJawn", false, 0, 0, 0, "Nail");
+//		assertEquals("333", nail.upc);
+//		assertEquals(444, nail.manufacturerID);
+//		assertEquals(5, nail.price);
+//		assertEquals(0, nail.length);
+//		assertEquals(0, nail.numberInBox);
+//	}
 
 	@Test
 	public void testPullingFromDB() throws ClassNotFoundException, SQLException
@@ -52,22 +52,4 @@ public class TestNail
 		assertEquals("333", nail.upc);
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

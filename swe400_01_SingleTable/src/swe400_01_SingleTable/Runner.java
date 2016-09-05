@@ -19,17 +19,6 @@ public class Runner
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
 
-//	private int id;
-//	private String upc;
-//	private int manufacturerID;
-//	private int price;
-//	private String description;
-//	private boolean batteryPowered;
-//	private long length;
-//	private int numberInStrip;
-//	private int numberInBox;
-//	private String className;
-
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
 	}
