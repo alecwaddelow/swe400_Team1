@@ -10,6 +10,5 @@ import org.junit.runners.Suite;
 			TestStripNails.class,
 			TestTool.class
 		})
-public class RunAllTests {
 
-}
+public class RunAllTests  {}
