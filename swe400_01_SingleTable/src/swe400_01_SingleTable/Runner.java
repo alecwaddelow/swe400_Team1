@@ -78,14 +78,8 @@ public class Runner
 		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
 		PreparedStatement pst;
 
-
-//		String sqlStatement = ("INSERT INTO 'swe400-12'.InventoryItem VALUES ('" + dbrs.id + "','" + dbrs.upc + "','" + dbrs.manufacturerID + "','" + dbrs.price + "','" +
-//		dbrs.description + "','" + 0 + "','" + dbrs.length + "','" + dbrs.numberInStrip + "','" + dbrs.numberInBox + "','" + dbrs.className + "');" );
-
 		String sqlStatement = "INSERT INTO InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-//		String sqlStatement = "insert into 'swe400-12'.InventoryItem values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 		System.out.println(sqlStatement);
 		pst = (PreparedStatement) con.prepareStatement(sqlStatement);

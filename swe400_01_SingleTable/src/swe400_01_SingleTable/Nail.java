@@ -52,12 +52,5 @@ public class Nail extends Fastener
 		dbrs.setClassName(this.className);
 		Runner runner = new Runner();
 		runner.insertRow(dbrs);
-
-
-
-
-
-
-
 	}
 }
