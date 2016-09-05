@@ -82,8 +82,12 @@ public class Runner
 //		String sqlStatement = ("INSERT INTO 'swe400-12'.InventoryItem VALUES ('" + dbrs.id + "','" + dbrs.upc + "','" + dbrs.manufacturerID + "','" + dbrs.price + "','" +
 //		dbrs.description + "','" + 0 + "','" + dbrs.length + "','" + dbrs.numberInStrip + "','" + dbrs.numberInBox + "','" + dbrs.className + "');" );
 
-		String sqlStatement = "INSERT INTO 'swe400-12'.InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
-				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sqlStatement = "INSERT INTO InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+//		String sqlStatement = "insert into 'swe400-12'.InventoryItem values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+		System.out.println(sqlStatement);
 		pst = (PreparedStatement) con.prepareStatement(sqlStatement);
 		pst.setInt(1, dbrs.getId());
 		pst.setString(2, dbrs.getUpc());
@@ -96,9 +100,10 @@ public class Runner
 		pst.setInt(9, dbrs.getNumberInBox());
 		pst.setString(10, dbrs.getClassName());
 
-		int rowsInserted = pst.executeUpdate();
-		if(rowsInserted > 0)
-			System.out.println("SUCC");
+		pst.executeUpdate();
+		pst.close();
+//		if(rowsInserted > 0)
+//			System.out.println("SUCC");
 
 		con.close();
 

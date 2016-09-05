@@ -21,6 +21,7 @@ public class TestNail
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
+	@Before
 	@Test
 	public void testInitialization() throws ClassNotFoundException, SQLException
 	{
