@@ -59,7 +59,6 @@ public class StripNails extends Fastener
 		this.length = length;
 		this.numberInStrip = numberInStrip;
 		
-		
 		DBReturnSet dbrs = new DBReturnSet();
 		dbrs.setId(this.id);
 		dbrs.setUpc(this.upc);
