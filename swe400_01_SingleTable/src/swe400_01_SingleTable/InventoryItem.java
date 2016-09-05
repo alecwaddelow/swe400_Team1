@@ -17,8 +17,6 @@ public abstract class InventoryItem
 	protected String upc;
 	protected int manufacturerID;
 	protected int price;
-
-
 }
 
 

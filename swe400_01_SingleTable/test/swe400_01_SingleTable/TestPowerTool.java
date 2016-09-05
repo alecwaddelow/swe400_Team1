@@ -4,13 +4,11 @@
 package swe400_01_SingleTable;
 
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
-
 import org.junit.Test;
 
 /**
- * @author alecw
+ * @author Alec Waddelow 
  *
  */
 public class TestPowerTool 
@@ -26,13 +24,13 @@ public class TestPowerTool
 		assertEquals(true,pt.batteryPowered);
 	}
 	
-	@Test
-	public void testInsertingObjectIntoRow() throws ClassNotFoundException, SQLException
-	{
-		PowerTool pt = new PowerTool(7, "7", 7, 7, "", false, 0, 0, 0, "PowerTool");
-		assertEquals("7", pt.upc);
-		assertEquals(7, pt.manufacturerID);
-		assertEquals(7, pt.price);
-	} 
+//	@Test
+//	public void testInsertingObjectIntoRow() throws ClassNotFoundException, SQLException
+//	{
+//		PowerTool pt = new PowerTool(7, "7", 7, 7, "", false, 0, 0, 0, "PowerTool");
+//		assertEquals("7", pt.upc);
+//		assertEquals(7, pt.manufacturerID);
+//		assertEquals(7, pt.price);
+//	} 
 	
 }
