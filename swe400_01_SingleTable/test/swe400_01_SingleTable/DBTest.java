@@ -34,13 +34,19 @@ public abstract class DBTest
 		String sqlStatement = ("START TRANSACTION;");
 		Statement st = (Statement) con.createStatement();
 		ResultSet rs = st.executeQuery(sqlStatement);
+		con.close();
 	}
 
 	@After
 	@Test
-	public void testRollBack()
+	public void testRollBack() throws ClassNotFoundException, SQLException
 	{
-
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
+		String sqlStatement = ("ROLLBACK;");
+		Statement st = (Statement) con.createStatement();
+		ResultSet rs = st.executeQuery(sqlStatement);
+		con.close();
 	}
 
 

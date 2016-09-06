@@ -6,9 +6,9 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
 		{
 			TestNail.class,
-			TestPowerTool.class,
-			TestStripNails.class,
-			TestTool.class
+//			TestPowerTool.class,
+//			TestStripNails.class,
+//			TestTool.class
 		})
 
 public class RunAllTests  {}
