@@ -12,7 +12,7 @@ import org.junit.Test;
  * @author Drew Rife & Alec Waddelow
  *
  */
-public class TestNail
+public class TestNail extends DBTest
 {
 	/**
 	 * Test initializing a Nail Object

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package swe400_01_SingleTable;
 
@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * @author Alec Waddelow 
+ * @author Alec Waddelow
  *
  */
-public class TestPowerTool 
+public class TestPowerTool extends DBTest
 {
 
 	@Test
-	public void testInitialization() throws ClassNotFoundException, SQLException 
+	public void testInitialization() throws ClassNotFoundException, SQLException
 	{
 		PowerTool pt = new PowerTool(6);
 		assertEquals("6", pt.upc);
@@ -23,7 +23,7 @@ public class TestPowerTool
 		assertEquals(6, pt.price);
 		assertEquals(true,pt.batteryPowered);
 	}
-	
+
 //	@Test
 //	public void testInsertingObjectIntoRow() throws ClassNotFoundException, SQLException
 //	{
@@ -31,6 +31,6 @@ public class TestPowerTool
 //		assertEquals("7", pt.upc);
 //		assertEquals(7, pt.manufacturerID);
 //		assertEquals(7, pt.price);
-//	} 
-	
+//	}
+
 }

@@ -4,7 +4,7 @@
 package swe400_01_SingleTable;
 
 /**
- * @author drew
+ * @author Drew Rife & Alec Waddelow
  *
  */
 public class DBReturnSet

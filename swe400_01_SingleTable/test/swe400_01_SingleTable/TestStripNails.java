@@ -7,7 +7,7 @@ import org.junit.Test;
  * @author Alec Waddelow
  *
  */
-public class TestStripNails
+public class TestStripNails extends DBTest
 {
 
 	@Test

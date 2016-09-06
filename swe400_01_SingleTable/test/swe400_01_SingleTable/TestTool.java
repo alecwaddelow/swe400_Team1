@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package swe400_01_SingleTable;
 
@@ -10,14 +10,14 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * Test Tool Class 
- * @author Alec Waddelow 
+ * Test Tool Class
+ * @author Alec Waddelow
  *
  */
-public class TestTool 
+public class TestTool extends DBTest
 {
 	@Test
-	public void testInitialization() throws ClassNotFoundException, SQLException 
+	public void testInitialization() throws ClassNotFoundException, SQLException
 	{
 		Tool tool = new Tool(3);
 		assertEquals("1234", tool.upc);
@@ -34,9 +34,9 @@ public class TestTool
 //		assertEquals(12345, tool.manufacturerID);
 //		assertEquals(20, tool.price);
 //		assertEquals("This is a tool", tool.description);
-//		
-//	} 
-	
+//
+//	}
+
 	@Test
 	public void testPullingFromDB() throws ClassNotFoundException, SQLException
 	{
