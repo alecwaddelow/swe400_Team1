@@ -70,7 +70,6 @@ public class Runner
 		String sqlStatement = "INSERT INTO InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-		System.out.println(sqlStatement);
 		pst = (PreparedStatement) con.prepareStatement(sqlStatement);
 		pst.setInt(1, dbrs.getId());
 		pst.setString(2, dbrs.getUpc());
