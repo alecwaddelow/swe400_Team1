@@ -1,14 +1,10 @@
 package swe400_01_SingleTable;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-
 import javax.naming.NamingException;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 /**
  *
@@ -17,13 +13,18 @@ import com.mysql.jdbc.Statement;
  */
 public class Runner
 {
-	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12";
-	private static final String user = "swe400_1";
-	private static final String password = "pwd4swe400_1F16";
+
+	static DatabaseGateway gateway;
+//	public static Connection con;
+//
+//	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12";
+//	private static final String user = "swe400_1";
+//	private static final String password = "pwd4swe400_1F16";
 
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
 		Runner run = new Runner();
+
 		ArrayList<Object> list = new ArrayList<Object>();
 
 		list =  run.createList();
@@ -31,10 +32,8 @@ public class Runner
 
 	public ArrayList<Object> createList() throws ClassNotFoundException, SQLException
 	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
 		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
-		Statement st = (Statement) con.createStatement();
+		Statement st = gateway.getConnection().createStatement();
 		ResultSet rs = st.executeQuery(sqlStatement);
 		ArrayList<Object> listOfObjects = new ArrayList<Object>();
 
@@ -72,7 +71,7 @@ public class Runner
 			return tool;
 		}
 		else if (className.contains("PowerTool") || className.contains("powertool"))
-		{
+		{		TestNail tn = new TestNail();
 			PowerTool pt = new PowerTool(ID);
 			return pt;
 		}
@@ -102,9 +101,9 @@ public class Runner
 	public DBReturnSet queryDB(int id) throws SQLException, ClassNotFoundException
 	{
 		DBReturnSet rs1 = new DBReturnSet();
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
-		Statement st = (Statement) con.createStatement();
+//		Class.forName("com.mysql.jdbc.Driver");
+//		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
+		Statement st = gateway.getConnection().createStatement();
 
 
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
@@ -123,7 +122,7 @@ public class Runner
 			 rs1.setNumberInBox(rs.getInt("numberInBox"));
 			 rs1.setClassName(rs.getString("className"));
 		}
-		con.close();
+//		con.close();
 
 		return rs1;
 	}
@@ -139,14 +138,15 @@ public class Runner
 	public void insertRow(DBReturnSet dbrs) throws ClassNotFoundException, SQLException
 	{
 
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
+//		Class.forName("com.mysql.jdbc.Driver");
+//		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
+		gateway = new DatabaseGateway();
 		PreparedStatement pst;
 
 		String sqlStatement = "INSERT INTO InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-		pst = (PreparedStatement) con.prepareStatement(sqlStatement);
+		pst = (PreparedStatement) gateway.getConnection().prepareStatement(sqlStatement);
 		pst.setInt(1, dbrs.getId());
 		pst.setString(2, dbrs.getUpc());
 		pst.setInt(3, dbrs.getManufacturerID());
@@ -159,7 +159,7 @@ public class Runner
 		pst.setString(10, dbrs.getClassName());
 		pst.executeUpdate();
 		pst.close();
-		con.close();
+//		con.close();
 
 	}
 
