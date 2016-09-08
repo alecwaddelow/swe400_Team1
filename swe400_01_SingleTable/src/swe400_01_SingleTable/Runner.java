@@ -3,8 +3,6 @@ package swe400_01_SingleTable;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.naming.NamingException;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 /**
  *
@@ -146,7 +144,7 @@ public class Runner
 		String sqlStatement = "INSERT INTO InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-		pst = (PreparedStatement) gateway.getConnection().prepareStatement(sqlStatement);
+		pst = gateway.getConnection().prepareStatement(sqlStatement);
 		pst.setInt(1, dbrs.getId());
 		pst.setString(2, dbrs.getUpc());
 		pst.setInt(3, dbrs.getManufacturerID());

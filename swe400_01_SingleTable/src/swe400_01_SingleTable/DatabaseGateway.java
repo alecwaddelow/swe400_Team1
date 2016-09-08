@@ -1,12 +1,12 @@
 package swe400_01_SingleTable;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.Connection;
 
 /**
- * @author Drew Rife & Alec Wadellow
+ * @author Drew Rife
  *
  */
 public class DatabaseGateway
@@ -15,16 +15,16 @@ public class DatabaseGateway
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
 
-	public static Connection con;
+	private static Connection con;
 
-	public DatabaseGateway() throws ClassNotFoundException, SQLException
+	public static Connection getConnection() throws ClassNotFoundException, SQLException
 	{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
-	}
-
-	public Connection getConnection()
-	{
+		if(con == null)
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection(hostName, user, password);
+			con.setAutoCommit(false);
+		}
 		return con;
 	}
 }
