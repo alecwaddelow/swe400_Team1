@@ -18,8 +18,8 @@ public class TestNail extends DBTest
 {
 	/**
 	 * Test inserting nail into DB
-	 * 
-	 * 
+	 *
+	 *
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
