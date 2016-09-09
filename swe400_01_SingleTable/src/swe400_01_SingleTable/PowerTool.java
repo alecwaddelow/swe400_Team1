@@ -5,15 +5,14 @@ import java.sql.SQLException;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * An InventoryItem
  */
 public class PowerTool extends InventoryItem
 {
 	public boolean batteryPowered;
 
 	/**
-	 * Finder Constructor
-	 * @author Alec Waddelow
-	 *
+	 * Finder Constructor that calls queries the database for the specified PowerTool by their ID
 	 * @param id
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -31,9 +30,7 @@ public class PowerTool extends InventoryItem
 	}
 
 	/**
-	 * Creation Constructor
-	 * @author Alec Waddelow
-	 *
+	 * Creation Constructor that creates the PowerTool
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID

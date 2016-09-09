@@ -6,6 +6,7 @@ package swe400_01_SingleTable;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * Encapsulates one row within the database table
  */
 public class DBMapper
 {
@@ -224,6 +225,4 @@ public class DBMapper
 	{
 		this.className = className;
 	}
-
-
 }

@@ -12,6 +12,7 @@ import java.util.Properties;
 /**
  * @author Drew Rife and Alec Waddelow
  *
+ * Establishes a connection to the database and contains common database functions
  */
 public class DatabaseGateway
 {
@@ -38,8 +39,7 @@ public class DatabaseGateway
 	}
 
 	/**
-	 * @author Alec Waddelow
-	 *
+	 * Queries the database for the specified object by their ID
 	 * @param id
 	 * @return resultSet
 	 * @throws SQLException
@@ -70,9 +70,7 @@ public class DatabaseGateway
 	}
 
 	/**
-	 * @author Alec Waddelow
-	 *
-	 *
+	 * inserts an item into the table within the database
 	 * @param dbrs
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -100,5 +98,3 @@ public class DatabaseGateway
 		pst.close();
 	}
 }
-
-

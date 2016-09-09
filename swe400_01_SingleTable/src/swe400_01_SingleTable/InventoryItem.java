@@ -10,6 +10,7 @@ import com.mysql.jdbc.Statement;
 /**
  * @authors Drew Rife & Alec Waddelow
  *
+ * Anything that inherits InventoryItem will have an id, upc, manufacturerID and a price
  */
 public abstract class InventoryItem
 {
@@ -18,16 +19,3 @@ public abstract class InventoryItem
 	protected int manufacturerID;
 	protected int price;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

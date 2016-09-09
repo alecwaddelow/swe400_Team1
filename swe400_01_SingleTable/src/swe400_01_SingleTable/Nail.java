@@ -5,6 +5,7 @@ import java.sql.SQLException;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * An InventoryItem that is a Fastener
  */
 public class Nail extends Fastener
 {
@@ -14,6 +15,7 @@ public class Nail extends Fastener
 
 
 	/**
+	 * Finder Constructor that calls queries the database for the specified nail by their ID
 	 * @param id
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -32,6 +34,7 @@ public class Nail extends Fastener
 	}
 
 	/**
+	 * Creation Constructor that creates the nail
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID

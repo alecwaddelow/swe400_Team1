@@ -3,14 +3,15 @@ import java.sql.SQLException;
 
 /**
  * @author Drew Rife & Alec Waddelow
+ *
+ * An InventoryItem
  */
 public class Tool extends InventoryItem
 {
 	public String description;
 
 	/**
-	 * Finder Constructor
-	 * @author Alec Waddelow
+	 * Finder Constructor that queries the database for the item specified by their ID
 	 *
 	 * @param id
 	 * @throws ClassNotFoundException
@@ -29,9 +30,7 @@ public class Tool extends InventoryItem
 	}
 
 	/**
-	 * Creation Constructor
-	 * @author Alec Waddelow
-	 *
+	 * Creation Constructor that creates the tool
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID

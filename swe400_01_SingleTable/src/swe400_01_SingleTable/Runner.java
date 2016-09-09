@@ -5,26 +5,37 @@ import java.util.ArrayList;
 import javax.naming.NamingException;
 
 /**
+ *@authors Drew Rife & Alec Waddelow
  *
- * @authors Drew Rife & Alec Waddelow
- *
+ *Runner queries the database to find keys and builds an array list of all the objects
  */
 public class Runner
 {
+	/**
+	 * Creates the table and calls for the insertion of the objects into the table
+	 * @param args
+	 * @throws NamingException
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
-		Runner run = new Runner();
 		CreateDatabase.createTable();
 		CreateDatabase.insertNailsIntoTable();
 		CreateDatabase.insertToolsIntoTable();
 		CreateDatabase.insertStripNailsIntoTable();
 		CreateDatabase.insertPowerToolsIntoTable();
-//		ArrayList<Object> list = new ArrayList<Object>();
-//
-//		list =  run.createList();
+
+		ArrayList<Object> list = Runner.createList();
 	}
 
-	public ArrayList<Object> createList() throws ClassNotFoundException, SQLException
+	/**
+	 * Builds the ArrayList of the objects
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static ArrayList<Object> createList() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
 		Statement st = DatabaseGateway.getConnection().createStatement();
@@ -41,7 +52,7 @@ public class Runner
 			listOfObjects.add(i, matchClassAndConstruct(id, className));
 			i++;
 		}
-		return null;
+		return listOfObjects;
 	}
 
 	/**
@@ -53,7 +64,7 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Object matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
+	public static Object matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
 	{
 		switch(className)
 		{
@@ -73,35 +84,5 @@ public class Runner
 			throw new ClassNotFoundException();
 
 		}
-//		if (className == null)
-//		{
-//			throw new  ClassNotFoundException();
-//		}
-//		else if (className.contains("Tool") || className.contains("tool"))
-//		{
-//			Tool tool = new Tool(ID);
-//			return tool;
-//		}
-//		else if (className.contains("PowerTool") || className.contains("powertool"))
-//		{		TestNail tn = new TestNail();
-//			PowerTool pt = new PowerTool(ID);
-//			return pt;
-//		}
-//		else if (className.contains("StripNails") || className.contains("stripnails"))
-//		{
-//			StripNail sn = new StripNail(ID);
-//			return sn;
-//		}
-//		else if (className.contains("Nail") || className.contains("nail"))
-//		{
-//			Nail nail = new Nail(ID);
-//			return nail;
-//		}
-//		return null;
-
 	}
 }
-
-
-
-

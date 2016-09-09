@@ -6,6 +6,7 @@ import java.sql.Statement;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * Creates the table within the Database and inserts the enum objects into it
  */
 public class CreateDatabase
 {

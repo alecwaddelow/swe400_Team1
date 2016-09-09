@@ -5,15 +5,14 @@ import java.sql.SQLException;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * An InventoryItem that is a Fastener
  */
 public class StripNail extends Fastener
 {
 	public int numberInStrip;
-	
+
 	/**
-	 * Finder Constructor
-	 * @author Alec Waddelow
-	 *
+	 * Finder Constructor that calls queries the database for the specified strip nail by their ID
 	 * @param id
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -32,10 +31,7 @@ public class StripNail extends Fastener
 	}
 
 	/**
-	 * Creation Constructor
-	 * @author Alec Waddelow
-	 *
-	 *
+	 * Creation Constructor that creates the strip nail
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID
