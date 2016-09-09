@@ -14,10 +14,11 @@ public class Runner
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
 		Runner run = new Runner();
+		CreateDatabase.createTable();
 
-		ArrayList<Object> list = new ArrayList<Object>();
-
-		list =  run.createList();
+//		ArrayList<Object> list = new ArrayList<Object>();
+//
+//		list =  run.createList();
 	}
 
 	public ArrayList<Object> createList() throws ClassNotFoundException, SQLException
