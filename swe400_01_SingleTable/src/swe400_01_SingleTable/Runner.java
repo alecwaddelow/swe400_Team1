@@ -75,7 +75,7 @@ public class Runner
 		}
 		else if (className.contains("StripNails") || className.contains("stripnails"))
 		{
-			StripNails sn = new StripNails(ID);
+			StripNail sn = new StripNail(ID);
 			return sn;
 		}
 		else if (className.contains("Nail") || className.contains("nail"))
@@ -151,7 +151,7 @@ public class Runner
 		pst.setInt(4, dbrs.getPrice());
 		pst.setString(5, dbrs.getDescription());
 		pst.setBoolean(6, dbrs.isBatteryPowered());
-		pst.setLong(7, dbrs.getLength());
+		pst.setDouble(7, dbrs.getLength());
 		pst.setInt(8, dbrs.getNumberInStrip());
 		pst.setInt(9, dbrs.getNumberInBox());
 		pst.setString(10, dbrs.getClassName());

@@ -7,5 +7,5 @@ package swe400_01_SingleTable;
  */
 public abstract class Fastener extends InventoryItem
 {
-	protected long length;
+	protected double length;
 }

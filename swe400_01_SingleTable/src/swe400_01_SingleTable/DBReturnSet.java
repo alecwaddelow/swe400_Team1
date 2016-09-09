@@ -15,7 +15,7 @@ public class DBReturnSet
 	protected int price;
 	protected String description;
 	protected boolean batteryPowered;
-	protected long length;
+	protected double length;
 	protected int numberInStrip;
 	protected int numberInBox;
 	protected String className;
@@ -100,14 +100,14 @@ public class DBReturnSet
 		this.batteryPowered = batteryPowered;
 	}
 
-	protected long getLength()
+	protected double getLength()
 	{
 		return length;
 	}
 
-	protected void setLength(long length)
+	protected void setLength(double length2)
 	{
-		this.length = length;
+		this.length = length2;
 	}
 
 	protected int getNumberInStrip()
