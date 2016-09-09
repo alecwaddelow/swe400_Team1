@@ -59,7 +59,7 @@ public class CreateDatabase
 	}
 
 	/**
-	 * inserting the enum nails into the table
+	 * inserting the enum tools into the table
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -80,7 +80,7 @@ public class CreateDatabase
 	}
 
 	/**
-	 * inserting the enum nails into the table
+	 * inserting the enum strip nails into the table
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -102,7 +102,7 @@ public class CreateDatabase
 	}
 
 	/**
-	 * inserting the enum nails into the table
+	 * inserting the enum power tools into the table
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
