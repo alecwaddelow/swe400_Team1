@@ -15,7 +15,7 @@ public class Runner
 	{
 		Runner run = new Runner();
 		CreateDatabase.createTable();
-
+		CreateDatabase.insertNailsIntoTable();
 //		ArrayList<Object> list = new ArrayList<Object>();
 //
 //		list =  run.createList();

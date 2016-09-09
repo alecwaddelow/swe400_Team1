@@ -95,7 +95,8 @@ public class DatabaseGateway
 		pst.setInt(8, dbrs.getNumberInStrip());
 		pst.setInt(9, dbrs.getNumberInBox());
 		pst.setString(10, dbrs.getClassName());
-		pst.executeUpdate();
+		pst.execute();
+		DatabaseGateway.getConnection().commit();
 		pst.close();
 	}
 }
