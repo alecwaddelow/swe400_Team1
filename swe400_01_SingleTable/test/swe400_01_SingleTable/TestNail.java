@@ -16,6 +16,13 @@ import org.junit.Test;
  */
 public class TestNail extends DBTest
 {
+	/**
+	 * Test inserting nail into DB
+	 * 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Test
 	public void testInsertingObjectIntoRow() throws ClassNotFoundException, SQLException
 	{
@@ -26,7 +33,6 @@ public class TestNail extends DBTest
 		String sqlStatement = "SELECT * FROM InventoryItem WHERE 'id' = 1;";
 		pst = DatabaseGateway.getConnection().prepareStatement(sqlStatement);
 		ResultSet rs = pst.executeQuery(sqlStatement);
-//		DatabaseGateway.getConnection().commit();
 
 		while(rs.next())
 		{
