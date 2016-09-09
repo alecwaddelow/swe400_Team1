@@ -11,8 +11,6 @@ import javax.naming.NamingException;
  */
 public class Runner
 {
-	static DatabaseGateway gateway;
-
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
 		Runner run = new Runner();
@@ -25,7 +23,7 @@ public class Runner
 	public ArrayList<Object> createList() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
-		Statement st = gateway.getConnection().createStatement();
+		Statement st = DatabaseGateway.getConnection().createStatement();
 		ResultSet rs = st.executeQuery(sqlStatement);
 		ArrayList<Object> listOfObjects = new ArrayList<Object>();
 
@@ -80,7 +78,7 @@ public class Runner
 		return null;
 
 	}
-	
+
 }
 
 
