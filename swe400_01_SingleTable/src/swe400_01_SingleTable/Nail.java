@@ -18,7 +18,7 @@ public class Nail extends Fastener
 		this.id = id;
 
 		Runner runner = new Runner();
-		DBReturnSet dbrs;
+		DBMapper dbrs;
 
 		dbrs = runner.queryDB(id);
 		this.upc = dbrs.getUpc();
@@ -41,7 +41,7 @@ public class Nail extends Fastener
 		this.numberInBox = numberInBox;
 		this.className = className;
 
-		DBReturnSet dbrs = new DBReturnSet();
+		DBMapper dbrs = new DBMapper();
 		dbrs.setId(this.id);
 		dbrs.setUpc(this.upc);
 		dbrs.setManufacturerID(this.manufacturerID);

@@ -20,7 +20,7 @@ public class Tool extends InventoryItem
 	{
 		this.id = id;
 		Runner runner = new Runner();
-		DBReturnSet dbrs;
+		DBMapper dbrs;
 		dbrs = runner.queryDB(this.id);
 
 		this.upc = dbrs.getUpc();
@@ -28,11 +28,11 @@ public class Tool extends InventoryItem
 		this.price = dbrs.getPrice();
 		this.description = dbrs.getDescription();
 	}
-	
+
 	/**
-	 * Creation Constructor 
-	 * @author Alec Waddelow 
-	 * 
+	 * Creation Constructor
+	 * @author Alec Waddelow
+	 *
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID
@@ -54,8 +54,8 @@ public class Tool extends InventoryItem
 		this.manufacturerID = manufacturerID;
 		this.price = price;
 		this.description = description;
-		
-		DBReturnSet dbrs = new DBReturnSet();
+
+		DBMapper dbrs = new DBMapper();
 		dbrs.setId(this.id);
 		dbrs.setUpc(this.upc);
 		dbrs.setManufacturerID(this.manufacturerID);

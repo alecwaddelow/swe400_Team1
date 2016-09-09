@@ -90,9 +90,9 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("null")
-	public DBReturnSet queryDB(int id) throws SQLException, ClassNotFoundException
+	public DBMapper queryDB(int id) throws SQLException, ClassNotFoundException
 	{
-		DBReturnSet rs1 = new DBReturnSet();
+		DBMapper rs1 = new DBMapper();
 //		Class.forName("com.mysql.jdbc.Driver");
 //		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
 		Statement st = gateway.getConnection().createStatement();
@@ -127,7 +127,7 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void insertRow(DBReturnSet dbrs) throws ClassNotFoundException, SQLException
+	public void insertRow(DBMapper dbrs) throws ClassNotFoundException, SQLException
 	{
 		PreparedStatement pst;
 
