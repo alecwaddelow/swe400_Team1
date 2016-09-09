@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 
 /**
- * @author Drew Rife
+ * @author Drew Rife and Alec Waddelow 
  *
  */
 public class DatabaseGateway
