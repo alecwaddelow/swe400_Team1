@@ -11,8 +11,8 @@ public class StripNail extends Fastener
 	public int numberInStrip;
 	/**
 	 * Finder Constructor
-	 * @author Alec Waddelow
-	 *
+	 * @author Alec Waddelow 
+	 * 
 	 * @param id
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -21,7 +21,7 @@ public class StripNail extends Fastener
 	{
 		this.id = id;
 		Runner runner = new Runner();
-		DBMapper dbrs;
+		DBReturnSet dbrs;
 		dbrs = runner.queryDB(this.id);
 
 		this.upc = dbrs.getUpc();
@@ -30,12 +30,12 @@ public class StripNail extends Fastener
 		this.length = dbrs.getLength();
 		this.numberInStrip = dbrs.getNumberInStrip();
 	}
-
+	
 	/**
 	 * Creation Constructor
-	 * @author Alec Waddelow
-	 *
-	 *
+	 * @author Alec Waddelow 
+	 * 
+	 * 
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID
@@ -58,8 +58,8 @@ public class StripNail extends Fastener
 		this.price = price;
 		this.length = length;
 		this.numberInStrip = numberInStrip;
-
-		DBMapper dbrs = new DBMapper();
+		
+		DBReturnSet dbrs = new DBReturnSet();
 		dbrs.setId(this.id);
 		dbrs.setUpc(this.upc);
 		dbrs.setManufacturerID(this.manufacturerID);

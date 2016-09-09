@@ -12,8 +12,8 @@ public class PowerTool extends InventoryItem
 
 	/**
 	 * Finder Constructor
-	 * @author Alec Waddelow
-	 *
+	 * @author Alec Waddelow 
+	 * 
 	 * @param id
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -22,7 +22,7 @@ public class PowerTool extends InventoryItem
 	{
 		this.id = id;
 		Runner runner = new Runner();
-		DBMapper dbrs;
+		DBReturnSet dbrs;
 		dbrs = runner.queryDB(this.id);
 
 		this.upc = dbrs.getUpc();
@@ -30,11 +30,11 @@ public class PowerTool extends InventoryItem
 		this.price = dbrs.getPrice();
 		this.batteryPowered = dbrs.isBatteryPowered();
 	}
-
+	
 	/**
 	 * Creation Constructor
-	 * @author Alec Waddelow
-	 *
+	 * @author Alec Waddelow 
+	 * 
 	 * @param id
 	 * @param upc
 	 * @param manufacturerID
@@ -56,8 +56,8 @@ public class PowerTool extends InventoryItem
 		this.manufacturerID = manufacturerID;
 		this.price = price;
 		this.batteryPowered = batteryPowered;
-
-		DBMapper dbrs = new DBMapper();
+		
+		DBReturnSet dbrs = new DBReturnSet();
 		dbrs.setId(this.id);
 		dbrs.setUpc(this.upc);
 		dbrs.setManufacturerID(this.manufacturerID);
