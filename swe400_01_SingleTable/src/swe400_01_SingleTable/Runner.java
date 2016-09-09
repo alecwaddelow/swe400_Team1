@@ -16,6 +16,9 @@ public class Runner
 		Runner run = new Runner();
 		CreateDatabase.createTable();
 		CreateDatabase.insertNailsIntoTable();
+		CreateDatabase.insertToolsIntoTable();
+		CreateDatabase.insertStripNailsIntoTable();
+		CreateDatabase.insertPowerToolsIntoTable();
 //		ArrayList<Object> list = new ArrayList<Object>();
 //
 //		list =  run.createList();
@@ -52,31 +55,49 @@ public class Runner
 	 */
 	public Object matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
 	{
-		if (className == null)
+		switch(className)
 		{
-			throw new  ClassNotFoundException();
-		}
-		else if (className.contains("Tool") || className.contains("tool"))
-		{
+		case "Tool":
 			Tool tool = new Tool(ID);
 			return tool;
-		}
-		else if (className.contains("PowerTool") || className.contains("powertool"))
-		{		TestNail tn = new TestNail();
-			PowerTool pt = new PowerTool(ID);
-			return pt;
-		}
-		else if (className.contains("StripNails") || className.contains("stripnails"))
-		{
-			StripNail sn = new StripNail(ID);
-			return sn;
-		}
-		else if (className.contains("Nail") || className.contains("nail"))
-		{
+		case "PowerTool":
+			PowerTool powerTool= new PowerTool(ID);
+			return powerTool;
+		case "StripNail":
+			StripNail stripNail = new StripNail(ID);
+			return stripNail;
+		case "Nail":
 			Nail nail = new Nail(ID);
 			return nail;
+		default:
+			throw new ClassNotFoundException();
+
 		}
-		return null;
+//		if (className == null)
+//		{
+//			throw new  ClassNotFoundException();
+//		}
+//		else if (className.contains("Tool") || className.contains("tool"))
+//		{
+//			Tool tool = new Tool(ID);
+//			return tool;
+//		}
+//		else if (className.contains("PowerTool") || className.contains("powertool"))
+//		{		TestNail tn = new TestNail();
+//			PowerTool pt = new PowerTool(ID);
+//			return pt;
+//		}
+//		else if (className.contains("StripNails") || className.contains("stripnails"))
+//		{
+//			StripNail sn = new StripNail(ID);
+//			return sn;
+//		}
+//		else if (className.contains("Nail") || className.contains("nail"))
+//		{
+//			Nail nail = new Nail(ID);
+//			return nail;
+//		}
+//		return null;
 
 	}
 }
