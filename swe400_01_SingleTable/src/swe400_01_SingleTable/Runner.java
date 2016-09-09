@@ -135,16 +135,12 @@ public class Runner
 	 */
 	public void insertRow(DBReturnSet dbrs) throws ClassNotFoundException, SQLException
 	{
-
-//		Class.forName("com.mysql.jdbc.Driver");
-//		Connection con = (Connection) DriverManager.getConnection(hostName, user, password);
-		gateway = new DatabaseGateway();
 		PreparedStatement pst;
 
 		String sqlStatement = "INSERT INTO InventoryItem (id, upc, manufacturerID, price, description, batteryPowered, length, numberInStrip, numberInBox, className)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-		pst = gateway.getConnection().prepareStatement(sqlStatement);
+		pst = DatabaseGateway.getConnection().prepareStatement(sqlStatement);
 		pst.setInt(1, dbrs.getId());
 		pst.setString(2, dbrs.getUpc());
 		pst.setInt(3, dbrs.getManufacturerID());
