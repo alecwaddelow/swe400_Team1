@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 
 /**
- * @author Drew Rife and Alec Waddelow 
+ * @author Drew Rife and Alec Waddelow
  *
  */
 public class DatabaseGateway
@@ -24,10 +24,12 @@ public class DatabaseGateway
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(hostName, user, password);
 			con.setAutoCommit(false);
+
+			return con;
 		}
 		else
 		{
-			return con;			
+			return con;
 		}
 	}
 }
