@@ -11,13 +11,7 @@ import javax.naming.NamingException;
  */
 public class Runner
 {
-
 	static DatabaseGateway gateway;
-//	public static Connection con;
-//
-//	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12";
-//	private static final String user = "swe400_1";
-//	private static final String password = "pwd4swe400_1F16";
 
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
@@ -154,7 +148,5 @@ public class Runner
 		pst.executeUpdate();
 		pst.close();
 //		con.close();
-
 	}
-
 }
