@@ -12,15 +12,18 @@ public class Nail extends Fastener
 	public String className;
 	public String description;
 
-	/* Finder Constructor */
+
+	/**
+	 * @param id
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public Nail(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
-
-		Runner runner = new Runner();
 		DBMapper dbrs;
 
-		dbrs = runner.queryDB(id);
+		dbrs = DatabaseGateway.queryDB(id);
 		this.upc = dbrs.getUpc();
 		this.manufacturerID = dbrs.getManufacturerID();
 		this.price = dbrs.getPrice();
@@ -28,7 +31,20 @@ public class Nail extends Fastener
 		this.numberInBox = dbrs.getNumberInBox();
 	}
 
-	/* Creation Constructor */
+	/**
+	 * @param id
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param description
+	 * @param batteryPowered
+	 * @param length
+	 * @param numberInStrip
+	 * @param numberInBox
+	 * @param className
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public Nail(int id, String upc, int manufacturerID, int price, String description,
 			boolean batteryPowered, long length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
@@ -50,7 +66,6 @@ public class Nail extends Fastener
 		dbrs.setLength(this.length);
 		dbrs.setNumberInBox(this.numberInBox);
 		dbrs.setClassName(this.className);
-		Runner runner = new Runner();
-		runner.insertRow(dbrs);
+		DatabaseGateway.insertRow(dbrs);
 	}
 }

@@ -21,9 +21,8 @@ public class PowerTool extends InventoryItem
 	public PowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
-		Runner runner = new Runner();
 		DBMapper dbrs;
-		dbrs = runner.queryDB(this.id);
+		dbrs = DatabaseGateway.queryDB(this.id);
 
 		this.upc = dbrs.getUpc();
 		this.manufacturerID = dbrs.getManufacturerID();
@@ -63,7 +62,6 @@ public class PowerTool extends InventoryItem
 		dbrs.setManufacturerID(this.manufacturerID);
 		dbrs.setPrice(this.price);
 		dbrs.setBatteryPowered(this.batteryPowered);
-		Runner runner = new Runner();
-		runner.insertRow(dbrs);
+		DatabaseGateway.insertRow(dbrs);
 	}
 }

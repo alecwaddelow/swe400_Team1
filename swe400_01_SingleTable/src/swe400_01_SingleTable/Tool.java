@@ -19,9 +19,8 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
-		Runner runner = new Runner();
 		DBMapper dbrs;
-		dbrs = runner.queryDB(this.id);
+		dbrs = DatabaseGateway.queryDB(this.id);
 
 		this.upc = dbrs.getUpc();
 		this.manufacturerID = dbrs.getManufacturerID();
@@ -61,7 +60,6 @@ public class Tool extends InventoryItem
 		dbrs.setManufacturerID(this.manufacturerID);
 		dbrs.setPrice(this.price);
 		dbrs.setDescription(this.description);
-		Runner runner = new Runner();
-		runner.insertRow(dbrs);
+		DatabaseGateway.insertRow(dbrs);
 	}
 }

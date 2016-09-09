@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class StripNail extends Fastener
 {
 	public int numberInStrip;
+	
 	/**
 	 * Finder Constructor
 	 * @author Alec Waddelow
@@ -20,9 +21,8 @@ public class StripNail extends Fastener
 	public StripNail(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
-		Runner runner = new Runner();
 		DBMapper dbrs;
-		dbrs = runner.queryDB(this.id);
+		dbrs = DatabaseGateway.queryDB(this.id);
 
 		this.upc = dbrs.getUpc();
 		this.manufacturerID = dbrs.getManufacturerID();
@@ -66,7 +66,6 @@ public class StripNail extends Fastener
 		dbrs.setPrice(this.price);
 		dbrs.setLength(this.length);
 		dbrs.setNumberInStrip(this.numberInStrip);
-		Runner runner = new Runner();
-		runner.insertRow(dbrs);
+		DatabaseGateway.insertRow(dbrs);
 	}
 }
