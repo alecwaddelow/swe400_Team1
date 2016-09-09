@@ -25,6 +25,9 @@ public class DatabaseGateway
 			con = DriverManager.getConnection(hostName, user, password);
 			con.setAutoCommit(false);
 		}
-		return con;
+		else
+		{
+			return con;			
+		}
 	}
 }
