@@ -7,7 +7,7 @@ package swe400_01_SingleTable;
  * @author Drew Rife & Alec Waddelow
  *
  */
-public class DBReturnSet
+public class DBMapper
 {
 	protected int id;
 	protected String upc;
@@ -20,7 +20,7 @@ public class DBReturnSet
 	protected int numberInBox;
 	protected String className;
 
-	public DBReturnSet(int id2, String upc2, int manufacturerID2, int price2, String description2,
+	public DBMapper(int id2, String upc2, int manufacturerID2, int price2, String description2,
 			boolean batteryPowered2, long length2, int numberInStrip2, int numberInBox2, String className2) {
 		this.id = id;
 		this.upc = upc;
@@ -34,7 +34,7 @@ public class DBReturnSet
 		this.className = className;
 	}
 
-	public DBReturnSet()
+	public DBMapper()
 	{
 		super();
 	}
