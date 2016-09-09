@@ -21,6 +21,11 @@ public class CreateDatabase
 	static String numberInBox = "numberInBox INT, ";
 	static String className = "className VARCHAR(25)";
 
+	/**
+	 * Creates the table for the database
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void createTable() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "CREATE TABLE Inventoryitem (" + id + upc + manufacturerID + price + description + batteryPowered +
@@ -30,5 +35,17 @@ public class CreateDatabase
 		st.execute(sqlStatement);
 	}
 
+	/**
+	 * inserting the enum nails into the table
+	 */
+//	public static void insertNailsIntoTable()
+//	{
+//		int uniqueID = 1;
+//		for(int i = 0; Nails.values()[i+1] != null; i++)
+//		{
+//			DBMapper nail = new DBMapper();
+//			Nails.values()[i].
+//		}
+//	}
 
 }

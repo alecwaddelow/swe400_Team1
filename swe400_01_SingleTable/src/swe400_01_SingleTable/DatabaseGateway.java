@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 
 /**
@@ -14,7 +15,7 @@ import java.sql.Statement;
  */
 public class DatabaseGateway
 {
-	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12";
+	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
 
@@ -35,7 +36,7 @@ public class DatabaseGateway
 			return con;
 		}
 	}
-	
+
 	/**
 	 * @author Alec Waddelow
 	 *
@@ -67,7 +68,7 @@ public class DatabaseGateway
 
 		return rs1;
 	}
-	
+
 	/**
 	 * @author Alec Waddelow
 	 *
