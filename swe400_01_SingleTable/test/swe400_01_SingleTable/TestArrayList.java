@@ -27,22 +27,28 @@ public class TestArrayList
 	 *
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testRetrieveNailsFromArrayList() throws ClassNotFoundException, SQLException
+	public void testRetrieveNailsFromArrayList() throws ClassNotFoundException, SQLException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException
 	{
 		ArrayList<InventoryItem> returnSet = new ArrayList<InventoryItem>();
 		returnSet = Runner.createList();
 
 		for(int i = 0; i < Nails.values().length; i++)
 		{
-			InventoryItem item = returnSet.get(i);
+			InventoryItem item = returnSet.get(indexOfArrayList);
+
 			assertEquals(uniqueTestID, item.getId());
-			assertEquals(Nails.values()[indexOfArrayList].getUpc(), item.getUpc());
-			assertEquals(Nails.values()[indexOfArrayList].getManufacturerID(), item.getManufacturerID());
-			//assertEquals(Nails.values()[indexOfArrayList].getLength(), item.getLength(), 0.001);
-			assertEquals(Nails.values()[indexOfArrayList].getPrice(), item.getPrice());
-			//assertEquals(Nails.values()[indexOfArrayList].getNumberInBox(), item.getNumberInBox());
+			assertEquals(Nails.values()[i].getUpc(), item.getUpc());
+			assertEquals(Nails.values()[i].getManufacturerID(), item.getManufacturerID());
+			assertEquals(Nails.values()[i].getLength(), item.getClass().getField("length").getDouble(item) ,0.001);
+			assertEquals(Nails.values()[i].getPrice(), item.getPrice());
+			assertEquals(Nails.values()[indexOfArrayList].getNumberInBox(), item.getClass().getField("numberInBox").getInt(item));
+
 			indexOfArrayList++;
 			uniqueTestID++;
 		}
