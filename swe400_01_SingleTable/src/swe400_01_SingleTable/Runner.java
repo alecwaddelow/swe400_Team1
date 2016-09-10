@@ -12,7 +12,7 @@ import javax.naming.NamingException;
  */
 public class Runner
 {
-	static ArrayList<Object> listOfObjects = new ArrayList<Object>();
+	static ArrayList<InventoryItem> listOfObjects = new ArrayList<InventoryItem>();
 
 	/**
 	 * Creates the table and calls for the insertion of the objects into the table
@@ -36,7 +36,7 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ArrayList<Object> createList() throws ClassNotFoundException, SQLException
+	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
 		Statement st = DatabaseGateway.getConnection().createStatement();
@@ -60,7 +60,7 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static Object matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
+	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
 	{
 		switch(className)
 		{
@@ -89,7 +89,7 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public ArrayList<Object> getList() throws ClassNotFoundException, SQLException
+	public ArrayList<InventoryItem> getList() throws ClassNotFoundException, SQLException
 	{
 		return listOfObjects;
 	}
