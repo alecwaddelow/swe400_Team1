@@ -28,8 +28,6 @@ public class Runner
 		CreateDatabase.insertToolsIntoTable();
 		CreateDatabase.insertStripNailsIntoTable();
 		CreateDatabase.insertPowerToolsIntoTable();
-
-
 	}
 
 	/**
@@ -50,8 +48,6 @@ public class Runner
 			String className = rs.getString("className");
 			listOfObjects.add(i, matchClassAndConstruct(id, className));
 		}
-
-
 		return listOfObjects;
 	}
 
