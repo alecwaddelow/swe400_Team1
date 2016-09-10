@@ -30,11 +30,20 @@ public class CreateDatabase
 	 */
 	public static void createTable() throws ClassNotFoundException, SQLException
 	{
+		dropTableBeforeCreation();
+
 		String sqlStatement = "CREATE TABLE InventoryItem (" + id + upc + manufacturerID + price + description + batteryPowered +
 				length + numberInStrip + numberInBox + className + ");";
 
 		Statement st = DatabaseGateway.getConnection().createStatement();
 		st.execute(sqlStatement);
+	}
+
+	private static void dropTableBeforeCreation() throws ClassNotFoundException, SQLException
+	{
+		String dropTable = "DROP TABLE IF EXISTS InventoryItem;";
+		Statement st = DatabaseGateway.getConnection().createStatement();
+		st.execute(dropTable);
 	}
 
 	/**

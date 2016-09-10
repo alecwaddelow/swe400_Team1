@@ -26,8 +26,6 @@ public class Runner
 		CreateDatabase.insertToolsIntoTable();
 		CreateDatabase.insertStripNailsIntoTable();
 		CreateDatabase.insertPowerToolsIntoTable();
-
-
 	}
 
 	/**
@@ -50,7 +48,6 @@ public class Runner
 			System.out.println(className);
 			listOfObjects.add(i, matchClassAndConstruct(id, className));
 		}
-
 		return listOfObjects;
 	}
 
