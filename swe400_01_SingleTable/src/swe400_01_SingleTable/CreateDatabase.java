@@ -44,15 +44,15 @@ public class CreateDatabase
 	 */
 	public static void insertNailsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(int i = 0;i < Nails.values().length; i++)
+		for(Nails n : Nails.values())
 		{
 			DBMapper nail = new DBMapper();
 			nail.setId(uniqueID);
-			nail.setUpc(Nails.values()[i].getUpc());
-			nail.setManufacturerID(Nails.values()[i].getManufacturerID());
-			nail.setPrice(Nails.values()[i].getPrice());
-			nail.setLength(Nails.values()[i].getLength());
-			nail.setNumberInBox(Nails.values()[i].getNumberInBox());
+			nail.setUpc(n.getUpc());
+			nail.setManufacturerID(n.getManufacturerID());
+			nail.setPrice(n.getPrice());
+			nail.setLength(n.getLength());
+			nail.setNumberInBox(n.getNumberInBox());
 			nail.setClassName("Nail");
 			DatabaseGateway.insertRow(nail);
 			uniqueID++;
@@ -66,14 +66,14 @@ public class CreateDatabase
 	 */
 	public static void insertToolsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(int i = 0;i < Nails.values().length; i++)
+		for(Tools t : Tools.values())
 		{
 			DBMapper tool = new DBMapper();
 			tool.setId(uniqueID);
-			tool.setUpc(Tools.values()[i].getUpc());
-			tool.setManufacturerID(Tools.values()[i].getManufacturerID());
-			tool.setPrice(Tools.values()[i].getPrice());
-			tool.setDescription(Tools.values()[i].getDescription());
+			tool.setUpc(t.getUpc());
+			tool.setManufacturerID(t.getManufacturerID());
+			tool.setPrice(t.getPrice());
+			tool.setDescription(t.getDescription());
 			tool.setClassName("Tool");
 			DatabaseGateway.insertRow(tool);
 			uniqueID++;
@@ -87,15 +87,15 @@ public class CreateDatabase
 	 */
 	public static void insertStripNailsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(int i = 0;i < StripNails.values().length; i++)
+		for(StripNails sn : StripNails.values())
 		{
 			DBMapper stripNail = new DBMapper();
 			stripNail.setId(uniqueID);
-			stripNail.setUpc(StripNails.values()[i].getUpc());
-			stripNail.setManufacturerID(StripNails.values()[i].getManufacturerID());
-			stripNail.setPrice(StripNails.values()[i].getPrice());
-			stripNail.setLength(StripNails.values()[i].getLength());
-			stripNail.setNumberInStrip(StripNails.values()[i].getNumberInStrip());
+			stripNail.setUpc(sn.getUpc());
+			stripNail.setManufacturerID(sn.getManufacturerID());
+			stripNail.setPrice(sn.getPrice());
+			stripNail.setLength(sn.getLength());
+			stripNail.setNumberInStrip(sn.getNumberInStrip());
 			stripNail.setClassName("StripNail");
 			DatabaseGateway.insertRow(stripNail);
 			uniqueID++;
@@ -109,14 +109,14 @@ public class CreateDatabase
 	 */
 	public static void insertPowerToolsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(int i = 0;i < PowerTools.values().length; i++)
+		for(PowerTools pt : PowerTools.values())
 		{
 			DBMapper powerTool = new DBMapper();
 			powerTool.setId(uniqueID);
-			powerTool.setUpc(PowerTools.values()[i].getUpc());
-			powerTool.setManufacturerID(PowerTools.values()[i].getManufacturerID());
-			powerTool.setPrice(PowerTools.values()[i].getPrice());
-			powerTool.setDescription(PowerTools.values()[i].getDescription());
+			powerTool.setUpc(pt.getUpc());
+			powerTool.setManufacturerID(pt.getManufacturerID());
+			powerTool.setPrice(pt.getPrice());
+			powerTool.setDescription(pt.getDescription());
 			powerTool.setClassName("PowerTool");
 			DatabaseGateway.insertRow(powerTool);
 			uniqueID++;
