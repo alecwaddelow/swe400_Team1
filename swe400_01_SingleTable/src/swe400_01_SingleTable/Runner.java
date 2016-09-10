@@ -2,6 +2,7 @@ package swe400_01_SingleTable;
 
 import java.sql.*;
 import java.util.ArrayList;
+
 import javax.naming.NamingException;
 
 /**
@@ -26,7 +27,7 @@ public class Runner
 		CreateDatabase.insertStripNailsIntoTable();
 		CreateDatabase.insertPowerToolsIntoTable();
 
-		ArrayList<Object> list = Runner.createList();
+		
 	}
 
 	/**
@@ -84,5 +85,18 @@ public class Runner
 			throw new ClassNotFoundException();
 
 		}
+	}
+	
+	/**
+	 * Getter for dynamic creation of list 
+	 * 
+	 * @return list of objects 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public ArrayList<Object> getList() throws ClassNotFoundException, SQLException
+	{
+		ArrayList<Object> list = Runner.createList();
+		return list;
 	}
 }
