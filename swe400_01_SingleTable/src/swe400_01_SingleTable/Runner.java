@@ -12,6 +12,8 @@ import javax.naming.NamingException;
  */
 public class Runner
 {
+	static ArrayList<Object> listOfObjects = new ArrayList<Object>();
+
 	/**
 	 * Creates the table and calls for the insertion of the objects into the table
 	 * @param args
@@ -26,6 +28,8 @@ public class Runner
 		CreateDatabase.insertToolsIntoTable();
 		CreateDatabase.insertStripNailsIntoTable();
 		CreateDatabase.insertPowerToolsIntoTable();
+
+
 	}
 
 	/**
@@ -39,7 +43,6 @@ public class Runner
 		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
 		Statement st = DatabaseGateway.getConnection().createStatement();
 		ResultSet rs = st.executeQuery(sqlStatement);
-		ArrayList<Object> listOfObjects = new ArrayList<Object>();
 
 		for(int i = 0; rs.next(); i++)
 		{
@@ -89,9 +92,8 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ArrayList<Object> getList() throws ClassNotFoundException, SQLException
+	public ArrayList<Object> getList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<Object> list = Runner.createList();
-		return list;
+		return listOfObjects;
 	}
 }

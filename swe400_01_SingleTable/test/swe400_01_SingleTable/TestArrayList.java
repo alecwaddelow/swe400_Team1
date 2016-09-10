@@ -1,5 +1,5 @@
 /**
- * 
+z
  */
 package swe400_01_SingleTable;
 
@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * @author Alec Waddelow 
- *	Tests for creating a new ArrayList of objects pulled from the database 
+ * @author Alec Waddelow
+ *	Tests for creating a new ArrayList of objects pulled from the database
  */
-public class TestArrayList 
+public class TestArrayList
 {
 	/**
-	 * Tests creation of the ArrayList from the database 
-	 * 
+	 * Tests creation of the ArrayList from the database
+	 *
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -25,8 +25,8 @@ public class TestArrayList
 	{
 		ArrayList<Object> returnSet = new ArrayList<Object>();		//
 		returnSet = Runner.createList();
-		
-		
+
+
 	}
 
 }
