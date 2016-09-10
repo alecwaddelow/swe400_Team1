@@ -40,7 +40,7 @@ public class TestArrayList
 			assertEquals(uniqueTestID, item.getId());
 			assertEquals(Nails.values()[indexOfArrayList].getUpc(), item.getUpc());
 			assertEquals(Nails.values()[indexOfArrayList].getManufacturerID(), item.getManufacturerID());
-		//	assertEquals(Nails.values()[indexOfArrayList].getLength(), item.getLength(), 0.001);
+			//assertEquals(Nails.values()[indexOfArrayList].getLength(), item.getLength(), 0.001);
 			assertEquals(Nails.values()[indexOfArrayList].getPrice(), item.getPrice());
 			//assertEquals(Nails.values()[indexOfArrayList].getNumberInBox(), item.getNumberInBox());
 			indexOfArrayList++;
