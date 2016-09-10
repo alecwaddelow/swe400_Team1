@@ -14,6 +14,30 @@ public class Nail extends Fastener
 	public String description;
 
 
+	public int getNumberInBox() {
+		return numberInBox;
+	}
+
+	public void setNumberInBox(int numberInBox) {
+		this.numberInBox = numberInBox;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/**
 	 * Finder Constructor that calls queries the database for the specified nail by their ID
 	 * @param id
