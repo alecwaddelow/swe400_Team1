@@ -9,6 +9,7 @@ import org.junit.Test;
 /**
  * @author Drew Rife and Alec Waddelow
  *
+ * Creates Start Transaction statement before tests and rolls back when done testing
  */
 public abstract class DBTest
 {
