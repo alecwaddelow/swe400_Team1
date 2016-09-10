@@ -13,6 +13,11 @@ import org.junit.Test;
 public abstract class DBTest
 {
 
+	/**
+	 * Add a Start Transaction statement before the tests
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Before
 	public void testStartTransaction() throws ClassNotFoundException, SQLException
 	{
@@ -21,6 +26,11 @@ public abstract class DBTest
 		ResultSet rs = st.executeQuery(sqlStatement);
 	}
 
+	/**
+	 * Rollback when we are done with our tests so changes don't get committed to the database
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@After
 	public void testRollBack() throws ClassNotFoundException, SQLException
 	{
