@@ -39,6 +39,11 @@ public class CreateDatabase
 		st.execute(sqlStatement);
 	}
 
+	/**
+	 * Drops the table before creation if the table exists
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	private static void dropTableBeforeCreation() throws ClassNotFoundException, SQLException
 	{
 		String dropTable = "DROP TABLE IF EXISTS InventoryItem;";
