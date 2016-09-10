@@ -60,7 +60,7 @@ public class DatabaseGateway
 			 rs1.setPrice(rs.getInt("price"));
 			 rs1.setDescription(rs.getString("description"));
 			 rs1.setBatteryPowered(rs.getBoolean("batteryPowered"));
-			 rs1.setLength(rs.getLong("length"));
+			 rs1.setLength(rs.getDouble("length"));
 			 rs1.setNumberInStrip(rs.getInt("numberInStrip"));
 			 rs1.setNumberInBox(rs.getInt("numberInBox"));
 			 rs1.setClassName(rs.getString("className"));

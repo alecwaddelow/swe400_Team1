@@ -1,32 +1,32 @@
-package swe400_01_SingleTable;
+package enums;
 
 /**
- * The list of strip nails that should be in your db. NOTICE: the type of the
+ * The list of nail boxes that should be in your db. NOTICE: the type of the
  * variable "length" should be double - NOT Long as it was in the project spec
  *
  * @author Merlin
  *
  */
-public enum StripNails
+public enum Nails
 {
 	/**
-	 * Works with Hitachi's pneumatic nailer and the framing nailer
+	 *
 	 */
-	ROUND_HEAD_NAIL_STRIP("5453432345", 13, 1099, 2.5, 50),
+	COMMON_10D("5453432767", 15, 1348, 3, 500),
 	/**
-	 * Works with Hitachi's pneumatic nailer and the framing nailer
+	 *
 	 */
-	QUALITY_ROUND_HEAD_NAIL_STRIP("4343434543", 24, 1299, 3, 75),
+	BRIGHT_10D("4343412343", 27, 1899, 3, 750),
 	/**
-	 * Doesn't work with any of the nailers we sell
+	 *
 	 */
-	NOTCHED_HEAD_NAIL_STRIP("9876784727", 13, 2099, 2.5, 50),
+	COMMON_8D("9876711127", 15, 1212, 2.5, 500),
 	/**
-	 * Works with both brad nailers
+	 *
 	 */
-	BRAD_STRIP("6565459876", 24, 1988, 1.5, 150),
+	BRIGHT_8D("6562229876", 27, 1988, 2.5, 750),
 	/**
-	 * works with both brad nailers
+	 *
 	 */
 	BRIGHT_FINISH_BRAD_STRIP("4343432345", 13, 1576, 1.5, 150);
 
@@ -34,16 +34,16 @@ public enum StripNails
 	private int manufacturerID;
 	private int price;
 	private double length;
-	private int numberInStrip;
+	private int numberInBox;
 
-	private StripNails(String upc, int manufacturerID, int price,
-			double length, int numberInStrip)
+	private Nails(String upc, int manufacturerID, int price,
+			double length, int numberInBox)
 	{
 		this.upc = upc;
 		this.manufacturerID = manufacturerID;
 		this.price = price;
 		this.length = length;
-		this.numberInStrip = numberInStrip;
+		this.numberInBox = numberInBox;
 	}
 
 	/**
@@ -63,11 +63,11 @@ public enum StripNails
 	}
 
 	/**
-	 * @return the number of nails in a strip
+	 * @return the number of nails in a box
 	 */
-	public int getNumberInStrip()
+	public int getNumberInBox()
 	{
-		return numberInStrip;
+		return numberInBox;
 	}
 
 	/**

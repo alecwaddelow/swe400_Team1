@@ -1,4 +1,4 @@
-package swe400_01_SingleTable;
+package enums;
 
 /**
  * A list of (non-power) tools for testing purposes

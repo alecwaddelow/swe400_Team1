@@ -3,6 +3,11 @@ package swe400_01_SingleTable;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import enums.Nails;
+import enums.PowerTools;
+import enums.StripNails;
+import enums.Tools;
+
 /**
  * @author Drew Rife & Alec Waddelow
  *

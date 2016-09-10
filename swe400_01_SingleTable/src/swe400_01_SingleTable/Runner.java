@@ -48,9 +48,10 @@ public class Runner
 		{
 			int id  = rs.getRow();
 			String className = rs.getString("className");
-			System.out.println(className);
 			listOfObjects.add(i, matchClassAndConstruct(id, className));
 		}
+
+
 		return listOfObjects;
 	}
 

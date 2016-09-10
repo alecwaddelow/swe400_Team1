@@ -1,4 +1,4 @@
-package swe400_01_SingleTable;
+package enums;
 
 /**
  * The details of the power tools for your test data
