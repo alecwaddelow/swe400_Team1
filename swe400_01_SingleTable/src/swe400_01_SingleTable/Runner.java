@@ -27,7 +27,7 @@ public class Runner
 		CreateDatabase.insertStripNailsIntoTable();
 		CreateDatabase.insertPowerToolsIntoTable();
 
-		
+
 	}
 
 	/**
@@ -43,16 +43,14 @@ public class Runner
 		ResultSet rs = st.executeQuery(sqlStatement);
 		ArrayList<Object> listOfObjects = new ArrayList<Object>();
 
-		int i = 0;
-		while(rs.next())
+		for(int i = 0; rs.next(); i++)
 		{
-
 			int id  = rs.getRow();
 			String className = rs.getString("className");
 			System.out.println(className);
 			listOfObjects.add(i, matchClassAndConstruct(id, className));
-			i++;
 		}
+
 		return listOfObjects;
 	}
 
@@ -86,15 +84,15 @@ public class Runner
 
 		}
 	}
-	
+
 	/**
-	 * Getter for dynamic creation of list 
-	 * 
-	 * @return list of objects 
+	 * Getter for dynamic creation of list
+	 *
+	 * @return list of objects
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public ArrayList<Object> getList() throws ClassNotFoundException, SQLException
+	public static ArrayList<Object> getList() throws ClassNotFoundException, SQLException
 	{
 		ArrayList<Object> list = Runner.createList();
 		return list;
