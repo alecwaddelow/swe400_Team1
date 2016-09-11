@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 		{
-			TestNail.class,
+			TestArrayList.class,
+//			TestNail.class,
 //			TestPowerTool.class,
 //			TestStripNails.class,
 //			TestTool.class
