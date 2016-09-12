@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import javax.naming.NamingException;
 
 /**
- *@authors Drew Rife & Alec Waddelow
+ * @authors Drew Rife & Alec Waddelow
  *
- *Runner queries the database to find keys and builds an array list of all the objects
+ * Runner queries the database to find keys and builds an array list of all the objects
  */
 public class Runner
 {
@@ -62,49 +62,24 @@ public class Runner
 	 */
 	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
 	{
-		if(className == null)
+		switch(className)
 		{
-			throw new ClassNotFoundException();
-		}
-		else if(className.contains("Nail"))
-		{
-			Nail nail = new Nail(ID);
-			return nail;
-		}
-		else if(className.contains("Tool"))
-		{
+		case "Tool":
 			Tool tool = new Tool(ID);
 			return tool;
-		}
-		else if(className.contains("StripNail"))
-		{
+		case "PowerTool":
+			PowerTool powerTool= new PowerTool(ID);
+			return powerTool;
+		case "StripNail":
 			StripNail stripNail = new StripNail(ID);
 			return stripNail;
+		case "Nail":
+			Nail nail = new Nail(ID);
+			return nail;
+		default:
+			throw new ClassNotFoundException();
+
 		}
-		else if(className.contains("PowerTool"))
-		{
-			PowerTool powerTool = new PowerTool(ID);
-			return powerTool;
-		}
-//		switch(className)
-//		{
-//		case "Tool":
-//			Tool tool = new Tool(ID);
-//			return tool;
-//		case "PowerTool":
-//			PowerTool powerTool= new PowerTool(ID);
-//			return powerTool;
-//		case "StripNail":
-//			StripNail stripNail = new StripNail(ID);
-//			return stripNail;
-//		case "Nail":
-//			Nail nail = new Nail(ID);
-//			return nail;
-//		default:
-//			throw new ClassNotFoundException();
-//
-//		}
-		return null;
 	}
 
 	/**

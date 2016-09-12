@@ -6,6 +6,7 @@ import org.junit.Test;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * tests adding and retrieving stipnails
  */
 public class TestStripNails extends DBTest
 {

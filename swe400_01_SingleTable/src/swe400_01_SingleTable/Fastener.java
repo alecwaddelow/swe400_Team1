@@ -7,13 +7,15 @@ package swe400_01_SingleTable;
  */
 public abstract class Fastener extends InventoryItem
 {
-	public double length;
+	protected double length;
 
-	public double getLength() {
+	protected double getLength()
+	{
 		return length;
 	}
 
-	public void setLength(double length) {
+	protected void setLength(double length)
+	{
 		this.length = length;
 	}
 }

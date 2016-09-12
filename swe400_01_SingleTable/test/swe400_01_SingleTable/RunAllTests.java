@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * Runs all tests
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses(

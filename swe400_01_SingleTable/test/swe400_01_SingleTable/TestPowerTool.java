@@ -10,6 +10,7 @@ import org.junit.Test;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ * tests adding and retrieving powertools
  */
 public class TestPowerTool extends DBTest
 {

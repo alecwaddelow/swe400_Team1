@@ -4,16 +4,10 @@ z
 package swe400_01_SingleTable;
 
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.naming.NamingException;
-
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import org.junit.Test;
-
 import enums.Nails;
 import enums.PowerTools;
 import enums.StripNails;
@@ -28,6 +22,13 @@ public class TestArrayList
 	private static int uniqueTestID = 1;
 	private static int indexOfArrayList = 0;
 
+	/**
+	 * Tests retrieving InventoryItems from the arraylist
+	 *
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	@Test
 	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException, NamingException
 	{
