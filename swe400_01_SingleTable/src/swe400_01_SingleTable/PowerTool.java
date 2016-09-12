@@ -9,7 +9,8 @@ import java.sql.SQLException;
  */
 public class PowerTool extends InventoryItem
 {
-	public boolean batteryPowered;
+	protected boolean batteryPowered;
+	protected String description;
 
 	/**
 	 * Finder Constructor that calls queries the database for the specified PowerTool by their ID
@@ -17,7 +18,7 @@ public class PowerTool extends InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public PowerTool(int id) throws ClassNotFoundException, SQLException
+	protected PowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
 		DBMapper dbrs;
@@ -26,6 +27,7 @@ public class PowerTool extends InventoryItem
 		this.upc = dbrs.getUpc();
 		this.manufacturerID = dbrs.getManufacturerID();
 		this.price = dbrs.getPrice();
+		this.description = dbrs.getDescription();
 		this.batteryPowered = dbrs.isBatteryPowered();
 	}
 
@@ -44,8 +46,8 @@ public class PowerTool extends InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public PowerTool (int id, String upc, int manufacturerID, int price, String description,
-			boolean batteryPowered, long length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
+	protected PowerTool (int id, String upc, int manufacturerID, int price, String description,
+			boolean batteryPowered, double length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
 		this.upc = upc;
@@ -60,5 +62,38 @@ public class PowerTool extends InventoryItem
 		dbrs.setPrice(this.price);
 		dbrs.setBatteryPowered(this.batteryPowered);
 		DatabaseGateway.insertRow(dbrs);
+	}
+
+	/**
+	 * @return true if battery powered; false otherwise
+	 */
+	protected boolean isBatteryPowered()
+	{
+		return batteryPowered;
+	}
+
+	/**
+	 * sets true if the powertool is battery powered; false otherwise
+	 * @param batteryPowered
+	 */
+	protected void setBatteryPowered(boolean batteryPowered)
+	{
+		this.batteryPowered = batteryPowered;
+	}
+
+	/**
+	 * @return the description of the powertool
+	 */
+	protected String getDescription()
+	{
+		return description;
+	}
+
+	/**
+	 * @param description the description of the powertool
+	 */
+	protected void setDescription(String description)
+	{
+		this.description = description;
 	}
 }

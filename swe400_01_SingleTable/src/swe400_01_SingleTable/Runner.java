@@ -62,24 +62,49 @@ public class Runner
 	 */
 	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
 	{
-		switch(className)
+		if(className == null)
 		{
-		case "Tool":
-			Tool tool = new Tool(ID);
-			return tool;
-		case "PowerTool":
-			PowerTool powerTool= new PowerTool(ID);
-			return powerTool;
-		case "StripNail":
-			StripNail stripNail = new StripNail(ID);
-			return stripNail;
-		case "Nail":
+			throw new ClassNotFoundException();
+		}
+		else if(className.contains("Nail"))
+		{
 			Nail nail = new Nail(ID);
 			return nail;
-		default:
-			throw new ClassNotFoundException();
-
 		}
+		else if(className.contains("Tool"))
+		{
+			Tool tool = new Tool(ID);
+			return tool;
+		}
+		else if(className.contains("StripNail"))
+		{
+			StripNail stripNail = new StripNail(ID);
+			return stripNail;
+		}
+		else if(className.contains("PowerTool"))
+		{
+			PowerTool powerTool = new PowerTool(ID);
+			return powerTool;
+		}
+//		switch(className)
+//		{
+//		case "Tool":
+//			Tool tool = new Tool(ID);
+//			return tool;
+//		case "PowerTool":
+//			PowerTool powerTool= new PowerTool(ID);
+//			return powerTool;
+//		case "StripNail":
+//			StripNail stripNail = new StripNail(ID);
+//			return stripNail;
+//		case "Nail":
+//			Nail nail = new Nail(ID);
+//			return nail;
+//		default:
+//			throw new ClassNotFoundException();
+//
+//		}
+		return null;
 	}
 
 	/**

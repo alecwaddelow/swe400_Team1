@@ -4,11 +4,11 @@ import java.sql.SQLException;
 /**
  * @author Drew Rife & Alec Waddelow
  *
- * An InventoryItem
+ * An InventoryItem Tool
  */
 public class Tool extends InventoryItem
 {
-	public String description;
+	protected String description;
 
 	/**
 	 * Finder Constructor that queries the database for the item specified by their ID
@@ -17,7 +17,7 @@ public class Tool extends InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Tool(int id) throws ClassNotFoundException, SQLException
+	protected Tool(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
 		DBMapper dbrs;
@@ -44,8 +44,8 @@ public class Tool extends InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Tool(int id, String upc, int manufacturerID, int price, String description,
-			boolean batteryPowered, long length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
+	protected Tool(int id, String upc, int manufacturerID, int price, String description,
+			boolean batteryPowered, double length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
 		this.upc = upc;
@@ -60,5 +60,22 @@ public class Tool extends InventoryItem
 		dbrs.setPrice(this.price);
 		dbrs.setDescription(this.description);
 		DatabaseGateway.insertRow(dbrs);
+	}
+
+	/**
+	 * @return description
+	 */
+	protected String getDescription()
+	{
+		return description;
+	}
+
+	/**
+	 * sets the description for the tool
+	 * @param description
+	 */
+	protected void setDescription(String description)
+	{
+		this.description = description;
 	}
 }

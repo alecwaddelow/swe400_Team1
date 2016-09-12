@@ -14,27 +14,33 @@ public class Nail extends Fastener
 	public String description;
 
 
-	public int getNumberInBox() {
+	protected int getNumberInBox()
+	{
 		return numberInBox;
 	}
 
-	public void setNumberInBox(int numberInBox) {
+	protected void setNumberInBox(int numberInBox)
+	{
 		this.numberInBox = numberInBox;
 	}
 
-	public String getClassName() {
+	protected String getClassName()
+	{
 		return className;
 	}
 
-	public void setClassName(String className) {
+	protected void setClassName(String className)
+	{
 		this.className = className;
 	}
 
-	public String getDescription() {
-		return description;
+	protected String getDescription()
+	{
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	protected void setDescription(String description)
+	{
 		this.description = description;
 	}
 
@@ -44,7 +50,7 @@ public class Nail extends Fastener
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Nail(int id) throws ClassNotFoundException, SQLException
+	protected Nail(int id) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
 		DBMapper dbrs;
@@ -72,8 +78,8 @@ public class Nail extends Fastener
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Nail(int id, String upc, int manufacturerID, int price, String description,
-			boolean batteryPowered, long length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
+	protected Nail(int id, String upc, int manufacturerID, int price, String description,
+			boolean batteryPowered, double length, int numberInStrip, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
 		this.id = id;
 		this.upc = upc;

@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.naming.NamingException;
+
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import org.junit.Test;
@@ -27,8 +29,9 @@ public class TestArrayList
 	private static int indexOfArrayList = 0;
 
 	@Test
-	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException
+	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException, NamingException
 	{
+		Runner.main(null);
 		testRetrieveNailsFromArrayList();
 		testRetrieveToolsFromArrayList();
 		testRetrieveStripNailsFromArrayList();
