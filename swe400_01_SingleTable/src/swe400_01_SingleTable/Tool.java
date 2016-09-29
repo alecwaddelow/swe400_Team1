@@ -4,6 +4,7 @@ import java.sql.SQLException;
 /**
  * @author Drew Rife & Alec Waddelow
  *
+ *
  * An InventoryItem Tool
  */
 public class Tool extends InventoryItem
