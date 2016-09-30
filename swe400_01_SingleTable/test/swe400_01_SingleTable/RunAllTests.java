@@ -3,7 +3,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * @author & Alec Waddelow
+ * @author Drew Rife& Alec Waddelow
  *
  * Runs all tests
  */
