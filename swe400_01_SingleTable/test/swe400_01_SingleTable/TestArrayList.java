@@ -14,7 +14,7 @@ import enums.StripNails;
 import enums.Tools;
 
 /**
- * @author Alec Waddelow & Drew Rife
+ * @author Alec  Waddelow & Drew Rife
  *	Tests for creating a new ArrayList of objects pulled from the database
  */
 public class TestArrayList
