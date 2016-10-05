@@ -14,6 +14,10 @@ import org.junit.Test;
  */
 public class TestNail extends DBTest
 {
+	
+	/**
+	 * test comment - Alec 
+	 */
 	/**
 	 * Test inserting nail into DB	 *
 	 *

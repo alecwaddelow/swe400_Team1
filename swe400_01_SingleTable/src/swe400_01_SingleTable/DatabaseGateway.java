@@ -14,6 +14,13 @@ import java.util.Properties;
  *
  * Establishes a connection to the database and contains common database functions
  */
+
+/**
+ * Test comment : TODO 
+ * @author alecw
+ *
+ */
+
 public class DatabaseGateway
 {
 	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
