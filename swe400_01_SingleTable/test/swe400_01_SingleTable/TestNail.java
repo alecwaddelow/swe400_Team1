@@ -19,7 +19,9 @@ public class TestNail extends DBTest
 	 * test comment - Alec 
 	 */
 	
-	
+	/**
+	 * test 2 
+	 */
 	/**
 	 * Test inserting nail into DB	 *
 	 *
