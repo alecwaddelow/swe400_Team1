@@ -80,6 +80,4 @@ public class StripNail extends Fastener
 	{
 		this.numberInStrip = numberInStrip;
 	}
-
-
 }
