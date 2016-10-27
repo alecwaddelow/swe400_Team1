@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="swe400_01_SingleTable/src"/>
+	<classpathentry kind="src" path="swe400_01_SingleTable/test"/>
+	<classpathentry exported="true" kind="lib" path="swe400_01_SingleTable/mysql_jar/mysql-connector-java-5.1.39-bin.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
