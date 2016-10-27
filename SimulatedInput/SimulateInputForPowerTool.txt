@@ -1,9 +1,0 @@
-7784452828
-y
-3
-2014
-2020202
-60
-powertool created from simulated input
-true
-y
