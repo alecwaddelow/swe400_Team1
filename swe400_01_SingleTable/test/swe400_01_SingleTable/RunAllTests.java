@@ -13,8 +13,20 @@ import org.junit.runners.Suite;
 			TestArrayList.class,
 			TestNail.class,
 			TestPowerTool.class,
-			TestStripNails.class,
-			TestTool.class
+			TestStripNail.class,
+			TestTool.class,
+			TestDBMapper.class,
+			TestToolMapper.class,
+			TestPowerToolMapper.class,
+			TestStripNailsMapper.class,
+			TestNailMapper.class,
+			TestLinkTableMapper.class,
+			TestLinkTableGateway.class,
+			TestDatabaseGateway.class,
+			TestCreateLinkTable.class,
+			TestCreateDatabase.class,
+			TestRunner.class,
+			TestSimulatedInput.class
 		})
 
 public class RunAllTests  {}

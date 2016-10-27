@@ -8,13 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import org.junit.Test;
+import data_source.CreateDatabase;
+import data_source.CreateLinkTable;
+import domain_layer.InventoryItem;
+import runner.*;
 import enums.Nails;
 import enums.PowerTools;
 import enums.StripNails;
 import enums.Tools;
 
 /**
- * @author AleWaddelow & Drew Rife
+ * @author Alec Waddelow & Drew Rife
+ * 
  *	Tests for creating a new ArrayList of objects pulled from the database
  */
 public class TestArrayList
@@ -32,7 +37,15 @@ public class TestArrayList
 	@Test
 	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException, NamingException
 	{
-		Runner.main(null);
+		CreateLinkTable.dropTableBeforeCreation();
+		CreateDatabase.dropTableBeforeCreation();
+		CreateDatabase.createTable();
+		CreateDatabase.insertNailsIntoTable();
+		CreateDatabase.insertToolsIntoTable();
+		CreateDatabase.insertStripNailsIntoTable();
+		CreateDatabase.insertPowerToolsIntoTable();
+		CreateLinkTable.createTable();
+		CreateLinkTable.createRelationships();
 		testRetrieveNailsFromArrayList();
 		testRetrieveToolsFromArrayList();
 		testRetrieveStripNailsFromArrayList();
@@ -86,7 +99,6 @@ public class TestArrayList
 			uniqueTestID++;
 		}
 	}
-
 
 	/**
 	 * Tests getting the Strip Nails objects from the array list

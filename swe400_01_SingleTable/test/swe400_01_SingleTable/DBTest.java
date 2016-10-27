@@ -1,10 +1,8 @@
 package swe400_01_SingleTable;
-
-import static org.junit.Assert.*;
 import java.sql.*;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import data_source.DatabaseGateway;
 
 /**
  * @author Drew Rife and Alec Waddelow
@@ -16,6 +14,7 @@ public abstract class DBTest
 
 	/**
 	 * Add a Start Transaction statement before the tests
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -29,6 +28,7 @@ public abstract class DBTest
 
 	/**
 	 * Rollback when we are done with our tests so changes don't get committed to the database
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -38,5 +38,8 @@ public abstract class DBTest
 		String sqlStatement = ("ROLLBACK;");
 		Statement st = DatabaseGateway.getConnection().createStatement();
 		ResultSet rs = st.executeQuery(sqlStatement);
+		
+		PreparedStatement statement = DatabaseGateway.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1");
+		statement.execute();
 	}
 }

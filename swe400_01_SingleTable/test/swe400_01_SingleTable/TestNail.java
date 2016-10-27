@@ -1,69 +1,115 @@
-/**
- *
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-import java.sql.*;
+import java.sql.SQLException;
 import org.junit.Test;
+import domain_layer.Nail;
+import enums.Nails;
 
 /**
  * @author Drew Rife & Alec Waddelow
  *
- * Test adding and retrieving nails
+ * Test class for the Nail class
  */
 public class TestNail extends DBTest
 {
-	
+
 	/**
-	 * test comment - Alec 
-	 */
-	
-	/**
-	 * test 2 
-	 */
-	/**
-	 * Test inserting nail into DB	 *
-	 *
+	 * Tests creating a new object Nail
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 	@Test
-	public void testInsertNail() throws ClassNotFoundException, SQLException
+	public void testCreationConstructor() throws ClassNotFoundException, SQLException
 	{
-		CreateDatabase.createTable();
-		Nail nail = new Nail(1, "446", 12, 13, null,  false, 13.01, 0, 0, "Nail");
-
-		DBMapper dm = DatabaseGateway.queryDB(1);
-
-		assertEquals(nail.getId(), dm.getId());
-		assertEquals(nail.getUpc(), dm.getUpc());
-		assertEquals(nail.getManufacturerID(), dm.getManufacturerID());
-		assertEquals(nail.getPrice(), dm.getPrice());
-		assertEquals(nail.getDescription(), dm.getDescription());
-		assertEquals(nail.getLength(), dm.getLength(), 0.001);
-		assertEquals(nail.getNumberInBox(), dm.getNumberInBox());
-		assertEquals(nail.getClassName(), dm.getClassName());
+		String upc = "101010101010";
+		int manufacturerID = 12;
+		int price = 20;
+		double length = 10.5;
+		int numberInBox = 0;
+		
+		Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
+		
+		assertEquals(upc, nail.getUpc());
+		assertEquals(manufacturerID, nail.getManufacturerID());
+		assertEquals(price, nail.getPrice());
+		assertEquals(length, nail.getLength(), 0.001);
+		assertEquals(numberInBox, nail.getNumberInBox());
+		assertEquals("Nail", nail.getClassName());
 	}
-
+	
 	/**
-	 * Test retrieving nail from the database
-	 *
+	 * Tests finder constructor 
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 	@Test
-	public void testRetrieveNail() throws ClassNotFoundException, SQLException
+	public void testFinderConstructor() throws ClassNotFoundException, SQLException
 	{
-		CreateDatabase.createTable();
-		Nail insertNail = new Nail(1, "446", 12, 13, null,  false, 13.01, 0, 0, "Nail");
-		Nail findNail = new Nail(1);
-
-		assertEquals(insertNail.getId(), findNail.getId());
-		assertEquals(insertNail.getUpc(), findNail.getUpc());
-		assertEquals(insertNail.getManufacturerID(), findNail.getManufacturerID());
-		assertEquals(insertNail.getPrice(), findNail.getPrice());
-		assertEquals(insertNail.getLength(), findNail.getLength(), 0.001);
-		assertEquals(insertNail.getNumberInBox(), findNail.getNumberInBox());
+		Nail nail = new Nail(1);
+		
+		
+		assertEquals(Nails.COMMON_10D.getUpc(), nail.getUpc());
+		assertEquals(Nails.COMMON_10D.getManufacturerID(), nail.getManufacturerID());
+		assertEquals(Nails.COMMON_10D.getPrice(), nail.getPrice());
+		assertEquals(Nails.COMMON_10D.getLength(), nail.getLength(), 0.001);
+		assertEquals(Nails.COMMON_10D.getNumberInBox(), nail.getNumberInBox());
+		assertEquals("Nail", nail.getClassName());
+	}
+	
+	/**
+	 * Tests setters 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testSetters() throws ClassNotFoundException, SQLException
+	{
+		Nail nail = new Nail(null, 0, 0, 0, 0, null);
+		
+		nail.setUpc("101");
+		nail.setManufacturerID(10);
+		nail.setPrice(15);
+		nail.setLength(10.5);
+		nail.setNumberInBox(5);
+		nail.setClassName("Nail");
+		
+		assertEquals("101", nail.getUpc());
+		assertEquals(10, nail.getManufacturerID());
+		assertEquals(15, nail.getPrice());
+		assertEquals(10.5, nail.getLength(), 0.001);
+		assertEquals(5, nail.getNumberInBox());
+		assertEquals("Nail", nail.getClassName());
+	}
+	
+	/**
+	 * Tests catching ClassNotFoundException
+	 * 
+	 * @throws SQLException
+	 */
+	@Test 
+	public void testNailNotFoundException() throws SQLException
+	{
+		try{
+			Nail nail = new Nail(25);			
+		} catch(ClassNotFoundException notFound)
+		{
+			assertEquals("Could not find nail with specified ID", notFound.getMessage() );
+		}
+	}
+	
+	/**
+	 * Tests toString()
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testToString() throws ClassNotFoundException, SQLException
+	{
+		Nail nail = new Nail(1);
+		assertEquals("Nail [upc=5453432767, manufacturerID=15, price=1348, length=3.0, numberInBox=500]", nail.toString());
 	}
 }
