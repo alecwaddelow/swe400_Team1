@@ -216,6 +216,7 @@ public class TestSimulatedInput extends DBTest
 	
 	/**
 	 * Simulates updating a StripNail in the database
+	 * 
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
