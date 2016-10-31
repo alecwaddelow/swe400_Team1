@@ -21,7 +21,7 @@ import runner.Runner;
 public class TestSimulatedInput extends DBTest
 {
 	/**
-	 * Simulates a user adding a nail to the database
+	 * Simulates a user add a nail to the database
 	 * 
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
