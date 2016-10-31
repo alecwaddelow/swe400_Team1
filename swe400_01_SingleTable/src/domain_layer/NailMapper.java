@@ -29,9 +29,9 @@ public class NailMapper extends DBMapper
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public NailMapper(int id, String upc, int manufacturerID, int price, Double length, int numberInBox, String className) throws ClassNotFoundException, SQLException 
+	public NailMapper(String upc, int manufacturerID, int price, Double length, int numberInBox, String className) throws ClassNotFoundException, SQLException 
 	{
-		super(id, upc, manufacturerID, price, className);
+		super(upc, manufacturerID, price, className);
 		this.length = length;
 		this.numberInBox = numberInBox;
 	}

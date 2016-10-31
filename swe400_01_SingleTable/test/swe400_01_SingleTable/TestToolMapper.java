@@ -19,8 +19,7 @@ public class TestToolMapper
 	@Test
 	public void testCreation() throws ClassNotFoundException, SQLException 
 	{
-		ToolMapper tm = new ToolMapper(0, null, 0, 0, null, null);
-		assertEquals(0, tm.getId());
+		ToolMapper tm = new ToolMapper(null, 0, 0, null, null);
 		assertEquals(null, tm.getUpc());
 		assertEquals(0, tm.getManufacturerID());
 		assertEquals(0, tm.getPrice());

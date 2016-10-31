@@ -18,9 +18,9 @@ public abstract class Fastener extends InventoryItem
 	 * @param price
 	 * @param length
 	 */
-	Fastener(String UPC, int ManufacturerID, int price, double length) 
+	Fastener(String UPC, int ManufacturerID, int price, double length, String className) 
 	{
-		super(UPC, ManufacturerID, price);
+		super(UPC, ManufacturerID, price, className);
 		this.length = length;
 	}
 	

@@ -1,14 +1,6 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
-import java.sql.SQLException;
-
 import org.junit.Test;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -29,15 +21,4 @@ public class TestDatabaseGateway
 		assertTrue(dg instanceof DatabaseGateway);
 	}
 	
-	/**
-	 * Test for non-existent UPC
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
-	@Test
-	public void testNullUPC() throws ClassNotFoundException, SQLException
-	{
-		String badUPC = DatabaseGateway.getItemByUPC("101010101010364");
-		assertNull(badUPC);
-	}
 }

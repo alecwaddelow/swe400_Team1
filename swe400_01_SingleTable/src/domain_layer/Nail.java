@@ -10,7 +10,6 @@ import data_source.DatabaseGateway;
 public class Nail extends Fastener
 {
 	public int numberInBox;
-	public String className;
 
 	/**
 	 * Finder Constructor that queries the database for the specified nail by their ID
@@ -31,12 +30,12 @@ public class Nail extends Fastener
 		}
 		else
 		{
-			this.upc = mapper.getUpc();
-			this.manufacturerID = mapper.getManufacturerID();
-			this.price = mapper.getPrice();
-			this.length = mapper.getLength();
+			super.setUpc(mapper.getUpc());
+			super.setManufacturerID(mapper.getManufacturerID());
+			super.setPrice(mapper.getPrice());
+			super.setLength(mapper.getLength());
 			this.numberInBox = mapper.getNumberInBox();
-			this.className = mapper.getClassName();
+			super.setClassName(mapper.getClassName());
 		}
 	}
 
@@ -56,10 +55,10 @@ public class Nail extends Fastener
 	 */
 	public Nail(String upc, int manufacturerID, int price, double length, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
-		super(upc, manufacturerID, price, length);
+		super(upc, manufacturerID, price, length, className);
 		this.numberInBox = numberInBox;
 		this.className = "Nail";
-		NailMapper nailMapper = new NailMapper(this.manufacturerID, this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
+		NailMapper nailMapper = new NailMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
 		nailMapper.insertNail();
 	}
 	
@@ -101,7 +100,7 @@ public class Nail extends Fastener
  	 */
 	public String getClassName()
 	{
-		return this.className;
+		return super.getClassName();
 	}
 
 	/**
@@ -110,7 +109,7 @@ public class Nail extends Fastener
 	 */
 	public void setClassName(String className)
 	{
-		this.className = className;
+		super.setClassName(className);
 	}
 
 	/* (non-Javadoc)

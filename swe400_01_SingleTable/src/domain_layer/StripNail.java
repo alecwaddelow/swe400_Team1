@@ -33,12 +33,12 @@ public class StripNail extends Fastener implements LoadInterface
 		}
 		else
 		{
-			this.upc = mapper.getUpc();
-			this.manufacturerID = mapper.getManufacturerID();
-			this.price = mapper.getPrice();
-			this.length = mapper.getLength();
+			super.setUpc(mapper.getUpc());
+			super.setManufacturerID(mapper.getManufacturerID());
+			super.setPrice(mapper.getPrice());
+			super.setLength(mapper.getLength());
 			this.numberInStrip = mapper.getNumberInStrip();
-			this.className = mapper.getClassName();
+			super.setClassName(mapper.getClassName());
 		}
 	}
 
@@ -60,11 +60,11 @@ public class StripNail extends Fastener implements LoadInterface
 	 */
 	public StripNail(String upc, int manufacturerID, int price, double length, int numberInStrip,  String className) throws ClassNotFoundException, SQLException
 	{
-		super(upc, manufacturerID, price, length);
+		super(upc, manufacturerID, price, length, className);
 		this.numberInStrip = numberInStrip;
 		this.className = className;
 
-		StripNailsMapper mapper = new StripNailsMapper(this.manufacturerID, this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
+		StripNailsMapper mapper = new StripNailsMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
 		mapper.insertStripNail();
 	}
 
@@ -163,7 +163,7 @@ public class StripNail extends Fastener implements LoadInterface
 	 */
 	public String getClassName() 
 	{
-		return this.className;
+		return super.getClassName();
 	}
 	
 	/**
@@ -172,6 +172,6 @@ public class StripNail extends Fastener implements LoadInterface
 	 */
 	public void setClassName(String className)
 	{
-		this.className = className;
+		super.setClassName(className);
 	}
 }

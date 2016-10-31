@@ -54,7 +54,7 @@ public class TestRunner extends DBTest
 	{
 		Runner run = new Runner();
 		Nail nail = new Nail(1);
-		Nail nailGD = (Nail) run.getDetails(Nails.COMMON_10D.getUpc());
+		Nail nailGD = (Nail) InventoryItem.getDetails(Nails.COMMON_10D.getUpc());
 
 		assertEquals(nail.getUpc(), nailGD.getUpc());
 		assertEquals(nail.getManufacturerID(), nailGD.getManufacturerID());

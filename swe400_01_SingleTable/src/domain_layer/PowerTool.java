@@ -34,12 +34,12 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		}
 		else
 		{
-			this.upc = mapper.getUpc();
-			this.manufacturerID = mapper.getManufacturerID();
-			this.price = mapper.getPrice();
+			super.setUpc(mapper.getUpc());
+			super.setManufacturerID(mapper.getManufacturerID());
+			super.setPrice(mapper.getPrice());
 			this.description = mapper.getDescription();
 			this.batteryPowered = mapper.isBatteryPowered();
-			this.className = mapper.getClassName();
+			super.setClassName(mapper.getClassName());
 		}
 		
 	}
@@ -58,11 +58,11 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 */
 	public PowerTool(String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws ClassNotFoundException, SQLException
 	{
-		super(upc, manufacturerID, price);
+		super(upc, manufacturerID, price, className);
 		this.description = description;
 		this.batteryPowered = batteryPowered;
 		this.className = className;
-		PowerToolMapper mapper = new PowerToolMapper(this.manufacturerID, this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
+		PowerToolMapper mapper = new PowerToolMapper(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
 		mapper.insertPowerTool();
 	}
 	
@@ -180,7 +180,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 */
 	public String getClassName() 
 	{
-		return this.className;
+		return super.getClassName();
 	}
 	
 	/**
@@ -189,6 +189,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 */
 	public void setClassName(String className)
 	{
-		this.className = className;
+		super.setClassName(className);
 	}
 }

@@ -22,9 +22,8 @@ public abstract class DBMapper
 	 * @param price
 	 * @param className
 	 */
-	public DBMapper(int id, String upc, int manufacturerID, int price, String className)
+	public DBMapper(String upc, int manufacturerID, int price, String className)
 	{
-		this.id = id;
 		this.upc = upc;
 		this.manufacturerID = manufacturerID;
 		this.price = price;
@@ -37,23 +36,6 @@ public abstract class DBMapper
 	public DBMapper()
 	{
 		super();
-	}
-
-	/**
-	 * @return the item's ID
-	 */
-	public int getId()
-	{
-		return this.id;
-	}
-
-	/**
-	 * sets the item's ID
-	 * @param id
-	 */
-	public void setId(int id)
-	{
-		this.id = id;
 	}
 
 	/**

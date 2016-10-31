@@ -28,9 +28,9 @@ public class StripNailsMapper extends DBMapper
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public StripNailsMapper(int id, String upc, int manufacturerID, int price, Double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException 
+	public StripNailsMapper(String upc, int manufacturerID, int price, Double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException 
 	{
-		super(id, upc, manufacturerID, price, className);
+		super(upc, manufacturerID, price, className);
 		this.length = length;
 		this.numberInStrip = numberInStrip;
 		

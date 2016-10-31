@@ -26,8 +26,7 @@ public class TestPowerToolMapper
 	@Test
 	public void testCreation() throws ClassNotFoundException, SQLException 
 	{
-		PowerToolMapper ptm = new PowerToolMapper(0, null, 0, 0, null, false, null);
-		assertEquals(0, ptm.getId());
+		PowerToolMapper ptm = new PowerToolMapper(null, 0, 0, null, false, null);
 		assertEquals(null, ptm.getUpc());
 		assertEquals(0, ptm.getManufacturerID());
 		assertEquals(0, ptm.getPrice());

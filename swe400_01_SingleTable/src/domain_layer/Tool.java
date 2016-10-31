@@ -28,11 +28,11 @@ public class Tool extends InventoryItem
 		}
 		else
 		{
-			this.upc = mapper.getUpc();
-			this.manufacturerID = mapper.getManufacturerID();
-			this.price = mapper.getPrice();
+			super.setUpc(mapper.getUpc());
+			super.setManufacturerID(mapper.getManufacturerID());
+			super.setPrice(mapper.getPrice());
 			this.description = mapper.getDescription();
-			this.className = mapper.getClassName();
+			super.setClassName(mapper.getClassName());
 		}
 	}
 
@@ -50,10 +50,10 @@ public class Tool extends InventoryItem
 	 */
 	public Tool(String upc, int manufacturerID, int price, String description, String className) throws ClassNotFoundException, SQLException
 	{
-		super(upc, manufacturerID, price);
+		super(upc, manufacturerID, price, className);
 		this.description = description;
 		this.className = "Tool";
-		ToolMapper toolMapper = new ToolMapper(this.manufacturerID, this.upc, this.manufacturerID, this.price, this.description, this.className);
+		ToolMapper toolMapper = new ToolMapper(this.upc, this.manufacturerID, this.price, this.description, this.className);
 		toolMapper.insertTool();
 	}
 
@@ -89,7 +89,7 @@ public class Tool extends InventoryItem
 	 */
 	public String getClassName() 
 	{
-		return this.className;
+		return super.getClassName();
 	}
 	
 	/**
@@ -98,6 +98,6 @@ public class Tool extends InventoryItem
 	 */
 	public void setClassName(String className)
 	{
-		this.className = className;
+		super.setClassName(className);
 	}
 }

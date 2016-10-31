@@ -35,12 +35,12 @@ public class TestSimulatedInput extends DBTest
 		if(file.exists())
 		{
 			System.setIn(new FileInputStream(file));
-			Runner.userInput();
+			Runner.initiateUserInput();
 			
 			Nail nail = new Nail(22);
-			assertEquals("2016", nail.getUpc());
-			assertEquals(10, nail.getManufacturerID());
-			assertEquals(30, nail.getPrice());
+			assertEquals("3030303", nail.getUpc());
+			assertEquals(20, nail.getManufacturerID());
+			assertEquals(10, nail.getPrice());
 			assertEquals(30.03, nail.getLength(), 0.001);
 			assertEquals(20, nail.getNumberInBox());
 			assertEquals("Nail", nail.getClassName());
@@ -64,7 +64,7 @@ public class TestSimulatedInput extends DBTest
 		if(file.exists())
 		{
 			System.setIn(new FileInputStream(file));
-			Runner.userInput();
+			Runner.initiateUserInput();
 			
 			Tool tool = new Tool(22);
 			assertEquals("2013", tool.getUpc());
@@ -91,7 +91,7 @@ public class TestSimulatedInput extends DBTest
 		if(file.exists())
 		{
 			System.setIn(new FileInputStream(file));
-			Runner.userInput();
+			Runner.initiateUserInput();
 			
 			PowerTool powerTool = new PowerTool(22);
 			assertEquals("2014", powerTool.getUpc());
@@ -120,7 +120,7 @@ public class TestSimulatedInput extends DBTest
 		if(file.exists())
 		{
 			System.setIn(new FileInputStream(file));
-			Runner.userInput();
+			Runner.initiateUserInput();
 			
 			StripNail stripNail = new StripNail(22);
 			assertEquals("2015", stripNail.getUpc());
@@ -135,31 +135,109 @@ public class TestSimulatedInput extends DBTest
 	}
 	
 	/**
-	 * Simulates the worst user ever, one that is indecisive and makes mistakes along the way but ends creating a nail in the end
+	 * Simulates updating a Nail in the database
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 */
+	@Test 
+	public void testSimulateUpdateNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	{
+		File file = new File("SimulatedInput/SimulateUpdatingNail.txt");
+		
+		if(file.exists())
+		{
+			System.setIn(new FileInputStream(file));
+			Runner.initiateUserInput();
+			
+			Nail nail = new Nail(1);
+			assertEquals("3030030330", nail.getUpc());
+			assertEquals(15, nail.getManufacturerID());
+			assertEquals(1347, nail.getPrice());
+			assertEquals(3.1, nail.getLength(), 0.001);
+			assertEquals(499, nail.getNumberInBox());
+			assertEquals("Nail", nail.getClassName());
+		}
+	}
+	
+	/**
+	 * Simulates updating a Tool in the database
 	 * 
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	@Test
-	public void testSimulateIndecisiveClumsyUser() throws FileNotFoundException, ClassNotFoundException, SQLException
+	@Test 
+	public void testSimulateUpdateTool() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateIndecisiveUser.txt");
+		File file = new File("SimulatedInput/SimulateUpdatingTool.txt");
 		
 		if(file.exists())
 		{
 			System.setIn(new FileInputStream(file));
-			Runner.userInput();
+			Runner.initiateUserInput();
 			
-			Nail nail = new Nail(22);
-			assertEquals("2016", nail.getUpc());
-			assertEquals(10, nail.getManufacturerID());
-			assertEquals(30, nail.getPrice());
-			assertEquals(30.03, nail.getLength(), 0.001);
-			assertEquals(20, nail.getNumberInBox());
-			assertEquals("Nail", nail.getClassName());
-			
-			System.setIn(System.in);
+			Tool tool = new Tool(7);
+			assertEquals("222222222", tool.getUpc());
+			assertEquals(230, tool.getManufacturerID());
+			assertEquals(3, tool.getPrice());
+			assertEquals("Tool created from simulated input", tool.getDescription());
+			assertEquals("Tool", tool.getClassName());
 		}
 	}
+	
+	/**
+	 * Simulates updating a PowerTool in the database
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test 
+	public void testSimulateUpdatePowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException
+	{
+		File file = new File("SimulatedInput/SimulateUpdatingPowerTool.txt");
+		
+		if(file.exists())
+		{
+			System.setIn(new FileInputStream(file));
+			Runner.initiateUserInput();
+			
+			PowerTool powerTool = new PowerTool(21);
+			assertEquals("222222222", powerTool.getUpc());
+			assertEquals(230, powerTool.getManufacturerID());
+			assertEquals(3, powerTool.getPrice());
+			assertEquals("PowerTool created from simulated input", powerTool.getDescription());
+			assertTrue(powerTool.isBatteryPowered());
+			assertEquals("PowerTool", powerTool.getClassName());
+		}
+	}
+	
+	/**
+	 * Simulates updating a StripNail in the database
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test 
+	public void testSimulateUpdateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
+	{
+		File file = new File("SimulatedInput/SimulateUpdatingStripNail.txt");
+		
+		if(file.exists())
+		{
+			System.setIn(new FileInputStream(file));
+			Runner.initiateUserInput();
+			
+			StripNail stripNail = new StripNail(13);
+			assertEquals("3030030330", stripNail.getUpc());
+			assertEquals(15, stripNail.getManufacturerID());
+			assertEquals(1347, stripNail.getPrice());
+			assertEquals(3.1, stripNail.getLength(), 0.001);
+			assertEquals(23, stripNail.getNumberInStrip());
+			assertEquals("StripNail", stripNail.getClassName());
+		}
+	}
+	
 }

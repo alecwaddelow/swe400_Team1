@@ -1,0 +1,9 @@
+3
+7784452828
+y
+222222222
+230
+3
+PowerTool created from simulated input
+true
+4

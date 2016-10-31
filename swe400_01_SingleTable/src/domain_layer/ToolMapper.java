@@ -19,9 +19,9 @@ public class ToolMapper extends DBMapper
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public ToolMapper(int id, String upc, int manufacturerID, int price, String description, String className) throws ClassNotFoundException, SQLException 
+	public ToolMapper(String upc, int manufacturerID, int price, String description, String className) throws ClassNotFoundException, SQLException 
 	{
-		super(id, upc, manufacturerID, price, className);
+		super(upc, manufacturerID, price, className);
 		this.description = description;
 	
 	}

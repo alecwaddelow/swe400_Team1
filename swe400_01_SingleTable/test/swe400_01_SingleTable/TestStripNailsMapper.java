@@ -27,9 +27,7 @@ public class TestStripNailsMapper
 	@Test
 	public void testCreation() throws ClassNotFoundException, SQLException
 	{
-		StripNailsMapper snm = new StripNailsMapper(0, "101", 0, 0, 5.0, 1, "StripNailsMapper");
-		
-		assertEquals(0, snm.getId());
+		StripNailsMapper snm = new StripNailsMapper("101", 0, 0, 5.0, 1, "StripNailsMapper");
 		assertEquals("101", snm.getUpc());
 		assertEquals(0, snm.getManufacturerID());
 		assertEquals(0, snm.getPrice());

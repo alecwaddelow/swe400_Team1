@@ -30,9 +30,9 @@ public class PowerToolMapper extends DBMapper
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public PowerToolMapper(int id, String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws ClassNotFoundException, SQLException 
+	public PowerToolMapper(String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws ClassNotFoundException, SQLException 
 	{
-		super(id, upc, manufacturerID, price, className);
+		super(upc, manufacturerID, price, className);
 		this.batteryPowered = batteryPowered;
 		this.description = description;
 	}

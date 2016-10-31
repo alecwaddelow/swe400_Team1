@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ResultTreeType;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import domain_layer.*;
 
@@ -36,7 +36,7 @@ public class DatabaseGateway
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(hostName, user, password);
-
+			
 			return con;
 		}
 		else
@@ -66,7 +66,7 @@ public class DatabaseGateway
 			double length = rs.getDouble("length");
 			int numberInBox = rs.getInt("numberInBox");
 			String className = rs.getString("className");
-			NailMapper nailMapper = new NailMapper(id, upc, manufacturerID, price, length, numberInBox, className);
+			NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
 			return nailMapper;
 		}
 		else
@@ -75,6 +75,14 @@ public class DatabaseGateway
 		}
 	}
 	
+	/**
+	 * Query for Tool 
+	 * 
+	 * @param id
+	 * @return ToolMapper 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static ToolMapper queryTool(int id) throws ClassNotFoundException, SQLException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
@@ -88,7 +96,7 @@ public class DatabaseGateway
 			int price = rs.getInt("price");
 			String description = rs.getString("description");
 			String className = rs.getString("className");
-			ToolMapper toolMapper = new ToolMapper(id, upc, manufacturerID, price, description, className);
+			ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
 			return toolMapper;
 		}
 		else
@@ -98,6 +106,14 @@ public class DatabaseGateway
 	}
 
 	
+	/**
+	 * Query for PowerTool
+	 * 
+	 * @param id
+	 * @return PowerToolMapper 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static PowerToolMapper queryPowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
@@ -112,7 +128,7 @@ public class DatabaseGateway
 			String description = rs.getString("description");
 			boolean batteryPowered = rs.getBoolean("batteryPowered");
 			String className = rs.getString("className");
-			PowerToolMapper powerToolMapper = new PowerToolMapper(id, upc, manufacturerID, price, description, batteryPowered, className);
+			PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
 			return powerToolMapper;
 		}
 		else
@@ -123,6 +139,14 @@ public class DatabaseGateway
 		return null;
 	}
 	
+	/**
+	 * Query for StripNail
+	 * 
+	 * @param id
+	 * @return StripNailsMapper
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public static StripNailsMapper queryStripNail(int id) throws SQLException, ClassNotFoundException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
@@ -137,7 +161,7 @@ public class DatabaseGateway
 			double length = rs.getDouble("length");
 			int numberInStrip = rs.getInt("numberInStrip");
 			String className = rs.getString("className");
-			StripNailsMapper stripNailMapper = new StripNailsMapper(id, upc, manufacturerID, price, length, numberInStrip, className);
+			StripNailsMapper stripNailMapper = new StripNailsMapper(upc, manufacturerID, price, length, numberInStrip, className);
 			return stripNailMapper;
 		}
 		else
@@ -239,69 +263,27 @@ public class DatabaseGateway
 		DatabaseGateway.insertRow(pst);
 	}
 	
-	public static String getItemByUPC(String upc) throws ClassNotFoundException, SQLException
-	{
-		String statement = "SELECT * FROM InventoryItem WHERE upc =" + "'" + upc + "'" + ";";
-		PreparedStatement pst = DatabaseGateway.getConnection().prepareStatement(statement);
-		ResultSet rs = pst.executeQuery();
-		
-		if(rs.next())
-		{
-			InventoryItem item = matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
-			String string = item.toString();
-			return string;
-		}
-		else
-		{
-			return null;
-		}		
-		
-	}
-	
-	public static InventoryItem retreiveItemByUpc(String upc) throws ClassNotFoundException, SQLException
-	{
-		String statement = "SELECT * FROM InventoryItem WHERE upc =" + "'" + upc + "'" + ";";
-		PreparedStatement pst = DatabaseGateway.getConnection().prepareStatement(statement);
-		ResultSet rs = pst.executeQuery();
-		
-		if(rs.next())
-		{
-			InventoryItem item = matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
-			return item;
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
 	/**
-	 * Matches classes with their finder constructor, constructs an object, and returns it
-	 *
-	 * @param ID
-	 * @param className
-	 * @return Object
+	 * Retrieves item by UPC 
+	 * 
+	 * @param upc
+	 * @return InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
+	public static ResultSet retrieveUPC(String upc) throws ClassNotFoundException, SQLException
 	{
-		switch(className)
+		String statement = "SELECT * FROM InventoryItem WHERE upc =" + "'" + upc + "'" + ";";
+		PreparedStatement pst = DatabaseGateway.getConnection().prepareStatement(statement);
+		ResultSet rs = pst.executeQuery();
+		
+		if(rs.next())
 		{
-		case "Tool":
-			Tool tool = new Tool(ID);
-			return tool;
-		case "PowerTool":
-			PowerTool powerTool= new PowerTool(ID);
-			return powerTool;
-		case "StripNail":
-			StripNail stripNail = new StripNail(ID);
-			return stripNail;
-		case "Nail":
-			Nail nail = new Nail(ID);
-			return nail;
-		default:
-			throw new ClassNotFoundException();
+			return rs;
+		}
+		else
+		{
+			return null;
 		}
 	}
 	
@@ -312,19 +294,93 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException
+	public static ResultSet createList() throws ClassNotFoundException, SQLException
 	{
 		ArrayList<InventoryItem> listOfObjects = new ArrayList<InventoryItem>(); 
 		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
 		Statement st = DatabaseGateway.getConnection().createStatement();
 		ResultSet rs = st.executeQuery(sqlStatement);
 
-		for(int i = 0; rs.next(); i++)
-		{
-			int id  = rs.getRow();
-			String className = rs.getString("className");
-			listOfObjects.add(i, matchClassAndConstruct(id, className));
-		}
-		return listOfObjects;
+		return rs;
+	}
+
+	/**
+	 * updates the fields of the nail in the db
+	 * 
+	 * @param nail
+	 * @throws SQLException
+	 */
+	public static void updateNailToDB(Nail nail) throws SQLException 
+	{
+		String query = "update InventoryItem set"
+				+ " upc=" + nail.getUpc()
+				+ ", manufacturerID=" + nail.getManufacturerID()
+				+ ", price=" + nail.getPrice()
+				+ ", length=" + nail.getLength()
+				+ ", numberInBox=" + nail.getNumberInBox()
+				+ " where id=" + nail.getId();
+		
+		PreparedStatement preparedStatement = con.prepareStatement(query);
+		preparedStatement.executeUpdate();		
+	}
+
+	/**
+	 * updates the fields of the tool in the db
+	 * 
+	 * @param tool
+	 * @throws SQLException
+	 */
+	public static void updateToolToDB(Tool tool) throws SQLException 
+	{
+		String query = "update InventoryItem set"
+				+ " upc=" + tool.getUpc()
+				+ ", manufacturerID=" + tool.getManufacturerID()
+				+ ", price=" + tool.getPrice()
+				+ ", description=" + "'" + tool.getDescription() + "'"
+				+ " where id=" + tool.getId();
+		
+		PreparedStatement preparedStatement = con.prepareStatement(query);
+		preparedStatement.executeUpdate();		
+	}
+
+	/**
+	 * updates the fields of the stripNail in the db
+	 * 
+	 * @param stripNail
+	 * @throws SQLException
+	 */
+	public static void updateStripNailToDB(StripNail stripNail) throws SQLException 
+	{
+		String query = "update InventoryItem set"
+				+ " upc=" + stripNail.getUpc()
+				+ ", manufacturerID=" + stripNail.getManufacturerID()
+				+ ", price=" + stripNail.getPrice()
+				+ ", length=" + stripNail.getLength()
+				+ ", numberInStrip=" + stripNail.getNumberInStrip()
+				+ " where id=" + stripNail.getId();
+		
+		PreparedStatement preparedStatement = con.prepareStatement(query);
+		preparedStatement.executeUpdate();
+	}
+
+	/**
+	 * updates the fields of the powerTool in the db
+	 * 
+	 * @param powerTool
+	 * @throws SQLException
+	 */
+	public static void updatePowerToolToDB(PowerTool powerTool) throws SQLException
+	{
+		String query = "update InventoryItem set"
+				+ " upc=" + powerTool.getUpc()
+				+ ", manufacturerID=" + powerTool.getManufacturerID()
+				+ ", price=" + powerTool.getPrice()
+				+ ", description=" + "'" + powerTool.getDescription() + "'"
+				+ ", batteryPowered=" + powerTool.isBatteryPowered()
+				+ " where id=" + powerTool.getId();
+		
+		PreparedStatement preparedStatement = con.prepareStatement(query);
+		preparedStatement.executeUpdate();
+		
 	}
 }

@@ -28,8 +28,7 @@ public class TestNailMapper
 	@Test
 	public void testCreation() throws ClassNotFoundException, SQLException 
 	{
-		NailMapper nm = new NailMapper(0, "101", 0, 0, 5.0, 0, "NailMapper");
-		assertEquals(0, nm.getId());
+		NailMapper nm = new NailMapper("101", 0, 0, 5.0, 0, "NailMapper");
 		assertEquals("101", nm.getUpc());
 		assertEquals(0, nm.getManufacturerID());
 		assertEquals(0, nm.getPrice());

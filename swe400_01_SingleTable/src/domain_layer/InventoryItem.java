@@ -1,5 +1,9 @@
 package domain_layer;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import data_source.DatabaseGateway;
 
 /**
  * @authors Drew Rife & Alec Waddelow
@@ -23,11 +27,12 @@ public abstract class InventoryItem
 	 * @param ManufacturerID
 	 * @param price
 	 */
-	InventoryItem(String UPC, int ManufacturerID, int price)
+	InventoryItem(String UPC, int ManufacturerID, int price, String className)
 	{
 		this.upc = UPC;
 		this.manufacturerID = ManufacturerID;
 		this.price = price;
+		this.className = className;
 	}
 	
 	/**
@@ -121,5 +126,55 @@ public abstract class InventoryItem
 	public void setClassName(String className) 
 	{
 		this.className = className;
+	}
+	
+	/**
+	 * Matches classes with their finder constructor, constructs an object, and returns it
+	 *
+	 * @param ID
+	 * @param className
+	 * @return Object
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
+	{
+		switch(className)
+		{
+		case "Tool":
+			Tool tool = new Tool(ID);
+			return tool;
+		case "PowerTool":
+			PowerTool powerTool= new PowerTool(ID);
+			return powerTool;
+		case "StripNail":
+			StripNail stripNail = new StripNail(ID);
+			return stripNail;
+		case "Nail":
+			Nail nail = new Nail(ID);
+			return nail;
+		default:
+			throw new ClassNotFoundException();
+		}
+	}
+	
+	/**
+	 * Retrieves details of requested itemei and returns string with details of item 
+	 * 
+	 * @param upc
+	 * @return String 
+	 * @throws ClassNotFoundExceptiongetDetails
+	 * @throws SQLException
+	 */
+	public static InventoryItem getDetails(String upc) throws ClassNotFoundException, SQLException
+	{
+		ResultSet rs = DatabaseGateway.retrieveUPC(upc);
+		InventoryItem item = null;
+		
+		if(rs != null)
+		{
+			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
+		}
+		return item;
 	}
 }

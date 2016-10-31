@@ -24,9 +24,9 @@ public class TestDBMapper
 	 */
 	public class MockDBMapper extends DBMapper
 	{
-		public MockDBMapper(int id, String upc, int manufacturerID, int price, String className) 
+		public MockDBMapper(String upc, int manufacturerID, int price, String className) 
 		{
-			super(id, upc,manufacturerID, price, className);
+			super(upc,manufacturerID, price, className);
 			
 		}
 		
@@ -38,20 +38,7 @@ public class TestDBMapper
 	@Test
 	public void testCreation() 
 	{
-		MockDBMapper mapper = new MockDBMapper(0, null, 0, 0, null);
+		MockDBMapper mapper = new MockDBMapper(null, 0, 0, null);
 		assertTrue(mapper instanceof DBMapper);
-		assertEquals(0, mapper.getId());
 	}
-	
-	/**
-	 * Tests setting the ID
-	 */
-	@Test
-	public void testSetID()
-	{
-		MockDBMapper mapper = new MockDBMapper(0, null, 0, 0, null);
-		mapper.setId(45);
-		assertEquals(45, mapper.getId());
-	}
-
 }
