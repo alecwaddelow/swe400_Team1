@@ -26,5 +26,26 @@ public class TestToolMapper
 		assertEquals(null, tm.getDescription());
 		assertEquals(null, tm.getClassName());
 	}
+	
+	/**
+	 * Tests the setters in tool mapper
+	 */
+	@Test
+	public void testSetters()
+	{
+		ToolMapper tMapper = new ToolMapper();
+		
+		tMapper.setUpc("30");
+		tMapper.setManufacturerID(40);
+		tMapper.setPrice(30);
+		tMapper.setDescription("test");
+		tMapper.setClassName("className");
+		
+		assertEquals("30", tMapper.getUpc());
+		assertEquals(40, tMapper.getManufacturerID());
+		assertEquals(30, tMapper.getPrice());
+		assertEquals("test", tMapper.getDescription());
+		assertEquals("className", tMapper.getClassName());
+	}
 
 }
