@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 /**
  * @author Drew Rife & Alec Waddelow
  *
- * Runs all tests
+ * Runs all tests with simulated user input
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
