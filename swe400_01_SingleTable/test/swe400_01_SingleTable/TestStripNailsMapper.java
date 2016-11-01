@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 import domain_layer.StripNailsMapper;
+import enums.StripNails;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -34,6 +35,28 @@ public class TestStripNailsMapper
 		assertEquals(5.0, snm.getLength(), 0.001);
 		assertEquals(1, snm.getNumberInStrip());
 		assertEquals("StripNailsMapper", snm.getClassName());
+	} 
+	
+	/**
+	 * Tests setters of StripNailsMapper
+	 */
+	@Test
+	public void testSetters()
+	{
+		StripNailsMapper stripNailsMapper = new StripNailsMapper();
+		
+		stripNailsMapper.setUpc("444");
+		stripNailsMapper.setManufacturerID(21);
+		stripNailsMapper.setPrice(40);
+		stripNailsMapper.setLength(4.5);
+		stripNailsMapper.setNumberInStrip(1);
+		stripNailsMapper.setClassName("Mapper");
+		
+		assertEquals("444", stripNailsMapper.getUpc());
+		assertEquals(21, stripNailsMapper.getManufacturerID());
+		assertEquals(40, stripNailsMapper.getPrice());
+		assertEquals(4.5, stripNailsMapper.getLength(), 0.001);
+		assertEquals(1, stripNailsMapper.getNumberInStrip());
+		assertEquals("Mapper", stripNailsMapper.getClassName());
 	}
-
 }

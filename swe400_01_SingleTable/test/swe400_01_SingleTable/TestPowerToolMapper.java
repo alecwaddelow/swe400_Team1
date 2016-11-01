@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
+import domain_layer.PowerTool;
 import domain_layer.PowerToolMapper;
 
 /**
@@ -33,5 +34,28 @@ public class TestPowerToolMapper
 		assertEquals(null, ptm.getDescription());
 		assertFalse(ptm.isBatteryPowered());
 		assertNull(ptm.getClassName());
+	}
+	
+	/**
+	 * Tests setters of PowerToolMapper
+	 */
+	@Test
+	public void testSetters()
+	{
+		PowerToolMapper powerToolMapper = new PowerToolMapper();
+		
+		powerToolMapper.setUpc("568");
+		powerToolMapper.setManufacturerID(15);
+		powerToolMapper.setPrice(30);
+		powerToolMapper.setDescription("description");
+		powerToolMapper.setBatteryPowered(true);
+		powerToolMapper.setClassName("PowerTool");
+		
+		assertEquals("568", powerToolMapper.getUpc());
+		assertEquals(15, powerToolMapper.getManufacturerID());
+		assertEquals(30, powerToolMapper.getPrice());
+		assertEquals("description", powerToolMapper.getDescription());
+		assertTrue(powerToolMapper.isBatteryPowered());
+		assertEquals("PowerTool", powerToolMapper.getClassName());
 	}
 }
