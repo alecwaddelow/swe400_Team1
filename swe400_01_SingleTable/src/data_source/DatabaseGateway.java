@@ -190,16 +190,16 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void insertNail(NailMapper nail) throws ClassNotFoundException, SQLException
+	public static void insertNail(String upc, int manufacturerID, int price, double length, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, length, numberInBox, className) VALUES(?,?,?,?,?,?)";
 		PreparedStatement pst = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1, nail.getUpc());
-		pst.setInt(2, nail.getManufacturerID());
-		pst.setInt(3, nail.getPrice());
-		pst.setDouble(4, nail.getLength());
-		pst.setInt(5,  nail.getNumberInBox());
-		pst.setString(6,  nail.getClassName());
+		pst.setString(1, upc);
+		pst.setInt(2, manufacturerID);
+		pst.setInt(3, price);
+		pst.setDouble(4, length);
+		pst.setInt(5,  numberInBox);
+		pst.setString(6,  className);
 		DatabaseGateway.insertRow(pst);
 	}
 	
@@ -210,15 +210,15 @@ public class DatabaseGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static void insertTool(ToolMapper tool) throws SQLException, ClassNotFoundException
+	public static void insertTool(String upc, int manufacturerID, int price, String description, String className) throws SQLException, ClassNotFoundException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, description, className) VALUES(?,?,?,?,?)";
 		PreparedStatement pst  = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1, tool.getUpc());
-		pst.setInt(2, tool.getManufacturerID());
-		pst.setInt(3, tool.getPrice());
-		pst.setString(4, tool.getDescription());
-		pst.setString(5, tool.getClassName());
+		pst.setString(1, upc);
+		pst.setInt(2, manufacturerID);
+		pst.setInt(3, price);
+		pst.setString(4, description);
+		pst.setString(5, className);
 		DatabaseGateway.insertRow(pst);
 	}
 	
@@ -229,16 +229,16 @@ public class DatabaseGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static void insertPowerTool(PowerToolMapper powerTool) throws SQLException, ClassNotFoundException
+	public static void insertPowerTool(String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws SQLException, ClassNotFoundException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, description, batteryPowered, className) VALUES(?,?,?,?,?,?)";
 		PreparedStatement pst  = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1,  powerTool.getUpc());
-		pst.setInt(2, powerTool.getManufacturerID());
-		pst.setInt(3, powerTool.getPrice());
-		pst.setString(4,  powerTool.getDescription());
-		pst.setBoolean(5, powerTool.isBatteryPowered());
-		pst.setString(6,  powerTool.getClassName());
+		pst.setString(1,  upc);
+		pst.setInt(2, manufacturerID);
+		pst.setInt(3, price);
+		pst.setString(4,  description);
+		pst.setBoolean(5, batteryPowered);
+		pst.setString(6,  className);
 		DatabaseGateway.insertRow(pst);
 	}
 	
@@ -249,17 +249,16 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void insertStripNail(StripNailsMapper stripNail) throws ClassNotFoundException, SQLException
+	public static void insertStripNail(String upc, int manufacturerID, int price, double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, length, numberInStrip, className) VALUES(?,?,?,?,?,?)";
 		PreparedStatement pst  = DatabaseGateway.getConnection().prepareStatement(statement);
-		
-		pst.setString(1, stripNail.getUpc());
-		pst.setInt(2, stripNail.getManufacturerID());
-		pst.setInt(3, stripNail.getPrice());
-		pst.setDouble(4, stripNail.getLength());
-		pst.setInt(5, stripNail.getNumberInStrip());
-		pst.setString(6, stripNail.getClassName());
+		pst.setString(1, upc);
+		pst.setInt(2, manufacturerID);
+		pst.setInt(3, price);
+		pst.setDouble(4, length);
+		pst.setInt(5,  numberInStrip);
+		pst.setString(6,  className);
 		DatabaseGateway.insertRow(pst);
 	}
 	

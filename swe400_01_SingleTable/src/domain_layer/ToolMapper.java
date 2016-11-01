@@ -34,7 +34,7 @@ public class ToolMapper extends DBMapper
 	 */
 	public void insertTool() throws ClassNotFoundException, SQLException
 	{
-		gateway.insertTool(this);
+		gateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
 	}
 
 	/**

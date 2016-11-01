@@ -39,7 +39,7 @@ public class PowerToolMapper extends DBMapper
 
 	public void insertPowerTool() throws ClassNotFoundException, SQLException
 	{
-		gateway.insertPowerTool(this);
+		gateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
 	}
 	/**
 	 * Empty constructor

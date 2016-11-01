@@ -58,17 +58,9 @@ public class CreateDatabase
 	 */
 	public static void insertNailsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(Nails n : Nails.values())
-		{
-			NailMapper nail = new NailMapper();
-			nail.setUpc(n.getUpc());
-			nail.setManufacturerID(n.getManufacturerID());
-			nail.setPrice(n.getPrice());
-			nail.setLength(n.getLength());
-			nail.setNumberInBox(n.getNumberInBox());
-			nail.setClassName("Nail");
-			
-			Nail nails = new Nail(nail.getUpc(), nail.getManufacturerID(), nail.getPrice(), nail.getLength(), nail.getNumberInBox(), nail.getClassName());	
+		for(Nails nail : Nails.values())
+		{			
+			new Nail(nail.getUpc(), nail.getManufacturerID(), nail.getPrice(), nail.getLength(), nail.getNumberInBox(), "Nail");	
 		}
 	}
 
@@ -80,17 +72,9 @@ public class CreateDatabase
 	 */
 	public static void insertToolsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(Tools t : Tools.values())
+		for(Tools tool : Tools.values())
 		{
-			ToolMapper tool = new ToolMapper();
-			
-			tool.setUpc(t.getUpc());
-			tool.setManufacturerID(t.getManufacturerID());
-			tool.setPrice(t.getPrice());
-			tool.setDescription(t.getDescription());
-			tool.setClassName("Tool");
-			
-			Tool tools = new Tool(tool.getUpc(), tool.getManufacturerID(), tool.getPrice(), tool.getDescription(), tool.getClassName());
+			new Tool(tool.getUpc(), tool.getManufacturerID(), tool.getPrice(), tool.getDescription(), "Tool");
 		}
 	}
 
@@ -102,18 +86,9 @@ public class CreateDatabase
 	 */
 	public static void insertStripNailsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(StripNails sn : StripNails.values())
-		{
-			StripNailsMapper stripNail = new StripNailsMapper();
-		
-			stripNail.setUpc(sn.getUpc());
-			stripNail.setManufacturerID(sn.getManufacturerID());
-			stripNail.setPrice(sn.getPrice());
-			stripNail.setLength(sn.getLength());
-			stripNail.setNumberInStrip(sn.getNumberInStrip());
-			stripNail.setClassName("StripNail");
-			
-			StripNail stripNails = new StripNail(stripNail.getUpc(), stripNail.getManufacturerID(), stripNail.getPrice(), stripNail.getLength(), stripNail.getNumberInStrip(), stripNail.getClassName());
+		for(StripNails stripNail : StripNails.values())
+		{			
+			new StripNail(stripNail.getUpc(), stripNail.getManufacturerID(), stripNail.getPrice(), stripNail.getLength(), stripNail.getNumberInStrip(), "StripNail");
 		}
 	}
 
@@ -125,18 +100,9 @@ public class CreateDatabase
 	 */
 	public static void insertPowerToolsIntoTable() throws ClassNotFoundException, SQLException
 	{
-		for(PowerTools pt : PowerTools.values())
+		for(PowerTools powerTool : PowerTools.values())
 		{
-			PowerToolMapper powerTool = new PowerToolMapper();
-			
-			powerTool.setUpc(pt.getUpc());
-			powerTool.setManufacturerID(pt.getManufacturerID());
-			powerTool.setPrice(pt.getPrice());
-			powerTool.setDescription(pt.getDescription());
-			powerTool.setClassName("PowerTool");
-			powerTool.setBatteryPowered(pt.isBatteryPowered());
-			
-			PowerTool powerTools = new PowerTool(powerTool.getUpc(), powerTool.getManufacturerID(), powerTool.getPrice(), powerTool.getDescription(), powerTool.isBatteryPowered(), powerTool.getClassName());
+			new PowerTool(powerTool.getUpc(), powerTool.getManufacturerID(), powerTool.getPrice(), powerTool.getDescription(), powerTool.isBatteryPowered(), "PowerTool");
 		}
 	}
 }
