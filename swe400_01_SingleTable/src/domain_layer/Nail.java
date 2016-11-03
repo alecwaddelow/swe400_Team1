@@ -151,49 +151,4 @@ public class Nail extends Fastener
 		return "Nail [upc=" + this.upc + ", manufacturerID=" + this.manufacturerID + ", price=" + this.price 
 				+ ", length=" + this.length + ", numberInBox=" + this.numberInBox + "]";
 	}
-	
-	/**
-	 * Updates the item  locally then sends the fields to the insert function in the gateway
-	 * 
-	 * @param sc
-	 * @param item
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public static void update(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException 
-	{
-		Nail nail = (Nail) item;
-		
-		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
-		
-		System.out.println("Plase enter the UPC:");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter the manufacturerID:");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter the price of the item:");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		System.out.println("Please enter length \n");
-		String length = sc.nextLine();
-		double lengthParse = Double.parseDouble(length);
-			
-		System.out.println("Please enter Number in Box \n");
-		String numberInBox = sc.nextLine();
-		int numberInBoxParse = Integer.parseInt(numberInBox);
-			
-		nail.setUpc(upc);
-		nail.setManufacturerID(manufacturerIDParse);
-		nail.setPrice(priceParse);
-		nail.setLength(lengthParse);
-		nail.setNumberInBox(numberInBoxParse);
-			
-		DatabaseGateway.updateNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, item.getId());
-		
-		System.out.println("\nItem updated:");
-		System.out.println(nail.toString());
-	}
 }
