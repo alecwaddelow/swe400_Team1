@@ -249,15 +249,15 @@ public class DatabaseGateway
 	 * @param nail
 	 * @throws SQLException
 	 */
-	public static void updateNailToDB(Nail nail) throws SQLException 
+	public static void updateNailToDB(String upc, int manufacturerID, int price, double length, int numberInBox, int id) throws SQLException 
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + nail.getUpc()
-				+ ", manufacturerID=" + nail.getManufacturerID()
-				+ ", price=" + nail.getPrice()
-				+ ", length=" + nail.getLength()
-				+ ", numberInBox=" + nail.getNumberInBox()
-				+ " where id=" + nail.getId();
+				+ " upc=" + upc
+				+ ", manufacturerID=" + manufacturerID
+				+ ", price=" + price
+				+ ", length=" + length
+				+ ", numberInBox=" + numberInBox
+				+ " where id=" + id;
 		
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();		
@@ -269,14 +269,14 @@ public class DatabaseGateway
 	 * @param tool
 	 * @throws SQLException
 	 */
-	public static void updateToolToDB(Tool tool) throws SQLException 
+	public static void updateToolToDB(String upc, int manufacturerID, int price, String description, int id) throws SQLException 
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + tool.getUpc()
-				+ ", manufacturerID=" + tool.getManufacturerID()
-				+ ", price=" + tool.getPrice()
-				+ ", description=" + "'" + tool.getDescription() + "'"
-				+ " where id=" + tool.getId();
+				+ " upc=" + upc
+				+ ", manufacturerID=" + manufacturerID
+				+ ", price=" + price
+				+ ", description=" + "'" + description + "'"
+				+ " where id=" + id;
 		
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();		
@@ -288,15 +288,15 @@ public class DatabaseGateway
 	 * @param stripNail
 	 * @throws SQLException
 	 */
-	public static void updateStripNailToDB(StripNail stripNail) throws SQLException 
+	public static void updateStripNailToDB(String upc, int manufacturerID, int price, double length, int numberInStrip, int id) throws SQLException 
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + stripNail.getUpc()
-				+ ", manufacturerID=" + stripNail.getManufacturerID()
-				+ ", price=" + stripNail.getPrice()
-				+ ", length=" + stripNail.getLength()
-				+ ", numberInStrip=" + stripNail.getNumberInStrip()
-				+ " where id=" + stripNail.getId();
+				+ " upc=" + upc
+				+ ", manufacturerID=" + manufacturerID
+				+ ", price=" + price
+				+ ", length=" + length
+				+ ", numberInStrip=" + numberInStrip
+				+ " where id=" + id;
 		
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();
@@ -308,15 +308,15 @@ public class DatabaseGateway
 	 * @param powerTool
 	 * @throws SQLException
 	 */
-	public static void updatePowerToolToDB(PowerTool powerTool) throws SQLException
+	public static void updatePowerToolToDB(String upc, int manufacturerID, int price, String description, boolean batteryPowered, int id) throws SQLException
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + powerTool.getUpc()
-				+ ", manufacturerID=" + powerTool.getManufacturerID()
-				+ ", price=" + powerTool.getPrice()
-				+ ", description=" + "'" + powerTool.getDescription() + "'"
-				+ ", batteryPowered=" + powerTool.isBatteryPowered()
-				+ " where id=" + powerTool.getId();
+				+ " upc=" + upc
+				+ ", manufacturerID=" + manufacturerID
+				+ ", price=" + price
+				+ ", description=" + "'" + description + "'"
+				+ ", batteryPowered=" + batteryPowered
+				+ " where id=" + id;
 		
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();
