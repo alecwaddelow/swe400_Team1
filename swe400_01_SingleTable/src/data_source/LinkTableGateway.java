@@ -93,4 +93,12 @@ public class LinkTableGateway
 		LinkTableGateway.getConnection().commit();
 		statement.close();
 	}
+
+	public static void addRelation(int powerToolID, int stripNailID) throws SQLException, ClassNotFoundException 
+	{
+		PreparedStatement statement = con.prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
+		statement.setInt(1, powerToolID);
+		statement.setInt(2, stripNailID);
+		insertRow(statement);
+	}
 }

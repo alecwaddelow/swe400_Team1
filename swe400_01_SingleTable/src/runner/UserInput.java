@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.sun.beans.editors.IntegerEditor;
+
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain_layer.*;
@@ -449,6 +452,14 @@ public class UserInput
 		System.out.println(powerTool.toString());
 	}
 		
+	/**
+	 * Sets the relationship for the created PowerTool
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	private static void setRelationForPowerTool(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
 		boolean run = true;
@@ -475,10 +486,21 @@ public class UserInput
 		
 	}
 
+	/**
+	 * Adds the compatible stripnail to the PowerTool
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	private static void addCompatibleStripNail(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
 		ResultSet rSet = DatabaseGateway.getStripNailUPCs();
 		ArrayList<StripNail> stripNailList = new ArrayList<StripNail>(); 
+		ArrayList<String> inputtedValues = new ArrayList<String>(); 
+		
+		StripNail stripNail = null;
 		boolean run = true;
 		int i = 1;
 		String input = null;
@@ -486,7 +508,7 @@ public class UserInput
 		{
 			while(rSet.next())
 			{
-				StripNail stripNail = new StripNail(rSet.getInt("id"));
+				stripNail = new StripNail(rSet.getInt("id"));
 				stripNailList.add(stripNail);
 				System.out.println(i);
 				System.out.println(stripNail.toString());
@@ -496,14 +518,16 @@ public class UserInput
 			System.out.println("Please enter the number you would like to add");
 			input = sc.nextLine();
 			
-			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i)
+			
+			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i && checkForDuplicates(input, inputtedValues))
 			{
-				System.out.println(powerTool.getId());
-//				LinkTableGateway.addRelation();
+				inputtedValues.add(input);
+				stripNail = stripNailList.get(Integer.parseInt(input)-1);
+				LinkTableGateway.addRelation(powerTool.getId(), stripNail.getId());
 			}
 			else
 			{
-				System.out.print("Error: you didn't enter in a valid number");
+				System.out.println("Error: you didn't enter in a valid number");
 			}	
 			
 			System.out.println("Would you like to add another relation? (Y/N)");
@@ -527,6 +551,30 @@ public class UserInput
 				}				
 			}
 		}		
+	}
+
+	/**
+	 * checks to make sure user isn't inputting the same value twice
+	 * 
+	 * @param inputtedValues
+	 * @return
+	 */
+	private static boolean checkForDuplicates(String input, ArrayList<String> inputtedValues) 
+	{
+		boolean noDuplicates = true;
+		
+		if(inputtedValues != null)
+		{
+			for(String value : inputtedValues)
+			{
+				if(Integer.parseInt(input) == Integer.parseInt(value))
+				{
+					System.out.println("Error: You are not allowed to enter a duplicate relation");
+					noDuplicates = false;
+				}
+			}
+		}
+		return noDuplicates;
 	}
 
 	/**
