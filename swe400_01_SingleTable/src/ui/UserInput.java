@@ -1,4 +1,4 @@
-package runner;
+package ui;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +7,7 @@ import java.util.Scanner;
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain_layer.*;
+import runner.Runner;
 
 public class UserInput 
 {

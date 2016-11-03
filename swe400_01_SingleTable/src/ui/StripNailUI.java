@@ -1,21 +1,20 @@
-package runner;
+package ui;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import data_source.DatabaseGateway;
 import domain_layer.InventoryItem;
-import domain_layer.PowerTool;
+import domain_layer.StripNail;
 
-public class PowerToolUI 
+public class StripNailUI 
 {
 	/**
-	 * Creates a new PowerTool and adds to the Database 
+	 * Creates a new StripNail and adds to the Database 
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void createPowerTool(Scanner sc) throws ClassNotFoundException, SQLException 
+	public static void createStripNail(Scanner sc) throws ClassNotFoundException, SQLException 
 	{
 		System.out.println("Please enter UPC code \n");
 		String upc = sc.nextLine();
@@ -28,31 +27,32 @@ public class PowerToolUI
 		String price = sc.nextLine();
 		int priceParse = Integer.parseInt(price);
 		
-		System.out.println("Please enter Description \n");
-		String description = sc.nextLine();
+		System.out.println("Please enter length \n");
+		String length = sc.nextLine();
+		double lengthParse = Double.parseDouble(length);
 		
-		System.out.println("Please enter if the item is battery powered (true/false) \n");
-		String batteryPowered = sc.nextLine();
-		boolean batteryPoweredParse = Boolean.parseBoolean(batteryPowered);
+		System.out.println("Please enter number in strip \n");
+		String numberInStrip = sc.nextLine();
+		int numberInStripParse = Integer.parseInt(numberInStrip);
+	
+		StripNail stripNail = new StripNail(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, "StripNail");
 		
-		PowerTool powerTool = new PowerTool(upc, manufacturerIDParse, priceParse, description, batteryPoweredParse, "PowerTool");
-		
-		powerToolRelationPrompt(sc, powerTool);
+		stripNailRelationPrompt(sc, stripNail);
 		
 		System.out.println("Item added");
-		System.out.println(powerTool.toString());
+		System.out.println(stripNail.toString());
 	}
 	
 	/**
-	 * Updates a powertool object 
+	 * Updates a stripnail object
 	 * 
 	 * @param sc
 	 * @param item
 	 * @throws SQLException
 	 */
-	public static void updatePowerTool(Scanner sc, InventoryItem item) throws SQLException 
+	public static void updateStripNail(Scanner sc, InventoryItem item) throws SQLException 
 	{
-		PowerTool powerTool = (PowerTool) item;
+		StripNail stripNail = (StripNail) item;
 		
 		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
 		
@@ -67,33 +67,24 @@ public class PowerToolUI
 		String price = sc.nextLine();
 		int priceParse = Integer.parseInt(price);
 		
-		System.out.println("Please enter the description");
-		String description = sc.nextLine();
+		System.out.println("Please enter length \n");
+		String length = sc.nextLine();
+		double lengthParse = Double.parseDouble(length);
 		
-		System.out.println("If it's battery powered please type true, if not type false");
-		String batteryPowered = sc.nextLine();
+		System.out.println("Please enter Number in Strip \n");
+		String numberInStrip = sc.nextLine();
+		int numberInStripParse = Integer.parseInt(numberInStrip);
 		
-		powerTool.setUpc(upc);
-		powerTool.setManufacturerID(manufacturerIDParse);
-		powerTool.setPrice(priceParse);
-		powerTool.setDescription(description);
-
-		boolean isBatteryPowered;
-		if(batteryPowered.equalsIgnoreCase("true"))
-		{
-			powerTool.setBatteryPowered(true);
-			isBatteryPowered = true;
-		}
-		else
-		{
-			powerTool.setBatteryPowered(false);
-			isBatteryPowered = false;
-		}
+		stripNail.setUpc(upc);
+		stripNail.setManufacturerID(manufacturerIDParse);
+		stripNail.setPrice(priceParse);
+		stripNail.setLength(lengthParse);
+		stripNail.setNumberInStrip(numberInStripParse);	
 		
-		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
+		DatabaseGateway.updateStripNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, item.getId());
 		
 		System.out.println("\nItem updated:");
-		System.out.println(powerTool.toString());
+		System.out.println(stripNail.toString());
 	}
 	
 	/**
@@ -104,10 +95,10 @@ public class PowerToolUI
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void powerToolRelationPrompt(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	public static void stripNailRelationPrompt(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
 	{
 		boolean run = true;
-		InventoryItem item = powerTool;
+		InventoryItem item = stripNail;
 		
 		while(run)
 		{

@@ -1,4 +1,4 @@
-package runner;
+package ui;
 import java.sql.SQLException;
 import java.util.Scanner;
 import data_source.DatabaseGateway;

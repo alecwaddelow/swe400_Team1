@@ -1,13 +1,10 @@
 package runner;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javax.naming.NamingException;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 import data_source.*;
 import domain_layer.*;
+import ui.UserInput;
 
 /**
  * @authors Drew Rife & Alec Waddelow
