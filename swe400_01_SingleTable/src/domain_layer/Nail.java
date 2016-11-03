@@ -1,4 +1,5 @@
 package domain_layer;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
 
@@ -21,21 +22,29 @@ public class Nail extends Fastener
 	public Nail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		NailMapper mapper = DatabaseGateway.queryNail(this.id);
+		ResultSet rs = DatabaseGateway.queryNail(this.id);
 		
-		if(mapper == null)
+		if(rs.next())
 		{
-			ClassNotFoundException exception = new ClassNotFoundException("Could not find nail with specified ID");
-			exception.getMessage();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			double length = rs.getDouble("length");
+			int numberInBox = rs.getInt("numberInBox");
+			String className = rs.getString("className");
+			NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
+			
+			setUpc(nailMapper.getUpc());
+			setManufacturerID(nailMapper.getManufacturerID());
+			setPrice(nailMapper.getPrice());
+			setLength(nailMapper.getLength());
+			setNumberInBox(nailMapper.getNumberInBox());
+			setClassName(nailMapper.getClassName());
 		}
 		else
 		{
-			super.setUpc(mapper.getUpc());
-			super.setManufacturerID(mapper.getManufacturerID());
-			super.setPrice(mapper.getPrice());
-			super.setLength(mapper.getLength());
-			this.numberInBox = mapper.getNumberInBox();
-			super.setClassName(mapper.getClassName());
+			ClassNotFoundException exception = new ClassNotFoundException("Could not find nail with specified ID");
+			exception.getMessage();
 		}
 	}
 

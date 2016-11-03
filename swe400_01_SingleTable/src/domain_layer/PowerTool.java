@@ -26,22 +26,30 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		PowerToolMapper mapper = DatabaseGateway.queryPowerTool(this.id);
-		if(mapper == null)
+		ResultSet rs = DatabaseGateway.queryPowerTool(this.id);
+		
+		if(rs.next())
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("The requested PowerTool could not be found");
-			notFoundException.getMessage();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			String description = rs.getString("description");
+			boolean batteryPowered = rs.getBoolean("batteryPowered");
+			String className = rs.getString("className");
+			PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
+			
+			setUpc(powerToolMapper.getUpc());
+			setManufacturerID(powerToolMapper.getManufacturerID());
+			setPrice(powerToolMapper.getPrice());
+			setDescription(powerToolMapper.getDescription());
+			setBatteryPowered(powerToolMapper.isBatteryPowered());
+			setClassName(powerToolMapper.getClassName());
 		}
 		else
 		{
-			super.setUpc(mapper.getUpc());
-			super.setManufacturerID(mapper.getManufacturerID());
-			super.setPrice(mapper.getPrice());
-			this.description = mapper.getDescription();
-			this.batteryPowered = mapper.isBatteryPowered();
-			super.setClassName(mapper.getClassName());
-		}
-		
+			ClassNotFoundException exception = new ClassNotFoundException("Could not find PowerTool with specified ID");
+			exception.getMessage();
+		}		
 	}
 
 	/**

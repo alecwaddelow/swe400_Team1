@@ -1,4 +1,5 @@
 package domain_layer;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
 
@@ -20,19 +21,27 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ToolMapper mapper = DatabaseGateway.queryTool(this.id);
-		if(mapper == null)
+		ResultSet rs = DatabaseGateway.queryTool(this.id);
+		
+		if(rs.next())
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
-			notFoundException.getMessage();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			String description = rs.getString("description");
+			String className = rs.getString("className");
+			ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
+			
+			setUpc(toolMapper.getUpc());
+			setManufacturerID(toolMapper.getManufacturerID());
+			setPrice(toolMapper.getPrice());
+			setDescription(toolMapper.getDescription());
+			setClassName(toolMapper.getClassName());			
 		}
 		else
 		{
-			super.setUpc(mapper.getUpc());
-			super.setManufacturerID(mapper.getManufacturerID());
-			super.setPrice(mapper.getPrice());
-			this.description = mapper.getDescription();
-			super.setClassName(mapper.getClassName());
+			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
+			notFoundException.getMessage();
 		}
 	}
 

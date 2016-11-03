@@ -25,20 +25,29 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		StripNailsMapper mapper = DatabaseGateway.queryStripNail(this.id);
-		if(mapper == null)
+		ResultSet rs = DatabaseGateway.queryStripNail(this.id);
+		
+		if(rs.next())
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find requested StripNail");
-			notFoundException.getMessage();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			double length = rs.getDouble("length");
+			int numberInStrip = rs.getInt("numberInStrip");
+			String className = rs.getString("className");
+			StripNailsMapper stripNailMapper = new StripNailsMapper(upc, manufacturerID, price, length, numberInStrip, className);
+			
+			setUpc(stripNailMapper.getUpc());
+			setManufacturerID(stripNailMapper.getManufacturerID());
+			setPrice(stripNailMapper.getPrice());
+			setLength(stripNailMapper.getLength());
+			setNumberInStrip(stripNailMapper.getNumberInStrip());
+			setClassName(stripNailMapper.getClassName());
 		}
 		else
 		{
-			super.setUpc(mapper.getUpc());
-			super.setManufacturerID(mapper.getManufacturerID());
-			super.setPrice(mapper.getPrice());
-			super.setLength(mapper.getLength());
-			this.numberInStrip = mapper.getNumberInStrip();
-			super.setClassName(mapper.getClassName());
+			ClassNotFoundException exception = new ClassNotFoundException("Could not find stripnail with specified ID");
+			exception.getMessage();
 		}
 	}
 

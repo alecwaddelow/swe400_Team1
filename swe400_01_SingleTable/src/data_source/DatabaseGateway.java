@@ -53,26 +53,12 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static NailMapper queryNail(int id) throws ClassNotFoundException, SQLException
+	public static ResultSet queryNail(int id) throws ClassNotFoundException, SQLException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
 		ResultSet rs = statement.executeQuery(sqlStatement);
-		if(rs.next())
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInBox = rs.getInt("numberInBox");
-			String className = rs.getString("className");
-			NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
-			return nailMapper;
-		}
-		else
-		{
-			return null;
-		}
+		return rs;
 	}
 	
 	/**
@@ -83,26 +69,12 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ToolMapper queryTool(int id) throws ClassNotFoundException, SQLException
+	public static ResultSet queryTool(int id) throws ClassNotFoundException, SQLException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
 		ResultSet rs = statement.executeQuery(sqlStatement);
-		
-		if(rs.next())
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			String description = rs.getString("description");
-			String className = rs.getString("className");
-			ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
-			return toolMapper;
-		}
-		else
-		{
-			return null;
-		}
+		return rs;
 	}
 
 	
@@ -114,29 +86,12 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static PowerToolMapper queryPowerTool(int id) throws ClassNotFoundException, SQLException
+	public static ResultSet queryPowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
 		ResultSet rs = statement.executeQuery(sqlStatement);
-		
-		if(rs.next())
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			String description = rs.getString("description");
-			boolean batteryPowered = rs.getBoolean("batteryPowered");
-			String className = rs.getString("className");
-			PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
-			return powerToolMapper;
-		}
-		else
-		{
-			ClassNotFoundException exception = new ClassNotFoundException("Could not find PowerTool with specified ID");
-			exception.getMessage();
-		}
-		return null;
+		return rs;
 	}
 	
 	/**
@@ -147,27 +102,12 @@ public class DatabaseGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static StripNailsMapper queryStripNail(int id) throws SQLException, ClassNotFoundException
+	public static ResultSet queryStripNail(int id) throws SQLException, ClassNotFoundException
 	{
 		Statement statement = DatabaseGateway.getConnection().createStatement();
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
 		ResultSet rs = statement.executeQuery(sqlStatement);
-		
-		if(rs.next())
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInStrip = rs.getInt("numberInStrip");
-			String className = rs.getString("className");
-			StripNailsMapper stripNailMapper = new StripNailsMapper(upc, manufacturerID, price, length, numberInStrip, className);
-			return stripNailMapper;
-		}
-		else
-		{
-			return null;
-		}
+		return rs;
 	}
 	
 	/**
