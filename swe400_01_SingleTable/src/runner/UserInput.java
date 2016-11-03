@@ -405,6 +405,9 @@ public class UserInput
 		int numberInStripParse = Integer.parseInt(numberInStrip);
 	
 		StripNail stripNail = new StripNail(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, "StripNail");
+		
+		System.out.println("Item added");
+		System.out.println(stripNail.toString());
 	}
 
 	/**
@@ -434,6 +437,9 @@ public class UserInput
 		boolean batteryPoweredParse = Boolean.parseBoolean(batteryPowered);
 		
 		PowerTool powerTool = new PowerTool(upc, manufacturerIDParse, priceParse, description, batteryPoweredParse, "PowerTool");
+		
+		System.out.println("Item added");
+		System.out.println(powerTool.toString());
 	}
 		
 	/**
@@ -459,6 +465,9 @@ public class UserInput
 		String description = sc.nextLine();
 		
 		Tool tool = new Tool(upc, manufacturerIDParse, priceParse, description, "Tool");
+		
+		System.out.println("Item added");
+		System.out.println(tool.toString());
 	}
 
 	/**
@@ -490,5 +499,8 @@ public class UserInput
 		int numberInBoxParse = Integer.parseInt(numberInBox);
 		
 		Nail nail = new Nail(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, "Nail");
+		
+		System.out.println("Item added");
+		System.out.println(nail.toString());
 	}
 }
