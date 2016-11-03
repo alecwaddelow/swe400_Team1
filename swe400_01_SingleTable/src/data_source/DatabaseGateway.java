@@ -323,19 +323,7 @@ public class DatabaseGateway
 		
 	}
 
-	/**
-	 * @return the resultset of querying for all StripNails
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public static ResultSet getStripNailUPCs() throws ClassNotFoundException, SQLException 
-	{
-		String sqlStatement = "select * from InventoryItem where className=" + "'" + "StripNail" + "'";
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rs = st.executeQuery(sqlStatement);
-		return rs;
-	}
+	
 	
 	/**
 	 * returns the id of the item
@@ -358,5 +346,32 @@ public class DatabaseGateway
 		{
 			return 0;
 		}			
+	}
+	
+	/**
+	 * @return the resultset of querying for all StripNails
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static ResultSet getStripNailUPCs() throws ClassNotFoundException, SQLException 
+	{
+		String sqlStatement = "select * from InventoryItem where className=" + "'" + "StripNail" + "'";
+		Statement st = DatabaseGateway.getConnection().createStatement();
+		ResultSet rs = st.executeQuery(sqlStatement);
+		return rs;
+	}
+
+	/**
+	 * @return the resultset of querying for all powertools
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static ResultSet getPowerToolUPCs() throws ClassNotFoundException, SQLException
+	{
+		String sqlStatement = "select * from InventoryItem where className=" + "'" + "PowerTool" + "'";
+		Statement st = DatabaseGateway.getConnection().createStatement();
+		ResultSet rs = st.executeQuery(sqlStatement);
+		return rs;
 	}
 }

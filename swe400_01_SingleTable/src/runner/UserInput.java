@@ -414,6 +414,8 @@ public class UserInput
 	
 		StripNail stripNail = new StripNail(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, "StripNail");
 		
+		setRelationForStripNail(sc, stripNail);
+		
 		System.out.println("Item added");
 		System.out.println(stripNail.toString());
 	}
@@ -463,6 +465,7 @@ public class UserInput
 	private static void setRelationForPowerTool(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
 		boolean run = true;
+		InventoryItem item = powerTool;
 		
 		while(run)
 		{
@@ -471,7 +474,42 @@ public class UserInput
 			
 			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
 			{
-				addCompatibleStripNail(sc, powerTool);
+				addCompatibles(sc, item);
+				run = false;
+			}
+			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				run = false;
+			}
+			else 
+			{
+				System.out.println("Error: invalid input");
+			}
+		}
+		
+	}
+	
+	/**
+	 * Sets the relationship for the created PowerTool
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void setRelationForStripNail(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
+	{
+		boolean run = true;
+		InventoryItem item = stripNail;
+		
+		while(run)
+		{
+			System.out.println("Would you like to add compatible strip nails (Y/N)");
+			String input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+			{
+				addCompatibles(sc, item);
 				run = false;
 			}
 			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
@@ -494,26 +532,44 @@ public class UserInput
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	private static void addCompatibleStripNail(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	private static void addCompatibles(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException 
 	{
-		ResultSet rSet = DatabaseGateway.getStripNailUPCs();
-		ArrayList<StripNail> stripNailList = new ArrayList<StripNail>(); 
+		ArrayList<InventoryItem> itemList = new ArrayList<InventoryItem>(); 
 		ArrayList<String> inputtedValues = new ArrayList<String>(); 
 		
-		StripNail stripNail = null;
 		boolean run = true;
-		int i = 1;
 		String input = null;
+		
+		PowerTool powerTool = null;
+		StripNail stripNail = null;
 		while (run)
 		{
-			while(rSet.next())
+			int i = 1;
+			if(item.getClassName().equalsIgnoreCase("PowerTool"))
 			{
-				stripNail = new StripNail(rSet.getInt("id"));
-				stripNailList.add(stripNail);
-				System.out.println(i);
-				System.out.println(stripNail.toString());
-				i++;
+				ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+				while(rSet.next())
+				{
+					stripNail = new StripNail(rSet.getInt("id"));
+					itemList.add(stripNail);
+					System.out.println(i);
+					System.out.println(stripNail.toString());
+					i++;
+				}
 			}
+			else if(item.getClassName().equalsIgnoreCase("StripNail"))
+			{
+				ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
+				while(rSet.next())
+				{
+					powerTool = new PowerTool(rSet.getInt("id"));
+					itemList.add(powerTool);
+					System.out.println(i);
+					System.out.println(powerTool.toString());
+					i++;
+				}
+			}
+				
 			
 			System.out.println("Please enter the number you would like to add");
 			input = sc.nextLine();
@@ -522,8 +578,16 @@ public class UserInput
 			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i && checkForDuplicates(input, inputtedValues))
 			{
 				inputtedValues.add(input);
-				stripNail = stripNailList.get(Integer.parseInt(input)-1);
-				LinkTableGateway.addRelation(powerTool.getId(), stripNail.getId());
+				if(item.getClassName().equalsIgnoreCase("PowerTool"))
+				{
+					stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
+					LinkTableGateway.addRelation(item.getId(), stripNail.getId());
+				}
+				else
+				{
+					powerTool = (PowerTool) itemList.get(Integer.parseInt(input)-1); 
+					LinkTableGateway.addRelation(powerTool.getId(), item.getId());
+				}
 			}
 			else
 			{
