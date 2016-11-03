@@ -552,7 +552,7 @@ public class UserInput
 				{
 					stripNail = new StripNail(rSet.getInt("id"));
 					itemList.add(stripNail);
-					System.out.println(i);
+					System.out.print(i + ". ");
 					System.out.println(stripNail.toString());
 					i++;
 				}
