@@ -1,17 +1,12 @@
 package runner;
 
-import java.io.PrintStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.sun.beans.editors.IntegerEditor;
-
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain_layer.*;
-import sun.font.TrueTypeFont;
 
 public class UserInput 
 {
@@ -69,220 +64,6 @@ public class UserInput
 	}
 	
 	/**
-	 * Prompts for the user to update an item to the database 
-	 * 
-	 * @param sc
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	private static void updatePrompt(Scanner sc) throws ClassNotFoundException, SQLException 
-	{
-		boolean flag = true;
-		while(flag)
-		{
-			InventoryItem item = validUPCRequest(sc);
-			
-			System.out.println("\nIs this the item you'd like to edit? (Y/N)");
-			String input = sc.nextLine();
-			
-			/* if y or yes then update that item to the database */
-			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
-			{
-				Runner.printDetailsOfItem(item);
-				
-				switch(item.getClassName())
-				{
-					case "Nail":
-						updateNail(sc, item);
-						break;
-					case "Tool":
-						updateTool(sc, item);
-						break;
-					case "StripNail":
-						updateStripNail(sc, item);
-						break;
-					case "PowerTool":
-						updatePowerTool(sc, item);
-						break;
-				}
-				
-				flag = false;
-			}
-			/* if not see if they want to go back to the main prompt */
-			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-			{
-				System.out.println("Would you like to go back to the main prompt? (Y/N)");
-				input = sc.nextLine();
-				
-				/* if they enter anything other than y or yes then just re-ask the question */
-				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
-				{
-					flag = false;
-				}
-			}
-		}		
-	}
-
-	private static void updatePowerTool(Scanner sc, InventoryItem item) throws SQLException 
-	{
-		PowerTool powerTool = (PowerTool) item;
-		
-		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
-		
-		System.out.println("Plase enter the UPC:");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter the manufacturerID:");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter the price of the item:");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		System.out.println("Please enter the description");
-		String description = sc.nextLine();
-		
-		System.out.println("If it's battery powered please type true, if not type false");
-		String batteryPowered = sc.nextLine();
-		
-		powerTool.setUpc(upc);
-		powerTool.setManufacturerID(manufacturerIDParse);
-		powerTool.setPrice(priceParse);
-		powerTool.setDescription(description);
-
-		boolean isBatteryPowered;
-		if(batteryPowered.equalsIgnoreCase("true"))
-		{
-			powerTool.setBatteryPowered(true);
-			isBatteryPowered = true;
-		}
-		else
-		{
-			powerTool.setBatteryPowered(false);
-			isBatteryPowered = false;
-		}
-		
-		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
-		
-		System.out.println("\nItem updated:");
-		System.out.println(powerTool.toString());
-	}
-
-	private static void updateStripNail(Scanner sc, InventoryItem item) throws SQLException 
-	{
-		StripNail stripNail = (StripNail) item;
-		
-		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
-		
-		System.out.println("Plase enter the UPC:");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter the manufacturerID:");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter the price of the item:");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		System.out.println("Please enter length \n");
-		String length = sc.nextLine();
-		double lengthParse = Double.parseDouble(length);
-		
-		System.out.println("Please enter Number in Strip \n");
-		String numberInStrip = sc.nextLine();
-		int numberInStripParse = Integer.parseInt(numberInStrip);
-		
-		stripNail.setUpc(upc);
-		stripNail.setManufacturerID(manufacturerIDParse);
-		stripNail.setPrice(priceParse);
-		stripNail.setLength(lengthParse);
-		stripNail.setNumberInStrip(numberInStripParse);	
-		
-		DatabaseGateway.updateStripNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, item.getId());
-		
-		System.out.println("\nItem updated:");
-		System.out.println(stripNail.toString());
-	}
-
-	private static void updateTool(Scanner sc, InventoryItem item) throws SQLException 
-	{
-		Tool tool = (Tool)item;
-		
-		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
-		
-		System.out.println("Plase enter the UPC:");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter the manufacturerID:");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter the price of the item:");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		System.out.println("Please enter the description");
-		String description = sc.nextLine();
-		
-		tool.setUpc(upc);
-		tool.setManufacturerID(manufacturerIDParse);
-		tool.setPrice(priceParse);
-		tool.setDescription(description);
-		
-		DatabaseGateway.updateToolToDB(upc, manufacturerIDParse, priceParse, description, item.getId());
-		
-		System.out.println("\nItem updated:");
-		System.out.println(tool.toString());
-	}
-
-	/**
-	 * Updates the item  locally then sends the fields to the insert function in the gateway
-	 * 
-	 * @param sc
-	 * @param item
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	private static void updateNail(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException 
-	{
-		Nail nail = (Nail) item;
-		
-		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
-		
-		System.out.println("Plase enter the UPC:");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter the manufacturerID:");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter the price of the item:");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		System.out.println("Please enter length \n");
-		String length = sc.nextLine();
-		double lengthParse = Double.parseDouble(length);
-			
-		System.out.println("Please enter Number in Box \n");
-		String numberInBox = sc.nextLine();
-		int numberInBoxParse = Integer.parseInt(numberInBox);
-			
-		nail.setUpc(upc);
-		nail.setManufacturerID(manufacturerIDParse);
-		nail.setPrice(priceParse);
-		nail.setLength(lengthParse);
-		nail.setNumberInBox(numberInBoxParse);
-			
-		DatabaseGateway.updateNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, item.getId());
-		
-		System.out.println("\nItem updated:");
-		System.out.println(nail.toString());
-	}
-
-	/**
 	 * Make sure the user entered a valid value for an option to either:
 	 * 1. Search an item by upc
 	 * 2. add
@@ -309,7 +90,7 @@ public class UserInput
 		
 		return validChoice;
 	}
-
+	
 	/**
 	 * Requests the user to enter the UPC of an item
 	 * 
@@ -386,12 +167,67 @@ public class UserInput
 	}
 	
 	/**
-	 * Creates a new StripNail and adds to the Database 
+	 * Prompts for the user to update an item to the database 
+	 * 
+	 * @param sc
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void updatePrompt(Scanner sc) throws ClassNotFoundException, SQLException 
+	{
+		boolean flag = true;
+		while(flag)
+		{
+			InventoryItem item = validUPCRequest(sc);
+			
+			System.out.println("\nIs this the item you'd like to edit? (Y/N)");
+			String input = sc.nextLine();
+			
+			/* if y or yes then update that item to the database */
+			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+			{
+				Runner.printDetailsOfItem(item);
+				
+				switch(item.getClassName())
+				{
+					case "Nail":
+						updateNail(sc, item);
+						break;
+					case "Tool":
+						updateTool(sc, item);
+						break;
+					case "StripNail":
+						updateStripNail(sc, item);
+						break;
+					case "PowerTool":
+						updatePowerTool(sc, item);
+						break;
+				}
+				
+				flag = false;
+			}
+			/* if not see if they want to go back to the main prompt */
+			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				System.out.println("Would you like to go back to the main prompt? (Y/N)");
+				input = sc.nextLine();
+				
+				/* if they enter anything other than y or yes then just re-ask the question */
+				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+				{
+					flag = false;
+				}
+			}
+		}		
+	}
+	
+	/**
+	 * Creates a new Nail and adds to the Database 
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	private static void createStripNail(Scanner sc) throws ClassNotFoundException, SQLException 
+	private static void createNail(Scanner sc) throws ClassNotFoundException, SQLException 
 	{
 		System.out.println("Please enter UPC code \n");
 		String upc = sc.nextLine();
@@ -404,22 +240,133 @@ public class UserInput
 		String price = sc.nextLine();
 		int priceParse = Integer.parseInt(price);
 		
+		
 		System.out.println("Please enter length \n");
 		String length = sc.nextLine();
 		double lengthParse = Double.parseDouble(length);
 		
-		System.out.println("Please enter number in strip \n");
-		String numberInStrip = sc.nextLine();
-		int numberInStripParse = Integer.parseInt(numberInStrip);
-	
-		StripNail stripNail = new StripNail(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, "StripNail");
+		System.out.println("Please enter Number in Box \n");
+		String numberInBox = sc.nextLine();
+		int numberInBoxParse = Integer.parseInt(numberInBox);
 		
-		setRelationForStripNail(sc, stripNail);
+		Nail nail = new Nail(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, "Nail");
 		
 		System.out.println("Item added");
-		System.out.println(stripNail.toString());
+		System.out.println(nail.toString());
+	}
+	
+	/**
+	 * Updates the item  locally then sends the fields to the insert function in the gateway
+	 * 
+	 * @param sc
+	 * @param item
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void updateNail(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException 
+	{
+		Nail nail = (Nail) item;
+		
+		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
+		
+		System.out.println("Plase enter the UPC:");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter the manufacturerID:");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter the price of the item:");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter length \n");
+		String length = sc.nextLine();
+		double lengthParse = Double.parseDouble(length);
+			
+		System.out.println("Please enter Number in Box \n");
+		String numberInBox = sc.nextLine();
+		int numberInBoxParse = Integer.parseInt(numberInBox);
+			
+		nail.setUpc(upc);
+		nail.setManufacturerID(manufacturerIDParse);
+		nail.setPrice(priceParse);
+		nail.setLength(lengthParse);
+		nail.setNumberInBox(numberInBoxParse);
+			
+		DatabaseGateway.updateNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, item.getId());
+		
+		System.out.println("\nItem updated:");
+		System.out.println(nail.toString());
+	}
+	
+	/**
+	 * Creates a new Tool and adds to the Database 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void createTool(Scanner sc) throws ClassNotFoundException, SQLException 
+	{
+		System.out.println("Please enter UPC code \n");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter Manufacturer ID  \n");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter Price \n");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter Description \n");
+		String description = sc.nextLine();
+		
+		Tool tool = new Tool(upc, manufacturerIDParse, priceParse, description, "Tool");
+		
+		System.out.println("Item added");
+		System.out.println(tool.toString());
+	}
+	
+	/**
+	 * updates a tool object
+	 * 
+	 * @param sc
+	 * @param item
+	 * @throws SQLException
+	 */
+	private static void updateTool(Scanner sc, InventoryItem item) throws SQLException 
+	{
+		Tool tool = (Tool)item;
+		
+		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
+		
+		System.out.println("Plase enter the UPC:");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter the manufacturerID:");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter the price of the item:");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter the description");
+		String description = sc.nextLine();
+		
+		tool.setUpc(upc);
+		tool.setManufacturerID(manufacturerIDParse);
+		tool.setPrice(priceParse);
+		tool.setDescription(description);
+		
+		DatabaseGateway.updateToolToDB(upc, manufacturerIDParse, priceParse, description, item.getId());
+		
+		System.out.println("\nItem updated:");
+		System.out.println(tool.toString());
 	}
 
+	
 	/**
 	 * Creates a new PowerTool and adds to the Database 
 	 * 
@@ -448,12 +395,144 @@ public class UserInput
 		
 		PowerTool powerTool = new PowerTool(upc, manufacturerIDParse, priceParse, description, batteryPoweredParse, "PowerTool");
 		
-		setRelationForPowerTool(sc, powerTool);
+		powerToolRelationPrompt(sc, powerTool);
 		
 		System.out.println("Item added");
 		System.out.println(powerTool.toString());
 	}
+	
+	/**
+	 * Updates a powertool object 
+	 * 
+	 * @param sc
+	 * @param item
+	 * @throws SQLException
+	 */
+	private static void updatePowerTool(Scanner sc, InventoryItem item) throws SQLException 
+	{
+		PowerTool powerTool = (PowerTool) item;
 		
+		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
+		
+		System.out.println("Plase enter the UPC:");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter the manufacturerID:");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter the price of the item:");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter the description");
+		String description = sc.nextLine();
+		
+		System.out.println("If it's battery powered please type true, if not type false");
+		String batteryPowered = sc.nextLine();
+		
+		powerTool.setUpc(upc);
+		powerTool.setManufacturerID(manufacturerIDParse);
+		powerTool.setPrice(priceParse);
+		powerTool.setDescription(description);
+
+		boolean isBatteryPowered;
+		if(batteryPowered.equalsIgnoreCase("true"))
+		{
+			powerTool.setBatteryPowered(true);
+			isBatteryPowered = true;
+		}
+		else
+		{
+			powerTool.setBatteryPowered(false);
+			isBatteryPowered = false;
+		}
+		
+		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
+		
+		System.out.println("\nItem updated:");
+		System.out.println(powerTool.toString());
+	}
+	
+	/**
+	 * Creates a new StripNail and adds to the Database 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void createStripNail(Scanner sc) throws ClassNotFoundException, SQLException 
+	{
+		System.out.println("Please enter UPC code \n");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter Manufacturer ID  \n");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter Price \n");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter length \n");
+		String length = sc.nextLine();
+		double lengthParse = Double.parseDouble(length);
+		
+		System.out.println("Please enter number in strip \n");
+		String numberInStrip = sc.nextLine();
+		int numberInStripParse = Integer.parseInt(numberInStrip);
+	
+		StripNail stripNail = new StripNail(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, "StripNail");
+		
+		stripNailRelationPrompt(sc, stripNail);
+		
+		System.out.println("Item added");
+		System.out.println(stripNail.toString());
+	}
+	
+	/**
+	 * Updates a stripnail object
+	 * 
+	 * @param sc
+	 * @param item
+	 * @throws SQLException
+	 */
+	private static void updateStripNail(Scanner sc, InventoryItem item) throws SQLException 
+	{
+		StripNail stripNail = (StripNail) item;
+		
+		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
+		
+		System.out.println("Plase enter the UPC:");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter the manufacturerID:");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter the price of the item:");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter length \n");
+		String length = sc.nextLine();
+		double lengthParse = Double.parseDouble(length);
+		
+		System.out.println("Please enter Number in Strip \n");
+		String numberInStrip = sc.nextLine();
+		int numberInStripParse = Integer.parseInt(numberInStrip);
+		
+		stripNail.setUpc(upc);
+		stripNail.setManufacturerID(manufacturerIDParse);
+		stripNail.setPrice(priceParse);
+		stripNail.setLength(lengthParse);
+		stripNail.setNumberInStrip(numberInStripParse);	
+		
+		DatabaseGateway.updateStripNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, item.getId());
+		
+		System.out.println("\nItem updated:");
+		System.out.println(stripNail.toString());
+	}
+	
 	/**
 	 * Sets the relationship for the created PowerTool
 	 * 
@@ -462,7 +541,7 @@ public class UserInput
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	private static void setRelationForPowerTool(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	private static void powerToolRelationPrompt(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
 		boolean run = true;
 		InventoryItem item = powerTool;
@@ -497,7 +576,7 @@ public class UserInput
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	private static void setRelationForStripNail(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
+	private static void stripNailRelationPrompt(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
 	{
 		boolean run = true;
 		InventoryItem item = stripNail;
@@ -520,8 +599,7 @@ public class UserInput
 			{
 				System.out.println("Error: invalid input");
 			}
-		}
-		
+		}		
 	}
 
 	/**
@@ -639,67 +717,5 @@ public class UserInput
 			}
 		}
 		return noDuplicates;
-	}
-
-	/**
-	 * Creates a new Tool and adds to the Database 
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	private static void createTool(Scanner sc) throws ClassNotFoundException, SQLException 
-	{
-		System.out.println("Please enter UPC code \n");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter Manufacturer ID  \n");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter Price \n");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		System.out.println("Please enter Description \n");
-		String description = sc.nextLine();
-		
-		Tool tool = new Tool(upc, manufacturerIDParse, priceParse, description, "Tool");
-		
-		System.out.println("Item added");
-		System.out.println(tool.toString());
-	}
-
-	/**
-	 * Creates a new Nail and adds to the Database 
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	private static void createNail(Scanner sc) throws ClassNotFoundException, SQLException 
-	{
-		System.out.println("Please enter UPC code \n");
-		String upc = sc.nextLine();
-		
-		System.out.println("Please enter Manufacturer ID  \n");
-		String manufacturerID = sc.nextLine();
-		int manufacturerIDParse = Integer.parseInt(manufacturerID);
-		
-		System.out.println("Please enter Price \n");
-		String price = sc.nextLine();
-		int priceParse = Integer.parseInt(price);
-		
-		
-		System.out.println("Please enter length \n");
-		String length = sc.nextLine();
-		double lengthParse = Double.parseDouble(length);
-		
-		System.out.println("Please enter Number in Box \n");
-		String numberInBox = sc.nextLine();
-		int numberInBoxParse = Integer.parseInt(numberInBox);
-		
-		Nail nail = new Nail(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, "Nail");
-		
-		System.out.println("Item added");
-		System.out.println(nail.toString());
-	}
+	}	
 }
