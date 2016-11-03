@@ -2,6 +2,8 @@ package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 
@@ -198,5 +200,51 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public void setClassName(String className)
 	{
 		super.setClassName(className);
+	}
+	
+	public static void update(Scanner sc, InventoryItem item) throws SQLException 
+	{
+		PowerTool powerTool = (PowerTool) item;
+		
+		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
+		
+		System.out.println("Plase enter the UPC:");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter the manufacturerID:");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter the price of the item:");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter the description");
+		String description = sc.nextLine();
+		
+		System.out.println("If it's battery powered please type true, if not type false");
+		String batteryPowered = sc.nextLine();
+		
+		powerTool.setUpc(upc);
+		powerTool.setManufacturerID(manufacturerIDParse);
+		powerTool.setPrice(priceParse);
+		powerTool.setDescription(description);
+
+		boolean isBatteryPowered;
+		if(batteryPowered.equalsIgnoreCase("true"))
+		{
+			powerTool.setBatteryPowered(true);
+			isBatteryPowered = true;
+		}
+		else
+		{
+			powerTool.setBatteryPowered(false);
+			isBatteryPowered = false;
+		}
+		
+		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
+		
+		System.out.println("\nItem updated:");
+		System.out.println(powerTool.toString());
 	}
 }

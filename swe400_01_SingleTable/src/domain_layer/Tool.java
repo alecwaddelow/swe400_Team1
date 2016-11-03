@@ -1,6 +1,8 @@
 package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
+
 import data_source.DatabaseGateway;
 
 /**
@@ -108,5 +110,36 @@ public class Tool extends InventoryItem
 	public void setClassName(String className)
 	{
 		super.setClassName(className);
+	}
+	
+	public static void update(Scanner sc, InventoryItem item) throws SQLException 
+	{
+		Tool tool = (Tool)item;
+		
+		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
+		
+		System.out.println("Plase enter the UPC:");
+		String upc = sc.nextLine();
+		
+		System.out.println("Please enter the manufacturerID:");
+		String manufacturerID = sc.nextLine();
+		int manufacturerIDParse = Integer.parseInt(manufacturerID);
+		
+		System.out.println("Please enter the price of the item:");
+		String price = sc.nextLine();
+		int priceParse = Integer.parseInt(price);
+		
+		System.out.println("Please enter the description");
+		String description = sc.nextLine();
+		
+		tool.setUpc(upc);
+		tool.setManufacturerID(manufacturerIDParse);
+		tool.setPrice(priceParse);
+		tool.setDescription(description);
+		
+		DatabaseGateway.updateToolToDB(upc, manufacturerIDParse, priceParse, description, item.getId());
+		
+		System.out.println("\nItem updated:");
+		System.out.println(tool.toString());
 	}
 }
