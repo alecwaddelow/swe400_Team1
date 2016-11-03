@@ -52,6 +52,14 @@ public abstract class InventoryItem
 	InventoryItem(){}
 	
 	/**
+	 * @return
+	 */
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	/**
 	 * @return ID
 	 */
 	public int getId()

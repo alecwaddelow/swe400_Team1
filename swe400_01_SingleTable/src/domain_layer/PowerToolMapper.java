@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
 import data_source.DatabaseGateway;
 
 /**
@@ -40,12 +42,29 @@ public class PowerToolMapper extends DBMapper
 	public void insertPowerTool() throws ClassNotFoundException, SQLException
 	{
 		gateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
+		setId(this.upc);		
 	}
+	
 	/**
 	 * Empty constructor
 	 */
 	public PowerToolMapper() {}
-
+	
+	/**
+	 * sets the id of the mapper
+	 */
+	public void setId(String upc) throws ClassNotFoundException, SQLException
+	{
+		super.setId(this.upc);
+	}
+	
+	/**
+	 * returns the id of the mapper
+	 */
+	public int getId()
+	{
+		return super.getId();
+	}
 	
 	/**
 	 * @return true if the item is battery powered; false otherwise

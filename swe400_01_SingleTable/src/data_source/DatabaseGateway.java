@@ -322,4 +322,41 @@ public class DatabaseGateway
 		preparedStatement.executeUpdate();
 		
 	}
+
+	/**
+	 * @return the resultset of querying for all StripNails
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static ResultSet getStripNailUPCs() throws ClassNotFoundException, SQLException 
+	{
+		String sqlStatement = "select * from InventoryItem where className=" + "'" + "StripNail" + "'";
+		Statement st = DatabaseGateway.getConnection().createStatement();
+		ResultSet rs = st.executeQuery(sqlStatement);
+		return rs;
+	}
+	
+	/**
+	 * returns the id of the item
+	 * 
+	 * @param upc
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static int getID(String upc) throws ClassNotFoundException, SQLException
+	{
+		String sqlStatement = "select id from InventoryItem where upc=" + "'" + upc + "'";
+		Statement st = DatabaseGateway.getConnection().createStatement();
+		ResultSet rSet = st.executeQuery(sqlStatement);
+		if(rSet.next())
+		{
+			return rSet.getInt("id");
+		}
+		else
+		{
+			return 0;
+		}			
+	}
 }

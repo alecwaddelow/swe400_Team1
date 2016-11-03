@@ -45,12 +45,29 @@ public class NailMapper extends DBMapper
 	public void insertNail() throws ClassNotFoundException, SQLException
 	{
 		gateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
+		setId(this.upc);
 	}
 	
 	/**
 	 * Empty Constructor for NailMapper 
 	 */
 	public NailMapper() {}
+	
+	/**
+	 * sets the id of the mapper
+	 */
+	public void setId(String upc) throws ClassNotFoundException, SQLException
+	{
+		super.setId(this.upc);
+	}
+	
+	/**
+	 * returns the id of the mapper
+	 */
+	public int getId()
+	{
+		return super.getId();
+	}
 	
 	
 	/**

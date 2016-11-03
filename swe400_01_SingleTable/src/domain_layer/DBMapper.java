@@ -1,5 +1,11 @@
 package domain_layer;
 
+import java.sql.SQLException;
+
+import org.junit.validator.PublicClassValidator;
+
+import data_source.DatabaseGateway;
+
 /**
  * @author Drew Rife & Alec Waddelow
  *
@@ -21,13 +27,16 @@ public abstract class DBMapper
 	 * @param manufacturerID
 	 * @param price
 	 * @param className
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public DBMapper(String upc, int manufacturerID, int price, String className)
+	public DBMapper(String upc, int manufacturerID, int price, String className) throws ClassNotFoundException, SQLException
 	{
 		this.upc = upc;
 		this.manufacturerID = manufacturerID;
 		this.price = price;
 		this.className = className;
+//		this.id = DatabaseGateway.getID(this.upc);
 	}
 
 	/**
@@ -36,6 +45,24 @@ public abstract class DBMapper
 	public DBMapper()
 	{
 		super();
+	}
+	
+	/**
+	 * sets the id
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void setId(String upc) throws ClassNotFoundException, SQLException
+	{
+		this.id = DatabaseGateway.getID(this.upc);
+	}
+	
+	/**
+	 * @return the id of the item
+	 */
+	public int getId()
+	{
+		return this.id;
 	}
 
 	/**

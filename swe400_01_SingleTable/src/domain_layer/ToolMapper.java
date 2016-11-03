@@ -35,13 +35,29 @@ public class ToolMapper extends DBMapper
 	public void insertTool() throws ClassNotFoundException, SQLException
 	{
 		gateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
+		setId(this.upc);
 	}
 
 	/**
 	 * Empty constructor 
 	 */
 	public ToolMapper() {}
-
+	
+	/**
+	 * sets the id of the mapper
+	 */
+	public void setId(String upc) throws ClassNotFoundException, SQLException
+	{
+		super.setId(this.upc);
+	}
+	
+	/**
+	 * returns the id of the mapper
+	 */
+	public int getId()
+	{
+		return super.getId();
+	}
 	
 	/**
 	 * @return the item's description

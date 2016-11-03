@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import data_source.DatabaseGateway;
+import swe400_01_SingleTable.TestDBMapper.MockDBMapper;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -66,6 +67,7 @@ public class Tool extends InventoryItem
 		this.className = "Tool";
 		ToolMapper toolMapper = new ToolMapper(this.upc, this.manufacturerID, this.price, this.description, this.className);
 		toolMapper.insertTool();
+		setId(toolMapper.getId());
 	}
 
 	/**

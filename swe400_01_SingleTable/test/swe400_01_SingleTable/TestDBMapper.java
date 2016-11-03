@@ -24,7 +24,7 @@ public class TestDBMapper
 	 */
 	public class MockDBMapper extends DBMapper
 	{
-		public MockDBMapper(String upc, int manufacturerID, int price, String className) 
+		public MockDBMapper(String upc, int manufacturerID, int price, String className) throws ClassNotFoundException, SQLException 
 		{
 			super(upc,manufacturerID, price, className);
 		}
@@ -33,9 +33,11 @@ public class TestDBMapper
 	
 	/**
 	 *  Tests creation of DBMapper 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	public void testCreation() 
+	public void testCreation() throws ClassNotFoundException, SQLException 
 	{
 		MockDBMapper mapper = new MockDBMapper(null, 0, 0, null);
 		assertTrue(mapper instanceof DBMapper);
@@ -43,9 +45,11 @@ public class TestDBMapper
 	
 	/**
 	 * Tests setters in DBMapper
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	public void testSetters()
+	public void testSetters() throws ClassNotFoundException, SQLException
 	{
 		MockDBMapper mapper = new MockDBMapper(null, 0, 0, null);
 		

@@ -45,12 +45,29 @@ public class StripNailsMapper extends DBMapper
 	public void insertStripNail() throws ClassNotFoundException, SQLException
 	{
 		gateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
+		setId(this.upc);
 	}
 
 	/**
 	 * Empty constructor
 	 */
 	public StripNailsMapper() {}
+	
+	/**
+	 * sets the id of the mapper
+	 */
+	public void setId(String upc) throws ClassNotFoundException, SQLException
+	{
+		super.setId(this.upc);
+	}
+	
+	/**
+	 * returns the id of the mapper
+	 */
+	public int getId()
+	{
+		return super.getId();
+	}
 
 	/**
 	 * @return the item's length

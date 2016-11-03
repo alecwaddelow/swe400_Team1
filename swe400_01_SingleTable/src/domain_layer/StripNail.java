@@ -77,6 +77,7 @@ public class StripNail extends Fastener implements LoadInterface
 
 		StripNailsMapper mapper = new StripNailsMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
 		mapper.insertStripNail();
+		setId(mapper.getId());
 	}
 
 	/**
@@ -85,6 +86,22 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail() 
 	{
 		super();
+	}
+	
+	/**
+	 * sets the id of the object
+	 */
+	public void setId(int id)
+	{
+		super.setId(id);
+	}
+	
+	/**
+	 * gets the id of the object
+	 */
+	public int getId()
+	{
+		return super.getId();
 	}
 
 	/**

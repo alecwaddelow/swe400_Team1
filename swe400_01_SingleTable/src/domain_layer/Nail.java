@@ -73,6 +73,23 @@ public class Nail extends Fastener
 		this.className = "Nail";
 		NailMapper nailMapper = new NailMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
 		nailMapper.insertNail();
+		setId(nailMapper.getId());
+	}
+	
+	/**
+	 * sets the id of the object
+	 */
+	public void setId(int id)
+	{
+		super.setId(id);
+	}
+	
+	/**
+	 * returns the id of the object
+	 */
+	public int getId()
+	{
+		return super.getId();
 	}
 	
 	/**

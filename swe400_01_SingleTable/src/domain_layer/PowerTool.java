@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.junit.validator.PublicClassValidator;
+
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 
@@ -74,6 +76,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		this.className = className;
 		PowerToolMapper mapper = new PowerToolMapper(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
 		mapper.insertPowerTool();
+		setId(mapper.getId());
 	}
 	
 	/**
@@ -82,6 +85,22 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool()
 	{
 		super();
+	}
+	
+	/**
+	 * sets the id of the object
+	 */
+	public void setId(int id)
+	{
+		super.setId(id);
+	}
+	
+	/**
+	 * gets the id of the object
+	 */
+	public int getId()
+	{
+		return super.getId();
 	}
 
 	/**

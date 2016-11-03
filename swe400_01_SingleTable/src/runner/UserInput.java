@@ -1,9 +1,14 @@
 package runner;
 
+import java.io.PrintStream;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import data_source.DatabaseGateway;
+import data_source.LinkTableGateway;
 import domain_layer.*;
+import sun.font.TrueTypeFont;
 
 public class UserInput 
 {
@@ -438,10 +443,92 @@ public class UserInput
 		
 		PowerTool powerTool = new PowerTool(upc, manufacturerIDParse, priceParse, description, batteryPoweredParse, "PowerTool");
 		
+		setRelationForPowerTool(sc, powerTool);
+		
 		System.out.println("Item added");
 		System.out.println(powerTool.toString());
 	}
 		
+	private static void setRelationForPowerTool(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	{
+		boolean run = true;
+		
+		while(run)
+		{
+			System.out.println("Would you like to add compatible strip nails (Y/N)");
+			String input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+			{
+				addCompatibleStripNail(sc, powerTool);
+				run = false;
+			}
+			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				run = false;
+			}
+			else 
+			{
+				System.out.println("Error: invalid input");
+			}
+		}
+		
+	}
+
+	private static void addCompatibleStripNail(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	{
+		ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+		ArrayList<StripNail> stripNailList = new ArrayList<StripNail>(); 
+		boolean run = true;
+		int i = 1;
+		String input = null;
+		while (run)
+		{
+			while(rSet.next())
+			{
+				StripNail stripNail = new StripNail(rSet.getInt("id"));
+				stripNailList.add(stripNail);
+				System.out.println(i);
+				System.out.println(stripNail.toString());
+				i++;
+			}
+			
+			System.out.println("Please enter the number you would like to add");
+			input = sc.nextLine();
+			
+			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i)
+			{
+				System.out.println(powerTool.getId());
+//				LinkTableGateway.addRelation();
+			}
+			else
+			{
+				System.out.print("Error: you didn't enter in a valid number");
+			}	
+			
+			System.out.println("Would you like to add another relation? (Y/N)");
+			input = sc.nextLine();
+			boolean flag = false;
+			
+			while(!flag)
+			{
+				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+				{
+					flag = true;
+				}
+				else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+				{
+					flag = true;
+					run = false;
+				}
+				else 
+				{
+					System.out.println("Error: invalid input");
+				}				
+			}
+		}		
+	}
+
 	/**
 	 * Creates a new Tool and adds to the Database 
 	 * 
