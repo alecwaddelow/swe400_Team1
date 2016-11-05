@@ -1,11 +1,6 @@
 package domain_layer;
 
 import java.sql.SQLException;
-
-import javax.swing.text.DefaultEditorKit.InsertBreakAction;
-
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
-
 import data_source.DatabaseGateway;
 
 /**

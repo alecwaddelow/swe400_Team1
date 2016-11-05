@@ -80,7 +80,9 @@ public class StripNailUI
 		stripNail.setPrice(priceParse);
 		stripNail.setLength(lengthParse);
 		stripNail.setNumberInStrip(numberInStripParse);	
-		
+		/**
+		 * Sends update to the database 
+		 */
 		DatabaseGateway.updateStripNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, item.getId());
 		
 		System.out.println("\nItem updated:");

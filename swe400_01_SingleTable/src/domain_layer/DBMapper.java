@@ -1,9 +1,6 @@
 package domain_layer;
 
 import java.sql.SQLException;
-
-import org.junit.validator.PublicClassValidator;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -36,7 +33,6 @@ public abstract class DBMapper
 		this.manufacturerID = manufacturerID;
 		this.price = price;
 		this.className = className;
-//		this.id = DatabaseGateway.getID(this.upc);
 	}
 
 	/**

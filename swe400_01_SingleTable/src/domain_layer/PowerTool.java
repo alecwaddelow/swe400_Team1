@@ -2,10 +2,6 @@ package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import org.junit.validator.PublicClassValidator;
-
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 

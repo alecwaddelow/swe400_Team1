@@ -1,10 +1,6 @@
 package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
-
-import org.junit.experimental.theories.Theories;
-
 import data_source.DatabaseGateway;
 
 /**

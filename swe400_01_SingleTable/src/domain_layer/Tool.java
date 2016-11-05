@@ -1,10 +1,7 @@
 package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
-
 import data_source.DatabaseGateway;
-import swe400_01_SingleTable.TestDBMapper.MockDBMapper;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -87,7 +84,7 @@ public class Tool extends InventoryItem
 		this.description = description;
 	}
 
-	/** (non-Javadoc)
+	/** 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

@@ -89,7 +89,9 @@ public class PowerToolUI
 			powerTool.setBatteryPowered(false);
 			isBatteryPowered = false;
 		}
-		
+		/**
+		 * Send update to the database 
+		 */
 		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
 		
 		System.out.println("\nItem updated:");

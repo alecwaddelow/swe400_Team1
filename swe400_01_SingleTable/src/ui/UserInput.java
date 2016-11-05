@@ -87,7 +87,7 @@ public class UserInput
 				System.out.println("\nError: The number you chose: " + integer + " is not a current option");
 		}
 		else
-			System.out.println("\nError: You din't enter a number from 1 to 3. Please try again.");
+			System.out.println("\nError: You didn't enter a number from 1 to 3. Please try again.");
 		
 		return validChoice;
 	}

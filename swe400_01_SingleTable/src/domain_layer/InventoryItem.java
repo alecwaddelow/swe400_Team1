@@ -167,7 +167,7 @@ public abstract class InventoryItem
 	}
 	
 	/**
-	 * Retrieves details of requested itemei and returns string with details of item 
+	 * Retrieves details of requested item and returns string with details of item 
 	 * 
 	 * @param upc
 	 * @return String 

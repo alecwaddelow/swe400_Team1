@@ -36,7 +36,7 @@ public class ToolUI
 	}
 	
 	/**
-	 * updates a tool object
+	 * Updates a tool object
 	 * 
 	 * @param sc
 	 * @param item
@@ -66,7 +66,9 @@ public class ToolUI
 		tool.setManufacturerID(manufacturerIDParse);
 		tool.setPrice(priceParse);
 		tool.setDescription(description);
-		
+		/**
+		 * Sends update to the database 
+		 */
 		DatabaseGateway.updateToolToDB(upc, manufacturerIDParse, priceParse, description, item.getId());
 		
 		System.out.println("\nItem updated:");

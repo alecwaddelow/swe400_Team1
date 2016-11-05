@@ -44,6 +44,14 @@ public class NailUI
 		System.out.println(nail.toString());
 	}
 
+	/**
+	 * Updates a Nail in the DataBase
+	 * 
+	 * @param sc
+	 * @param item
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void updateNail(Scanner sc, InventoryItem item)  throws ClassNotFoundException, SQLException 
 	{
 		Nail nail = (Nail) item;
@@ -74,7 +82,10 @@ public class NailUI
 		nail.setPrice(priceParse);
 		nail.setLength(lengthParse);
 		nail.setNumberInBox(numberInBoxParse);
-			
+		
+		/**
+		 * Send update to the Database 
+		 */
 		DatabaseGateway.updateNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, item.getId());
 		
 		System.out.println("\nItem updated:");

@@ -1,7 +1,11 @@
 package data_source;
+import java.net.ConnectException;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
+import com.mysql.jdbc.Connection;
+
+import sun.awt.image.ImageWatched.Link;
 
 /**
  * @author Alec Waddelow & Drew Rife 
@@ -50,44 +54,18 @@ public class CreateLinkTable
 	 */
 	public static void createRelationships() throws ClassNotFoundException, SQLException
 	{
+		java.sql.Connection connection = LinkTableGateway.getConnection();
+		
+		LinkTableGateway.addRelation(16, 11);
+		LinkTableGateway.addRelation(17, 11);
+		LinkTableGateway.addRelation(16, 12);
+		LinkTableGateway.addRelation(17, 12);
+		LinkTableGateway.addRelation(20, 14);
+		LinkTableGateway.addRelation(21, 14);
+		LinkTableGateway.addRelation(21, 15);
 		PreparedStatement statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 16);
-		statement.setInt(2, 11);
-		LinkTableGateway.insertRow(statement);
-	
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 17);
-		statement.setInt(2, 11);
-		LinkTableGateway.insertRow(statement);
-		
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 16);
-		statement.setInt(2, 12);
-		LinkTableGateway.insertRow(statement);
-		
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 17);
-		statement.setInt(2, 12);
-		LinkTableGateway.insertRow(statement);
-		
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
 		statement.setNull(1, 0);
 		statement.setInt(2, 13);
-		LinkTableGateway.insertRow(statement);
-		
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 20);
-		statement.setInt(2, 14);
-		LinkTableGateway.insertRow(statement);
-		
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 21);
-		statement.setInt(2, 14);
-		LinkTableGateway.insertRow(statement);
-		
-		statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, 21);
-		statement.setInt(2, 15);
 		LinkTableGateway.insertRow(statement);
 	}
 }
