@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 import domain_layer.*;
 
 /**
