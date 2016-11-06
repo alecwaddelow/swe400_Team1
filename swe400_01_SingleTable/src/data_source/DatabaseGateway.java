@@ -33,7 +33,6 @@ public class DatabaseGateway
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(hostName, user, password);
-			
 			return con;
 		}
 		else
@@ -43,10 +42,10 @@ public class DatabaseGateway
 	}
 
 	/**
-	 * Query nail function, returns a nailmapper 
+	 * Query nail function
 	 * 
 	 * @param id
-	 * @return NailMapper 
+	 * @return ResultSet
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -62,7 +61,7 @@ public class DatabaseGateway
 	 * Query for Tool 
 	 * 
 	 * @param id
-	 * @return ToolMapper 
+	 * @return ResultSet 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -79,7 +78,7 @@ public class DatabaseGateway
 	 * Query for PowerTool
 	 * 
 	 * @param id
-	 * @return PowerToolMapper 
+	 * @return ResultSet 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -95,7 +94,7 @@ public class DatabaseGateway
 	 * Query for StripNail
 	 * 
 	 * @param id
-	 * @return StripNailsMapper
+	 * @return ResultSet
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -110,7 +109,7 @@ public class DatabaseGateway
 	/**
 	 * Inserts an item into the table within the database based on a prepared statement created by respective concrete class Mappers 
 	 * 
-	 * @param dbrs
+	 * @param PreparedStatement statement
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -122,8 +121,6 @@ public class DatabaseGateway
 	
 	/**
 	 * Inserts a nail
-	 * 
-	 * @param nail
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
