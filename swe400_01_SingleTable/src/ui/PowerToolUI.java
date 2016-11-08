@@ -4,10 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain_layer.InventoryItem;
@@ -128,9 +124,16 @@ public class PowerToolUI
 		System.out.println(powerTool.toString());
 	}
 
+	/**
+	 * Adds a StripNail relation for the powertool
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	private static void updateCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
-		StripNail stripNail = null;
 		boolean done = false;
 		while(!done)
 		{
@@ -145,6 +148,7 @@ public class PowerToolUI
 			int stripNailID = DatabaseGateway.getID(input);
 			
 			LinkTableGateway.addRelation(powerTool.getId(), stripNailID);
+			powerTool.addStripNailToList(new StripNail(stripNailID));
 			
 			System.out.println("Would you like to add another relation? (Y/N)");
 			input = sc.nextLine();
@@ -157,7 +161,7 @@ public class PowerToolUI
 	}
 	
 	/**
-	 * Removes capabilites from the list
+	 * Removes compatibilities from the list
 	 * 
 	 * @param sc
 	 * @param powerTool
@@ -166,28 +170,28 @@ public class PowerToolUI
 	 */
 	private static void removeCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
-//		StripNail stripNail = null;
 		boolean done = false;
 		while(!done)
 		{
 			System.out.println("Which one would you like to remove? (enter the UPC only):");
-			ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+			//ResultSet rSet = DatabaseGateway.getStripNailUPCs();
 			ArrayList<StripNail> stripList = powerTool.getStripNailList();
 			
 			if(!stripList.isEmpty())
 			{
 				System.out.println("\nWorks with:");
 			}
-			
 			for(StripNail stripNail : stripList) 
 			{
 				System.out.println(stripNail.toString());
 			}
+			
 			System.out.println("\n");
 			String input = sc.nextLine();
 			int stripNailID = DatabaseGateway.getID(input);
 			
 			LinkTableGateway.removeRelation(powerTool.getId(), stripNailID);
+			powerTool.removeStripNailFromList(new StripNail(stripNailID));
 			
 			System.out.println("Would you like to remove another relation? (Y/N)");
 			input = sc.nextLine();

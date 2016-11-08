@@ -172,6 +172,16 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			this.stripNailList.add(nail);
 		}
 	}
+	
+	/**
+	 * Remove a StripNail from the list 
+	 * 
+	 * @param nail
+	 */
+	public void removeStripNailFromList(StripNail nail)
+	{
+		stripNailList.remove(nail);
+	}
 
 	/**
 	 * toString 
