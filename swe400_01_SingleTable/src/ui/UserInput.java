@@ -267,11 +267,9 @@ public class UserInput
 					i++;
 				}
 			}
-				
 			
 			System.out.println("Please enter the number you would like to add");
 			input = sc.nextLine();
-			
 			
 			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i && checkForDuplicates(input, inputtedValues))
 			{
@@ -279,12 +277,12 @@ public class UserInput
 				if(item.getClassName().equalsIgnoreCase("PowerTool"))
 				{
 					stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
-					LinkTableGateway.addRelation(item.getId(), stripNail.getId());
+					LinkTableMapper.addRelation(item.getId(), stripNail.getId());
 				}
 				else
 				{
 					powerTool = (PowerTool) itemList.get(Integer.parseInt(input)-1); 
-					LinkTableGateway.addRelation(powerTool.getId(), item.getId());
+					LinkTableMapper.addRelation(powerTool.getId(), item.getId());
 				}
 			}
 			else

@@ -160,10 +160,8 @@ public class StripNailUI
 				{
 					System.out.println("There are no compatibilities\n");
 				}
-			}
-			
+			}	
 		}
-		
 	}
 
 	/**
@@ -189,7 +187,7 @@ public class StripNailUI
 			String input = sc.nextLine();
 			int powerToolID = DatabaseGateway.getID(input);
 			
-			LinkTableGateway.addRelation(powerToolID, stripNail.getId());
+			LinkTableMapper.addRelation(powerToolID, stripNail.getId());
 			stripNail.addPowerToolToList(new PowerTool(powerToolID));
 			
 			System.out.println("Would you like to add another relation? (Y/N)");
@@ -198,9 +196,8 @@ public class StripNailUI
 			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
 			{
 				done = true;
-			}
+			} 
 		}
-		
 	}
 
 	/**
