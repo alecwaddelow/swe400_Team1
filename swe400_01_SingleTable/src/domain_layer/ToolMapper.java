@@ -75,4 +75,19 @@ public class ToolMapper extends DBMapper
 	{
 		this.description = description;
 	}
+	
+	/**
+	 * updates the tool
+	 * @param tool
+	 * @throws SQLException 
+	 */
+	public void updateTool(Tool tool) throws SQLException 
+	{
+		setUpc(tool.getUpc());
+		setManufacturerID(tool.getManufacturerID());
+		setPrice(tool.getPrice());
+		setDescription(tool.getDescription());
+		
+		gateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
+	}
 }

@@ -103,4 +103,20 @@ public class NailMapper extends DBMapper
 	{
 		this.numberInBox = numberInBox;
 	}
+	
+	/**
+	 * updates the nail
+	 * @param nail
+	 * @throws SQLException 
+	 */
+	public void updateNail(Nail nail) throws SQLException 
+	{
+		setUpc(nail.getUpc());
+		setManufacturerID(nail.getManufacturerID());
+		setPrice(nail.getPrice());
+		setLength(nail.getLength());
+		setNumberInBox(nail.getNumberInBox());
+		
+		gateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);
+	}
 }

@@ -3,7 +3,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import data_source.DatabaseGateway;
 import domain_layer.InventoryItem;
+import domain_layer.NailMapper;
 import domain_layer.Tool;
+import domain_layer.ToolMapper;
 
 public class ToolUI 
 {
@@ -66,10 +68,10 @@ public class ToolUI
 		tool.setManufacturerID(manufacturerIDParse);
 		tool.setPrice(priceParse);
 		tool.setDescription(description);
-		/**
-		 * Sends update to the database 
-		 */
-		DatabaseGateway.updateToolToDB(upc, manufacturerIDParse, priceParse, description, item.getId());
+		
+		/* updates the tool to the mapper and to the database */
+		ToolMapper toolMapper = new ToolMapper();
+		toolMapper.updateTool(tool);
 		
 		System.out.println("\nItem updated:");
 		System.out.println(tool.toString());

@@ -5,10 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import data_source.DatabaseGateway;
-import data_source.LinkTableGateway;
-import domain_layer.InventoryItem;
-import domain_layer.PowerTool;
-import domain_layer.StripNail;
+import domain_layer.*;
 
 public class PowerToolUI 
 {
@@ -93,10 +90,10 @@ public class PowerToolUI
 			powerTool.setBatteryPowered(false);
 			isBatteryPowered = false;
 		}
-		/**
-		 * Send update to the database 
-		 */
-		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
+		
+		/* updates the powerTool to the mapper and to the database */
+		PowerToolMapper powerToolMapper = new PowerToolMapper();
+		powerToolMapper.updatePowerTool(powerTool);
 		
 		boolean valid = false;
 		while(!valid)
@@ -141,17 +138,17 @@ public class PowerToolUI
 		boolean done = false;
 		while(!done)
 		{
-			System.out.println("Which one would you like to add :");
 			ResultSet rSet = DatabaseGateway.getStripNailUPCs();
 			while(rSet.next())
 			{
 				System.out.println(rSet.getString("upc"));
 			}
 			
+			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();
 			int stripNailID = DatabaseGateway.getID(input);
 			
-			LinkTableGateway.addRelation(powerTool.getId(), stripNailID);
+			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
 			powerTool.addStripNailToList(new StripNail(stripNailID));
 			
 			System.out.println("Would you like to add another relation? (Y/N)");
@@ -178,32 +175,36 @@ public class PowerToolUI
 		while(!done)
 		{
 			System.out.println("Which one would you like to remove? (enter the UPC only):");
-			//ResultSet rSet = DatabaseGateway.getStripNailUPCs();
 			ArrayList<StripNail> stripList = powerTool.getStripNailList();
 			
 			if(!stripList.isEmpty())
 			{
 				System.out.println("\nWorks with:");
+				
+				for(StripNail stripNail : stripList) 
+				{
+					System.out.println(stripNail.toString());
+				}
+				
+				System.out.println("\n");
+				String input = sc.nextLine();
+				int stripNailID = DatabaseGateway.getID(input);
+				
+				LinkTableMapper.removeRelation(powerTool.getId(), stripNailID);
+				powerTool.removeStripNailFromList(new StripNail(stripNailID));
+				
+				System.out.println("Would you like to remove another relation? (Y/N)");
+				input = sc.nextLine();
+				
+				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+				{
+					done = true;
+				}
 			}
-			for(StripNail stripNail : stripList) 
+			else
 			{
-				System.out.println(stripNail.toString());
-			}
-			
-			System.out.println("\n");
-			String input = sc.nextLine();
-			int stripNailID = DatabaseGateway.getID(input);
-			
-			LinkTableGateway.removeRelation(powerTool.getId(), stripNailID);
-			powerTool.removeStripNailFromList(new StripNail(stripNailID));
-			
-			System.out.println("Would you like to remove another relation? (Y/N)");
-			input = sc.nextLine();
-			
-			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-			{
-				done = true;
-			}
+				System.out.println("There are no compatibilities\n");
+			}			
 		}		
 	}
 

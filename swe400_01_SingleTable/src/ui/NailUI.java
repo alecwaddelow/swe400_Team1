@@ -6,6 +6,7 @@ import java.util.Scanner;
 import data_source.DatabaseGateway;
 import domain_layer.InventoryItem;
 import domain_layer.Nail;
+import domain_layer.NailMapper;
 
 public class NailUI 
 {
@@ -83,10 +84,9 @@ public class NailUI
 		nail.setLength(lengthParse);
 		nail.setNumberInBox(numberInBoxParse);
 		
-		/**
-		 * Send update to the Database 
-		 */
-		DatabaseGateway.updateNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse, item.getId());
+		/* updates the nail to the mapper and to the database */
+		NailMapper nailMapper = new NailMapper();
+		nailMapper.updateNail(nail);
 		
 		System.out.println("\nItem updated:");
 		System.out.println(nail.toString());

@@ -1,6 +1,9 @@
 package domain_layer;
 
 import java.sql.SQLException;
+
+import org.junit.experimental.theories.Theories;
+
 import data_source.DatabaseGateway;
 
 /**
@@ -93,5 +96,21 @@ public class PowerToolMapper extends DBMapper
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+
+	/**
+	 * updates the powertool
+	 * @param powerTool
+	 * @throws SQLException 
+	 */
+	public void updatePowerTool(PowerTool powerTool) throws SQLException 
+	{
+		setUpc(powerTool.getUpc());
+		setManufacturerID(powerTool.getManufacturerID());
+		setPrice(powerTool.getPrice());
+		setDescription(powerTool.getDescription());
+		setBatteryPowered(powerTool.isBatteryPowered());
+		
+		gateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
 	}
 }

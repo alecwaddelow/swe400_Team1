@@ -1,5 +1,9 @@
 package domain_layer;
 
+import java.sql.SQLException;
+
+import data_source.LinkTableGateway;
+
 /**
  * @author Alec Waddelow and Drew Rife 
  *
@@ -10,6 +14,7 @@ public class LinkTableMapper
 	protected int linkID;
 	protected int powerToolID;
 	protected int stripNailID;
+	protected static LinkTableGateway gateway;
 	
 	/**
 	 * Empty Constructor 
@@ -57,5 +62,31 @@ public class LinkTableMapper
 	public void setStripNailID(int stripNailID) 
 	{
 		this.stripNailID = stripNailID;
+	}
+
+	/**
+	 * removes the relation from the LinkTable
+	 * 
+	 * @param id
+	 * @param stripNailID2
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public static void removeRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
+	{
+		gateway.removeRelation(powerToolID, stripNailID);
+	}
+
+	/**
+	 * adds the relation from the LinkTable
+	 * 
+	 * @param powerToolID
+	 * @param stripNailID
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public static void addRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
+	{
+		gateway.addRelation(powerToolID, stripNailID);
 	}	
 }

@@ -2,6 +2,7 @@ package ui;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import data_source.*;
 import domain_layer.*;
@@ -49,8 +50,9 @@ public class StripNailUI
 	 * @param sc
 	 * @param item
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
-	public static void updateStripNail(Scanner sc, InventoryItem item) throws SQLException 
+	public static void updateStripNail(Scanner sc, InventoryItem item) throws SQLException, ClassNotFoundException 
 	{
 		StripNail stripNail = (StripNail) item;
 		
@@ -80,10 +82,10 @@ public class StripNailUI
 		stripNail.setPrice(priceParse);
 		stripNail.setLength(lengthParse);
 		stripNail.setNumberInStrip(numberInStripParse);	
-		/**
-		 * Sends update to the database 
-		 */
-		DatabaseGateway.updateStripNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, item.getId());
+		
+		/* updates the nail to the mapper and to the database */
+		StripNailsMapper stripNailsMapper = new StripNailsMapper();
+		stripNailsMapper.updateStripNail(stripNail);
 		
 		boolean valid = false;
 		while(!valid)
@@ -115,6 +117,55 @@ public class StripNailUI
 		System.out.println(stripNail.toString());
 	}
 	
+	/**
+	 * Removes compatibilities from the list
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private static void removeCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException
+	{
+		boolean done = false;
+		while(!done)
+		{
+			System.out.print("Which one would you like to remove? (enter the UPC only)");
+			ArrayList<PowerTool> powerToolList = stripNail.getPowerToolList();
+			
+			if(!powerToolList.isEmpty())
+			{
+				System.out.println("\nWorks with:");
+				
+				for(PowerTool powerTool : powerToolList)
+				{
+					System.out.println(powerTool.toString());
+				}
+				
+				System.out.println("\n");
+				String input = sc.nextLine();
+				int powerToolID = DatabaseGateway.getID(input);
+				
+				LinkTableMapper.removeRelation(powerToolID, stripNail.getId());
+				stripNail.removePowerToolFromList(new PowerTool(powerToolID));
+				
+				System.out.println("Would you like to remove another relation? (Y/N)");
+				input = sc.nextLine();
+				
+				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+				{
+					done = true;
+				}
+				else
+				{
+					System.out.println("There are no compatibilities\n");
+				}
+			}
+			
+		}
+		
+	}
+
 	/**
 	 * Adds a PowerTool relation for the stripNail
 	 * 

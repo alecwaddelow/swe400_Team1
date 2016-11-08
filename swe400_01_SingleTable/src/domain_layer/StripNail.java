@@ -200,4 +200,13 @@ public class StripNail extends Fastener implements LoadInterface
 	{
 		super.setClassName(className);
 	}
+
+	/**
+	 * removes a powertool from the list
+	 * @param powerTool
+	 */
+	public void removePowerToolFromList(PowerTool powerTool) 
+	{
+		powerToolList.remove(powerTool);		
+	}
 }

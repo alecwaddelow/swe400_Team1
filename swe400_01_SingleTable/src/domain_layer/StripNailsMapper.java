@@ -101,4 +101,20 @@ public class StripNailsMapper extends DBMapper
 	{
 		this.numberInStrip = numberInStrip;
 	}
+	
+	/**
+	 * updates the StripNail
+	 * @param stripNail
+	 * @throws SQLException 
+	 */
+	public void updateStripNail(StripNail stripNail) throws SQLException 
+	{
+		setUpc(stripNail.getUpc());
+		setManufacturerID(stripNail.getManufacturerID());
+		setPrice(stripNail.getPrice());
+		setLength(stripNail.getLength());
+		setNumberInStrip(stripNail.getNumberInStrip());
+		
+		gateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
+	}
 }
