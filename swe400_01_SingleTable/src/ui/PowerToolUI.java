@@ -1,11 +1,18 @@
 package ui;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import data_source.DatabaseGateway;
+import data_source.LinkTableGateway;
 import domain_layer.InventoryItem;
 import domain_layer.PowerTool;
+import domain_layer.StripNail;
 
 public class PowerToolUI 
 {
@@ -49,8 +56,9 @@ public class PowerToolUI
 	 * @param sc
 	 * @param item
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
-	public static void updatePowerTool(Scanner sc, InventoryItem item) throws SQLException 
+	public static void updatePowerTool(Scanner sc, InventoryItem item) throws SQLException, ClassNotFoundException 
 	{
 		PowerTool powerTool = (PowerTool) item;
 		
@@ -94,10 +102,103 @@ public class PowerToolUI
 		 */
 		DatabaseGateway.updatePowerToolToDB(upc, manufacturerIDParse, priceParse, description, isBatteryPowered, item.getId());
 		
+		boolean valid = false;
+		while(!valid)
+		{
+			System.out.println("Would you like to:");
+			System.out.println("1. Add a compatible stripnail");
+			System.out.println("2. Remove a compatible stripnail");
+			String input = sc.nextLine();
+			switch(Integer.parseInt(input))
+			{
+				case 1:
+					updateCompatibilities(sc, powerTool);
+					valid = true;
+					break;
+				case 2:
+					removeCompatibilities(sc, powerTool);
+					valid = true;
+					break;
+				default:
+					System.out.println("Error: Not a valid option");
+			}
+		}
+		
 		System.out.println("\nItem updated:");
 		System.out.println(powerTool.toString());
 	}
+
+	private static void updateCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	{
+		StripNail stripNail = null;
+		boolean done = false;
+		while(!done)
+		{
+			System.out.println("Which one would you like to add :");
+			ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+			while(rSet.next())
+			{
+				System.out.println(rSet.getString("upc"));
+			}
+			
+			String input = sc.nextLine();
+			int stripNailID = DatabaseGateway.getID(input);
+			
+			LinkTableGateway.addRelation(powerTool.getId(), stripNailID);
+			
+			System.out.println("Would you like to add another relation? (Y/N)");
+			input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				done = true;
+			}
+		}
+	}
 	
+	/**
+	 * Removes capabilites from the list
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private static void removeCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	{
+//		StripNail stripNail = null;
+		boolean done = false;
+		while(!done)
+		{
+			System.out.println("Which one would you like to remove? (enter the UPC only):");
+			ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+			ArrayList<StripNail> stripList = powerTool.getStripNailList();
+			
+			if(!stripList.isEmpty())
+			{
+				System.out.println("\nWorks with:");
+			}
+			
+			for(StripNail stripNail : stripList) 
+			{
+				System.out.println(stripNail.toString());
+			}
+			System.out.println("\n");
+			String input = sc.nextLine();
+			int stripNailID = DatabaseGateway.getID(input);
+			
+			LinkTableGateway.removeRelation(powerTool.getId(), stripNailID);
+			
+			System.out.println("Would you like to remove another relation? (Y/N)");
+			input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				done = true;
+			}
+		}		
+	}
+
 	/**
 	 * Sets the relationship for the created PowerTool
 	 * 

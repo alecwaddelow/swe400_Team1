@@ -94,11 +94,69 @@ public class LinkTableGateway
 		statement.close();
 	}
 
+	/**
+	 * Adds relation to LinkTable 
+	 * 
+	 * @param powerToolID
+	 * @param stripNailID
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public static void addRelation(int powerToolID, int stripNailID) throws SQLException, ClassNotFoundException 
 	{
-		PreparedStatement statement = con.prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setInt(1, powerToolID);
-		statement.setInt(2, stripNailID);
-		insertRow(statement);
+		if(!containsDuplicates(powerToolID, stripNailID))
+		{
+			PreparedStatement statement = con.prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
+			statement.setInt(1, powerToolID);
+			statement.setInt(2, stripNailID);
+			insertRow(statement);			
+		}
+		else
+		{
+			System.out.println("Already exists within the Database");
+		}
+	}
+
+	/**
+	 * Checks input values with pre-existing values
+	 * 
+	 * @param powerToolID
+	 * @param stripNailID
+	 * @return
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private static boolean containsDuplicates(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
+	{
+		String sqlStatement = "select * from LinkTable where powerToolID=" + "'" + powerToolID + "'" + " and stripNailID=" + "'" + stripNailID + "';";
+		Statement statement = DatabaseGateway.getConnection().createStatement();
+		ResultSet resultSet = statement.executeQuery(sqlStatement);
+		
+		if(resultSet.next())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Removes the relation from the LinkTable
+	 * 
+	 * @param powerToolID
+	 * @param stripNailID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static void removeRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
+	{
+		String query = "delete from LinkTable where powerToolID=? and stripNailID=?";
+	    PreparedStatement preparedStmt = DatabaseGateway.getConnection().prepareStatement(query);
+	    preparedStmt.setInt(1, powerToolID);
+	    preparedStmt.setInt(2, stripNailID);
+	    preparedStmt.execute();
+		
 	}
 }
