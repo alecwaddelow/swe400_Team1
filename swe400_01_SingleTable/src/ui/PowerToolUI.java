@@ -104,6 +104,7 @@ public class PowerToolUI
 			System.out.println("Would you like to:");
 			System.out.println("1. Add a compatible stripnail");
 			System.out.println("2. Remove a compatible stripnail");
+			System.out.println("3. Go back to main prompt");
 			String input = sc.nextLine();
 			switch(Integer.parseInt(input))
 			{
@@ -113,6 +114,9 @@ public class PowerToolUI
 					break;
 				case 2:
 					removeCompatibilities(sc, powerTool);
+					valid = true;
+					break;
+				case 3:
 					valid = true;
 					break;
 				default:

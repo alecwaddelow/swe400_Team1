@@ -6,4 +6,5 @@ y
 3
 PowerTool created from simulated input
 true
+3
 4
