@@ -1,10 +1,10 @@
 package ui;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import data_source.DatabaseGateway;
-import domain_layer.InventoryItem;
-import domain_layer.StripNail;
+import data_source.*;
+import domain_layer.*;
 
 public class StripNailUI 
 {
@@ -85,10 +85,73 @@ public class StripNailUI
 		 */
 		DatabaseGateway.updateStripNailToDB(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse, item.getId());
 		
+		boolean valid = false;
+		while(!valid)
+		{
+			System.out.println("Would you like to ");
+			System.out.println("1. Add a compatible powertool?");
+			System.out.println("2. Remove a compatible powertool?");
+			System.out.println("3. Go back to main prompt");
+			String input = sc.nextLine();
+			switch(Integer.parseInt(input))
+			{
+			case 1:
+				updateCompatibilities(sc, stripNail);
+				valid = true;
+				break;
+			case 2:
+				removeCompatibilities(sc, stripNail);
+				valid = true;
+				break;
+			case 3:
+				valid = true;
+				break;
+			default:
+				System.out.println("Error: Not a valid option");
+			}
+		}
+		
 		System.out.println("\nItem updated:");
 		System.out.println(stripNail.toString());
 	}
 	
+	/**
+	 * Adds a PowerTool relation for the stripNail
+	 * 
+	 * @param sc
+	 * @param powerTool
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void updateCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
+	{
+		boolean done = false;
+		while(!done)
+		{
+			ResultSet resultSet = DatabaseGateway.getPowerToolUPCs();
+			while(resultSet.next())
+			{
+				System.out.println(resultSet.getString("upc"));
+			}
+			
+			System.out.println("Which one would you like to add :");
+			String input = sc.nextLine();
+			int powerToolID = DatabaseGateway.getID(input);
+			
+			LinkTableGateway.addRelation(powerToolID, stripNail.getId());
+			stripNail.addPowerToolToList(new PowerTool(powerToolID));
+			
+			System.out.println("Would you like to add another relation? (Y/N)");
+			input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			{
+				done = true;
+			}
+		}
+		
+	}
+
 	/**
 	 * Sets the relationship for the created PowerTool
 	 * 
