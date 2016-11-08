@@ -195,9 +195,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws SQLException
 	 */
 	@Test 
-	public void testSimulateUpdatePowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException
+	public void testSimulateUpdatePowerToolWithAddedRelation() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateUpdatingPowerTool.txt");
+		File file = new File("SimulatedInput/simUpdatePowerToolAddRelation.txt");
 		
 		if(file.exists())
 		{
