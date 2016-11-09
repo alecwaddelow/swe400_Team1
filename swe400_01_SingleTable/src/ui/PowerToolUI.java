@@ -37,6 +37,8 @@ public class PowerToolUI
 		
 		PowerTool powerTool = new PowerTool(upc, manufacturerIDParse, priceParse, description, batteryPoweredParse, "PowerTool");
 		
+		System.out.println(powerTool.getId());
+		
 		powerToolRelationPrompt(sc, powerTool);
 		
 		System.out.println("Item added");

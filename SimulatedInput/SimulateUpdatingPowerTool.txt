@@ -1,10 +1,9 @@
+2
 3
-7784452828
-y
-222222222
-230
-3
-PowerTool created from simulated input
+2014
+2020202
+60
+powertool created from simulated input
 true
-3
+n
 4

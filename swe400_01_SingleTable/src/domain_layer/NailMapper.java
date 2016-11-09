@@ -108,9 +108,11 @@ public class NailMapper extends DBMapper
 	 * updates the nail
 	 * @param nail
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void updateNail(Nail nail) throws SQLException 
+	public void updateNail(Nail nail) throws SQLException, ClassNotFoundException 
 	{
+		this.id=nail.getId();
 		setUpc(nail.getUpc());
 		setManufacturerID(nail.getManufacturerID());
 		setPrice(nail.getPrice());

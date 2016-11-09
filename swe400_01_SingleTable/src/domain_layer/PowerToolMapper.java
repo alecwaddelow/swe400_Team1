@@ -105,6 +105,7 @@ public class PowerToolMapper extends DBMapper
 	 */
 	public void updatePowerTool(PowerTool powerTool) throws SQLException 
 	{
+		this.id = powerTool.getId();
 		setUpc(powerTool.getUpc());
 		setManufacturerID(powerTool.getManufacturerID());
 		setPrice(powerTool.getPrice());

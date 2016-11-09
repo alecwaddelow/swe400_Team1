@@ -251,7 +251,7 @@ public class DatabaseGateway
 				+ ", price=" + price
 				+ ", length=" + length
 				+ ", numberInBox=" + numberInBox
-				+ " where id=" + id;
+				+ " where id=" + id + ";";
 		
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();		
@@ -270,8 +270,8 @@ public class DatabaseGateway
 				+ ", manufacturerID=" + manufacturerID
 				+ ", price=" + price
 				+ ", description=" + "'" + description + "'"
-				+ " where id=" + id;
-		
+				+ " where id=" + id + ";";
+
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();		
 	}
@@ -310,8 +310,8 @@ public class DatabaseGateway
 				+ ", price=" + price
 				+ ", description=" + "'" + description + "'"
 				+ ", batteryPowered=" + batteryPowered
-				+ " where id=" + id;
-		
+				+ " where id=" + id + ";";
+		System.out.println(query);
 		PreparedStatement preparedStatement = con.prepareStatement(query);
 		preparedStatement.executeUpdate();
 		

@@ -242,6 +242,7 @@ public class UserInput
 		StripNail stripNail = null;
 		while (run)
 		{
+			System.out.println("Please enter the number you would like to add");
 			int i = 1;
 			if(item.getClassName().equalsIgnoreCase("PowerTool"))
 			{
@@ -268,8 +269,8 @@ public class UserInput
 				}
 			}
 			
-			System.out.println("Please enter the number you would like to add");
 			input = sc.nextLine();
+			
 			
 			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i && checkForDuplicates(input, inputtedValues))
 			{
@@ -278,6 +279,7 @@ public class UserInput
 				{
 					stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
 					LinkTableMapper.addRelation(item.getId(), stripNail.getId());
+					System.out.println("Did you make it here");
 				}
 				else
 				{

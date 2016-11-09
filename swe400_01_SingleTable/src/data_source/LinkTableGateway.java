@@ -17,7 +17,7 @@ public class LinkTableGateway
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
 
-	private static Connection con;
+	private static Connection con = null;
 
 	/**
 	 * Empty constructor for testing 
@@ -89,6 +89,7 @@ public class LinkTableGateway
 	 */
 	public static void insertRow(PreparedStatement statement) throws ClassNotFoundException, SQLException
 	{
+		System.out.println(statement);
 		statement.execute();
 		LinkTableGateway.getConnection().commit();
 		statement.close();
@@ -106,7 +107,7 @@ public class LinkTableGateway
 	{
 		if(!containsDuplicates(powerToolID, stripNailID))
 		{
-			PreparedStatement statement = con.prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
+			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
 			statement.setInt(1, powerToolID);
 			statement.setInt(2, stripNailID);
 			insertRow(statement);			

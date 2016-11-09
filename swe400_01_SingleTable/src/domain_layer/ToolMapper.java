@@ -83,6 +83,7 @@ public class ToolMapper extends DBMapper
 	 */
 	public void updateTool(Tool tool) throws SQLException 
 	{
+		this.id = tool.getId();
 		setUpc(tool.getUpc());
 		setManufacturerID(tool.getManufacturerID());
 		setPrice(tool.getPrice());
