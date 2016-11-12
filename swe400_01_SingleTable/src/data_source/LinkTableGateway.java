@@ -89,7 +89,6 @@ public class LinkTableGateway
 	 */
 	public static void insertRow(PreparedStatement statement) throws ClassNotFoundException, SQLException
 	{
-		System.out.println(statement);
 		statement.execute();
 		LinkTableGateway.getConnection().commit();
 		statement.close();

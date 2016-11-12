@@ -47,7 +47,7 @@ public class UserInput
 			switch(Integer.parseInt(input))
 			{
 				case 1:
-					validUPCRequest(sc);
+					validUPCRequest(sc, 0);
 					break;
 				case 2:
 					addItemToDB(sc);
@@ -100,7 +100,7 @@ public class UserInput
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static InventoryItem validUPCRequest(Scanner sc) throws ClassNotFoundException, SQLException 
+	public static InventoryItem validUPCRequest(Scanner sc, int itemAssociation) throws ClassNotFoundException, SQLException 
 	{
 		boolean valid = false;
 		InventoryItem item = null;
@@ -113,15 +113,40 @@ public class UserInput
 			
 			item = InventoryItem.getDetails(upcCode);
 			
-			if(item != null)
+			if(itemAssociation != 0)
 			{
-				Runner.printDetailsOfItem(item);
-				valid = true;
+				if((item instanceof Nail && itemAssociation == 1)
+				|| (item instanceof Tool && itemAssociation == 2)
+				|| (item instanceof PowerTool && itemAssociation == 3)
+				|| (item instanceof StripNail && itemAssociation == 4))
+				{
+					Runner.printDetailsOfItem(item);
+					valid = true;
+				}
+				else if((item instanceof Nail && itemAssociation != 1)
+				||  	(item instanceof Tool && itemAssociation != 2)
+				||  	(item instanceof PowerTool && itemAssociation != 3)
+				||  	(item instanceof StripNail && itemAssociation != 4))
+				{
+					System.out.println("Error: UPC entered does not match item type entered");
+				}
+				else 
+				{
+					System.out.println("Error: Not a valid UPC");
+				}
 			}
 			else
 			{
-				System.out.println("Error: you must enter a valid UPC");
-			}			
+				if(item != null)
+				{
+					Runner.printDetailsOfItem(item);
+					valid = true;
+				}
+				else
+				{
+					System.out.println("Error: Not a valid UPC");
+				}
+			}
 		}		
 		return item;
 	}
@@ -141,9 +166,10 @@ public class UserInput
 			System.out.println("1. Nail \n2. Tool \n3. PowerTool\n4. StripNail");
 			System.out.println("Please enter the number of item you would like to add");
 			
-			String item1 = sc.nextLine();
+			String input = sc.nextLine();
+			int item = Integer.parseInt(input);
 			
-			switch(Integer.parseInt(item1))
+			switch(item)
 			{
 				case 1: 
 					NailUI.createNail(sc);
@@ -176,50 +202,83 @@ public class UserInput
 	 */
 	private static void updatePrompt(Scanner sc) throws ClassNotFoundException, SQLException 
 	{
-		boolean flag = true;
-		while(flag)
+		
+		boolean resume = false;
+		
+		while(!resume)
 		{
-			InventoryItem item = validUPCRequest(sc);
+			System.out.println("1. Nail \n2. Tool \n3. PowerTool\n4. StripNail");
+			System.out.println("Please enter the number of item you would like to update");
 			
-			System.out.println("\nIs this the item you'd like to edit? (Y/N)");
 			String input = sc.nextLine();
+			int item = Integer.parseInt(input);
 			
-			/* if y or yes then update that item to the database */
-			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+			switch(item)
 			{
-				Runner.printDetailsOfItem(item);
-				
-				switch(item.getClassName())
-				{
-					case "Nail":
-						NailUI.updateNail(sc, item);
-						break;
-					case "Tool":
-						ToolUI.updateTool(sc, item);
-						break;
-					case "PowerTool":
-						PowerToolUI.updatePowerTool(sc, item);
-						break;
-					case "StripNail":
-						StripNailUI.updateStripNail(sc, item);
-						break;
-				}
-				
-				flag = false;
+				case 1: 
+					NailUI.updateNail(sc, item);
+					resume = true;
+					break;
+				case 2: 
+					ToolUI.updateTool(sc, item);
+					resume = true;
+					break;
+				case 3: 
+					PowerToolUI.updatePowerTool(sc, item);
+					resume = true;
+					break;
+				case 4:
+					StripNailUI.updateStripNail(sc, item);
+					resume = true;
+					break;
+				default: 
+					System.out.println("\nInvalid input, please re-enter");
 			}
-			/* if not see if they want to go back to the main prompt */
-			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-			{
-				System.out.println("Would you like to go back to the main prompt? (Y/N)");
-				input = sc.nextLine();
-				
-				/* if they enter anything other than y or yes then just re-ask the question */
-				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
-				{
-					flag = false;
-				}
-			}
-		}		
+		}
+//		boolean flag = true;
+//		while(flag)
+//		{
+//			InventoryItem item = validUPCRequest(sc);
+//			
+//			System.out.println("\nIs this the item you'd like to edit? (Y/N)");
+//			String input = sc.nextLine();
+//			
+//			/* if y or yes then update that item to the database */
+//			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+//			{
+//				Runner.printDetailsOfItem(item);
+//				
+//				switch(item.getClassName())
+//				{
+//					case "Nail":
+//						NailUI.updateNail(sc, item);
+//						break;
+//					case "Tool":
+//						ToolUI.updateTool(sc, item);
+//						break;
+//					case "PowerTool":
+//						PowerToolUI.updatePowerTool(sc, item);
+//						break;
+//					case "StripNail":
+//						StripNailUI.updateStripNail(sc, item);
+//						break;
+//				}
+//				
+//				flag = false;
+//			}
+//			/* if not see if they want to go back to the main prompt */
+//			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+//			{
+//				System.out.println("Would you like to go back to the main prompt? (Y/N)");
+//				input = sc.nextLine();
+//				
+//				/* if they enter anything other than y or yes then just re-ask the question */
+//				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
+//				{
+//					flag = false;
+//				}
+//			}
+//		}		
 	}
 
 	/**

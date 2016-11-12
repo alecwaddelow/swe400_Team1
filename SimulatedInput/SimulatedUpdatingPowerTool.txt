@@ -1,12 +1,10 @@
 3
-7784452828
-y
+3
+9876784727
 222222222
 230
 3
 PowerTool created from simulated input
 true
-1
-4343432345
-n
+3
 4

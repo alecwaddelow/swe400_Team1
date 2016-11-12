@@ -30,7 +30,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreateNail() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
-		File file = new File("SimulatedInput/SimulateInputForNail.txt");
+		File file = new File("SimulatedInput/SimulateCreateNail.txt");
 		
 		if(file.exists())
 		{
@@ -59,7 +59,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreateTool() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
-		File file = new File("SimulatedInput/SimulateInputForTool.txt");
+		File file = new File("SimulatedInput/SimulateCreateTool.txt");
 		
 		if(file.exists())
 		{
@@ -94,11 +94,11 @@ public class TestSimulatedInput extends DBTest
 			Runner.initiateUserInput();
 			
 			PowerTool powerTool = new PowerTool(22);
-			assertEquals("2014", powerTool.getUpc());
-			assertEquals(2020202, powerTool.getManufacturerID());
-			assertEquals(60, powerTool.getPrice());
+			assertEquals("303030303", powerTool.getUpc());
+			assertEquals(30, powerTool.getManufacturerID());
+			assertEquals(30, powerTool.getPrice());
 			assertEquals("powertool created from simulated input", powerTool.getDescription());
-			assertTrue(powerTool.isBatteryPowered());
+			assertFalse(powerTool.isBatteryPowered());
 			assertEquals("PowerTool", powerTool.getClassName());
 			
 			System.setIn(System.in);
@@ -115,7 +115,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateInputForStripNail.txt");
+		File file = new File("SimulatedInput/SimulateCreateStripNail.txt");
 		
 		if(file.exists())
 		{
@@ -197,7 +197,7 @@ public class TestSimulatedInput extends DBTest
 	@Test 
 	public void testSimulateUpdatePowerToolWithAddedRelation() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/simUpdatePowerToolAddRelation.txt");
+		File file = new File("SimulatedInput/SimulateUpdatingPowerTool.txt");
 		
 		if(file.exists())
 		{
@@ -231,14 +231,13 @@ public class TestSimulatedInput extends DBTest
 			System.setIn(new FileInputStream(file));
 			Runner.initiateUserInput();
 			
-			StripNail stripNail = new StripNail(13);
-			assertEquals("3030030330", stripNail.getUpc());
-			assertEquals(15, stripNail.getManufacturerID());
-			assertEquals(1347, stripNail.getPrice());
-			assertEquals(3.1, stripNail.getLength(), 0.001);
-			assertEquals(23, stripNail.getNumberInStrip());
+			StripNail stripNail = new StripNail(11);
+			assertEquals("3030303", stripNail.getUpc());
+			assertEquals(20, stripNail.getManufacturerID());
+			assertEquals(15, stripNail.getPrice());
+			assertEquals(30.056, stripNail.getLength(), 0.001);
+			assertEquals(99, stripNail.getNumberInStrip());
 			assertEquals("StripNail", stripNail.getClassName());
 		}
-	}
-	
+	}	
 }

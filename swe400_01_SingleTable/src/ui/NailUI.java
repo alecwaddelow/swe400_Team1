@@ -51,9 +51,9 @@ public class NailUI
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void updateNail(Scanner sc, InventoryItem item)  throws ClassNotFoundException, SQLException 
+	public static void updateNail(Scanner sc, int item)  throws ClassNotFoundException, SQLException 
 	{
-		Nail nail = (Nail) item;
+		Nail nail = (Nail)UserInput.validUPCRequest(sc, item);
 		
 		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
 		

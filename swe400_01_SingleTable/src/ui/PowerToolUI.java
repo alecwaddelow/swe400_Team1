@@ -53,9 +53,9 @@ public class PowerToolUI
 	 * @throws SQLException
 	 * @throws ClassNotFoundException 
 	 */
-	public static void updatePowerTool(Scanner sc, InventoryItem item) throws SQLException, ClassNotFoundException 
+	public static void updatePowerTool(Scanner sc, int item) throws SQLException, ClassNotFoundException 
 	{
-		PowerTool powerTool = (PowerTool) item;
+		PowerTool powerTool = (PowerTool) UserInput.validUPCRequest(sc, item);
 		
 		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
 		

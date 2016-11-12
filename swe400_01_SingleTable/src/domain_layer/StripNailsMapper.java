@@ -109,6 +109,7 @@ public class StripNailsMapper extends DBMapper
 	 */
 	public void updateStripNail(StripNail stripNail) throws SQLException 
 	{
+		this.id = stripNail.getId();
 		setUpc(stripNail.getUpc());
 		setManufacturerID(stripNail.getManufacturerID());
 		setPrice(stripNail.getPrice());

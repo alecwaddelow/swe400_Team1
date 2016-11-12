@@ -2,6 +2,7 @@ package ui;
 import java.sql.SQLException;
 import java.util.Scanner;
 import domain_layer.InventoryItem;
+import domain_layer.Nail;
 import domain_layer.Tool;
 import domain_layer.ToolMapper;
 
@@ -41,10 +42,11 @@ public class ToolUI
 	 * @param sc
 	 * @param item
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
-	public static void updateTool(Scanner sc, InventoryItem item) throws SQLException 
+	public static void updateTool(Scanner sc, int item) throws SQLException, ClassNotFoundException 
 	{
-		Tool tool = (Tool)item;
+		Tool tool = (Tool) UserInput.validUPCRequest(sc, item);
 		
 		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
 		

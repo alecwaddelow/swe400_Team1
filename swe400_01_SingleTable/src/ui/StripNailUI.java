@@ -52,9 +52,9 @@ public class StripNailUI
 	 * @throws SQLException
 	 * @throws ClassNotFoundException 
 	 */
-	public static void updateStripNail(Scanner sc, InventoryItem item) throws SQLException, ClassNotFoundException 
+	public static void updateStripNail(Scanner sc, int item) throws SQLException, ClassNotFoundException 
 	{
-		StripNail stripNail = (StripNail) item;
+		StripNail stripNail = (StripNail) UserInput.validUPCRequest(sc, item);
 		
 		System.out.println("\nWarning... You are about to update this item, if you don't want certain values to change, retype the same value");
 		
@@ -109,7 +109,7 @@ public class StripNailUI
 				valid = true;
 				break;
 			default:
-				System.out.println("Error: Not a valid option");
+				System.out.println("Error: Not a valid option\n");
 			}
 		}
 		

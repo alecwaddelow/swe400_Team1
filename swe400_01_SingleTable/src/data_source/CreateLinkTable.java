@@ -53,9 +53,7 @@ public class CreateLinkTable
 	 * @throws SQLException
 	 */
 	public static void createRelationships() throws ClassNotFoundException, SQLException
-	{
-		java.sql.Connection connection = LinkTableGateway.getConnection();
-		
+	{		
 		LinkTableGateway.addRelation(16, 11);
 		LinkTableGateway.addRelation(17, 11);
 		LinkTableGateway.addRelation(16, 12);
