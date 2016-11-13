@@ -29,7 +29,6 @@ public class TestNail extends DBTest
 		int numberInBox = 0;
 		
 		Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
-		
 		assertEquals(upc, nail.getUpc());
 		assertEquals(manufacturerID, nail.getManufacturerID());
 		assertEquals(price, nail.getPrice());
@@ -48,8 +47,6 @@ public class TestNail extends DBTest
 	public void testFinderConstructor() throws ClassNotFoundException, SQLException
 	{
 		Nail nail = new Nail(1);
-		
-		
 		assertEquals(Nails.COMMON_10D.getUpc(), nail.getUpc());
 		assertEquals(Nails.COMMON_10D.getManufacturerID(), nail.getManufacturerID());
 		assertEquals(Nails.COMMON_10D.getPrice(), nail.getPrice());
@@ -92,11 +89,12 @@ public class TestNail extends DBTest
 	@Test 
 	public void testNailNotFoundException() throws SQLException
 	{
-		try{
+		try
+		{
 			Nail nail = new Nail(25);			
 		} catch(ClassNotFoundException notFound)
 		{
-			assertEquals("Could not find nail with specified ID", notFound.getMessage() );
+			assertEquals("Could not find nail with specified ID", notFound.getMessage());
 		}
 	}
 	
