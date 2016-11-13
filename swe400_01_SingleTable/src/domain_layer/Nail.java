@@ -8,6 +8,10 @@ import data_source.DatabaseGateway;
  *
  * An InventoryItem that is a Fastener
  */
+/**
+ * @author alecw
+ *
+ */
 public class Nail extends Fastener
 {
 	public int numberInBox;
@@ -22,43 +26,41 @@ public class Nail extends Fastener
 	public Nail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ResultSet rs = DatabaseGateway.queryNail(this.id);
-		
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.queryNail(this.id))
 		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInBox = rs.getInt("numberInBox");
-			String className = rs.getString("className");
-			NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
-			
-			setUpc(nailMapper.getUpc());
-			setManufacturerID(nailMapper.getManufacturerID());
-			setPrice(nailMapper.getPrice());
-			setLength(nailMapper.getLength());
-			setNumberInBox(nailMapper.getNumberInBox());
-			setClassName(nailMapper.getClassName());
+			if(rs.next())
+			{
+				String upc = rs.getString("upc");
+				int manufacturerID = rs.getInt("manufacturerID");
+				int price = rs.getInt("price");
+				double length = rs.getDouble("length");
+				int numberInBox = rs.getInt("numberInBox");
+				String className = rs.getString("className");
+				NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
+				setUpc(nailMapper.getUpc());
+				setManufacturerID(nailMapper.getManufacturerID());
+				setPrice(nailMapper.getPrice());
+				setLength(nailMapper.getLength());
+				setNumberInBox(nailMapper.getNumberInBox());
+				setClassName(nailMapper.getClassName());
+			}
+			else
+			{
+				ClassNotFoundException exception = new ClassNotFoundException("Could not find nail with specified ID");
+				exception.getMessage();
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
-		{
-			ClassNotFoundException exception = new ClassNotFoundException("Could not find nail with specified ID");
-			exception.getMessage();
-		}
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 
+
 	/**
-	 * Creation Constructor that creates the nail
+	 * Creation Constructor
 	 * 
-	 * @param id
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
-	 * @param description
 	 * @param length
 	 * @param numberInBox
 	 * @param className
@@ -75,16 +77,17 @@ public class Nail extends Fastener
 		setId(nailMapper.getId());
 	}
 	
-	/**
-	 * sets the id of the object
+	/** 
+	 * @see domain_layer.InventoryItem#setId(int)
 	 */
 	public void setId(int id)
 	{
 		super.setId(id);
 	}
 	
-	/**
-	 * returns the id of the object
+
+	/** 
+	 * @see domain_layer.InventoryItem#getId()
 	 */
 	public int getId()
 	{
@@ -92,15 +95,16 @@ public class Nail extends Fastener
 	}
 	
 	/**
-	 * @return the length
+	 * @return double length
 	 */
 	public double getLength() 
 	{
 		return super.getLength();
 	}
 
-	/**
-	 * @param length the length to set
+	
+	/** 
+	 * @see domain_layer.Fastener#setLength(double)
 	 */
 	public void setLength(double length) 
 	{
@@ -124,24 +128,25 @@ public class Nail extends Fastener
 		this.numberInBox = numberInBox;
 	}
 
-	/**
-	 * @return className
- 	 */
+	
+	/** 
+	 * @see domain_layer.InventoryItem#getClassName()
+	 */
 	public String getClassName()
 	{
 		return super.getClassName();
 	}
 
-	/**
-	 * Set className
-	 * @param className
+	
+	/** 
+	 * @see domain_layer.InventoryItem#setClassName(java.lang.String)
 	 */
 	public void setClassName(String className)
 	{
 		super.setClassName(className);
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
