@@ -1,9 +1,11 @@
 package ui;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import data_source.DatabaseGateway;
 import domain_layer.*;
 
@@ -122,7 +124,6 @@ public class PowerToolUI
 					System.out.println("Error: Not a valid option");
 			}
 		}
-		
 		System.out.println("\nItem updated:");
 		System.out.println(powerTool.toString());
 	}
@@ -140,27 +141,33 @@ public class PowerToolUI
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet rSet = DatabaseGateway.getStripNailUPCs();
-			while(rSet.next())
+			try(ResultSet rSet = DatabaseGateway.getStripNailUPCs())
 			{
-				System.out.println(rSet.getString("upc"));
+				while(rSet.next())
+				{
+					System.out.println(rSet.getString("upc"));
+				}
+				rSet.close();
+				DatabaseGateway.closeStatements();
+				
+				System.out.println("Which one would you like to add :");
+				String input = sc.nextLine();
+				int stripNailID = DatabaseGateway.getID(input, "StripNail");
+				
+				LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
+				powerTool.addStripNailToList(new StripNail(stripNailID));
+				
+				System.out.println("Would you like to add another relation? (Y/N)");
+				input = sc.nextLine();
+				
+				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+				{
+					done = true;
+				}
 			}
-			rSet.close();
-			DatabaseGateway.closeStatements();
-			
-			System.out.println("Which one would you like to add :");
-			String input = sc.nextLine();
-			int stripNailID = DatabaseGateway.getID(input, "StripNail");
-			
-			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
-			powerTool.addStripNailToList(new StripNail(stripNailID));
-			
-			System.out.println("Would you like to add another relation? (Y/N)");
-			input = sc.nextLine();
-			
-			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			catch(MySQLDataException e)
 			{
-				done = true;
+				e.getCause();
 			}
 		}
 	}
