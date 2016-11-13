@@ -21,9 +21,10 @@ public abstract class DBTest
 	@Before
 	public void testStartTransaction() throws ClassNotFoundException, SQLException
 	{
-		String sqlStatement = ("START TRANSACTION;");
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rs = st.executeQuery(sqlStatement);
+		String sqlStatement = ("START TRANSACTION");
+		PreparedStatement preparedStatement = DatabaseGateway.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.execute();
+		preparedStatement.close();
 	}
 
 	/**
@@ -35,11 +36,13 @@ public abstract class DBTest
 	@After
 	public void testRollBack() throws ClassNotFoundException, SQLException
 	{
-		String sqlStatement = ("ROLLBACK;");
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rs = st.executeQuery(sqlStatement);
+		String sqlStatement = ("ROLLBACK");
+		PreparedStatement preparedStatement = DatabaseGateway.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.execute();
+		preparedStatement.close();
 		
-		PreparedStatement statement = DatabaseGateway.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1");
-		statement.execute();
+		preparedStatement = DatabaseGateway.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1");
+		preparedStatement.execute();
+		preparedStatement.close();
 	}
 }
