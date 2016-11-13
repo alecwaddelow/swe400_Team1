@@ -1,7 +1,5 @@
 package domain_layer;
-
 import java.sql.SQLException;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -12,18 +10,23 @@ import data_source.DatabaseGateway;
 public class ToolMapper extends DBMapper 
 {
 	protected String description;
-	protected DatabaseGateway gateway;
-
+	
 	/**
+	 * 
 	 * Creation Constructor 
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * 
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param description
+	 * @param className
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	public ToolMapper(String upc, int manufacturerID, int price, String description, String className) throws ClassNotFoundException, SQLException 
 	{
 		super(upc, manufacturerID, price, className);
 		this.description = description;
-	
 	}
 	
 	/**
@@ -34,7 +37,7 @@ public class ToolMapper extends DBMapper
 	 */
 	public void insertTool() throws ClassNotFoundException, SQLException
 	{
-		gateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
+		DatabaseGateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
 		setId(this.upc);
 	}
 
@@ -44,7 +47,7 @@ public class ToolMapper extends DBMapper
 	public ToolMapper() {}
 	
 	/**
-	 * sets the id of the mapper
+	 * Sets the id of the mapper
 	 */
 	public void setId(String upc) throws ClassNotFoundException, SQLException
 	{
@@ -52,7 +55,7 @@ public class ToolMapper extends DBMapper
 	}
 	
 	/**
-	 * returns the id of the mapper
+	 * Returns the id of the mapper
 	 */
 	public int getId()
 	{
@@ -77,7 +80,8 @@ public class ToolMapper extends DBMapper
 	}
 	
 	/**
-	 * updates the tool
+	 * Updates the tool
+	 * 
 	 * @param tool
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -90,6 +94,6 @@ public class ToolMapper extends DBMapper
 		setPrice(tool.getPrice());
 		setDescription(tool.getDescription());
 		
-		gateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
+		DatabaseGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
 	}
 }
