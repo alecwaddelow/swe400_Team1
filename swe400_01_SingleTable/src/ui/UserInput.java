@@ -1,9 +1,11 @@
 package ui;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import data_source.DatabaseGateway;
 import domain_layer.*;
 import runner.Runner;
@@ -22,45 +24,49 @@ public class UserInput
 	public static void userInput() throws ClassNotFoundException, SQLException
 	{	
 		boolean run = true;
-		Scanner sc = new Scanner(System.in);
-		
-		do
-		{						
-			String input = null;
-			boolean validChoice = false;
-			
-			/* the beginning prompt */
-			while(!validChoice)
-			{
-				System.out.println("\nPlease enter the number of which task you would like to do:");
-				System.out.println("1:Search an item by UPC");
-				System.out.println("2:Add an item");
-				System.out.println("3:Update an item");
-				System.out.println("4:End the program");
-				input = sc.nextLine();
+		try(Scanner sc = new Scanner(System.in))
+		{
+			do
+			{						
+				String input = null;
+				boolean validChoice = false;
 				
-				validChoice = validateSearchAddUpdateOrEnd(input);
-			}
-			
-			/* based off the user's input, decide what to do next */
-			switch(Integer.parseInt(input))
-			{
-				case 1:
-					validUPCRequest(sc, 0);
-					break;
-				case 2:
-					addItemToDB(sc);
-					break;
-				case 3:
-					updatePrompt(sc);
-					break;
-				case 4:
-					run = false;
-					break;
-			}
-
-		}while(run);	
-		sc.close();
+				/* the beginning prompt */
+				while(!validChoice)
+				{
+					System.out.println("\nPlease enter the number of which task you would like to do:");
+					System.out.println("1:Search an item by UPC");
+					System.out.println("2:Add an item");
+					System.out.println("3:Update an item");
+					System.out.println("4:End the program");
+					input = sc.nextLine();
+					validChoice = validateSearchAddUpdateOrEnd(input);
+				}
+				
+				/* based off the user's input, decide what to do next */
+				switch(Integer.parseInt(input))
+				{
+					case 1:
+						validUPCRequest(sc, 0);
+						break;
+					case 2:
+						addItemToDB(sc);
+						break;
+					case 3:
+						updatePrompt(sc);
+						break;
+					case 4:
+						run = false;
+						break;
+				}
+				
+			}while(run);	
+			sc.close();
+		}
+		catch(Exception e)
+		{
+			e.getCause();
+		}
 	}
 	
 	/**
@@ -69,6 +75,7 @@ public class UserInput
 	 * 2. add
 	 * 3. update
 	 * 4. end the program
+	 * 
 	 * @param input
 	 * @return true if valid input; false otherwise
 	 */
@@ -81,13 +88,18 @@ public class UserInput
 			int integer = Integer.parseInt(input);
 			
 			if(integer >= 1 && integer <= 4)
+			{
 				validChoice = true;
+			}
 			else
+			{
 				System.out.println("\nError: The number you chose: " + integer + " is not a current option");
+			}
 		}
 		else
+		{
 			System.out.println("\nError: You didn't enter a number from 1 to 3. Please try again.");
-		
+		}
 		return validChoice;
 	}
 	
@@ -201,17 +213,13 @@ public class UserInput
 	 */
 	private static void updatePrompt(Scanner sc) throws ClassNotFoundException, SQLException 
 	{
-		
 		boolean resume = false;
-		
 		while(!resume)
 		{
 			System.out.println("1. Nail \n2. Tool \n3. PowerTool\n4. StripNail");
 			System.out.println("Please enter the number of item you would like to update");
-			
 			String input = sc.nextLine();
 			int item = Integer.parseInt(input);
-			
 			switch(item)
 			{
 				case 1: 
@@ -234,50 +242,7 @@ public class UserInput
 					System.out.println("\nInvalid input, please re-enter");
 			}
 		}
-//		boolean flag = true;
-//		while(flag)
-//		{
-//			InventoryItem item = validUPCRequest(sc);
-//			
-//			System.out.println("\nIs this the item you'd like to edit? (Y/N)");
-//			String input = sc.nextLine();
-//			
-//			/* if y or yes then update that item to the database */
-//			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
-//			{
-//				Runner.printDetailsOfItem(item);
-//				
-//				switch(item.getClassName())
-//				{
-//					case "Nail":
-//						NailUI.updateNail(sc, item);
-//						break;
-//					case "Tool":
-//						ToolUI.updateTool(sc, item);
-//						break;
-//					case "PowerTool":
-//						PowerToolUI.updatePowerTool(sc, item);
-//						break;
-//					case "StripNail":
-//						StripNailUI.updateStripNail(sc, item);
-//						break;
-//				}
-//				
-//				flag = false;
-//			}
-//			/* if not see if they want to go back to the main prompt */
-//			else if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-//			{
-//				System.out.println("Would you like to go back to the main prompt? (Y/N)");
-//				input = sc.nextLine();
-//				
-//				/* if they enter anything other than y or yes then just re-ask the question */
-//				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
-//				{
-//					flag = false;
-//				}
-//			}
-//		}		
+		
 	}
 
 	/**
@@ -292,47 +257,56 @@ public class UserInput
 	{
 		ArrayList<InventoryItem> itemList = new ArrayList<InventoryItem>(); 
 		ArrayList<String> inputtedValues = new ArrayList<String>(); 
-		
 		boolean run = true;
 		String input = null;
-		
 		PowerTool powerTool = null;
 		StripNail stripNail = null;
+		
 		while (run)
 		{
 			System.out.println("Please enter the number you would like to add");
 			int i = 1;
 			if(item instanceof PowerTool)
 			{
-				ResultSet rSet = DatabaseGateway.getStripNailUPCs();
-				while(rSet.next())
+				try(ResultSet rSet = DatabaseGateway.getStripNailUPCs())
 				{
-					stripNail = new StripNail(rSet.getInt("id"));
-					itemList.add(stripNail);
-					System.out.print(i + ". ");
-					System.out.println(stripNail.toString());
-					i++;
+					while(rSet.next())
+					{
+						stripNail = new StripNail(rSet.getInt("id"));
+						itemList.add(stripNail);
+						System.out.print(i + ". ");
+						System.out.println(stripNail.toString());
+						i++;
+					}
+					rSet.close();
+					DatabaseGateway.closeStatements();
 				}
-				rSet.close();
-				DatabaseGateway.closeStatements();
+				catch(MySQLDataException e)
+				{
+					e.getCause();
+				}
 			}
 			else if(item instanceof StripNail)
 			{
-				ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
-				while(rSet.next())
+				try(ResultSet rSet = DatabaseGateway.getPowerToolUPCs())
 				{
-					powerTool = new PowerTool(rSet.getInt("id"));
-					itemList.add(powerTool);
-					System.out.println(i);
-					System.out.println(powerTool.toString());
-					i++;
+					while(rSet.next())
+					{
+						powerTool = new PowerTool(rSet.getInt("id"));
+						itemList.add(powerTool);
+						System.out.println(i);
+						System.out.println(powerTool.toString());
+						i++;
+					}
+					rSet.close();
+					DatabaseGateway.closeStatements();
 				}
-				rSet.close();
-				DatabaseGateway.closeStatements();
+				catch(MySQLDataException e)
+				{
+					e.getCause();
+				}
 			}
-			
 			input = sc.nextLine();
-			
 			
 			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i && checkForDuplicates(input, inputtedValues))
 			{
@@ -378,10 +352,10 @@ public class UserInput
 	}
 
 	/**
-	 * checks to make sure user isn't inputting the same value twice
+	 * Checks to make sure user isn't inputting the same value twice
 	 * 
 	 * @param inputtedValues
-	 * @return
+	 * @return boolean true if duplicates found; else false
 	 */
 	private static boolean checkForDuplicates(String input, ArrayList<String> inputtedValues) 
 	{
