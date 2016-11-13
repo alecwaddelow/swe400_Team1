@@ -2,6 +2,9 @@ package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 
@@ -26,37 +29,40 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ResultSet rs = DatabaseGateway.queryPowerTool(this.id);
-		
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.queryPowerTool(this.id))
 		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			String description = rs.getString("description");
-			boolean batteryPowered = rs.getBoolean("batteryPowered");
-			String className = rs.getString("className");
-			PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
-			
-			setUpc(powerToolMapper.getUpc());
-			setManufacturerID(powerToolMapper.getManufacturerID());
-			setPrice(powerToolMapper.getPrice());
-			setDescription(powerToolMapper.getDescription());
-			setBatteryPowered(powerToolMapper.isBatteryPowered());
-			setClassName(powerToolMapper.getClassName());
+			if(rs.next())
+			{
+				String upc = rs.getString("upc");
+				int manufacturerID = rs.getInt("manufacturerID");
+				int price = rs.getInt("price");
+				String description = rs.getString("description");
+				boolean batteryPowered = rs.getBoolean("batteryPowered");
+				String className = rs.getString("className");
+				PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
+				setUpc(powerToolMapper.getUpc());
+				setManufacturerID(powerToolMapper.getManufacturerID());
+				setPrice(powerToolMapper.getPrice());
+				setDescription(powerToolMapper.getDescription());
+				setBatteryPowered(powerToolMapper.isBatteryPowered());
+				setClassName(powerToolMapper.getClassName());
+			}
+			else
+			{
+				ClassNotFoundException exception = new ClassNotFoundException("Could not find PowerTool with specified ID");
+				exception.getMessage();
+			}	
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
+		catch(MySQLDataException e)
 		{
-			ClassNotFoundException exception = new ClassNotFoundException("Could not find PowerTool with specified ID");
-			exception.getMessage();
-		}	
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
+			e.getCause();
+		}
 	}
 
 	/**
-	 * Creation Constructor that creates the PowerTool
+	 * Creation Constructor
 	 * 
 	 * @param upc
 	 * @param manufacturerID
@@ -86,16 +92,17 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		super();
 	}
 	
+	
 	/**
-	 * sets the id of the object
+	 * @see domain_layer.InventoryItem#setId(int)
 	 */
 	public void setId(int id)
 	{
 		super.setId(id);
 	}
 	
-	/**
-	 * gets the id of the object
+	/** 
+	 * @see domain_layer.InventoryItem#getId()
 	 */
 	public int getId()
 	{
@@ -103,15 +110,17 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	}
 
 	/**
-	 * @return true if battery powered; false otherwise
+	 * @return boolean true if battery powered; false otherwise
 	 */
 	public boolean isBatteryPowered()
 	{
 		return this.batteryPowered;
 	}
 
+	
 	/**
-	 * sets true if the powertool is battery powered; false otherwise
+	 * Sets whether item is batteryPowered
+	 * 
 	 * @param batteryPowered
 	 */
 	public void setBatteryPowered(boolean batteryPowered)
@@ -120,7 +129,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	}
 
 	/**
-	 * @return the description of the powertool
+	 * @return String description
 	 */
 	public String getDescription()
 	{
@@ -128,7 +137,9 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	}
 
 	/**
-	 * @param description the description of the powertool
+	 * Sets description
+	 * 
+	 * @param description 
 	 */
 	public void setDescription(String description)
 	{
@@ -136,9 +147,9 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	}
 	
 	/**
-	 * Getter for stripNail list, lazyloads the list
+	 * Getter for stripNail list, Lazy Instantiation of list 
 	 * 
-	 * @return ArrayList<StripNail> 
+	 * @return ArrayList<StripNail>  stripNailList
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -154,7 +165,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			return this.stripNailList;			
 		}
 	}
-	
 		
 	/**
 	 * Add a single StripNail to the list 
@@ -183,11 +193,12 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 */
 	public void removeStripNailFromList(StripNail nail)
 	{
-		stripNailList.remove(nail);
+		this.stripNailList.remove(nail);
 	}
 
-	/**
-	 * toString 
+
+	/** 
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() 
@@ -198,22 +209,27 @@ public class PowerTool extends InventoryItem implements LoadInterface
 
 	/** 
 	 * Load method for that Lazy Loads StripNail
+	 * 
 	 * @see domain_layer.LoadInterface#load()
 	 */
 	@Override
 	public void load() throws ClassNotFoundException, SQLException 
 	{
 		this.stripNailList = new ArrayList<StripNail>();
-		ResultSet rs = LinkTableGateway.queryDBForStripNails(this.getId());
-
-		while(rs.next())
+		try(ResultSet rs = LinkTableGateway.queryDBForStripNails(this.getId()))
 		{
-			int id = rs.getInt("stripNailID");
-			this.addStripNailToList(new StripNail(id));
+			while(rs.next())
+			{
+				int id = rs.getInt("stripNailID");
+				this.addStripNailToList(new StripNail(id));
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
+		catch (MySQLDataException e)
+		{
+			e.getCause();
+		}
 	}
 
 	/**
@@ -224,9 +240,8 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		return super.getClassName();
 	}
 	
-	/**
-	 * sets the classname of the PowerTool object
-	 * @param className
+	/** 
+	 * @see domain_layer.InventoryItem#setClassName(java.lang.String)
 	 */
 	public void setClassName(String className)
 	{
