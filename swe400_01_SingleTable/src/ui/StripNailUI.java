@@ -1,9 +1,11 @@
 package ui;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import data_source.*;
 import domain_layer.*;
 
@@ -112,7 +114,6 @@ public class StripNailUI
 				System.out.println("Error: Not a valid option\n");
 			}
 		}
-		
 		System.out.println("\nItem updated:");
 		System.out.println(stripNail.toString());
 	}
@@ -177,28 +178,34 @@ public class StripNailUI
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet resultSet = DatabaseGateway.getPowerToolUPCs();
-			while(resultSet.next())
+			try(ResultSet resultSet = DatabaseGateway.getPowerToolUPCs())
 			{
-				System.out.println(resultSet.getString("upc"));
+				while(resultSet.next())
+				{
+					System.out.println(resultSet.getString("upc"));
+				}
+				resultSet.close();
+				DatabaseGateway.closeStatements();
+				
+				System.out.println("Which one would you like to add :");
+				String input = sc.nextLine();
+				int powerToolID = DatabaseGateway.getID(input, "PowerTool");
+				
+				LinkTableMapper.addRelation(powerToolID, stripNail.getId());
+				stripNail.addPowerToolToList(new PowerTool(powerToolID));
+				
+				System.out.println("Would you like to add another relation? (Y/N)");
+				input = sc.nextLine();
+				
+				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+				{
+					done = true;
+				} 
 			}
-			resultSet.close();
-			DatabaseGateway.closeStatements();
-			
-			System.out.println("Which one would you like to add :");
-			String input = sc.nextLine();
-			int powerToolID = DatabaseGateway.getID(input, "PowerTool");
-			
-			LinkTableMapper.addRelation(powerToolID, stripNail.getId());
-			stripNail.addPowerToolToList(new PowerTool(powerToolID));
-			
-			System.out.println("Would you like to add another relation? (Y/N)");
-			input = sc.nextLine();
-			
-			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			catch(MySQLDataException e)
 			{
-				done = true;
-			} 
+				e.getCause();
+			}
 		}
 	}
 
