@@ -1,7 +1,5 @@
 package domain_layer;
-
 import java.sql.SQLException;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -14,20 +12,19 @@ public class NailMapper extends DBMapper
 {
 	protected double length;
 	protected int numberInBox;
-	protected DatabaseGateway gateway;
+	
 	
 	/**
-	 * Constructor for NailMapper 
+	 * Constructor
 	 * 
-	 * @param id
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
 	 * @param length
 	 * @param numberInBox
 	 * @param className
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	public NailMapper(String upc, int manufacturerID, int price, Double length, int numberInBox, String className) throws ClassNotFoundException, SQLException 
 	{
@@ -44,7 +41,7 @@ public class NailMapper extends DBMapper
 	 */
 	public void insertNail() throws ClassNotFoundException, SQLException
 	{
-		gateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
+		DatabaseGateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
 		setId(this.upc);
 	}
 	
@@ -53,25 +50,25 @@ public class NailMapper extends DBMapper
 	 */
 	public NailMapper() {}
 	
-	/**
-	 * sets the id of the mapper
+	
+	/** 
+	 * @see domain_layer.DBMapper#setId(java.lang.String)
 	 */
 	public void setId(String upc) throws ClassNotFoundException, SQLException
 	{
 		super.setId(this.upc);
 	}
-	
-	/**
-	 * returns the id of the mapper
+
+	/* 
+	 * @see domain_layer.DBMapper#getId()
 	 */
 	public int getId()
 	{
 		return super.getId();
 	}
 	
-	
 	/**
-	 * @return the item's length
+	 * @return double length
 	 */
 	public double getLength()
 	{
@@ -79,7 +76,8 @@ public class NailMapper extends DBMapper
 	}
 
 	/**
-	 * set the item's length
+	 * Set length
+	 * 
 	 * @param length
 	 */
 	public void setLength(double length)
@@ -88,7 +86,7 @@ public class NailMapper extends DBMapper
 	}
 	
 	/**
-	 * @return the number of item's in the box
+	 * @return int the number of item's in the box
 	 */
 	public int getNumberInBox()
 	{
@@ -96,7 +94,8 @@ public class NailMapper extends DBMapper
 	}
 
 	/**
-	 * set the the number of item's in the box
+	 * Sets numberInBox
+	 * 
 	 * @param numberInBox
 	 */
 	public void setNumberInBox(int numberInBox)
@@ -105,20 +104,20 @@ public class NailMapper extends DBMapper
 	}
 	
 	/**
-	 * updates the nail
+	 * Updates the nail
+	 * 
 	 * @param nail
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	public void updateNail(Nail nail) throws SQLException, ClassNotFoundException 
 	{
-		this.id=nail.getId();
+		this.id =nail.getId();
 		setUpc(nail.getUpc());
 		setManufacturerID(nail.getManufacturerID());
 		setPrice(nail.getPrice());
 		setLength(nail.getLength());
 		setNumberInBox(nail.getNumberInBox());
-		
-		gateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);
+		DatabaseGateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);
 	}
 }
