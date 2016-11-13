@@ -2,6 +2,9 @@ package runner;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.naming.NamingException;
+
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import data_source.*;
 import domain_layer.*;
 import ui.UserInput;
@@ -113,6 +116,9 @@ public class Runner
 			String className = rSet.getString("className");
 			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
 		}
+		
+		rSet.close();
+		DatabaseGateway.closeStatements();
 		
 		return listOfObjects;
 	}
