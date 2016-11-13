@@ -1,8 +1,6 @@
 package ui;
-
 import java.sql.SQLException;
 import java.util.Scanner;
-import domain_layer.InventoryItem;
 import domain_layer.Nail;
 import domain_layer.NailMapper;
 
