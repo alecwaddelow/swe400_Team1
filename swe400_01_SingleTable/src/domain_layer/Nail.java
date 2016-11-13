@@ -8,10 +8,6 @@ import data_source.DatabaseGateway;
  *
  * An InventoryItem that is a Fastener
  */
-/**
- * @author alecw
- *
- */
 public class Nail extends Fastener
 {
 	public int numberInBox;
@@ -54,7 +50,6 @@ public class Nail extends Fastener
 		}
 	}
 
-
 	/**
 	 * Creation Constructor
 	 * 
@@ -85,7 +80,6 @@ public class Nail extends Fastener
 		super.setId(id);
 	}
 	
-
 	/** 
 	 * @see domain_layer.InventoryItem#getId()
 	 */
@@ -102,7 +96,6 @@ public class Nail extends Fastener
 		return super.getLength();
 	}
 
-	
 	/** 
 	 * @see domain_layer.Fastener#setLength(double)
 	 */
@@ -127,7 +120,6 @@ public class Nail extends Fastener
 	{
 		this.numberInBox = numberInBox;
 	}
-
 	
 	/** 
 	 * @see domain_layer.InventoryItem#getClassName()
@@ -137,7 +129,6 @@ public class Nail extends Fastener
 		return super.getClassName();
 	}
 
-	
 	/** 
 	 * @see domain_layer.InventoryItem#setClassName(java.lang.String)
 	 */
