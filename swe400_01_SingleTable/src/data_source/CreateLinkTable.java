@@ -1,5 +1,8 @@
 package data_source;
 import java.sql.PreparedStatement;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import java.sql.*;
 
 /**
@@ -26,9 +29,15 @@ public class CreateLinkTable
 	public static void createTable() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "CREATE TABLE LinkTable (" + linkID + powerToolID + stripNailID + PTForeign + SNForeign +  ");";
-		Statement st = LinkTableGateway.getConnection().createStatement();
-		st.execute(sqlStatement);
-		st.close();
+		try(Statement st = LinkTableGateway.getConnection().createStatement())
+		{
+			st.execute(sqlStatement);
+			st.close();
+		}
+		catch(MySQLDataException e)
+		{
+			e.getCause();
+		}
 	}
 
 	/**
