@@ -20,6 +20,8 @@ public class CreateLinkTable
 	static String PTForeign = "FOREIGN KEY (powerToolID) REFERENCES InventoryItem(id), ";
 	static String SNForeign = "FOREIGN KEY (stripNailID) REFERENCES InventoryItem(id) ";
 
+	private static PreparedStatement preparedStatement = null;
+	
 	/**
 	 * Creates the table for the database
 	 * 
@@ -31,6 +33,7 @@ public class CreateLinkTable
 		String sqlStatement = "CREATE TABLE LinkTable (" + linkID + powerToolID + stripNailID + PTForeign + SNForeign +  ");";
 		Statement st = LinkTableGateway.getConnection().createStatement();
 		st.execute(sqlStatement);
+		st.close();
 	}
 
 	/**
@@ -41,9 +44,10 @@ public class CreateLinkTable
 	 */
 	public static void dropTableBeforeCreation() throws ClassNotFoundException, SQLException
 	{
-		String dropTable = "DROP TABLE IF EXISTS LinkTable;";
-		Statement st = LinkTableGateway.getConnection().createStatement();
-		st.execute(dropTable);
+		String dropTable = "DROP TABLE IF EXISTS LinkTable";
+		preparedStatement = LinkTableGateway.getConnection().prepareStatement(dropTable);
+		preparedStatement.execute();
+		preparedStatement.close();
 	}
 
 	/**
@@ -61,9 +65,11 @@ public class CreateLinkTable
 		LinkTableGateway.addRelation(20, 14);
 		LinkTableGateway.addRelation(21, 14);
 		LinkTableGateway.addRelation(21, 15);
-		PreparedStatement statement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		statement.setNull(1, 0);
-		statement.setInt(2, 13);
-		LinkTableGateway.insertRow(statement);
+		preparedStatement = LinkTableGateway.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
+		preparedStatement.setNull(1, 0);
+		preparedStatement.setInt(2, 13);
+		LinkTableGateway.insertRow(preparedStatement);
+		preparedStatement.close();
+		preparedStatement = null;
 	}
 }

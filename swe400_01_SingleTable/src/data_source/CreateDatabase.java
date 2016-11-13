@@ -1,4 +1,5 @@
 package data_source;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import domain_layer.*;
@@ -21,6 +22,8 @@ public class CreateDatabase
 	static String numberInStrip = "numberInStrip INT, ";
 	static String numberInBox = "numberInBox INT, ";
 	static String className = "className VARCHAR(25)";
+	
+	private static PreparedStatement preparedStatement = null;
 
 	/**
 	 * Creates the table for the database
@@ -35,6 +38,7 @@ public class CreateDatabase
 
 		Statement st = DatabaseGateway.getConnection().createStatement();
 		st.execute(sqlStatement);
+		st.close();
 	}
 
 	/**
@@ -46,8 +50,9 @@ public class CreateDatabase
 	public static void dropTableBeforeCreation() throws ClassNotFoundException, SQLException
 	{
 		String dropTable = "DROP TABLE IF EXISTS InventoryItem;";
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		st.execute(dropTable);
+		preparedStatement = DatabaseGateway.getConnection().prepareStatement(dropTable);
+		preparedStatement.execute();
+		preparedStatement.close();
 	}
 
 	/**
