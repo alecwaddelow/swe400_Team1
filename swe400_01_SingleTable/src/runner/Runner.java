@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 
-import com.mysql.fabric.xmlrpc.base.Data;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 import data_source.*;
 import domain_layer.*;
@@ -25,8 +25,6 @@ public class Runner
 	 * @throws NamingException
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
 	 */
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
 	{
@@ -46,6 +44,12 @@ public class Runner
 		DatabaseGateway.closeConnection();
 	}
 	
+	/**
+	 * Begins user input prompts 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static void initiateUserInput() throws ClassNotFoundException, SQLException
 	{
 		UserInput.userInput();
@@ -112,19 +116,23 @@ public class Runner
 	 */
 	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = DatabaseGateway.createList();
-		
-		for(int i = 0; rSet.next(); i++)
+		try(ResultSet rSet = DatabaseGateway.createList())
 		{
-			int id  = rSet.getRow();
-			String className = rSet.getString("className");
-			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
+			for(int i = 0; rSet.next(); i++)
+			{
+				int id  = rSet.getRow();
+				String className = rSet.getString("className");
+				listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
+			}
+			rSet.close();
+			DatabaseGateway.closeStatements();
+			return listOfObjects;
 		}
-		
-		rSet.close();
-		DatabaseGateway.closeStatements();
-		
-		return listOfObjects;
+		catch(MySQLDataException e)
+		{
+			e.getCause();
+		}
+		return null;
 	}
 
 	/**
