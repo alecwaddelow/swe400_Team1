@@ -145,6 +145,8 @@ public class PowerToolUI
 			{
 				System.out.println(rSet.getString("upc"));
 			}
+			rSet.close();
+			DatabaseGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import data_source.DatabaseGateway;
-import data_source.LinkTableGateway;
 import domain_layer.*;
 import runner.Runner;
 
@@ -314,6 +313,8 @@ public class UserInput
 					System.out.println(stripNail.toString());
 					i++;
 				}
+				rSet.close();
+				DatabaseGateway.closeStatements();
 			}
 			else if(item instanceof StripNail)
 			{
@@ -326,6 +327,8 @@ public class UserInput
 					System.out.println(powerTool.toString());
 					i++;
 				}
+				rSet.close();
+				DatabaseGateway.closeStatements();
 			}
 			
 			input = sc.nextLine();

@@ -182,6 +182,8 @@ public class StripNailUI
 			{
 				System.out.println(resultSet.getString("upc"));
 			}
+			resultSet.close();
+			DatabaseGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();
