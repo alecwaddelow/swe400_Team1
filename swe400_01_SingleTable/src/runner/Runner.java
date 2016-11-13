@@ -40,6 +40,10 @@ public class Runner
 		CreateLinkTable.createTable();
 		CreateLinkTable.createRelationships();
 		initiateUserInput();
+		
+		/* program has finished so close the connection */
+		LinkTableGateway.closeConnection();
+		DatabaseGateway.closeConnection();
 	}
 	
 	public static void initiateUserInput() throws ClassNotFoundException, SQLException

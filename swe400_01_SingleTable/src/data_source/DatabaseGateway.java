@@ -441,4 +441,22 @@ public class DatabaseGateway
 			}			
 		}
 	}
+	
+	/**
+	 * closes the connection when finished 
+	 * 
+	 * @throws SQLException
+	 */
+	public static void closeConnection() throws SQLException
+	{
+		closeStatements();
+		
+		if(con != null)
+		{
+			if(!con.isClosed())
+			{
+				con.close();
+			}
+		}
+	}
 }
