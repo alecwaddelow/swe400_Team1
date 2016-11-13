@@ -7,16 +7,17 @@ package domain_layer;
  */
 public abstract class Fastener extends InventoryItem
 {
-	
 	protected double length;
 	
+
 	/**
-	 * Creation constructor that calls InventoryItem's creation constructor
+	 * Creation Constructor
 	 * 
 	 * @param UPC
 	 * @param ManufacturerID
 	 * @param price
 	 * @param length
+	 * @param className
 	 */
 	Fastener(String UPC, int ManufacturerID, int price, double length, String className) 
 	{
@@ -33,7 +34,6 @@ public abstract class Fastener extends InventoryItem
 	{
 		super(id);
 	}
-
 
 	/**
 	 * Constructor with call to super for testing  
