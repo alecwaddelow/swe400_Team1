@@ -1,8 +1,6 @@
 package ui;
 import java.sql.SQLException;
 import java.util.Scanner;
-import domain_layer.InventoryItem;
-import domain_layer.Nail;
 import domain_layer.Tool;
 import domain_layer.ToolMapper;
 
@@ -31,7 +29,6 @@ public class ToolUI
 		String description = sc.nextLine();
 		
 		Tool tool = new Tool(upc, manufacturerIDParse, priceParse, description, "Tool");
-		
 		System.out.println("Item added");
 		System.out.println(tool.toString());
 	}
