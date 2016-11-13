@@ -1,7 +1,9 @@
 package domain_layer;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import data_source.DatabaseGateway;
 
 /**
@@ -11,7 +13,6 @@ import data_source.DatabaseGateway;
  */
 public abstract class InventoryItem
 {
-
 	protected int id;
 	protected String upc;
 	protected int manufacturerID;
@@ -19,12 +20,12 @@ public abstract class InventoryItem
 	protected String className;
 	
 	/**
-	 * Creation constructor
+	 * Creation Constructor 
 	 * 
-	 * @param id
 	 * @param UPC
 	 * @param ManufacturerID
 	 * @param price
+	 * @param className
 	 */
 	InventoryItem(String UPC, int ManufacturerID, int price, String className)
 	{
@@ -50,8 +51,11 @@ public abstract class InventoryItem
 	 */
 	InventoryItem(){}
 	
+	
 	/**
-	 * @return
+	 * Set ID
+	 * 
+	 * @param id
 	 */
 	public void setId(int id)
 	{
@@ -75,7 +79,8 @@ public abstract class InventoryItem
 	}
 
 	/**
-	 * sets the upc
+	 * Set UPC
+	 * 
 	 * @param upc
 	 */
 	public void setUpc(String upc)
@@ -140,7 +145,7 @@ public abstract class InventoryItem
 	 *
 	 * @param ID
 	 * @param className
-	 * @return Object
+	 * @return InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -169,22 +174,27 @@ public abstract class InventoryItem
 	 * Retrieves details of requested item and returns string with details of item 
 	 * 
 	 * @param upc
-	 * @return String 
+	 * @return InventoryItem 
 	 * @throws ClassNotFoundExceptiongetDetails
 	 * @throws SQLException
 	 */
 	public static InventoryItem getDetails(String upc) throws ClassNotFoundException, SQLException
 	{
-		ResultSet rs = DatabaseGateway.retrieveUPC(upc);
-		InventoryItem item = null;
-		
-		if(rs != null)
+		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc))
 		{
-			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
+			InventoryItem item = null;
+			if(rs != null)
+			{
+				item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
+			return item;
 		}
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
-		return item;
+		catch(MySQLDataException e)
+		{
+			e.getCause();
+		}
+		return null;
 	}
 }
