@@ -1,5 +1,4 @@
 package domain_layer;
-
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
 
@@ -16,16 +15,16 @@ public abstract class DBMapper
 	protected int price;
 	protected String className;
 
+	
 	/**
-	 * Creates the DBMapper object
-	 *
-	 * @param id
+	 * Constructor
+	 * 
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
 	 * @param className
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	public DBMapper(String upc, int manufacturerID, int price, String className) throws ClassNotFoundException, SQLException
 	{
@@ -44,7 +43,8 @@ public abstract class DBMapper
 	}
 	
 	/**
-	 * sets the id
+	 * Set ID
+	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -54,7 +54,7 @@ public abstract class DBMapper
 	}
 	
 	/**
-	 * @return the id of the item
+	 * @return id
 	 */
 	public int getId()
 	{
@@ -70,7 +70,8 @@ public abstract class DBMapper
 	}
 
 	/**
-	 * set the item's UPC
+	 * Set UPC
+	 * 
 	 * @param upc
 	 */
 	public void setUpc(String upc)
@@ -87,7 +88,8 @@ public abstract class DBMapper
 	}
 
 	/**
-	 * set the item's manufacturer ID
+	 * Set manufacturerID
+	 * 
 	 * @param manufacturerID
 	 */
 	public void setManufacturerID(int manufacturerID)
@@ -104,7 +106,8 @@ public abstract class DBMapper
 	}
 
 	/**
-	 * sets the item's price
+	 * Set price 
+	 * 
 	 * @param price
 	 */
 	public void setPrice(int price)
@@ -113,7 +116,7 @@ public abstract class DBMapper
 	}
 
 	/**
-	 * @return the item's class name
+	 * @return className
 	 */
 	public String getClassName()
 	{
@@ -121,7 +124,8 @@ public abstract class DBMapper
 	}
 
 	/**
-	 * set the item's class name
+	 * Set className
+	 * 
 	 * @param className
 	 */
 	public void setClassName(String className)
