@@ -1,17 +1,11 @@
 package swe400_01_SingleTable;
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import org.junit.Test;
-
-import domain_layer.Nail;
 import domain_layer.PowerTool;
 import domain_layer.StripNail;
-import enums.PowerTools;
 import enums.StripNails;
-import swe400_01_SingleTable.TestPowerTool.MockPowerTool;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -31,7 +25,6 @@ public class TestStripNail extends DBTest
 		public MockStripNail(int i) throws ClassNotFoundException, SQLException 
 		{
 			super(i);
-			
 		}
 		
 		public MockStripNail() 
@@ -42,10 +35,11 @@ public class TestStripNail extends DBTest
 		@Override
 		public void load() throws ClassNotFoundException, SQLException
 		{
-			loadCounter++;
+			TestStripNail.this.loadCounter++;
 			super.load();
 		}
 	}
+	
 	/**
 	 * Tests creating a new object StripNail
 	 * 
@@ -80,7 +74,6 @@ public class TestStripNail extends DBTest
 	public void testFinderConstructor() throws ClassNotFoundException, SQLException
 	{
 		StripNail stripNail = new StripNail(11);
-		
 		assertEquals(StripNails.ROUND_HEAD_NAIL_STRIP.getUpc(), stripNail.getUpc());
 		assertEquals(StripNails.ROUND_HEAD_NAIL_STRIP.getManufacturerID(), stripNail.getManufacturerID());
 		assertEquals(StripNails.ROUND_HEAD_NAIL_STRIP.getPrice(), stripNail.getPrice());
@@ -99,7 +92,6 @@ public class TestStripNail extends DBTest
 	public void testSetters() throws ClassNotFoundException, SQLException
 	{
 		StripNail stripNail = new StripNail(null, 0, 0, 0, 0, null);
-		
 		stripNail.setUpc("101");
 		stripNail.setManufacturerID(10);
 		stripNail.setPrice(15);
@@ -126,7 +118,8 @@ public class TestStripNail extends DBTest
 		try
 		{
 			StripNail stripNail = new StripNail(30);
-		} catch(ClassNotFoundException notFound)
+		} 
+		catch(ClassNotFoundException notFound)
 		{
 			assertEquals("Could not find requested StripNail", notFound.getMessage());
 		}
@@ -145,8 +138,6 @@ public class TestStripNail extends DBTest
 		assertEquals("StripNail [upc=5453432345, manufacturerID=13, price=1099, length=2.5, numberInStrip=50]", stripNail.toString());
 	}
 	
-	
-
 	/**
 	 * Tests getList lazy load method 
 	 * 
@@ -157,7 +148,6 @@ public class TestStripNail extends DBTest
 	public void testGetList() throws ClassNotFoundException, SQLException
 	{
 		MockStripNail stripNail = new MockStripNail(11);
-		
 		ArrayList<PowerTool> myList = stripNail.getPowerToolList();
 		
 		/*Asserts that load method is called upon invoking getStripNailList()  */
@@ -179,7 +169,7 @@ public class TestStripNail extends DBTest
 	}
 	
 	/**
-	 * Tests adding a 
+	 * Tests adding a powerTool to list
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -188,7 +178,6 @@ public class TestStripNail extends DBTest
 	public void addPowerToolToList() throws ClassNotFoundException, SQLException
 	{
 		MockStripNail stripNail = new MockStripNail(11);
-		
 		PowerTool ptAdd = new PowerTool(16);
 		
 		stripNail.addPowerToolToList(ptAdd);
@@ -196,7 +185,6 @@ public class TestStripNail extends DBTest
 		
 		PowerTool pt = new PowerTool(16);
 		PowerTool pt2 = new PowerTool(17);
-		PowerTool pt3 = new PowerTool(16);
 		
 		ArrayList<PowerTool> toolList = new ArrayList<PowerTool>();
 		toolList.add(pt);
@@ -223,5 +211,4 @@ public class TestStripNail extends DBTest
 		MockStripNail test = new MockStripNail();
 		assertTrue(test instanceof StripNail);
 	}
-	
 }

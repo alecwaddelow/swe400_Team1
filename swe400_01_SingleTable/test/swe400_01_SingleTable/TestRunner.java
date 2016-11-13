@@ -1,5 +1,4 @@
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,8 +38,7 @@ public class TestRunner extends DBTest
 	@Test
 	public void testGetList() throws ClassNotFoundException, SQLException, NamingException
 	{
-		Runner run = new Runner();
-		ArrayList<InventoryItem> myList = run.getList();
+		ArrayList<InventoryItem> myList = Runner.getList();
 	}
 	
 	/**
@@ -52,7 +50,6 @@ public class TestRunner extends DBTest
 	@Test
 	public void testGetDetails() throws ClassNotFoundException, SQLException
 	{
-		Runner run = new Runner();
 		Nail nail = new Nail(1);
 		Nail nailGD = (Nail) InventoryItem.getDetails(Nails.COMMON_10D.getUpc());
 

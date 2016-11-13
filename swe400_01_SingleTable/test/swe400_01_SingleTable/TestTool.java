@@ -2,10 +2,7 @@ package swe400_01_SingleTable;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
 import org.junit.Test;
-
-import domain_layer.Nail;
 import domain_layer.Tool;
-import enums.Nails;
 import enums.Tools;
 
 /**
@@ -22,7 +19,7 @@ public class TestTool extends DBTest
 	 * @throws SQLException
 	 */
 	@Test
-	public void testICreationConstructor() throws ClassNotFoundException, SQLException 
+	public void testCreationConstructor() throws ClassNotFoundException, SQLException 
 	{
 		String upc = "1414141414";
 		int manufacturerID = 59;
@@ -47,7 +44,6 @@ public class TestTool extends DBTest
 	public void testFinderConstructor() throws ClassNotFoundException, SQLException
 	{
 		Tool tool = new Tool(6);
-		
 		assertEquals(Tools.HAMMER.getUpc(), tool.getUpc());
 		assertEquals(Tools.HAMMER.getManufacturerID(), tool.getManufacturerID());
 		assertEquals(Tools.HAMMER.getPrice(), tool.getPrice());
@@ -65,7 +61,6 @@ public class TestTool extends DBTest
 	public void testSetters() throws ClassNotFoundException, SQLException
 	{
 		Tool tool = new Tool(null, 0, 0, null, null);
-		
 		tool.setUpc("101");
 		tool.setManufacturerID(10);
 		tool.setPrice(15);
@@ -87,13 +82,13 @@ public class TestTool extends DBTest
 	@Test 
 	public void testToolNotFoundException() throws SQLException
 	{
-		try{
+		try
+		{
 			Tool tool= new Tool(25);
 			
 		} catch(ClassNotFoundException notFound)
 		{
 			assertEquals("Could not find tool with specified ID", notFound.getMessage() );
-			
 		}
 	}
 	

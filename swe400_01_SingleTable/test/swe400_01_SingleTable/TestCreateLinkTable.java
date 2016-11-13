@@ -1,12 +1,6 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import data_source.CreateLinkTable;
 
 /**
@@ -16,7 +10,6 @@ import data_source.CreateLinkTable;
  */
 public class TestCreateLinkTable 
 {
-
 	/**
 	 * Tests creation of LinkTable 
 	 */
@@ -26,5 +19,4 @@ public class TestCreateLinkTable
 		CreateLinkTable clt = new CreateLinkTable();
 		assertTrue(clt instanceof CreateLinkTable);
 	}
-
 }

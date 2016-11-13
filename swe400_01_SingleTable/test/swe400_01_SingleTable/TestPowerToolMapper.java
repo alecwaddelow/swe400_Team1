@@ -1,15 +1,7 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
-
 import org.junit.Test;
-
-import domain_layer.PowerTool;
 import domain_layer.PowerToolMapper;
 
 /**

@@ -1,14 +1,8 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import org.junit.Assert;
 import org.junit.Test;
-
 import domain_layer.*;
 import enums.PowerTools;
 
@@ -19,7 +13,6 @@ import enums.PowerTools;
  */
 public class TestPowerTool extends DBTest
 {
-
 	int loadCounter = 0;
 	
 	/**
@@ -42,7 +35,7 @@ public class TestPowerTool extends DBTest
 		@Override
 		public void load() throws ClassNotFoundException, SQLException
 		{
-			loadCounter++;
+			TestPowerTool.this.loadCounter++;
 			super.load();
 		}
 	}
@@ -83,7 +76,6 @@ public class TestPowerTool extends DBTest
 	public void testFinderConstructor() throws ClassNotFoundException, SQLException
 	{
 		PowerTool powerTool = new PowerTool(16);
-		
 		
 		assertEquals(PowerTools.HITACHI_PNEUMATIC_NAILER.getUpc(), powerTool.getUpc());
 		assertEquals(PowerTools.HITACHI_PNEUMATIC_NAILER.getManufacturerID(), powerTool.getManufacturerID());
@@ -130,8 +122,8 @@ public class TestPowerTool extends DBTest
 		try
 		{
 			PowerTool powerTool = new PowerTool(25);
-		
-		} catch(ClassNotFoundException notFound)
+		}
+		catch(ClassNotFoundException notFound)
 		{
 			assertEquals("The requested PowerTool could not be found", notFound.getMessage() );
 		}
@@ -147,7 +139,6 @@ public class TestPowerTool extends DBTest
 	public void testToString() throws ClassNotFoundException, SQLException
 	{
 		PowerTool powerTool = new PowerTool(16);
-	
 		assertEquals("PowerTool [upc=1231231234, manufacturerID=13, price=39900, description=Pheumatic Nail Gun, batteryPowered=false]", powerTool.toString());
 	}
 	
@@ -164,7 +155,7 @@ public class TestPowerTool extends DBTest
 		ArrayList<StripNail> myList = testClass.getStripNailList();
 		
 		/*Asserts that load method is called upon invoking getStripNailList()  */
-		assertEquals(1, loadCounter);			
+		assertEquals(1, this.loadCounter);			
 		
 		ArrayList<StripNail> stripList = new ArrayList<StripNail>();
 		stripList.add(new StripNail(11));
@@ -216,7 +207,6 @@ public class TestPowerTool extends DBTest
 			assertEquals(myList.get(i).getClassName(), stripList.get(i).getClassName());
 		}
 	}
-	
 	
 	/**
 	 * Tests empty constructor  

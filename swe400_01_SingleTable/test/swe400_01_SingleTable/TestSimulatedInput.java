@@ -1,18 +1,12 @@
-
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import org.junit.Test;
-
 import data_source.LinkTableGateway;
 import domain_layer.*;
 import runner.Runner;

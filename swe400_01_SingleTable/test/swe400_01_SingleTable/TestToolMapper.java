@@ -13,6 +13,7 @@ public class TestToolMapper
 	
 	/**
 	 * Tests creation of ToolMapper 
+	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -34,7 +35,6 @@ public class TestToolMapper
 	public void testSetters()
 	{
 		ToolMapper tMapper = new ToolMapper();
-		
 		tMapper.setUpc("30");
 		tMapper.setManufacturerID(40);
 		tMapper.setPrice(30);
@@ -47,5 +47,4 @@ public class TestToolMapper
 		assertEquals("test", tMapper.getDescription());
 		assertEquals("className", tMapper.getClassName());
 	}
-
 }

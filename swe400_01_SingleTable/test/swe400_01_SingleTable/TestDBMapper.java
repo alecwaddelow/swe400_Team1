@@ -1,14 +1,7 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
-
 import org.junit.Test;
-
 import domain_layer.DBMapper;
 
 /**
@@ -28,11 +21,11 @@ public class TestDBMapper
 		{
 			super(upc,manufacturerID, price, className);
 		}
-		
 	}
 	
 	/**
-	 *  Tests creation of DBMapper 
+	 * Tests creation of DBMapper 
+	 *  
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */

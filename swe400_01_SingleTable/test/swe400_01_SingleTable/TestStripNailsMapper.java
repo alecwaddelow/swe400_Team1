@@ -1,16 +1,8 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
-
 import org.junit.Test;
-
 import domain_layer.StripNailsMapper;
-import enums.StripNails;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -44,7 +36,6 @@ public class TestStripNailsMapper
 	public void testSetters()
 	{
 		StripNailsMapper stripNailsMapper = new StripNailsMapper();
-		
 		stripNailsMapper.setUpc("444");
 		stripNailsMapper.setManufacturerID(21);
 		stripNailsMapper.setPrice(40);

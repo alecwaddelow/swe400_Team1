@@ -1,12 +1,6 @@
-/**
- * 
- */
 package swe400_01_SingleTable;
-
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import data_source.CreateDatabase;
 
 /**
@@ -16,7 +10,6 @@ import data_source.CreateDatabase;
  */
 public class TestCreateDatabase 
 {
-
 	/**
 	 * Tests creation of CreateDatabase 
 	 */
@@ -26,5 +19,4 @@ public class TestCreateDatabase
 		CreateDatabase cd = new CreateDatabase();
 		assertTrue(cd instanceof CreateDatabase);
 	}
-
 }
