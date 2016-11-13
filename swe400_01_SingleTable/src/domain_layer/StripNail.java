@@ -25,47 +25,42 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ResultSet rs = DatabaseGateway.queryStripNail(this.id);
-		
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.queryStripNail(this.id))
 		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInStrip = rs.getInt("numberInStrip");
-			String className = rs.getString("className");
-			StripNailsMapper stripNailMapper = new StripNailsMapper(upc, manufacturerID, price, length, numberInStrip, className);
-			
-			setUpc(stripNailMapper.getUpc());
-			setManufacturerID(stripNailMapper.getManufacturerID());
-			setPrice(stripNailMapper.getPrice());
-			setLength(stripNailMapper.getLength());
-			setNumberInStrip(stripNailMapper.getNumberInStrip());
-			setClassName(stripNailMapper.getClassName());
+			if(rs.next())
+			{
+				String upc = rs.getString("upc");
+				int manufacturerID = rs.getInt("manufacturerID");
+				int price = rs.getInt("price");
+				double length = rs.getDouble("length");
+				int numberInStrip = rs.getInt("numberInStrip");
+				String className = rs.getString("className");
+				StripNailsMapper stripNailMapper = new StripNailsMapper(upc, manufacturerID, price, length, numberInStrip, className);
+				setUpc(stripNailMapper.getUpc());
+				setManufacturerID(stripNailMapper.getManufacturerID());
+				setPrice(stripNailMapper.getPrice());
+				setLength(stripNailMapper.getLength());
+				setNumberInStrip(stripNailMapper.getNumberInStrip());
+				setClassName(stripNailMapper.getClassName());
+			}
+			else
+			{
+				ClassNotFoundException exception = new ClassNotFoundException("Could not find stripnail with specified ID");
+				exception.getMessage();
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
-		{
-			ClassNotFoundException exception = new ClassNotFoundException("Could not find stripnail with specified ID");
-			exception.getMessage();
-		}
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 
 	/**
-	 * Creation Constructor that creates the strip nail
+	 * Creation Constructor
 	 * 
-	 * @param id
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
-	 * @param description
-	 * @param batteryPowered
 	 * @param length
 	 * @param numberInStrip
-	 * @param numberInBox
 	 * @param className
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -75,7 +70,6 @@ public class StripNail extends Fastener implements LoadInterface
 		super(upc, manufacturerID, price, length, className);
 		this.numberInStrip = numberInStrip;
 		this.className = className;
-
 		StripNailsMapper mapper = new StripNailsMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
 		mapper.insertStripNail();
 		setId(mapper.getId());
@@ -89,24 +83,26 @@ public class StripNail extends Fastener implements LoadInterface
 		super();
 	}
 	
-	/**
-	 * sets the id of the object
+
+	/** 
+	 * @see domain_layer.InventoryItem#setId(int)
 	 */
 	public void setId(int id)
 	{
 		super.setId(id);
 	}
 	
-	/**
-	 * gets the id of the object
+	/** 
+	 * @see domain_layer.InventoryItem#getId()
 	 */
 	public int getId()
 	{
 		return super.getId();
 	}
 
+
 	/**
-	 * @return the numberInStrip
+	 * @return int numberInStrip
 	 */
 	public int getNumberInStrip()
 	{
@@ -114,7 +110,7 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 
 	/**
-	 * @param numberInStrip the numberInStrip for StripNails
+	 * @param numberInStrip 
 	 */
 	public void setNumberInStrip(int numberInStrip)
 	{
@@ -122,9 +118,9 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 	
 	/**
-	 * Getter for PowerTool list, lazyloads the list 
+	 * Getter for PowerTool list, Lazy Instantiation of list  
 	 * 
-	 * @return the powerToolList
+	 * @return ArrayList<PowerTool> powerToolList
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -142,7 +138,7 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 	
 	/**
-	 * Add  single powerTool to the list 
+	 * Add single powerTool to the list 
 	 * 
 	 * @param PowerTool
 	 * @throws SQLException 
@@ -160,7 +156,7 @@ public class StripNail extends Fastener implements LoadInterface
 		}
 	}
 
-	/* (non-Javadoc)
+	/** 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -170,28 +166,28 @@ public class StripNail extends Fastener implements LoadInterface
 				+ ", length=" + this.length + ", numberInStrip=" + this.numberInStrip + "]";
 	}
 
-	/** Load Implementation for StripNail
-	 * @return 
+	/**
+	 * Load Implementation for StripNail
 	 * @see domain_layer.LoadInterface#load()
 	 */
 	@Override
 	public void load() throws SQLException, ClassNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
-		ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId());
-		
-		while(rs.next())
+		try(ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId()))
 		{
-			int id = rs.getInt("powerToolID");
-			this.addPowerToolToList(new PowerTool(id));
+			while(rs.next())
+			{
+				int id = rs.getInt("powerToolID");
+				this.addPowerToolToList(new PowerTool(id));
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 
 	/**
-	 * @return classname of object
+	 * @return String className
 	 */
 	public String getClassName() 
 	{
@@ -199,7 +195,7 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 	
 	/**
-	 * sets the className
+	 * Sets className
 	 * @param className
 	 */
 	public void setClassName(String className)
@@ -208,11 +204,11 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 
 	/**
-	 * removes a powertool from the list
+	 * Removes a powertool from the list
 	 * @param powerTool
 	 */
 	public void removePowerToolFromList(PowerTool powerTool) 
 	{
-		powerToolList.remove(powerTool);		
+		this.powerToolList.remove(powerTool);		
 	}
 }
