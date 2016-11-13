@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import com.sun.org.apache.xpath.internal.operations.And;
+
 import domain_layer.*;
 
 /**
@@ -327,9 +330,9 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static int getID(String upc) throws ClassNotFoundException, SQLException
+	public static int getID(String upc, String className) throws ClassNotFoundException, SQLException
 	{
-		String sqlStatement = "select id from InventoryItem where upc=" + "'" + upc + "'";
+		String sqlStatement = "select id from InventoryItem where upc=" + "'" + upc + "' and className=" + "'" + className + "'";
 		Statement st = DatabaseGateway.getConnection().createStatement();
 		ResultSet rSet = st.executeQuery(sqlStatement);
 		if(rSet.next())

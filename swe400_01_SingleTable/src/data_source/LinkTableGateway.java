@@ -59,7 +59,7 @@ public class LinkTableGateway
 	public static ResultSet queryDBForStripNails(int id) throws SQLException, ClassNotFoundException
 	{
 		Statement st = LinkTableGateway.getConnection().createStatement();
-		String sqlStatement = ("SELECT * FROM LinkTable WHERE powerToolID =" + "'" + id + "';");
+		String sqlStatement = ("SELECT * FROM LinkTable WHERE powerToolID ="  + id + ";");
 		ResultSet rs = st.executeQuery(sqlStatement);
 		return rs;
 	}
@@ -75,8 +75,8 @@ public class LinkTableGateway
 	public static ResultSet queryDBForPowerTools(int id) throws SQLException, ClassNotFoundException
 	{
 		Statement st = LinkTableGateway.getConnection().createStatement();
-		String sqlStatement = ("SELECT * FROM LinkTable WHERE stripNailID =" + "'" + id + "';");
-		ResultSet rs = st.executeQuery(sqlStatement);
+		String sqlStatement = ("SELECT * FROM LinkTable WHERE stripNailID =" + id + ";");
+		ResultSet rs = st.executeQuery(sqlStatement);	
 		return rs;
 	}
 	

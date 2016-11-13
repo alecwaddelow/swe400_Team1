@@ -303,7 +303,7 @@ public class UserInput
 		{
 			System.out.println("Please enter the number you would like to add");
 			int i = 1;
-			if(item.getClassName().equalsIgnoreCase("PowerTool"))
+			if(item instanceof PowerTool)
 			{
 				ResultSet rSet = DatabaseGateway.getStripNailUPCs();
 				while(rSet.next())
@@ -315,7 +315,7 @@ public class UserInput
 					i++;
 				}
 			}
-			else if(item.getClassName().equalsIgnoreCase("StripNail"))
+			else if(item instanceof StripNail)
 			{
 				ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
 				while(rSet.next())

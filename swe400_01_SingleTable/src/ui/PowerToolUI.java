@@ -135,7 +135,7 @@ public class PowerToolUI
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	private static void updateCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	public static void updateCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
 		boolean done = false;
 		while(!done)
@@ -148,7 +148,7 @@ public class PowerToolUI
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();
-			int stripNailID = DatabaseGateway.getID(input);
+			int stripNailID = DatabaseGateway.getID(input, "StripNail");
 			
 			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
 			powerTool.addStripNailToList(new StripNail(stripNailID));
@@ -190,7 +190,7 @@ public class PowerToolUI
 				
 				System.out.println("\n");
 				String input = sc.nextLine();
-				int stripNailID = DatabaseGateway.getID(input);
+				int stripNailID = DatabaseGateway.getID(input, "StripNail");
 				
 				LinkTableMapper.removeRelation(powerTool.getId(), stripNailID);
 				powerTool.removeStripNailFromList(new StripNail(stripNailID));
