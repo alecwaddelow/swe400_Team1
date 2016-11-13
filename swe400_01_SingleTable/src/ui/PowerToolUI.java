@@ -83,16 +83,13 @@ public class PowerToolUI
 		powerTool.setPrice(priceParse);
 		powerTool.setDescription(description);
 
-		boolean isBatteryPowered;
 		if(batteryPowered.equalsIgnoreCase("true"))
 		{
 			powerTool.setBatteryPowered(true);
-			isBatteryPowered = true;
 		}
 		else
 		{
 			powerTool.setBatteryPowered(false);
-			isBatteryPowered = false;
 		}
 		
 		/* updates the powerTool to the mapper and to the database */
