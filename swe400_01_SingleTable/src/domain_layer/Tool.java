@@ -1,6 +1,9 @@
 package domain_layer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import data_source.DatabaseGateway;
 
 /**
@@ -11,6 +14,7 @@ import data_source.DatabaseGateway;
 public class Tool extends InventoryItem
 {
 	protected String description;	
+	
 	/**
 	 * Finder Constructor that queries the database for the item specified by their ID
 	 *
@@ -21,37 +25,40 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ResultSet rs = DatabaseGateway.queryTool(this.id);
-		
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.queryTool(this.id))
 		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			String description = rs.getString("description");
-			String className = rs.getString("className");
-			ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
-			
-			setUpc(toolMapper.getUpc());
-			setManufacturerID(toolMapper.getManufacturerID());
-			setPrice(toolMapper.getPrice());
-			setDescription(toolMapper.getDescription());
-			setClassName(toolMapper.getClassName());			
+			if(rs.next())
+			{
+				String upc = rs.getString("upc");
+				int manufacturerID = rs.getInt("manufacturerID");
+				int price = rs.getInt("price");
+				String description = rs.getString("description");
+				String className = rs.getString("className");
+				ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
+				setUpc(toolMapper.getUpc());
+				setManufacturerID(toolMapper.getManufacturerID());
+				setPrice(toolMapper.getPrice());
+				setDescription(toolMapper.getDescription());
+				setClassName(toolMapper.getClassName());			
+			}
+			else
+			{
+				ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
+				notFoundException.getMessage();
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
+		catch(MySQLDataException e)
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
-			notFoundException.getMessage();
+			e.getCause();
 		}
-		
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 
+
 	/**
-	 * Creation Constructor that creates the tool
+	 * Creation Constructor
 	 * 
-	 * @param id
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
@@ -71,7 +78,7 @@ public class Tool extends InventoryItem
 	}
 
 	/**
-	 * @return description
+	 * @return String description
 	 */
 	public String getDescription()
 	{
@@ -79,7 +86,8 @@ public class Tool extends InventoryItem
 	}
 
 	/**
-	 * sets the description for the tool
+	 * Sets the description for the tool
+	 * 
 	 * @param description
 	 */
 	public void setDescription(String description)
@@ -98,7 +106,7 @@ public class Tool extends InventoryItem
 	}
 
 	/**
-	 * @return name of the class
+	 * @return String className
 	 */
 	public String getClassName() 
 	{
@@ -107,6 +115,7 @@ public class Tool extends InventoryItem
 	
 	/**
 	 * Sets the className for the Tool Object
+	 * 
 	 * @param className
 	 */
 	public void setClassName(String className)
