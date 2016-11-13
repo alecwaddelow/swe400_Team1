@@ -1,11 +1,6 @@
 package data_source;
-import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.*;
-
-import com.mysql.jdbc.Connection;
-
-import sun.awt.image.ImageWatched.Link;
 
 /**
  * @author Alec Waddelow & Drew Rife 
