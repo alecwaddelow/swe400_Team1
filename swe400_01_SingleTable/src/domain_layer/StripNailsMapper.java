@@ -1,7 +1,5 @@
 package domain_layer;
-
 import java.sql.SQLException;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -9,31 +7,36 @@ import data_source.DatabaseGateway;
  * 
  * A mapper for the StripNail objects
  */
+/**
+ * @author alecw
+ *
+ */
+/**
+ * @author alecw
+ *
+ */
 public class StripNailsMapper extends DBMapper 
 {
 	protected double length;
 	protected int numberInStrip;
-	protected DatabaseGateway gateway;
-
+	
 	/**
-	 * Constructor for StripNailsMapper
+	 * Constructor
 	 * 
-	 * @param id
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
 	 * @param length
 	 * @param numberInStrip
 	 * @param className
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	public StripNailsMapper(String upc, int manufacturerID, int price, Double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException 
 	{
 		super(upc, manufacturerID, price, className);
 		this.length = length;
 		this.numberInStrip = numberInStrip;
-		
 	}
 	
 	/**
@@ -44,7 +47,7 @@ public class StripNailsMapper extends DBMapper
 	 */
 	public void insertStripNail() throws ClassNotFoundException, SQLException
 	{
-		gateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
+		DatabaseGateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
 		setId(this.upc);
 	}
 
@@ -53,24 +56,27 @@ public class StripNailsMapper extends DBMapper
 	 */
 	public StripNailsMapper() {}
 	
-	/**
-	 * sets the id of the mapper
+
+	/** 
+	 * @see domain_layer.DBMapper#setId(java.lang.String)
 	 */
 	public void setId(String upc) throws ClassNotFoundException, SQLException
 	{
 		super.setId(this.upc);
 	}
 	
-	/**
-	 * returns the id of the mapper
+	
+	/** 
+	 * @see domain_layer.DBMapper#getId()
 	 */
 	public int getId()
 	{
 		return super.getId();
 	}
 
+
 	/**
-	 * @return the item's length
+	 * @return double length
 	 */
 	public double getLength()
 	{
@@ -79,7 +85,8 @@ public class StripNailsMapper extends DBMapper
 	
 	/**
 	 * set the item's length
-	 * @param length2
+	 * 
+	 * @param length
 	 */
 	public void setLength(double length)
 	{
@@ -87,7 +94,7 @@ public class StripNailsMapper extends DBMapper
 	}
 	
 	/**
-	 * @return the numberInStrip
+	 * @return tint numberInStrip
 	 */
 	public int getNumberInStrip() 
 	{
@@ -95,7 +102,7 @@ public class StripNailsMapper extends DBMapper
 	}
 	
 	/**
-	 * @param numberInStrip the numberInStrip to set
+	 * @param numberInStrip 
 	 */
 	public void setNumberInStrip(int numberInStrip) 
 	{
@@ -103,7 +110,8 @@ public class StripNailsMapper extends DBMapper
 	}
 	
 	/**
-	 * updates the StripNail
+	 * Updates the StripNail
+	 * 
 	 * @param stripNail
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -116,7 +124,6 @@ public class StripNailsMapper extends DBMapper
 		setPrice(stripNail.getPrice());
 		setLength(stripNail.getLength());
 		setNumberInStrip(stripNail.getNumberInStrip());
-		
-		gateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
+		DatabaseGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
 	}
 }
