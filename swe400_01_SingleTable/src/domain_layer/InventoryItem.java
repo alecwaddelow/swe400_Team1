@@ -2,7 +2,6 @@ package domain_layer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -183,6 +182,9 @@ public abstract class InventoryItem
 		{
 			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 		return item;
 	}
 }

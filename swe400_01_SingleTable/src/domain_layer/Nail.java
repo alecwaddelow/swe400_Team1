@@ -46,6 +46,9 @@ public class Nail extends Fastener
 			ClassNotFoundException exception = new ClassNotFoundException("Could not find nail with specified ID");
 			exception.getMessage();
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**

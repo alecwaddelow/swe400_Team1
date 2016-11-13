@@ -49,6 +49,9 @@ public class StripNail extends Fastener implements LoadInterface
 			ClassNotFoundException exception = new ClassNotFoundException("Could not find stripnail with specified ID");
 			exception.getMessage();
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**
@@ -182,6 +185,9 @@ public class StripNail extends Fastener implements LoadInterface
 			int id = rs.getInt("powerToolID");
 			this.addPowerToolToList(new PowerTool(id));
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**

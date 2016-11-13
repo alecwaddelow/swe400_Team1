@@ -43,6 +43,9 @@ public class Tool extends InventoryItem
 			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
 			notFoundException.getMessage();
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**

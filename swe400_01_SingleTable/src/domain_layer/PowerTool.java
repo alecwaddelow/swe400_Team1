@@ -49,7 +49,10 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		{
 			ClassNotFoundException exception = new ClassNotFoundException("Could not find PowerTool with specified ID");
 			exception.getMessage();
-		}		
+		}	
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**
@@ -208,6 +211,9 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			int id = rs.getInt("stripNailID");
 			this.addStripNailToList(new StripNail(id));
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**
