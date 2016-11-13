@@ -2,6 +2,9 @@ package data_source;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+
 import domain_layer.*;
 import enums.*;
 
@@ -22,7 +25,6 @@ public class CreateDatabase
 	static String numberInStrip = "numberInStrip INT, ";
 	static String numberInBox = "numberInBox INT, ";
 	static String className = "className VARCHAR(25)";
-	
 	private static PreparedStatement preparedStatement = null;
 
 	/**
@@ -36,9 +38,15 @@ public class CreateDatabase
 		String sqlStatement = "CREATE TABLE InventoryItem (" + id + upc + manufacturerID + price + description + batteryPowered +
 				length + numberInStrip + numberInBox + className + ");";
 
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		st.execute(sqlStatement);
-		st.close();
+		try(Statement st = DatabaseGateway.getConnection().createStatement())
+		{
+			st.execute(sqlStatement);
+			st.close();
+		}
+		catch(MySQLDataException e)
+		{
+			e.getCause();
+		}
 	}
 
 	/**
