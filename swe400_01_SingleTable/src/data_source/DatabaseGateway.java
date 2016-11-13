@@ -4,12 +4,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import com.sun.org.apache.xpath.internal.operations.And;
-
-import domain_layer.*;
 
 /**
  * @author Drew Rife and Alec Waddelow
@@ -47,7 +41,7 @@ public class DatabaseGateway
 	}
 
 	/**
-	 * Query nail function
+	 * Query for Nail
 	 * 
 	 * @param id
 	 * @return ResultSet
@@ -128,8 +122,16 @@ public class DatabaseGateway
 		statement.close();
 	}
 	
+
 	/**
-	 * Inserts a nail
+	 * Insert Nail
+	 * 
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param length
+	 * @param numberInBox
+	 * @param className
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -147,10 +149,15 @@ public class DatabaseGateway
 		closeStatements();
 	}
 	
+	
 	/**
-	 * Inserts a Tool 
+	 * Insert Tool 
 	 * 
-	 * @param tool
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param description
+	 * @param className
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -167,10 +174,16 @@ public class DatabaseGateway
 		closeStatements();
 	}
 	
+	
 	/**
-	 * Insert a powerTool 
+	 * Insert PowerTool
 	 * 
-	 * @param powerTool
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param description
+	 * @param batteryPowered
+	 * @param className
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -188,10 +201,16 @@ public class DatabaseGateway
 		closeStatements();
 	}
 	
+	
 	/**
-	 * Insert a StripNail
+	 * Insert StripNail
 	 * 
-	 * @param stripNail
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param length
+	 * @param numberInStrip
+	 * @param className
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -213,7 +232,7 @@ public class DatabaseGateway
 	 * Retrieves item by UPC 
 	 * 
 	 * @param upc
-	 * @return InventoryItem
+	 * @return ResultSet
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -237,23 +256,28 @@ public class DatabaseGateway
 	/**
 	 * Builds the ArrayList of the objects
 	 * 
-	 * @return
+	 * @return ResultSet
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
 	public static ResultSet createList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> listOfObjects = new ArrayList<InventoryItem>(); 
 		String sqlStatement = ("SELECT id,className FROM InventoryItem");
 		preparedStatement = getConnection().prepareStatement(sqlStatement);
 		resultSet = preparedStatement.executeQuery();
 		return resultSet;
 	}
 
+	
 	/**
-	 * updates the fields of the nail in the db
+	 * Updates a single nail in the DB
 	 * 
-	 * @param nail
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param length
+	 * @param numberInBox
+	 * @param id
 	 * @throws SQLException
 	 */
 	public static void updateNailToDB(String upc, int manufacturerID, int price, double length, int numberInBox, int id) throws SQLException 
@@ -277,12 +301,18 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
+	
 	/**
-	 * updates the fields of the tool in the db
 	 * 
-	 * @param tool
+	 * Updates a single Tool in the DB
+	 * 
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param description
+	 * @param id
 	 * @throws SQLException
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
 	public static void updateToolToDB(String upc, int manufacturerID, int price, String description, int id) throws SQLException, ClassNotFoundException 
 	{
@@ -303,12 +333,18 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
+	
 	/**
-	 * updates the fields of the stripNail in the db
+	 * Updates a single StripNail in the DB
 	 * 
-	 * @param stripNail
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param length
+	 * @param numberInStrip
+	 * @param id
 	 * @throws SQLException
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
 	public static void updateStripNailToDB(String upc, int manufacturerID, int price, double length, int numberInStrip, int id) throws SQLException, ClassNotFoundException 
 	{
@@ -331,12 +367,18 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
+	
 	/**
-	 * updates the fields of the powerTool in the db
+	 * Updates a single PowerTool to the DB
 	 * 
-	 * @param powerTool
+	 * @param upc
+	 * @param manufacturerID
+	 * @param price
+	 * @param description
+	 * @param batteryPowered
+	 * @param id
 	 * @throws SQLException
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
 	public static void updatePowerToolToDB(String upc, int manufacturerID, int price, String description, boolean batteryPowered, int id) throws SQLException, ClassNotFoundException
 	{
@@ -359,13 +401,13 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
-	
-	
+
 	/**
-	 * returns the id of the item
+	 * Returns the ID of the Item that matches the UPC and className
 	 * 
 	 * @param upc
-	 * @return
+	 * @param className
+	 * @return id of InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -383,13 +425,11 @@ public class DatabaseGateway
 			id = resultSet.getInt("id");
 			closeStatements();
 		}
-			
 		return id;
 	}
 	
 	/**
-	 * @return the resultset of querying for all StripNails
-	 * 
+	 * @return ResultSet for all StripNails
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -403,7 +443,7 @@ public class DatabaseGateway
 	}
 
 	/**
-	 * @return the resultset of querying for all powertools
+	 * @return ResultSet all powertools
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -417,7 +457,7 @@ public class DatabaseGateway
 	}
 	
 	/**
-	 * closes the statements when done
+	 * Closes the statements when done
 	 * 
 	 * @throws SQLException
 	 */
@@ -443,7 +483,7 @@ public class DatabaseGateway
 	}
 	
 	/**
-	 * closes the connection when finished 
+	 * Closes the connection when finished 
 	 * 
 	 * @throws SQLException
 	 */
