@@ -1,7 +1,5 @@
 package domain_layer;
-
 import java.sql.SQLException;
-
 import data_source.LinkTableGateway;
 
 /**
@@ -14,7 +12,6 @@ public class LinkTableMapper
 	protected int linkID;
 	protected int powerToolID;
 	protected int stripNailID;
-	protected static LinkTableGateway gateway;
 	
 	/**
 	 * Empty Constructor 
@@ -65,7 +62,7 @@ public class LinkTableMapper
 	}
 
 	/**
-	 * removes the relation from the LinkTable
+	 * Removes the relation from the LinkTable
 	 * 
 	 * @param id
 	 * @param stripNailID2
@@ -74,11 +71,11 @@ public class LinkTableMapper
 	 */
 	public static void removeRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
-		gateway.removeRelation(powerToolID, stripNailID);
+		LinkTableGateway.removeRelation(powerToolID, stripNailID);
 	}
 
 	/**
-	 * adds the relation from the LinkTable
+	 * Adds the relation from the LinkTable
 	 * 
 	 * @param powerToolID
 	 * @param stripNailID
@@ -87,6 +84,6 @@ public class LinkTableMapper
 	 */
 	public static void addRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
-		gateway.addRelation(powerToolID, stripNailID);
+		LinkTableGateway.addRelation(powerToolID, stripNailID);
 	}	
 }
