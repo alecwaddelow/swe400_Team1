@@ -38,8 +38,7 @@ public class LinkTableGateway
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(hostName, user, password);
-			con.setAutoCommit(false);
-
+			
 			return con;
 		}
 		else
@@ -90,7 +89,6 @@ public class LinkTableGateway
 	public static void insertRow(PreparedStatement statement) throws ClassNotFoundException, SQLException
 	{
 		statement.execute();
-		LinkTableGateway.getConnection().commit();
 		statement.close();
 	}
 
@@ -109,7 +107,9 @@ public class LinkTableGateway
 			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
 			statement.setInt(1, powerToolID);
 			statement.setInt(2, stripNailID);
-			insertRow(statement);			
+			insertRow(statement);
+			
+			statement.close();
 		}
 		else
 		{
@@ -129,11 +129,12 @@ public class LinkTableGateway
 	private static boolean containsDuplicates(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from LinkTable where powerToolID=" + "'" + powerToolID + "'" + " and stripNailID=" + "'" + stripNailID + "';";
-		Statement statement = DatabaseGateway.getConnection().createStatement();
+		Statement statement = getConnection().createStatement();
 		ResultSet resultSet = statement.executeQuery(sqlStatement);
 		
 		if(resultSet.next())
 		{
+			resultSet.close();
 			return true;
 		}
 		else
@@ -153,10 +154,10 @@ public class LinkTableGateway
 	public static void removeRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
 		String query = "delete from LinkTable where powerToolID=? and stripNailID=?";
-	    PreparedStatement preparedStmt = DatabaseGateway.getConnection().prepareStatement(query);
+	    PreparedStatement preparedStmt = getConnection().prepareStatement(query);
 	    preparedStmt.setInt(1, powerToolID);
 	    preparedStmt.setInt(2, stripNailID);
 	    preparedStmt.execute();
-		
+		preparedStmt.close();
 	}
 }

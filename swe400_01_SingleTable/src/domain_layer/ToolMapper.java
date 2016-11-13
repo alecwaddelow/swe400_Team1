@@ -80,8 +80,9 @@ public class ToolMapper extends DBMapper
 	 * updates the tool
 	 * @param tool
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void updateTool(Tool tool) throws SQLException 
+	public void updateTool(Tool tool) throws SQLException, ClassNotFoundException 
 	{
 		this.id = tool.getId();
 		setUpc(tool.getUpc());

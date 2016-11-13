@@ -106,8 +106,9 @@ public class StripNailsMapper extends DBMapper
 	 * updates the StripNail
 	 * @param stripNail
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void updateStripNail(StripNail stripNail) throws SQLException 
+	public void updateStripNail(StripNail stripNail) throws SQLException, ClassNotFoundException 
 	{
 		this.id = stripNail.getId();
 		setUpc(stripNail.getUpc());

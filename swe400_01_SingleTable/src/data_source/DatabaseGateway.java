@@ -21,7 +21,9 @@ public class DatabaseGateway
 	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
-	private static Connection con;
+	private static Connection con = null;
+	private static PreparedStatement preparedStatement = null;
+	private static ResultSet resultSet = null;
 
 	/**
 	 * Gets connection to the Database and returns the connection 
@@ -53,11 +55,12 @@ public class DatabaseGateway
 	 * @throws SQLException
 	 */
 	public static ResultSet queryNail(int id) throws ClassNotFoundException, SQLException
-	{
-		Statement statement = DatabaseGateway.getConnection().createStatement();
-		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
-		ResultSet rs = statement.executeQuery(sqlStatement);
-		return rs;
+	{		
+		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setInt(1, id);
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 	
 	/**
@@ -70,10 +73,11 @@ public class DatabaseGateway
 	 */
 	public static ResultSet queryTool(int id) throws ClassNotFoundException, SQLException
 	{
-		Statement statement = DatabaseGateway.getConnection().createStatement();
-		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
-		ResultSet rs = statement.executeQuery(sqlStatement);
-		return rs;
+		String sqlStatement = ("SELECT * FROM InventoryItem where id=?");
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setInt(1, id);
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 
 	
@@ -87,10 +91,11 @@ public class DatabaseGateway
 	 */
 	public static ResultSet queryPowerTool(int id) throws ClassNotFoundException, SQLException
 	{
-		Statement statement = DatabaseGateway.getConnection().createStatement();
-		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
-		ResultSet rs = statement.executeQuery(sqlStatement);
-		return rs;
+		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setInt(1, id);
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 	
 	/**
@@ -103,10 +108,11 @@ public class DatabaseGateway
 	 */
 	public static ResultSet queryStripNail(int id) throws SQLException, ClassNotFoundException
 	{
-		Statement statement = DatabaseGateway.getConnection().createStatement();
-		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id =" + "'" + id + "';");
-		ResultSet rs = statement.executeQuery(sqlStatement);
-		return rs;
+		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setInt(1, id);
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 	
 	/**
@@ -130,14 +136,15 @@ public class DatabaseGateway
 	public static void insertNail(String upc, int manufacturerID, int price, double length, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, length, numberInBox, className) VALUES(?,?,?,?,?,?)";
-		PreparedStatement pst = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1, upc);
-		pst.setInt(2, manufacturerID);
-		pst.setInt(3, price);
-		pst.setDouble(4, length);
-		pst.setInt(5,  numberInBox);
-		pst.setString(6,  className);
-		DatabaseGateway.insertRow(pst);
+		preparedStatement = getConnection().prepareStatement(statement);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setDouble(4, length);
+		preparedStatement.setInt(5,  numberInBox);
+		preparedStatement.setString(6,  className);
+		insertRow(preparedStatement);
+		preparedStatement.close();
 	}
 	
 	/**
@@ -150,13 +157,14 @@ public class DatabaseGateway
 	public static void insertTool(String upc, int manufacturerID, int price, String description, String className) throws SQLException, ClassNotFoundException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, description, className) VALUES(?,?,?,?,?)";
-		PreparedStatement pst  = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1, upc);
-		pst.setInt(2, manufacturerID);
-		pst.setInt(3, price);
-		pst.setString(4, description);
-		pst.setString(5, className);
-		DatabaseGateway.insertRow(pst);
+		preparedStatement  = getConnection().prepareStatement(statement);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setString(4, description);
+		preparedStatement.setString(5, className);
+		insertRow(preparedStatement);
+		preparedStatement.close();
 	}
 	
 	/**
@@ -169,14 +177,15 @@ public class DatabaseGateway
 	public static void insertPowerTool(String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws SQLException, ClassNotFoundException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, description, batteryPowered, className) VALUES(?,?,?,?,?,?)";
-		PreparedStatement pst  = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1,  upc);
-		pst.setInt(2, manufacturerID);
-		pst.setInt(3, price);
-		pst.setString(4,  description);
-		pst.setBoolean(5, batteryPowered);
-		pst.setString(6,  className);
-		DatabaseGateway.insertRow(pst);
+		preparedStatement = getConnection().prepareStatement(statement);
+		preparedStatement.setString(1,  upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setString(4,  description);
+		preparedStatement.setBoolean(5, batteryPowered);
+		preparedStatement.setString(6,  className);
+		insertRow(preparedStatement);
+		preparedStatement.close();
 	}
 	
 	/**
@@ -189,14 +198,15 @@ public class DatabaseGateway
 	public static void insertStripNail(String upc, int manufacturerID, int price, double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, length, numberInStrip, className) VALUES(?,?,?,?,?,?)";
-		PreparedStatement pst  = DatabaseGateway.getConnection().prepareStatement(statement);
-		pst.setString(1, upc);
-		pst.setInt(2, manufacturerID);
-		pst.setInt(3, price);
-		pst.setDouble(4, length);
-		pst.setInt(5,  numberInStrip);
-		pst.setString(6,  className);
-		DatabaseGateway.insertRow(pst);
+		preparedStatement  = getConnection().prepareStatement(statement);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setDouble(4, length);
+		preparedStatement.setInt(5,  numberInStrip);
+		preparedStatement.setString(6,  className);
+		insertRow(preparedStatement);
+		preparedStatement.close();
 	}
 	
 	/**
@@ -209,13 +219,14 @@ public class DatabaseGateway
 	 */
 	public static ResultSet retrieveUPC(String upc) throws ClassNotFoundException, SQLException
 	{
-		String statement = "SELECT * FROM InventoryItem WHERE upc =" + "'" + upc + "'" + ";";
-		PreparedStatement pst = DatabaseGateway.getConnection().prepareStatement(statement);
-		ResultSet rs = pst.executeQuery();
+		String statement = "SELECT * FROM InventoryItem WHERE upc =?";
+		preparedStatement = getConnection().prepareStatement(statement);
+		preparedStatement.setString(1, upc);
+		resultSet = preparedStatement.executeQuery();
 		
-		if(rs.next())
+		if(resultSet.next())
 		{
-			return rs;
+			return resultSet;
 		}
 		else
 		{
@@ -233,11 +244,10 @@ public class DatabaseGateway
 	public static ResultSet createList() throws ClassNotFoundException, SQLException
 	{
 		ArrayList<InventoryItem> listOfObjects = new ArrayList<InventoryItem>(); 
-		String sqlStatement = ("SELECT id,className FROM InventoryItem;");
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rs = st.executeQuery(sqlStatement);
-
-		return rs;
+		String sqlStatement = ("SELECT id,className FROM InventoryItem");
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 
 	/**
@@ -249,15 +259,22 @@ public class DatabaseGateway
 	public static void updateNailToDB(String upc, int manufacturerID, int price, double length, int numberInBox, int id) throws SQLException 
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + upc
-				+ ", manufacturerID=" + manufacturerID
-				+ ", price=" + price
-				+ ", length=" + length
-				+ ", numberInBox=" + numberInBox
-				+ " where id=" + id + ";";
+				+ " upc=?"
+				+ ", manufacturerID=?"
+				+ ", price=?"
+				+ ", length=?"
+				+ ", numberInBox=?"
+				+ " where id=?";
 		
-		PreparedStatement preparedStatement = con.prepareStatement(query);
-		preparedStatement.executeUpdate();		
+		preparedStatement = con.prepareStatement(query);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setDouble(4, length);
+		preparedStatement.setInt(5, numberInBox);
+		preparedStatement.setInt(6, id);
+		preparedStatement.executeUpdate();	
+		preparedStatement.close();
 	}
 
 	/**
@@ -265,18 +282,25 @@ public class DatabaseGateway
 	 * 
 	 * @param tool
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
-	public static void updateToolToDB(String upc, int manufacturerID, int price, String description, int id) throws SQLException 
+	public static void updateToolToDB(String upc, int manufacturerID, int price, String description, int id) throws SQLException, ClassNotFoundException 
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + upc
-				+ ", manufacturerID=" + manufacturerID
-				+ ", price=" + price
-				+ ", description=" + "'" + description + "'"
-				+ " where id=" + id + ";";
+				+ " upc=?"
+				+ ", manufacturerID=?"
+				+ ", price=?"
+				+ ", description=?"
+				+ " where id=?";
 
-		PreparedStatement preparedStatement = con.prepareStatement(query);
-		preparedStatement.executeUpdate();		
+		preparedStatement = con.prepareStatement(query);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setString(4, description);
+		preparedStatement.setInt(5, id);
+		preparedStatement.executeUpdate();	
+		preparedStatement.close();
 	}
 
 	/**
@@ -284,19 +308,27 @@ public class DatabaseGateway
 	 * 
 	 * @param stripNail
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
-	public static void updateStripNailToDB(String upc, int manufacturerID, int price, double length, int numberInStrip, int id) throws SQLException 
+	public static void updateStripNailToDB(String upc, int manufacturerID, int price, double length, int numberInStrip, int id) throws SQLException, ClassNotFoundException 
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + upc
-				+ ", manufacturerID=" + manufacturerID
-				+ ", price=" + price
-				+ ", length=" + length
-				+ ", numberInStrip=" + numberInStrip
-				+ " where id=" + id;
+				+ " upc=?"
+				+ ", manufacturerID=?"
+				+ ", price=?"
+				+ ", length=?"
+				+ ", numberInStrip=?"
+				+ " where id=?";
 		
-		PreparedStatement preparedStatement = con.prepareStatement(query);
-		preparedStatement.executeUpdate();
+		preparedStatement = con.prepareStatement(query);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setDouble(4, length);
+		preparedStatement.setInt(5, numberInStrip);
+		preparedStatement.setInt(6, id);
+		preparedStatement.executeUpdate();	
+		preparedStatement.close();
 	}
 
 	/**
@@ -304,20 +336,27 @@ public class DatabaseGateway
 	 * 
 	 * @param powerTool
 	 * @throws SQLException
+	 * @throws ClassNotFoundException 
 	 */
-	public static void updatePowerToolToDB(String upc, int manufacturerID, int price, String description, boolean batteryPowered, int id) throws SQLException
+	public static void updatePowerToolToDB(String upc, int manufacturerID, int price, String description, boolean batteryPowered, int id) throws SQLException, ClassNotFoundException
 	{
 		String query = "update InventoryItem set"
-				+ " upc=" + upc
-				+ ", manufacturerID=" + manufacturerID
-				+ ", price=" + price
-				+ ", description=" + "'" + description + "'"
-				+ ", batteryPowered=" + batteryPowered
-				+ " where id=" + id + ";";
-		System.out.println(query);
-		PreparedStatement preparedStatement = con.prepareStatement(query);
-		preparedStatement.executeUpdate();
-		
+				+ " upc=?"
+				+ ", manufacturerID=?"
+				+ ", price=?"
+				+ ", description=?"
+				+ ", batteryPowered=?"
+				+ " where id=?";
+
+		preparedStatement = con.prepareStatement(query);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setInt(2, manufacturerID);
+		preparedStatement.setInt(3, price);
+		preparedStatement.setString(4, description);
+		preparedStatement.setBoolean(5, batteryPowered);
+		preparedStatement.setInt(6, id);
+		preparedStatement.executeUpdate();	
+		preparedStatement.close();
 	}
 
 	
@@ -332,17 +371,21 @@ public class DatabaseGateway
 	 */
 	public static int getID(String upc, String className) throws ClassNotFoundException, SQLException
 	{
-		String sqlStatement = "select id from InventoryItem where upc=" + "'" + upc + "' and className=" + "'" + className + "'";
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rSet = st.executeQuery(sqlStatement);
-		if(rSet.next())
+		String sqlStatement = "select id from InventoryItem where upc=? and className=?";
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, upc);
+		preparedStatement.setString(2, className);
+		resultSet = preparedStatement.executeQuery();
+		
+		int id = 0;		
+		if(resultSet.next())
 		{
-			return rSet.getInt("id");
+			id = resultSet.getInt("id");
+			resultSet.close();
+			preparedStatement.close();
 		}
-		else
-		{
-			return 0;
-		}			
+			
+		return id;
 	}
 	
 	/**
@@ -353,10 +396,11 @@ public class DatabaseGateway
 	 */
 	public static ResultSet getStripNailUPCs() throws ClassNotFoundException, SQLException 
 	{
-		String sqlStatement = "select * from InventoryItem where className=" + "'" + "StripNail" + "'";
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rs = st.executeQuery(sqlStatement);
-		return rs;
+		String sqlStatement = "select * from InventoryItem where className=?";
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, "StripNail");
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 
 	/**
@@ -366,9 +410,10 @@ public class DatabaseGateway
 	 */
 	public static ResultSet getPowerToolUPCs() throws ClassNotFoundException, SQLException
 	{
-		String sqlStatement = "select * from InventoryItem where className=" + "'" + "PowerTool" + "'";
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		ResultSet rs = st.executeQuery(sqlStatement);
-		return rs;
+		String sqlStatement = "select * from InventoryItem where className=?";
+		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, "PowerTool");
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
 	}
 }

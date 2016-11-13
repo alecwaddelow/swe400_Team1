@@ -102,8 +102,9 @@ public class PowerToolMapper extends DBMapper
 	 * updates the powertool
 	 * @param powerTool
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void updatePowerTool(PowerTool powerTool) throws SQLException 
+	public void updatePowerTool(PowerTool powerTool) throws SQLException, ClassNotFoundException 
 	{
 		this.id = powerTool.getId();
 		setUpc(powerTool.getUpc());
