@@ -144,7 +144,7 @@ public class DatabaseGateway
 		preparedStatement.setInt(5,  numberInBox);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		preparedStatement.close();
+		closeStatements();
 	}
 	
 	/**
@@ -164,7 +164,7 @@ public class DatabaseGateway
 		preparedStatement.setString(4, description);
 		preparedStatement.setString(5, className);
 		insertRow(preparedStatement);
-		preparedStatement.close();
+		closeStatements();
 	}
 	
 	/**
@@ -185,7 +185,7 @@ public class DatabaseGateway
 		preparedStatement.setBoolean(5, batteryPowered);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		preparedStatement.close();
+		closeStatements();
 	}
 	
 	/**
@@ -206,7 +206,7 @@ public class DatabaseGateway
 		preparedStatement.setInt(5,  numberInStrip);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		preparedStatement.close();
+		closeStatements();
 	}
 	
 	/**
@@ -274,7 +274,7 @@ public class DatabaseGateway
 		preparedStatement.setInt(5, numberInBox);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		preparedStatement.close();
+		closeStatements();
 	}
 
 	/**
@@ -300,7 +300,7 @@ public class DatabaseGateway
 		preparedStatement.setString(4, description);
 		preparedStatement.setInt(5, id);
 		preparedStatement.executeUpdate();	
-		preparedStatement.close();
+		closeStatements();
 	}
 
 	/**
@@ -328,7 +328,7 @@ public class DatabaseGateway
 		preparedStatement.setInt(5, numberInStrip);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		preparedStatement.close();
+		closeStatements();
 	}
 
 	/**
@@ -356,7 +356,7 @@ public class DatabaseGateway
 		preparedStatement.setBoolean(5, batteryPowered);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		preparedStatement.close();
+		closeStatements();
 	}
 
 	
@@ -381,8 +381,7 @@ public class DatabaseGateway
 		if(resultSet.next())
 		{
 			id = resultSet.getInt("id");
-			resultSet.close();
-			preparedStatement.close();
+			closeStatements();
 		}
 			
 		return id;
@@ -415,5 +414,31 @@ public class DatabaseGateway
 		preparedStatement.setString(1, "PowerTool");
 		resultSet = preparedStatement.executeQuery();
 		return resultSet;
+	}
+	
+	/**
+	 * closes the statements when done
+	 * 
+	 * @throws SQLException
+	 */
+	public static void closeStatements() throws SQLException
+	{
+		if(resultSet != null)
+		{
+			if(!resultSet.isClosed())
+			{
+				resultSet.close();
+				resultSet = null;
+			}
+		}
+		
+		if(preparedStatement != null)
+		{
+			if(!preparedStatement.isClosed())
+			{
+				preparedStatement.close();
+				preparedStatement = null;
+			}			
+		}
 	}
 }
