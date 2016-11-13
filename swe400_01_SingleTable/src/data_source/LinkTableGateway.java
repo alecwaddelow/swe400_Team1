@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -84,9 +83,9 @@ public class LinkTableGateway
 	}
 	
 	/**
-	 * Inserts an item into the table within the database based on a prepared statement created by respective concrete class Mappers 
+	 * Inserts an item into the table within the database based on a prepared statement 
 	 * 
-	 * @param dbrs
+	 * @param PreparedStatement
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -112,7 +111,6 @@ public class LinkTableGateway
 			statement.setInt(1, powerToolID);
 			statement.setInt(2, stripNailID);
 			insertRow(statement);
-			
 			closeStatements();
 		}
 		else
@@ -126,7 +124,7 @@ public class LinkTableGateway
 	 * 
 	 * @param powerToolID
 	 * @param stripNailID
-	 * @return
+	 * @return boolean of whether or not duplicate(s) were found 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -168,7 +166,7 @@ public class LinkTableGateway
 	}
 	
 	/**
-	 * closes the statements when done
+	 * closes the statements and result sets when done
 	 * 
 	 * @throws SQLException
 	 */
