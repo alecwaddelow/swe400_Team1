@@ -1,9 +1,5 @@
 package domain_layer;
-
 import java.sql.SQLException;
-
-import org.junit.experimental.theories.Theories;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -11,24 +7,26 @@ import data_source.DatabaseGateway;
  *
  * A mapper for PowerTool Objects
  */
+/**
+ * @author Alec Waddelow and Drew Rife 
+ *
+ */
 public class PowerToolMapper extends DBMapper
 {
 	protected String description;
 	protected boolean batteryPowered;
-	protected DatabaseGateway gateway;
 	
 	/**
-	 * Constructor for PowerToolMapper
+	 * Constructor 
 	 * 
-	 * @param id
 	 * @param upc
 	 * @param manufacturerID
 	 * @param price
 	 * @param description
 	 * @param batteryPowered
 	 * @param className
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	public PowerToolMapper(String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws ClassNotFoundException, SQLException 
 	{
@@ -37,9 +35,15 @@ public class PowerToolMapper extends DBMapper
 		this.description = description;
 	}
 
+	/**
+	 * Insert PowerTool
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void insertPowerTool() throws ClassNotFoundException, SQLException
 	{
-		gateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
+		DatabaseGateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
 		setId(this.upc);		
 	}
 	
@@ -48,16 +52,18 @@ public class PowerToolMapper extends DBMapper
 	 */
 	public PowerToolMapper() {}
 	
-	/**
-	 * sets the id of the mapper
+
+	/** 
+	 * @see domain_layer.DBMapper#setId(java.lang.String)
 	 */
 	public void setId(String upc) throws ClassNotFoundException, SQLException
 	{
 		super.setId(this.upc);
 	}
 	
-	/**
-	 * returns the id of the mapper
+
+	/** 
+	 * @see domain_layer.DBMapper#getId()
 	 */
 	public int getId()
 	{
@@ -65,7 +71,7 @@ public class PowerToolMapper extends DBMapper
 	}
 	
 	/**
-	 * @return true if the item is battery powered; false otherwise
+	 * @return boolean true if the item is battery powered; false otherwise
 	 */
 	public boolean isBatteryPowered()
 	{
@@ -73,7 +79,8 @@ public class PowerToolMapper extends DBMapper
 	}
 
 	/**
-	 * set true if the item is battery powered; false otherwise
+	 * Set true if the item is battery powered; false otherwise
+	 * 
 	 * @param batteryPowered
 	 */
 	public void setBatteryPowered(boolean batteryPowered)
@@ -82,7 +89,7 @@ public class PowerToolMapper extends DBMapper
 	}
 	
 	/**
-	 * @return the item's description
+	 * @return String item description
 	 */
 	public String getDescription()
 	{
@@ -90,7 +97,8 @@ public class PowerToolMapper extends DBMapper
 	}
 
 	/**
-	 * sets the item's description
+	 * Sets the item's description
+	 * 
 	 * @param description
 	 */
 	public void setDescription(String description)
@@ -99,7 +107,8 @@ public class PowerToolMapper extends DBMapper
 	}
 
 	/**
-	 * updates the powertool
+	 * Updates powertool
+	 * 
 	 * @param powerTool
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -112,7 +121,6 @@ public class PowerToolMapper extends DBMapper
 		setPrice(powerTool.getPrice());
 		setDescription(powerTool.getDescription());
 		setBatteryPowered(powerTool.isBatteryPowered());
-		
-		gateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
+		DatabaseGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
 	}
 }
