@@ -63,4 +63,16 @@ public class TestDatabaseGateway
 			i++;
 		}		
 	}
+	
+	/**
+	 * Tests for inpuuting a bad UPC that isn't in the database
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testBadUPCInput() throws ClassNotFoundException, SQLException
+	{
+		assertNull(DatabaseGateway.retrieveUPC("000000000000000"));
+	}
 }

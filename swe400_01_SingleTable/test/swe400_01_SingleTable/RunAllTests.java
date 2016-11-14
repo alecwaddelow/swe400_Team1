@@ -26,7 +26,8 @@ import org.junit.runners.Suite;
 			TestCreateLinkTable.class,
 			TestCreateDatabase.class,
 			TestRunner.class,
-			TestSimulatedInput.class
+			TestSimulatedInput.class,
+			TestCloseConnection.class
 		})
 
 public class RunAllTests  {}

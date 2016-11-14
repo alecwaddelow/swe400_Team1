@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.Test;
+import java.sql.Connection;
 import data_source.LinkTableGateway;
 
 /**
@@ -27,6 +28,7 @@ public class TestLinkTableGateway
 	
 	/**
 	 * test remove relation in LinkTable Gateway
+	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
