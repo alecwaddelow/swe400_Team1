@@ -7,7 +7,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 import data_source.*;
 import domain_layer.*;
-import ui.UserInput;
+import userInput.UserInput;
 
 /**
  * @authors Drew Rife & Alec Waddelow

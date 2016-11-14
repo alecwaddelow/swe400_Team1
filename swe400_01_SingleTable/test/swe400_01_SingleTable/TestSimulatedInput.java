@@ -10,8 +10,8 @@ import org.junit.Test;
 import data_source.LinkTableGateway;
 import domain_layer.*;
 import runner.Runner;
-import ui.PowerToolUI;
-import ui.StripNailUI;
+import userInput.PowerToolUI;
+import userInput.StripNailUI;
 
 /**
  * @author Drew Rife & Alec Waddelow

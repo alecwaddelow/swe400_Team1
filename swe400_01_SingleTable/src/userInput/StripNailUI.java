@@ -1,4 +1,4 @@
-package ui;
+package userInput;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
