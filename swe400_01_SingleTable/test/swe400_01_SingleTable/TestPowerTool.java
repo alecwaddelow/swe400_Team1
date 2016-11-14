@@ -217,4 +217,24 @@ public class TestPowerTool extends DBTest
 		MockPowerTool test = new MockPowerTool();
 		assertTrue(test instanceof PowerTool);
 	}
+	
+	/**
+	 * Tests removing a stripnail
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testRemoveStripNail() throws ClassNotFoundException, SQLException
+	{
+		PowerTool powerTool = new PowerTool(21);
+		ArrayList<StripNail> stripNails = powerTool.getStripNailList();
+		assertEquals(2, stripNails.size());
+		
+		StripNail stripNail = stripNails.get(1);
+		powerTool.removeStripNailFromList(stripNail);
+		
+		stripNails = powerTool.getStripNailList();
+		assertEquals(1, stripNails.size());
+	}
 }
