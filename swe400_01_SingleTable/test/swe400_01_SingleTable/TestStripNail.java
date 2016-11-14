@@ -3,8 +3,11 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Test;
+import org.junit.validator.PublicClassValidator;
+
 import domain_layer.PowerTool;
 import domain_layer.StripNail;
+import enums.PowerTools;
 import enums.StripNails;
 
 /**
@@ -210,5 +213,25 @@ public class TestStripNail extends DBTest
 	{
 		MockStripNail test = new MockStripNail();
 		assertTrue(test instanceof StripNail);
+	}
+	
+	/**
+	 * Tests removing a powerTool
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testRemovePowerTool() throws ClassNotFoundException, SQLException
+	{
+		StripNail stripNail = new StripNail(11);
+		ArrayList<PowerTool> powerTools = stripNail.getPowerToolList();
+		assertEquals(2, powerTools.size());
+		
+		PowerTool powerTool = powerTools.get(1);
+		stripNail.removePowerToolFromList(powerTool);
+		
+		powerTools = stripNail.getPowerToolList();
+		assertEquals(1, powerTools.size());
 	}
 }
