@@ -4,8 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import org.junit.Test;
-import domain_layer.InventoryItem;
-import domain_layer.Nail;
+
+import domain.InventoryItem;
+import domain.Nail;
 import enums.Nails;
 import runner.Runner;
 

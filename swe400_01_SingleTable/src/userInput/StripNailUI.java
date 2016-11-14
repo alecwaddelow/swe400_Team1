@@ -7,7 +7,7 @@ import java.util.Scanner;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 import data_source.*;
-import domain_layer.*;
+import domain.*;
 
 public class StripNailUI 
 {

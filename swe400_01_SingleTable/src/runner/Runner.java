@@ -6,8 +6,8 @@ import javax.naming.NamingException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 import data_source.*;
-import domain_layer.*;
-import swe400_01_SingleTable.InsertEnumData;
+import domain.*;
+import enums.InsertEnumData;
 import userInput.UserInput;
 
 /**

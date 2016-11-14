@@ -1,8 +1,9 @@
 package userInput;
 import java.sql.SQLException;
 import java.util.Scanner;
-import domain_layer.Nail;
-import domain_layer.NailMapper;
+
+import domain.Nail;
+import domain.NailMapper;
 
 public class NailUI 
 {

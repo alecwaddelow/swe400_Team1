@@ -1,8 +1,9 @@
 package userInput;
 import java.sql.SQLException;
 import java.util.Scanner;
-import domain_layer.Tool;
-import domain_layer.ToolMapper;
+
+import domain.Tool;
+import domain.ToolMapper;
 
 public class ToolUI 
 {
