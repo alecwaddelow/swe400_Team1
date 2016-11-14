@@ -1,4 +1,4 @@
-package swe400_01_SingleTable;
+package other;
 import java.sql.*;
 import org.junit.After;
 import org.junit.Before;

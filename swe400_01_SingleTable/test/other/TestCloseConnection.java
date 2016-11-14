@@ -3,7 +3,7 @@
  * 
  * Test class that is to be run at the end for testing closing connections
  */
-package swe400_01_SingleTable;
+package other;
 
 import static org.junit.Assert.assertTrue;
 import java.sql.Connection;

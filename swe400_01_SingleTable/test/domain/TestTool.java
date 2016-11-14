@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import domain.Tool;
 import enums.Tools;
-import swe400_01_SingleTable.DBTest;
+import other.DBTest;
 
 /**
  * @author Drew Rife & Alec Waddelow

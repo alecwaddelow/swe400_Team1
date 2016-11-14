@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import domain.Nail;
 import enums.Nails;
-import swe400_01_SingleTable.DBTest;
+import other.DBTest;
 
 /**
  * @author Drew Rife & Alec Waddelow

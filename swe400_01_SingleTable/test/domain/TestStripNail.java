@@ -9,7 +9,7 @@ import domain.PowerTool;
 import domain.StripNail;
 import enums.PowerTools;
 import enums.StripNails;
-import swe400_01_SingleTable.DBTest;
+import other.DBTest;
 
 /**
  * @author Drew Rife & Alec Waddelow

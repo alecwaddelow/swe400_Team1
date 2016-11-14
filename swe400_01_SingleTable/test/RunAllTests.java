@@ -4,7 +4,7 @@ import org.junit.runners.Suite;
 import SimulatedUserInput.TestSimulatedInput;
 import data_source.*;
 import domain.*;
-import swe400_01_SingleTable.*;
+import other.*;
 
 /**
  * @author Drew Rife & Alec Waddelow

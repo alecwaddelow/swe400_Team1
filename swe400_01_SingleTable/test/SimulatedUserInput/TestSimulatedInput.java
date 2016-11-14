@@ -9,8 +9,8 @@ import java.util.Scanner;
 import org.junit.Test;
 import data_source.LinkTableGateway;
 import domain.*;
+import other.DBTest;
 import runner.Runner;
-import swe400_01_SingleTable.DBTest;
 import userInput.PowerToolUI;
 import userInput.StripNailUI;
 
