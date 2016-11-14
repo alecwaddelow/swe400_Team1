@@ -8,7 +8,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 import data_source.*;
 import domain.*;
 import enums.InsertEnumData;
-import userInput.UserInput;
+import user_input.UserInput;
 
 /**
  * @authors Drew Rife & Alec Waddelow

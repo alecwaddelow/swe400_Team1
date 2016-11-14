@@ -1,8 +1,10 @@
-package userInput;
+package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.junit.experimental.theories.Theories;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
@@ -177,7 +179,7 @@ public class PowerToolInput
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	private static void removeCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	public static void removeCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
 	{
 		boolean done = false;
 		while(!done)

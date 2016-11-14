@@ -161,6 +161,7 @@ public class LinkTableGateway
 	    preparedStatement = getConnection().prepareStatement(query);
 	    preparedStatement.setInt(1, powerToolID);
 	    preparedStatement.setInt(2, stripNailID);
+	    
 	    preparedStatement.execute();
 		closeStatements();
 	}

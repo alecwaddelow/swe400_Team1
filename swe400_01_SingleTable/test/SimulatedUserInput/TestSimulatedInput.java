@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.junit.Test;
+
+import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
 import runner.Runner;
-import userInput.PowerToolInput;
-import userInput.StripNailInput;
+import user_input.*;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -340,6 +341,35 @@ public class TestSimulatedInput extends DBTest
 			}
 			
 			assertTrue(hasPowerTool);
+		}
+	}
+	
+	/**
+	 * Tests simulating removing a compatible stirpnail from a powertool.
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testRemoveCompatibilityForPowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException 
+	{
+		File file = new File("SimulatedInput/PowerTool/SimulateRemovingCompatibleStripNail.txt");
+		
+		if(file.exists())
+		{
+			System.setIn(new FileInputStream(file));
+			Scanner sc = new Scanner(System.in);
+			
+			PowerTool powerTool = new PowerTool(20);
+			PowerToolInput.removeCompatibilities(sc, powerTool); 
+			
+			ResultSet resultSet = LinkTableGateway.queryDBForPowerTools(powerTool.getId());
+			assertFalse(resultSet.next());
+			
+			resultSet.close();
+			LinkTableGateway.closeStatements();
+			
+			System.setIn(System.in);
 		}
 	}
 }

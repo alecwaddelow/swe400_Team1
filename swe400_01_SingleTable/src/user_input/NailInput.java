@@ -1,4 +1,4 @@
-package userInput;
+package user_input;
 import java.sql.SQLException;
 import java.util.Scanner;
 

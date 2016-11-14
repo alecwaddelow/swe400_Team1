@@ -38,5 +38,8 @@ public class TestLinkTableGateway
 		LinkTableGateway.removeRelation(20, 14);
 		ResultSet rSet = LinkTableGateway.queryDBForPowerTools(20);
 		assertFalse(rSet.next());
+		
+		rSet.close();
+		LinkTableGateway.closeStatements();
 	}
 }

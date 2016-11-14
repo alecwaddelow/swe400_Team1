@@ -1,20 +1,17 @@
 package domain;
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
-
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
-
 import data_source.LinkTableGateway;
 import domain.LinkTableMapper;
+import other.DBTest;
 
 /**
  * @author Alec Waddelow and Drew Rife 
  *
  *Test LinkTableMapper 
  */
-public class TestLinkTableMapper 
+public class TestLinkTableMapper extends DBTest
 {
 
 	/**

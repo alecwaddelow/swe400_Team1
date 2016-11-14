@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
@@ -173,16 +174,16 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public void addStripNailToList(StripNail nail) throws ClassNotFoundException, SQLException
+	public void addStripNailToList(StripNail stripNail) throws ClassNotFoundException, SQLException
 	{
 		if(this.stripNailList == null)
 		{
 			this.load();
-			this.stripNailList.add(nail);			
+			this.stripNailList.add(stripNail);			
 		}
 		else
 		{
-			this.stripNailList.add(nail);
+			this.stripNailList.add(stripNail);
 		}
 	}
 	
@@ -191,9 +192,9 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 * 
 	 * @param nail
 	 */
-	public void removeStripNailFromList(StripNail nail)
+	public void removeStripNailFromList(StripNail stripNail)
 	{
-		this.stripNailList.remove(nail);
+		this.stripNailList.remove(stripNail);
 	}
 
 
@@ -221,7 +222,11 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			while(rs.next())
 			{
 				int id = rs.getInt("stripNailID");
-				this.addStripNailToList(new StripNail(id));
+				
+				if(!this.stripNailList.contains(new StripNail(id)))
+				{
+					this.addStripNailToList(new StripNail(id));					
+				}
 			}
 			rs.close();
 			DatabaseGateway.closeStatements();
