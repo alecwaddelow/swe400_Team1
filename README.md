@@ -36,7 +36,7 @@ Runner.java                                  NailInput.java
 
     test/{default package}                         test/data_source
 ------------------------------               ------------------------------
-RunAllTest.java                              TestCloseConnection.java 
+RunAllTests.java                              TestCloseConnection.java 
                                              TestCreateDatabase.java 
                                              TestCreateLinkTable.java 
                                              TestDatabaseGateway.java 
@@ -60,3 +60,20 @@ TestToolMapper.java
 DBTest.java                                  TestSimulatedInput.java 
 TestArrayList.java 
 testRunner.java 
+
+
+
+
+
+PROGRAM EXECUTION:
+
+To run the program, the user must open the 'src' folder and open the 'runner' package. The user then should right click on Runner.java : Run As > Java Application 
+
+
+TESTING EXECUTION:
+
+To run the JUNIT test the user must open 'test' folder and open the 'default' package. The user then should right clock on RunAllTests.java : Run As > JUnit 
+
+TEST COVERAGE EXECUTION:
+
+To see the test coverage of the JUnit Tests the user must right click on RunAllTests.java : Coverage As > JUnit Test 
