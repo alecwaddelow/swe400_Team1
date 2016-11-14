@@ -7,6 +7,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 import data_source.*;
 import domain_layer.*;
+import swe400_01_SingleTable.InsertEnumData;
 import userInput.UserInput;
 
 /**
@@ -31,10 +32,10 @@ public class Runner
 		CreateLinkTable.dropTableBeforeCreation();
 		CreateDatabase.dropTableBeforeCreation();
 		CreateDatabase.createTable();
-		CreateDatabase.insertNailsIntoTable();
-		CreateDatabase.insertToolsIntoTable();
-		CreateDatabase.insertStripNailsIntoTable();
-		CreateDatabase.insertPowerToolsIntoTable();
+		InsertEnumData.insertNailsIntoTable();
+		InsertEnumData.insertToolsIntoTable();
+		InsertEnumData.insertStripNailsIntoTable();
+		InsertEnumData.insertPowerToolsIntoTable();
 		CreateLinkTable.createTable();
 		CreateLinkTable.createRelationships();
 		initiateUserInput();

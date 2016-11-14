@@ -36,10 +36,10 @@ public class TestArrayList
 		CreateLinkTable.dropTableBeforeCreation();
 		CreateDatabase.dropTableBeforeCreation();
 		CreateDatabase.createTable();
-		CreateDatabase.insertNailsIntoTable();
-		CreateDatabase.insertToolsIntoTable();
-		CreateDatabase.insertStripNailsIntoTable();
-		CreateDatabase.insertPowerToolsIntoTable();
+		InsertEnumData.insertNailsIntoTable();
+		InsertEnumData.insertToolsIntoTable();
+		InsertEnumData.insertStripNailsIntoTable();
+		InsertEnumData.insertPowerToolsIntoTable();
 		CreateLinkTable.createTable();
 		CreateLinkTable.createRelationships();
 		testRetrieveNailsFromArrayList();
