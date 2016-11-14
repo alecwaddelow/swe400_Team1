@@ -5,7 +5,7 @@ import java.util.Scanner;
 import domain.Nail;
 import domain.NailMapper;
 
-public class NailUI 
+public class NailInput 
 {
 
 	/**

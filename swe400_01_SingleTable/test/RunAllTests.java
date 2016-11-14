@@ -22,7 +22,7 @@ import other.*;
 			TestDBMapper.class,
 			TestToolMapper.class,
 			TestPowerToolMapper.class,
-			TestStripNailsMapper.class,
+			TestStripNailMapper.class,
 			TestNailMapper.class,
 			TestLinkTableMapper.class,
 			TestLinkTableGateway.class,

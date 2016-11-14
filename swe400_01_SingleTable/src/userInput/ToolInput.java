@@ -5,7 +5,7 @@ import java.util.Scanner;
 import domain.Tool;
 import domain.ToolMapper;
 
-public class ToolUI 
+public class ToolInput 
 {
 	/**
 	 * Creates a new Tool and adds to the Database 

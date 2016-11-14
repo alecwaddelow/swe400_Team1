@@ -15,7 +15,7 @@ import data_source.DatabaseGateway;
  * @author alecw
  *
  */
-public class StripNailsMapper extends DBMapper 
+public class StripNailMapper extends DBMapper 
 {
 	protected double length;
 	protected int numberInStrip;
@@ -32,7 +32,7 @@ public class StripNailsMapper extends DBMapper
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public StripNailsMapper(String upc, int manufacturerID, int price, Double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException 
+	public StripNailMapper(String upc, int manufacturerID, int price, Double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException 
 	{
 		super(upc, manufacturerID, price, className);
 		this.length = length;
@@ -54,7 +54,7 @@ public class StripNailsMapper extends DBMapper
 	/**
 	 * Empty constructor
 	 */
-	public StripNailsMapper() {}
+	public StripNailMapper() {}
 	
 
 	/** 

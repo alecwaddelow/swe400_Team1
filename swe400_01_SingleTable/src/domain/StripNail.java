@@ -35,7 +35,7 @@ public class StripNail extends Fastener implements LoadInterface
 				double length = rs.getDouble("length");
 				int numberInStrip = rs.getInt("numberInStrip");
 				String className = rs.getString("className");
-				StripNailsMapper stripNailMapper = new StripNailsMapper(upc, manufacturerID, price, length, numberInStrip, className);
+				StripNailMapper stripNailMapper = new StripNailMapper(upc, manufacturerID, price, length, numberInStrip, className);
 				setUpc(stripNailMapper.getUpc());
 				setManufacturerID(stripNailMapper.getManufacturerID());
 				setPrice(stripNailMapper.getPrice());
@@ -70,7 +70,7 @@ public class StripNail extends Fastener implements LoadInterface
 		super(upc, manufacturerID, price, length, className);
 		this.numberInStrip = numberInStrip;
 		this.className = className;
-		StripNailsMapper mapper = new StripNailsMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
+		StripNailMapper mapper = new StripNailMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
 		mapper.insertStripNail();
 		setId(mapper.getId());
 	}

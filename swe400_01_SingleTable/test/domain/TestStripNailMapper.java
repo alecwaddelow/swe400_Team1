@@ -3,14 +3,14 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import org.junit.Test;
 
-import domain.StripNailsMapper;
+import domain.StripNailMapper;
 
 /**
  * @author Alec Waddelow and Drew Rife 
  *
  * Test StripNailsMapper
  */
-public class TestStripNailsMapper 
+public class TestStripNailMapper 
 {
 
 	/**
@@ -21,7 +21,7 @@ public class TestStripNailsMapper
 	@Test
 	public void testCreation() throws ClassNotFoundException, SQLException
 	{
-		StripNailsMapper snm = new StripNailsMapper("101", 0, 0, 5.0, 1, "StripNailsMapper");
+		StripNailMapper snm = new StripNailMapper("101", 0, 0, 5.0, 1, "StripNailsMapper");
 		assertEquals("101", snm.getUpc());
 		assertEquals(0, snm.getManufacturerID());
 		assertEquals(0, snm.getPrice());
@@ -36,7 +36,7 @@ public class TestStripNailsMapper
 	@Test
 	public void testSetters()
 	{
-		StripNailsMapper stripNailsMapper = new StripNailsMapper();
+		StripNailMapper stripNailsMapper = new StripNailMapper();
 		stripNailsMapper.setUpc("444");
 		stripNailsMapper.setManufacturerID(21);
 		stripNailsMapper.setPrice(40);

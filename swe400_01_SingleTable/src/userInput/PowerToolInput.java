@@ -9,7 +9,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 import data_source.DatabaseGateway;
 import domain.*;
 
-public class PowerToolUI 
+public class PowerToolInput 
 {
 	/**
 	 * Creates a new PowerTool and adds to the Database 

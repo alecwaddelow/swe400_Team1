@@ -11,8 +11,8 @@ import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
 import runner.Runner;
-import userInput.PowerToolUI;
-import userInput.StripNailUI;
+import userInput.PowerToolInput;
+import userInput.StripNailInput;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -268,7 +268,7 @@ public class TestSimulatedInput extends DBTest
 			System.setIn(new FileInputStream(file));
 			Scanner sc = new Scanner(System.in);
 			
-			PowerToolUI.updateCompatibilities(sc, powerTool);
+			PowerToolInput.updateCompatibilities(sc, powerTool);
 			
 			System.setIn(System.in);
 			
@@ -308,7 +308,7 @@ public class TestSimulatedInput extends DBTest
 			System.setIn(new FileInputStream(file));
 			Scanner sc = new Scanner(System.in);
 			
-			StripNailUI.updateCompatibilities(sc, stripNail);
+			StripNailInput.updateCompatibilities(sc, stripNail);
 			
 			System.setIn(System.in);
 			

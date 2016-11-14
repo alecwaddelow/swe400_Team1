@@ -183,19 +183,19 @@ public class UserInput
 			switch(item)
 			{
 				case 1: 
-					NailUI.createNail(sc);
+					NailInput.createNail(sc);
 					resume = true;
 					break;
 				case 2: 
-					ToolUI.createTool(sc);
+					ToolInput.createTool(sc);
 					resume = true;
 					break;
 				case 3: 
-					PowerToolUI.createPowerTool(sc);
+					PowerToolInput.createPowerTool(sc);
 					resume = true;
 					break;
 				case 4:
-					StripNailUI.createStripNail(sc);
+					StripNailInput.createStripNail(sc);
 					resume = true;
 					break;
 				default: 
@@ -223,19 +223,19 @@ public class UserInput
 			switch(item)
 			{
 				case 1: 
-					NailUI.updateNail(sc, item);
+					NailInput.updateNail(sc, item);
 					resume = true;
 					break;
 				case 2: 
-					ToolUI.updateTool(sc, item);
+					ToolInput.updateTool(sc, item);
 					resume = true;
 					break;
 				case 3: 
-					PowerToolUI.updatePowerTool(sc, item);
+					PowerToolInput.updatePowerTool(sc, item);
 					resume = true;
 					break;
 				case 4:
-					StripNailUI.updateStripNail(sc, item);
+					StripNailInput.updateStripNail(sc, item);
 					resume = true;
 					break;
 				default: 

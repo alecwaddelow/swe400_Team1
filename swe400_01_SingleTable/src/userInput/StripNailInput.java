@@ -9,7 +9,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 import data_source.*;
 import domain.*;
 
-public class StripNailUI 
+public class StripNailInput 
 {
 	/**
 	 * Creates a new StripNail and adds to the Database 
@@ -86,7 +86,7 @@ public class StripNailUI
 		stripNail.setNumberInStrip(numberInStripParse);	
 		
 		/* updates the nail to the mapper and to the database */
-		StripNailsMapper stripNailsMapper = new StripNailsMapper();
+		StripNailMapper stripNailsMapper = new StripNailMapper();
 		stripNailsMapper.updateStripNail(stripNail);
 		
 		boolean valid = false;
