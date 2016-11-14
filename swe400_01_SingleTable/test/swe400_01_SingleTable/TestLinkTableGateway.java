@@ -1,5 +1,9 @@
 package swe400_01_SingleTable;
 import static org.junit.Assert.*;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.junit.Test;
 import data_source.LinkTableGateway;
 
@@ -12,12 +16,25 @@ import data_source.LinkTableGateway;
 public class TestLinkTableGateway 
 {
 	/**
-	 * Tests creation of LinkTableGateway 
+	 * Tests instantiation of LinkTableGateway 
 	 */
 	@Test
-	public void testCreation() 
+	public void testInstantiation() 
 	{
 		LinkTableGateway ltg = new LinkTableGateway();
 		assertTrue(ltg instanceof LinkTableGateway);
+	}
+	
+	/**
+	 * test remove relation in LinkTable Gateway
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	@Test
+	public void testRemoveRelation() throws ClassNotFoundException, SQLException
+	{
+		LinkTableGateway.removeRelation(20, 14);
+		ResultSet rSet = LinkTableGateway.queryDBForPowerTools(20);
+		assertFalse(rSet.next());
 	}
 }
