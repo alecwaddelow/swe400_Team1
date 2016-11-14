@@ -3,7 +3,7 @@
  * 
  * Test class that is to be run at the end for testing closing connections
  */
-package other;
+package data_source;
 
 import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
