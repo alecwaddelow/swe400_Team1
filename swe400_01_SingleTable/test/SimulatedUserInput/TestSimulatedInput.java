@@ -31,7 +31,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreateNail() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
-		File file = new File("SimulatedInput/SimulateCreateNail.txt");
+		File file = new File("SimulatedInput/Nail/SimulateCreateNail.txt");
 		
 		if(file.exists())
 		{
@@ -60,7 +60,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreateTool() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
-		File file = new File("SimulatedInput/SimulateCreateTool.txt");
+		File file = new File("SimulatedInput/Tool/SimulateCreateTool.txt");
 		
 		if(file.exists())
 		{
@@ -87,7 +87,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreatePowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateCreatePowerTool.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateCreatePowerTool.txt");
 		
 		if(file.exists())
 		{
@@ -116,7 +116,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testSimulateCreateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateCreateStripNail.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateCreateStripNail.txt");
 		
 		if(file.exists())
 		{
@@ -145,7 +145,7 @@ public class TestSimulatedInput extends DBTest
 	@Test 
 	public void testSimulateUpdateNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/SimulateUpdatingNail.txt");
+		File file = new File("SimulatedInput/Nail/SimulateUpdatingNail.txt");
 		
 		if(file.exists())
 		{
@@ -174,7 +174,7 @@ public class TestSimulatedInput extends DBTest
 	@Test 
 	public void testSimulateUpdateTool() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateUpdatingTool.txt");
+		File file = new File("SimulatedInput/Tool/SimulateUpdatingTool.txt");
 		
 		if(file.exists())
 		{
@@ -202,7 +202,7 @@ public class TestSimulatedInput extends DBTest
 	@Test 
 	public void testSimulateUpdatePowerToolWithAddedRelation() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateUpdatingPowerTool.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingPowerTool.txt");
 		
 		if(file.exists())
 		{
@@ -231,7 +231,7 @@ public class TestSimulatedInput extends DBTest
 	@Test 
 	public void testSimulateUpdateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/SimulateUpdatingStripNail.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingStripNail.txt");
 		
 		if(file.exists())
 		{
@@ -260,7 +260,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testAddingCompatibleStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/SimulateAddingCompatibleStripNail.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateAddingCompatibleStripNail.txt");
 		PowerTool powerTool = new PowerTool(21);
 		
 		if(file.exists())
@@ -300,7 +300,7 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testCompatiblePowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/SimulateAddingCompatiblePowerTool.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateAddingCompatiblePowerTool.txt");
 		StripNail stripNail = new StripNail(12);
 		
 		if(file.exists())
