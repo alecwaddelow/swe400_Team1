@@ -234,7 +234,7 @@ public class TestSimulatedInput extends DBTest
 	@Test 
 	public void testSimulateUpdateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingStripNail.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateUpdatingStripNail.txt");
 		
 		if(file.exists())
 		{
