@@ -2,7 +2,6 @@ package data_source;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -34,15 +33,9 @@ public class CreateDatabase
 		String sqlStatement = "CREATE TABLE InventoryItem (" + id + upc + manufacturerID + price + description + batteryPowered +
 				length + numberInStrip + numberInBox + className + ");";
 
-		try(Statement st = DatabaseGateway.getConnection().createStatement())
-		{
+			Statement st = DatabaseGateway.getConnection().createStatement();
 			st.execute(sqlStatement);
 			st.close();
-		}
-		catch(MySQLDataException e)
-		{
-			e.getCause();
-		}
 	}
 
 	/**
