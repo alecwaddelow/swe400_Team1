@@ -3,11 +3,14 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.junit.Test;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import data_source.DatabaseGateway;
@@ -15,6 +18,7 @@ import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
 import runner.Runner;
+import sun.tools.jar.resources.jar;
 import user_input.*;
 
 /**
@@ -35,10 +39,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateCreateNail() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
 		File file = new File("SimulatedInput/Nail/SimulateCreateNail.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			Nail nail = new Nail(22);
@@ -50,6 +55,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("Nail", nail.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -64,10 +76,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateCreateTool() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
 		File file = new File("SimulatedInput/Tool/SimulateCreateTool.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			Tool tool = new Tool(22);
@@ -78,6 +91,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("Tool", tool.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -91,10 +111,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateCreatePowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateCreatePowerTool.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			PowerTool powerTool = new PowerTool(22);
@@ -106,6 +127,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("PowerTool", powerTool.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -120,10 +148,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateCreateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateCreateStripNail.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			StripNail stripNail = new StripNail(22);
@@ -135,6 +164,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("StripNail", stripNail.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -149,10 +185,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateUpdateNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
 		File file = new File("SimulatedInput/Nail/SimulateUpdatingNail.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			Nail nail = new Nail(1);
@@ -164,6 +201,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("Nail", nail.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -178,10 +222,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateUpdateTool() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
 		File file = new File("SimulatedInput/Tool/SimulateUpdatingTool.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			Tool tool = new Tool(7);
@@ -192,6 +237,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("Tool", tool.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -206,10 +258,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateUpdatePowerToolWithAddedRelation() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingPowerTool.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			PowerTool powerTool = new PowerTool(21);
@@ -221,6 +274,13 @@ public class TestSimulatedInput extends DBTest
 			assertEquals("PowerTool", powerTool.getClassName());
 			
 			System.setIn(System.in);
+		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -235,10 +295,11 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateUpdateStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateUpdatingStripNail.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Runner.initiateUserInput();
 			
 			StripNail stripNail = new StripNail(11);
@@ -248,6 +309,14 @@ public class TestSimulatedInput extends DBTest
 			assertEquals(30.056, stripNail.getLength(), 0.001);
 			assertEquals(99, stripNail.getNumberInStrip());
 			assertEquals("StripNail", stripNail.getClassName());
+			
+			
+			try {
+				simulation.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			System.setIn(System.in);
 		}
@@ -264,11 +333,12 @@ public class TestSimulatedInput extends DBTest
 	public void testAddingCompatibleStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateAddingCompatibleStripNail.txt");
+		InputStream simulation = new FileInputStream(file);
+				
 		PowerTool powerTool = new PowerTool(21);
-		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Scanner sc = new Scanner(System.in);
 			
 			PowerToolInput.updateCompatibilities(sc, powerTool);
@@ -304,11 +374,12 @@ public class TestSimulatedInput extends DBTest
 	public void testCompatiblePowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateAddingCompatiblePowerTool.txt");
-		StripNail stripNail = new StripNail(12);
+		InputStream simulation = new FileInputStream(file);
 		
+		StripNail stripNail = new StripNail(12);
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Scanner sc = new Scanner(System.in);
 			
 			StripNailInput.updateCompatibilities(sc, stripNail);
@@ -344,6 +415,13 @@ public class TestSimulatedInput extends DBTest
 			
 			assertTrue(hasPowerTool);
 		}
+		
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -357,10 +435,11 @@ public class TestSimulatedInput extends DBTest
 	public void testRemoveCompatibilityForPowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException 
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateRemovingCompatibleStripNail.txt");
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Scanner sc = new Scanner(System.in);
 			
 			PowerTool powerTool = new PowerTool(20);
@@ -371,6 +450,13 @@ public class TestSimulatedInput extends DBTest
 			
 			resultSet.close();
 			LinkTableGateway.closeStatements();
+			
+			try {
+				simulation.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			System.setIn(System.in);
 		}
@@ -386,11 +472,12 @@ public class TestSimulatedInput extends DBTest
 	@Test
 	public void testRemoveCompatibilityForStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
-		File file = new File("SimulatedInput/StripNail/SimulateRemovingCompatiblePowerTool.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateRemovingCompatiblePowerTool.txt"); 
+		InputStream simulation= new FileInputStream(file);
 		
 		if(file.exists())
 		{
-			System.setIn(new FileInputStream(file));
+			System.setIn(simulation);
 			Scanner sc = new Scanner(System.in);
 			
 			StripNail stripNail = new StripNail(15);
@@ -401,6 +488,13 @@ public class TestSimulatedInput extends DBTest
 			
 			resultSet.close();
 			LinkTableGateway.closeStatements();
+			
+			try {
+				simulation.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			System.setIn(System.in);
 		}
