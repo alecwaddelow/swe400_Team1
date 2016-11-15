@@ -74,7 +74,6 @@ public class DatabaseGateway
 		return resultSet;
 	}
 
-	
 	/**
 	 * Query for PowerTool
 	 * 
@@ -122,7 +121,6 @@ public class DatabaseGateway
 		statement.close();
 	}
 	
-
 	/**
 	 * Insert Nail
 	 * 
@@ -149,7 +147,6 @@ public class DatabaseGateway
 		closeStatements();
 	}
 	
-	
 	/**
 	 * Insert Tool 
 	 * 
@@ -173,7 +170,6 @@ public class DatabaseGateway
 		insertRow(preparedStatement);
 		closeStatements();
 	}
-	
 	
 	/**
 	 * Insert PowerTool
@@ -200,7 +196,6 @@ public class DatabaseGateway
 		insertRow(preparedStatement);
 		closeStatements();
 	}
-	
 	
 	/**
 	 * Insert StripNail
@@ -262,7 +257,6 @@ public class DatabaseGateway
 		return resultSet;
 	}
 
-	
 	/**
 	 * Updates a single nail in the DB
 	 * 
