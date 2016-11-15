@@ -2,11 +2,6 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 
@@ -85,7 +80,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		super();
 	}
 	
-	
 	/**
 	 * @see domain.InventoryItem#setId(int)
 	 */
@@ -110,7 +104,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		return this.batteryPowered;
 	}
 
-	
 	/**
 	 * Sets whether item is batteryPowered
 	 * 
@@ -250,7 +243,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 				this.addStripNailToList(new StripNail(id));					
 			}
 		}
-		
 		rs.close();
 		DatabaseGateway.closeStatements();
 	}
