@@ -1,11 +1,6 @@
 package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
-
 import data_source.DatabaseGateway;
 
 /**
@@ -183,20 +178,14 @@ public abstract class InventoryItem
 	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException
 	{
 		InventoryItem item = null;
-		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc, className))
+		ResultSet rs = null;
+		rs = DatabaseGateway.retrieveUPC(upc, className);
+		if(rs.next())
 		{
-			if(rs.next())
-			{
-				item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
-			return item;
+			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
 		}
-		catch(MySQLDataException e)
-		{
-			e.getCause();
-		}
-		return null;
+		rs.close();
+		DatabaseGateway.closeStatements();
+		return item;
 	}
 }
