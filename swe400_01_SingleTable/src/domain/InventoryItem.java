@@ -1,6 +1,8 @@
 package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
@@ -178,12 +180,12 @@ public abstract class InventoryItem
 	 * @throws ClassNotFoundExceptiongetDetails
 	 * @throws SQLException
 	 */
-	public static InventoryItem getDetails(String upc) throws ClassNotFoundException, SQLException
+	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException
 	{
-		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc))
+		InventoryItem item = null;
+		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc, className))
 		{
-			InventoryItem item = null;
-			if(rs != null)
+			if(rs.next())
 			{
 				item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
 			}

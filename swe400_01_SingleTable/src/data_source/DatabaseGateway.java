@@ -236,21 +236,15 @@ public class DatabaseGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet retrieveUPC(String upc) throws ClassNotFoundException, SQLException
+	public static ResultSet retrieveUPC(String upc, String className) throws ClassNotFoundException, SQLException
 	{
-		String statement = "SELECT * FROM InventoryItem WHERE upc =?";
+		String statement = "SELECT * FROM InventoryItem WHERE upc=? and className=?";
 		preparedStatement = getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
+		preparedStatement.setString(2, className);
 		resultSet = preparedStatement.executeQuery();
 		
-		if(resultSet.next())
-		{
-			return resultSet;
-		}
-		else
-		{
-			return null;
-		}
+		return resultSet;
 	}
 	
 	/**

@@ -3,9 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
-
 import data_source.DatabaseGateway;
 import domain.*;
 import runner.Runner;
@@ -47,7 +45,7 @@ public class UserInput
 				switch(Integer.parseInt(input))
 				{
 					case 1:
-						validUPCRequest(sc, 0);
+						itemUPC(sc);
 						break;
 					case 2:
 						addItemToDB(sc);
@@ -69,6 +67,39 @@ public class UserInput
 		}
 	}
 	
+	/**
+	 * Gets the number associated with the item  to see what they want
+	 * 
+	 * @param sc
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private static void itemUPC(Scanner sc) throws ClassNotFoundException, SQLException 
+	{
+		
+		boolean valid = false;
+		while(!valid)
+		{
+			System.out.println("Which item were you thinking of? (Enter the number)");
+			System.out.println("1. Nail \n2.Tool \n3. PowerTool \n4. StripNail");
+			
+			String input = sc.nextLine();
+			
+			int itemAssociation = Integer.parseInt(input);
+			
+			if(itemAssociation >= 1 || itemAssociation <= 4)
+			{
+				validUPCRequest(sc, itemAssociation);
+				valid = true;
+			}
+			else
+			{
+				System.out.println("\nError: Not correct input\n");
+			}
+		}
+		
+	}
+
 	/**
 	 * Make sure the user entered a valid value for an option to either:
 	 * 1. Search an item by upc
@@ -122,7 +153,25 @@ public class UserInput
 			
 			String upcCode = sc.nextLine();
 			
-			item = InventoryItem.getDetails(upcCode);
+			String className = null;
+			
+			switch(itemAssociation)
+			{
+				case 1:
+					className = "Nail";
+					break;
+				case 2:
+					className = "Tool";
+					break;
+				case 3:
+					className = "PowerTool";
+					break;
+				case 4:
+					className = "StripNail";
+					break;
+			}
+			
+			item = InventoryItem.getDetails(upcCode, className);			
 			
 			if(itemAssociation != 0)
 			{

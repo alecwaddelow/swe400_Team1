@@ -126,12 +126,12 @@ public class StripNailInput
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	private static void removeCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException
+	public static void removeCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException
 	{
 		boolean done = false;
 		while(!done)
 		{
-			System.out.print("Which one would you like to remove? (enter the UPC only)");
+			System.out.println("Which one would you like to remove? (enter the UPC only)");
 			ArrayList<PowerTool> powerToolList = stripNail.getPowerToolList();
 			
 			if(!powerToolList.isEmpty())
@@ -157,11 +157,12 @@ public class StripNailInput
 				{
 					done = true;
 				}
-				else
-				{
-					System.out.println("There are no compatibilities\n");
-				}
 			}	
+			else
+			{
+				System.out.println("There are no compatibilities\n");
+				done = true;
+			}
 		}
 	}
 

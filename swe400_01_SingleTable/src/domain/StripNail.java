@@ -209,6 +209,38 @@ public class StripNail extends Fastener implements LoadInterface
 	 */
 	public void removePowerToolFromList(PowerTool powerTool) 
 	{
-		this.powerToolList.remove(powerTool);		
+		ArrayList<Object> toRemove = new ArrayList<>();
+		for(PowerTool pTool : powerToolList)
+		{
+			if(comparePowerTools(pTool, powerTool))
+			{
+				toRemove.add(pTool);
+			}
+		}	
+		
+		this.powerToolList.removeAll(toRemove);
+	}
+
+	/**
+	 * Compares two powertool objects 
+	 * 
+	 * @param pTool
+	 * @param powerTool
+	 * @return
+	 */
+	private boolean comparePowerTools(PowerTool pTool, PowerTool powerTool) 
+	{
+		if(pTool.getUpc().equalsIgnoreCase(powerTool.getUpc())
+		&& pTool.getManufacturerID() == powerTool.getManufacturerID()
+		&& pTool.getPrice() == powerTool.getPrice()
+		&& pTool.getDescription().equalsIgnoreCase(powerTool.getDescription())
+		&& pTool.isBatteryPowered() == powerTool.isBatteryPowered())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}		
 	}
 }

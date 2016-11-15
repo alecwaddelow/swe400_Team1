@@ -194,9 +194,39 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 */
 	public void removeStripNailFromList(StripNail stripNail)
 	{
-		this.stripNailList.remove(stripNail);
+		ArrayList<Object> toRemove = new ArrayList<>();
+		for(StripNail sNail : stripNailList)
+		{
+			if(compareStripNails(sNail, stripNail))
+			{
+				toRemove.add(sNail);
+			}
+		}
+		this.stripNailList.removeAll(toRemove);
 	}
 
+	/**
+	 * Compares two stripnail objects 
+	 * 
+	 * @param pTool
+	 * @param powerTool
+	 * @return
+	 */
+	private boolean compareStripNails(StripNail sNail, StripNail stripNail) 
+	{
+		if(sNail.getUpc().equalsIgnoreCase(stripNail.getUpc())
+		&& sNail.getManufacturerID() == stripNail.getManufacturerID()
+		&& sNail.getPrice() == stripNail.getPrice()
+		&& sNail.getLength() == stripNail.getLength()
+		&& sNail.getNumberInStrip() == stripNail.getNumberInStrip())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}		
+	}
 
 	/** 
 	 * @see java.lang.Object#toString()

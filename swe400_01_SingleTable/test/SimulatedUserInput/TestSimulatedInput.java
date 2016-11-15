@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import org.junit.Test;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain.*;
@@ -345,7 +347,8 @@ public class TestSimulatedInput extends DBTest
 	}
 	
 	/**
-	 * Tests simulating removing a compatible stirpnail from a powertool.
+	 * Tests simulating removing a compatible stripnail from a powertool.
+	 * 
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -364,6 +367,36 @@ public class TestSimulatedInput extends DBTest
 			PowerToolInput.removeCompatibilities(sc, powerTool); 
 			
 			ResultSet resultSet = LinkTableGateway.queryDBForPowerTools(powerTool.getId());
+			assertFalse(resultSet.next());
+			
+			resultSet.close();
+			LinkTableGateway.closeStatements();
+			
+			System.setIn(System.in);
+		}
+	}
+	
+	/**
+	 * Tests simulating removing a compatible powertool from stripnail
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testRemoveCompatibilityForStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
+	{
+		File file = new File("SimulatedInput/StripNail/SimulateRemovingCompatiblePowerTool.txt");
+		
+		if(file.exists())
+		{
+			System.setIn(new FileInputStream(file));
+			Scanner sc = new Scanner(System.in);
+			
+			StripNail stripNail = new StripNail(15);
+			StripNailInput.removeCompatibilities(sc, stripNail);
+			
+			ResultSet resultSet = LinkTableGateway.queryDBForStripNails(stripNail.getId());
 			assertFalse(resultSet.next());
 			
 			resultSet.close();

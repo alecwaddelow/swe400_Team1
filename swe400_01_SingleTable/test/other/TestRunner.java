@@ -52,8 +52,8 @@ public class TestRunner extends DBTest
 	public void testGetDetails() throws ClassNotFoundException, SQLException
 	{
 		Nail nail = new Nail(1);
-		Nail nailGD = (Nail) InventoryItem.getDetails(Nails.COMMON_10D.getUpc());
-
+		Nail nailGD = (Nail) InventoryItem.getDetails(Nails.COMMON_10D.getUpc(), "Nail");  
+	
 		assertEquals(nail.getUpc(), nailGD.getUpc());
 		assertEquals(nail.getManufacturerID(), nailGD.getManufacturerID());
 		assertEquals(nail.getPrice(), nailGD.getPrice());

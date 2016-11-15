@@ -3,6 +3,9 @@ import static org.junit.Assert.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.Test;
+
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import data_source.DatabaseGateway;
 
 /**
@@ -73,6 +76,9 @@ public class TestDatabaseGateway
 	@Test
 	public void testBadUPCInput() throws ClassNotFoundException, SQLException
 	{
-		assertNull(DatabaseGateway.retrieveUPC("000000000000000"));
+		ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail");
+		assertFalse(rSet.next());
+		rSet.close();
+		DatabaseGateway.closeStatements();
 	}
 }

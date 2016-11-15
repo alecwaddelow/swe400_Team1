@@ -214,6 +214,7 @@ public class PowerToolInput
 			else
 			{
 				System.out.println("There are no compatibilities\n");
+				done = true;
 			}			
 		}		
 	}
