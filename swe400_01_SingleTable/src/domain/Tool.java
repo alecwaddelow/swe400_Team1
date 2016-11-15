@@ -25,34 +25,30 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		try(ResultSet rs = DatabaseGateway.queryTool(this.id))
+		ResultSet rs = null;
+		rs = DatabaseGateway.queryTool(this.id);
+
+		if(rs.next())
 		{
-			if(rs.next())
-			{
-				String upc = rs.getString("upc");
-				int manufacturerID = rs.getInt("manufacturerID");
-				int price = rs.getInt("price");
-				String description = rs.getString("description");
-				String className = rs.getString("className");
-				ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
-				setUpc(toolMapper.getUpc());
-				setManufacturerID(toolMapper.getManufacturerID());
-				setPrice(toolMapper.getPrice());
-				setDescription(toolMapper.getDescription());
-				setClassName(toolMapper.getClassName());			
-			}
-			else
-			{
-				ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
-				notFoundException.getMessage();
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			String description = rs.getString("description");
+			String className = rs.getString("className");
+			ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
+			setUpc(toolMapper.getUpc());
+			setManufacturerID(toolMapper.getManufacturerID());
+			setPrice(toolMapper.getPrice());
+			setDescription(toolMapper.getDescription());
+			setClassName(toolMapper.getClassName());			
 		}
-		catch(MySQLDataException e)
+		else
 		{
-			e.getCause();
+			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
+			notFoundException.getMessage();
 		}
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 

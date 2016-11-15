@@ -25,32 +25,28 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		try(ResultSet rs = DatabaseGateway.queryStripNail(this.id))
+		ResultSet rs = null;
+		rs = DatabaseGateway.queryStripNail(this.id);
+		
+		if(rs.next())
 		{
-			if(rs.next())
-			{
-				String upc = rs.getString("upc");
-				int manufacturerID = rs.getInt("manufacturerID");
-				int price = rs.getInt("price");
-				double length = rs.getDouble("length");
-				int numberInStrip = rs.getInt("numberInStrip");
-				String className = rs.getString("className");
-				StripNailMapper stripNailMapper = new StripNailMapper(upc, manufacturerID, price, length, numberInStrip, className);
-				setUpc(stripNailMapper.getUpc());
-				setManufacturerID(stripNailMapper.getManufacturerID());
-				setPrice(stripNailMapper.getPrice());
-				setLength(stripNailMapper.getLength());
-				setNumberInStrip(stripNailMapper.getNumberInStrip());
-				setClassName(stripNailMapper.getClassName());
-			}
-			else
-			{
-				ClassNotFoundException exception = new ClassNotFoundException("Could not find stripnail with specified ID");
-				exception.getMessage();
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			double length = rs.getDouble("length");
+			int numberInStrip = rs.getInt("numberInStrip");
+			String className = rs.getString("className");
+			StripNailMapper stripNailMapper = new StripNailMapper(upc, manufacturerID, price, length, numberInStrip, className);
+			setUpc(stripNailMapper.getUpc());
+			setManufacturerID(stripNailMapper.getManufacturerID());
+			setPrice(stripNailMapper.getPrice());
+			setLength(stripNailMapper.getLength());
+			setNumberInStrip(stripNailMapper.getNumberInStrip());
+			setClassName(stripNailMapper.getClassName());
 		}
+		
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**
@@ -174,16 +170,17 @@ public class StripNail extends Fastener implements LoadInterface
 	public void load() throws SQLException, ClassNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
-		try(ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId()))
+		
+		ResultSet rs = null;
+		rs = LinkTableGateway.queryDBForPowerTools(this.getId());
+		
+		while(rs.next())
 		{
-			while(rs.next())
-			{
-				int id = rs.getInt("powerToolID");
-				this.addPowerToolToList(new PowerTool(id));
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
+			int id = rs.getInt("powerToolID");
+			this.addPowerToolToList(new PowerTool(id));
 		}
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**
