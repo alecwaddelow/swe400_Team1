@@ -2,9 +2,6 @@ package runner;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.naming.NamingException;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
-
 import data_source.*;
 import domain.*;
 import enums.InsertEnumData;
@@ -126,14 +123,13 @@ public class Runner
 				listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
 			}
 			rSet.close();
-			DatabaseGateway.closeStatements();
-			return listOfObjects;
 		}
-		catch(MySQLDataException e)
+		catch(ClassNotFoundException e)
 		{
 			e.getCause();
 		}
-		return null;
+		DatabaseGateway.closeStatements();
+		return listOfObjects;
 	}
 
 	/**
