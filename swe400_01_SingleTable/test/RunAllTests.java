@@ -31,6 +31,7 @@ import other.*;
 			TestCreateDatabase.class,
 			TestRunner.class,
 			TestSimulatedInput.class,
+			TestInventoryItem.class,
 			TestCloseConnection.class
 		})
 
