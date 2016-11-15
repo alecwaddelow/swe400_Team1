@@ -7,14 +7,6 @@ import data_source.DatabaseGateway;
  * 
  * A mapper for the StripNail objects
  */
-/**
- * @author alecw
- *
- */
-/**
- * @author alecw
- *
- */
 public class StripNailMapper extends DBMapper 
 {
 	protected double length;
