@@ -22,27 +22,31 @@ public class Nail extends Fastener
 	public Nail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ResultSet rs = null;
-		rs = DatabaseGateway.queryNail(this.id);
 		
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.queryNail(this.id))
 		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInBox = rs.getInt("numberInBox");
-			String className = rs.getString("className");
-			NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
-			setUpc(nailMapper.getUpc());
-			setManufacturerID(nailMapper.getManufacturerID());
-			setPrice(nailMapper.getPrice());
-			setLength(nailMapper.getLength());
-			setNumberInBox(nailMapper.getNumberInBox());
-			setClassName(nailMapper.getClassName());
+			if(rs.next())
+			{
+				String upc = rs.getString("upc");
+				int manufacturerID = rs.getInt("manufacturerID");
+				int price = rs.getInt("price");
+				double length = rs.getDouble("length");
+				int numberInBox = rs.getInt("numberInBox");
+				String className = rs.getString("className");
+				NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
+				setUpc(nailMapper.getUpc());
+				setManufacturerID(nailMapper.getManufacturerID());
+				setPrice(nailMapper.getPrice());
+				setLength(nailMapper.getLength());
+				setNumberInBox(nailMapper.getNumberInBox());
+				setClassName(nailMapper.getClassName());
+			}
+			rs.close();
 		}
-		
-		rs.close();
+		catch(Exception e)
+		{
+			e.getCause();
+		}
 		DatabaseGateway.closeStatements();
 	}
 

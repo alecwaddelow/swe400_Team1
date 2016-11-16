@@ -25,27 +25,30 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		ResultSet rs = null;
-		rs = DatabaseGateway.queryStripNail(this.id);
-		
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.queryStripNail(this.id))
 		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInStrip = rs.getInt("numberInStrip");
-			String className = rs.getString("className");
-			StripNailMapper stripNailMapper = new StripNailMapper(upc, manufacturerID, price, length, numberInStrip, className);
-			setUpc(stripNailMapper.getUpc());
-			setManufacturerID(stripNailMapper.getManufacturerID());
-			setPrice(stripNailMapper.getPrice());
-			setLength(stripNailMapper.getLength());
-			setNumberInStrip(stripNailMapper.getNumberInStrip());
-			setClassName(stripNailMapper.getClassName());
+			if(rs.next())
+			{
+				String upc = rs.getString("upc");
+				int manufacturerID = rs.getInt("manufacturerID");
+				int price = rs.getInt("price");
+				double length = rs.getDouble("length");
+				int numberInStrip = rs.getInt("numberInStrip");
+				String className = rs.getString("className");
+				StripNailMapper stripNailMapper = new StripNailMapper(upc, manufacturerID, price, length, numberInStrip, className);
+				setUpc(stripNailMapper.getUpc());
+				setManufacturerID(stripNailMapper.getManufacturerID());
+				setPrice(stripNailMapper.getPrice());
+				setLength(stripNailMapper.getLength());
+				setNumberInStrip(stripNailMapper.getNumberInStrip());
+				setClassName(stripNailMapper.getClassName());
+			}
+			rs.close();
 		}
-		
-		rs.close();
+		catch(SQLException e)
+		{
+			e.getErrorCode();
+		}
 		DatabaseGateway.closeStatements();
 	}
 
@@ -170,16 +173,19 @@ public class StripNail extends Fastener implements LoadInterface
 	public void load() throws SQLException, ClassNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
-		
-		ResultSet rs = null;
-		rs = LinkTableGateway.queryDBForPowerTools(this.getId());
-		
-		while(rs.next())
+		try(ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId()))
 		{
-			int id = rs.getInt("powerToolID");
-			this.addPowerToolToList(new PowerTool(id));
+			while(rs.next())
+			{
+				int id = rs.getInt("powerToolID");
+				this.addPowerToolToList(new PowerTool(id));
+			}
+			rs.close();
 		}
-		rs.close();
+		catch(SQLException e)
+		{
+			e.getErrorCode();
+		}
 		DatabaseGateway.closeStatements();
 	}
 
@@ -207,14 +213,13 @@ public class StripNail extends Fastener implements LoadInterface
 	public void removePowerToolFromList(PowerTool powerTool) 
 	{
 		ArrayList<Object> toRemove = new ArrayList<>();
-		for(PowerTool pTool : powerToolList)
+		for(PowerTool pTool : this.powerToolList)
 		{
 			if(comparePowerTools(pTool, powerTool))
 			{
 				toRemove.add(pTool);
 			}
 		}	
-		
 		this.powerToolList.removeAll(toRemove);
 	}
 
@@ -225,7 +230,7 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @param powerTool
 	 * @return
 	 */
-	private boolean comparePowerTools(PowerTool pTool, PowerTool powerTool) 
+	private static boolean comparePowerTools(PowerTool pTool, PowerTool powerTool) 
 	{
 		if(pTool.getUpc().equalsIgnoreCase(powerTool.getUpc())
 		&& pTool.getManufacturerID() == powerTool.getManufacturerID()
