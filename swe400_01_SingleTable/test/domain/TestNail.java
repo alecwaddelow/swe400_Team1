@@ -93,8 +93,8 @@ public class TestNail extends DBTest
 	{
 		try
 		{
-			Nail nail = new Nail(25);			
-		} catch(ClassNotFoundException notFound)
+			new Nail(25);			
+		} catch(Exception notFound)
 		{
 			assertEquals("Could not find nail with specified ID", notFound.getMessage());
 		}
@@ -112,4 +112,5 @@ public class TestNail extends DBTest
 		Nail nail = new Nail(1);
 		assertEquals("Nail [upc=5453432767, manufacturerID=15, price=1348, length=3.0, numberInBox=500]", nail.toString());
 	}
+	
 }

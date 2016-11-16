@@ -3,11 +3,8 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
-
 import domain.PowerTool;
 import domain.StripNail;
-import enums.PowerTools;
 import enums.StripNails;
 import other.DBTest;
 
@@ -121,7 +118,7 @@ public class TestStripNail extends DBTest
 	{
 		try
 		{
-			StripNail stripNail = new StripNail(30);
+			new StripNail(30);
 		} 
 		catch(ClassNotFoundException notFound)
 		{
@@ -155,7 +152,7 @@ public class TestStripNail extends DBTest
 		ArrayList<PowerTool> myList = stripNail.getPowerToolList();
 		
 		/*Asserts that load method is called upon invoking getStripNailList()  */
-		assertEquals(1, loadCounter);			
+		assertEquals(1, this.loadCounter);			
 		
 		ArrayList<PowerTool> ptList = new ArrayList<PowerTool>();
 		ptList.add(new PowerTool(16));
@@ -234,5 +231,11 @@ public class TestStripNail extends DBTest
 		
 		powerTools = stripNail.getPowerToolList();
 		assertEquals(1, powerTools.size());
+	}
+	
+	@Test
+	public void testComparePowerTools()
+	{
+		
 	}
 }

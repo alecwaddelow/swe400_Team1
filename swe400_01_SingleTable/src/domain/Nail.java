@@ -43,9 +43,9 @@ public class Nail extends Fastener
 			}
 			rs.close();
 		}
-		catch(Exception e)
+		catch(ClassNotFoundException e)
 		{
-			e.getCause();
+			e.getMessage();
 		}
 		DatabaseGateway.closeStatements();
 	}

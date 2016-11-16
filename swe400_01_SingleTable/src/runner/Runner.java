@@ -124,7 +124,7 @@ public class Runner
 			}
 			rSet.close();
 		}
-		catch(ClassNotFoundException e)
+		catch(Exception e)
 		{
 			e.getCause();
 		}

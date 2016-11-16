@@ -9,16 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.junit.Test;
-
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
-import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
 import runner.Runner;
-import sun.tools.jar.resources.jar;
 import user_input.*;
 
 /**

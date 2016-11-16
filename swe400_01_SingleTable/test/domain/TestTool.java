@@ -86,7 +86,7 @@ public class TestTool extends DBTest
 	{
 		try
 		{
-			Tool tool= new Tool(25);
+			new Tool(25);
 			
 		} catch(ClassNotFoundException notFound)
 		{
