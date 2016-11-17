@@ -65,7 +65,7 @@ public class TestDatabaseGateway
 	}
 	
 	/**
-	 * Tests for inpuuting a bad UPC that isn't in the database
+	 * Tests for inputing a bad UPC that isn't in the database
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -73,15 +73,9 @@ public class TestDatabaseGateway
 	@Test
 	public void testBadUPCInput() throws ClassNotFoundException, SQLException
 	{
-		try(ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail"))
-		{
-			assertFalse(rSet.next());
-			rSet.close();
-		}
-		catch(Exception e)
-		{
-			e.getCause();
-		}
+		ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail");
+		assertFalse(rSet.next());
+		rSet.close();
 		DatabaseGateway.closeStatements();
 	}
 }
