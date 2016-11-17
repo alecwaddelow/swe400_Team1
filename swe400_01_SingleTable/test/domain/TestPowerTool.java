@@ -123,7 +123,7 @@ public class TestPowerTool extends DBTest
 	{
 		try
 		{
-			PowerTool powerTool = new PowerTool(25);
+			new PowerTool(25);
 		}
 		catch(ClassNotFoundException notFound)
 		{
