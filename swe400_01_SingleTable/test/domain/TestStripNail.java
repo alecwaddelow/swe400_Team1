@@ -232,10 +232,4 @@ public class TestStripNail extends DBTest
 		powerTools = stripNail.getPowerToolList();
 		assertEquals(1, powerTools.size());
 	}
-	
-	@Test
-	public void testComparePowerTools()
-	{
-		
-	}
 }
