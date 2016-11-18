@@ -38,9 +38,16 @@ public class TestLinkTableMapper extends DBTest
 	 * @throws SQLException
 	 */
 	@Test
-	public void removeRelation() throws ClassNotFoundException, SQLException
+	public void testRemoveRelation() throws ClassNotFoundException, SQLException
 	{
 		LinkTableMapper.removeRelation(20, 14);
 		assertFalse(LinkTableGateway.queryDBForPowerTools(20).next());
+	}
+	
+	@Test
+	public void testAddRelation() throws ClassNotFoundException, SQLException
+	{
+		LinkTableMapper.addRelation(16, 14);
+		assertTrue(LinkTableGateway.queryDBForPowerTools(14).next());
 	}
 }
