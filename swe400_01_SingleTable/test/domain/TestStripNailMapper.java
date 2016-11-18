@@ -63,6 +63,6 @@ public class TestStripNailMapper
 		assertEquals(1, mapper.getPrice());
 		assertEquals(1.0, mapper.getLength(), 0.001);
 		assertEquals(1, mapper.getNumberInStrip());
-		assertEquals("StripNail", mapper.getClassName());
+		assertEquals("StripNail", mapper.getClassName()); 
 	}
 }

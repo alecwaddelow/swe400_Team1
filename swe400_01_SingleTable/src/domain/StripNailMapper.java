@@ -116,6 +116,7 @@ public class StripNailMapper extends DBMapper
 		setPrice(stripNail.getPrice());
 		setLength(stripNail.getLength());
 		setNumberInStrip(stripNail.getNumberInStrip());
+		setClassName(stripNail.getClassName());
 		DatabaseGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
 	}
 }
