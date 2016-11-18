@@ -42,7 +42,7 @@ public class NailMapper extends DBMapper
 	public void insertNail() throws ClassNotFoundException, SQLException
 	{
 		DatabaseGateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
-		setId(this.upc);
+		setId();
 	}
 	
 	/**
@@ -54,9 +54,9 @@ public class NailMapper extends DBMapper
 	/** 
 	 * @see domain.DBMapper#setId(java.lang.String)
 	 */
-	public void setId(String upc) throws ClassNotFoundException, SQLException
+	public void setId() throws ClassNotFoundException, SQLException
 	{
-		super.setId(this.upc);
+		super.setId();
 	}
 
 	/* 

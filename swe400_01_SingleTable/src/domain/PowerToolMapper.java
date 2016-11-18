@@ -44,7 +44,7 @@ public class PowerToolMapper extends DBMapper
 	public void insertPowerTool() throws ClassNotFoundException, SQLException
 	{
 		DatabaseGateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
-		setId(this.upc);		
+		setId();		
 	}
 	
 	/**
@@ -56,9 +56,9 @@ public class PowerToolMapper extends DBMapper
 	/** 
 	 * @see domain.DBMapper#setId(java.lang.String)
 	 */
-	public void setId(String upc) throws ClassNotFoundException, SQLException
+	public void setId() throws ClassNotFoundException, SQLException
 	{
-		super.setId(this.upc);
+		super.setId();
 	}
 	
 

@@ -48,7 +48,7 @@ public abstract class DBMapper
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public void setId(String upc) throws ClassNotFoundException, SQLException
+	public void setId() throws ClassNotFoundException, SQLException
 	{
 		this.id = DatabaseGateway.getID(this.upc, this.className);
 	}

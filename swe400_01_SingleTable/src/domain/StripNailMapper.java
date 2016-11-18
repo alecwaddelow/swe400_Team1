@@ -40,7 +40,7 @@ public class StripNailMapper extends DBMapper
 	public void insertStripNail() throws ClassNotFoundException, SQLException
 	{
 		DatabaseGateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
-		setId(this.upc);
+		setId();
 	}
 
 	/**
@@ -52,9 +52,9 @@ public class StripNailMapper extends DBMapper
 	/** 
 	 * @see domain.DBMapper#setId(java.lang.String)
 	 */
-	public void setId(String upc) throws ClassNotFoundException, SQLException
+	public void setId() throws ClassNotFoundException, SQLException
 	{
-		super.setId(this.upc);
+		super.setId();
 	}
 	
 	

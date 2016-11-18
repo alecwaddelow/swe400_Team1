@@ -24,7 +24,7 @@ public class Tool extends InventoryItem
 		super(id);
 		try(ResultSet rs = DatabaseGateway.queryTool(this.id))
 		{
-			if(rs.next())
+			if(rs.next()) 
 			{
 				String upc = rs.getString("upc");
 				int manufacturerID = rs.getInt("manufacturerID");
@@ -32,11 +32,11 @@ public class Tool extends InventoryItem
 				String description = rs.getString("description");
 				String className = rs.getString("className");
 				ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
-				setUpc(toolMapper.getUpc());
-				setManufacturerID(toolMapper.getManufacturerID());
-				setPrice(toolMapper.getPrice());
-				setDescription(toolMapper.getDescription());
-				setClassName(toolMapper.getClassName());			
+				this.setUpc(toolMapper.getUpc());
+				this.setManufacturerID(toolMapper.getManufacturerID());
+				this.setPrice(toolMapper.getPrice());
+				this.setDescription(toolMapper.getDescription());
+				this.setClassName(toolMapper.getClassName());			
 			}
 			else
 			{

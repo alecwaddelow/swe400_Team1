@@ -188,7 +188,7 @@ public abstract class InventoryItem
 		}
 		catch(SQLException e)
 		{
-			e.getCause();
+			e.printStackTrace();
 		}
 		DatabaseGateway.closeStatements();
 		return item;

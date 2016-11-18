@@ -22,6 +22,10 @@ public class TestDBMapper
 		{
 			super(upc,manufacturerID, price, className);
 		}
+		public MockDBMapper()
+		{
+			
+		}
 	}
 	
 	/**
@@ -31,9 +35,20 @@ public class TestDBMapper
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	public void testCreation() throws ClassNotFoundException, SQLException 
+	public void testCreationWithRichConstructor() throws ClassNotFoundException, SQLException 
 	{
 		MockDBMapper mapper = new MockDBMapper(null, 0, 0, null);
+		assertTrue(mapper instanceof DBMapper);
+		assertEquals(null, mapper.getUpc());
+		assertEquals(0, mapper.getManufacturerID());
+		assertEquals(0, mapper.getPrice());
+		assertEquals(null, mapper.getClassName());
+	}
+	
+	@Test
+	public void testEmptyConstructor()
+	{
+		MockDBMapper mapper = new MockDBMapper();
 		assertTrue(mapper instanceof DBMapper);
 	}
 	
@@ -55,11 +70,13 @@ public class TestDBMapper
 		mapper.setClassName("Tool");
 		mapper.setManufacturerID(30);
 		mapper.setPrice(2);
-		mapper.setUpc("30303030");
+		mapper.setUpc("0121232234");
+		mapper.setId();
 		
-		assertEquals("30303030", mapper.getUpc());
+		assertEquals("0121232234", mapper.getUpc());
 		assertEquals(30, mapper.getManufacturerID());
 		assertEquals(2, mapper.getPrice());
 		assertEquals("Tool", mapper.getClassName());
+		assertEquals(6, mapper.getId());
 	}
 }

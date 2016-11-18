@@ -407,7 +407,7 @@ public class DatabaseGateway
 		preparedStatement.setString(2, className);
 		resultSet = preparedStatement.executeQuery();
 		
-		int id = 0;		
+		int id = 0;
 		if(resultSet.next())
 		{
 			id = resultSet.getInt("id");
