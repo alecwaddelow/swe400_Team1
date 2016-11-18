@@ -51,4 +51,18 @@ public class TestStripNailMapper
 		assertEquals(1, stripNailsMapper.getNumberInStrip());
 		assertEquals("Mapper", stripNailsMapper.getClassName());
 	}
+	
+	@Test
+	public void testUpdateStripNail() throws ClassNotFoundException, SQLException
+	{
+		StripNail sn = new StripNail("upc", 1, 1, 1.0, 1, "StripNail");
+		StripNailMapper mapper = new StripNailMapper();
+		mapper.updateStripNail(sn);
+		assertEquals("upc", mapper.getUpc());
+		assertEquals(1, mapper.getManufacturerID());
+		assertEquals(1, mapper.getPrice());
+		assertEquals(1.0, mapper.getLength(), 0.001);
+		assertEquals(1, mapper.getNumberInStrip());
+		assertEquals("StripNail", mapper.getClassName());
+	}
 }
