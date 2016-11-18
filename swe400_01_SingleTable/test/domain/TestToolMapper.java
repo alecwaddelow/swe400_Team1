@@ -48,4 +48,18 @@ public class TestToolMapper
 		assertEquals("test", tMapper.getDescription());
 		assertEquals("className", tMapper.getClassName());
 	}
+	
+	@Test
+	public void testUpdateTool() throws ClassNotFoundException, SQLException
+	{
+		Tool tool = new Tool(null, 0, 0, null, null);
+		ToolMapper tm = new ToolMapper();
+		tm.updateTool(tool);
+		
+		assertEquals(null, tm.getClassName());
+		assertEquals(0, tm.getManufacturerID());
+		assertEquals(0, tm.getPrice());
+		assertEquals(null, tm.getDescription());
+		assertEquals(null, tm.getUpc());
+	}
 }
