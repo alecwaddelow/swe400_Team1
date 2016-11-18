@@ -60,7 +60,7 @@ public class TestTool extends DBTest
 	 * @throws SQLException
 	 */
 	@Test
-	public void testSetters() throws ClassNotFoundException, SQLException
+	public void testSettersAndGetters() throws ClassNotFoundException, SQLException
 	{
 		Tool tool = new Tool(null, 0, 0, null, null);
 		tool.setUpc("101");

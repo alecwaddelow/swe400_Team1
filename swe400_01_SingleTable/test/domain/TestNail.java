@@ -64,7 +64,7 @@ public class TestNail extends DBTest
 	 * @throws SQLException
 	 */
 	@Test
-	public void testSetters() throws ClassNotFoundException, SQLException
+	public void testSettersAndGetters() throws ClassNotFoundException, SQLException
 	{
 		Nail nail = new Nail(null, 0, 0, 0, 0, null);
 		
@@ -74,6 +74,7 @@ public class TestNail extends DBTest
 		nail.setLength(10.5);
 		nail.setNumberInBox(5);
 		nail.setClassName("Nail");
+		nail.setId(1);
 		
 		assertEquals("101", nail.getUpc());
 		assertEquals(10, nail.getManufacturerID());
@@ -81,6 +82,7 @@ public class TestNail extends DBTest
 		assertEquals(10.5, nail.getLength(), 0.001);
 		assertEquals(5, nail.getNumberInBox());
 		assertEquals("Nail", nail.getClassName());
+		assertEquals(1, nail.getId());
 	}
 	
 	/**
@@ -94,9 +96,9 @@ public class TestNail extends DBTest
 		try
 		{
 			new Nail(25);			
-		} catch(Exception notFound)
+		} catch(ClassNotFoundException notFound)
 		{
-			assertEquals("Could not find nail with specified ID", notFound.getMessage());
+			assertEquals("Could not find Nail with specified ID", notFound.getMessage());
 		}
 	}
 	
