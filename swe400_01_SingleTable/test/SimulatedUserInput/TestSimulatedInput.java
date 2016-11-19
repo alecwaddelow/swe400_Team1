@@ -870,10 +870,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws SQLException
 	 */
 	@Test
-	public void invalidInputsForUPCRequestWithItemAssociation() throws IOException, ClassNotFoundException, SQLException
+	public void invalidInputsForUPCRequest() throws IOException, ClassNotFoundException, SQLException
 	{
-		File inputFile = new File("SimulatedInput/UPC_Request/Input/SimulateInvalidUPCWithAssociation.txt");
-		File outputFile = new File("SimulatedINput/UPC_Request/Output/invalidUPCWithAssociation.txt");
+		File inputFile = new File("SimulatedInput/UPC_Request/Input/SimulateInvalidUPC.txt");
+		File outputFile = new File("SimulatedInput/UPC_Request/Output/invalidUPCOutput.txt");
 		
 		outputFile.createNewFile();
 		
@@ -889,7 +889,7 @@ public class TestSimulatedInput extends DBTest
 			Scanner sc = new Scanner(System.in);
 			UserInput.validUPCRequest(sc, 1);
 			
-			List<String> lines = Files.readAllLines(new File("SimulatedINput/UPC_Request/Output/invalidUPCWithAssociation.txt").toPath(), Charset.defaultCharset());
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/invalidUPCOutput.txt").toPath(), Charset.defaultCharset());
 			
 			/* simulated the user entered an invalid UPC */
 			assertTrue(lines.contains("Error: Not a valid UPC"));			
