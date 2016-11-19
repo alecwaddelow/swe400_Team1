@@ -542,7 +542,7 @@ public class TestSimulatedInput extends DBTest
 	public void testRemoveCompatibilityForStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateRemovingCompatiblePowerTool.txt"); 
-		InputStream simulation= new FileInputStream(file);
+		InputStream simulation = new FileInputStream(file);
 		
 		if(file.exists())
 		{
@@ -566,6 +566,25 @@ public class TestSimulatedInput extends DBTest
 			}
 			
 			System.setIn(System.in);
+		}
+	}
+	
+	/**
+	 * TODO: GET THIS DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testNailUPCRequest() throws FileNotFoundException, ClassNotFoundException, SQLException
+	{
+		File file = new File("SimulatedInput/UPC_Request/Nail_UPC.txt");
+		InputStream simulation = new FileInputStream(file);
+		
+		if(file.exists())
+		{
+			System.setIn(simulation);
+			UserInput.userInput();
 		}
 	}
 	

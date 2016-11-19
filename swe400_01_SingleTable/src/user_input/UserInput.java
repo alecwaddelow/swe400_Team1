@@ -97,7 +97,6 @@ public class UserInput
 				System.out.println("\nError: Not correct input\n");
 			}
 		}
-		
 	}
 
 	/**
@@ -317,43 +316,33 @@ public class UserInput
 			int i = 1;
 			if(item instanceof PowerTool)
 			{
-				try(ResultSet rSet = DatabaseGateway.getStripNailUPCs())
+				ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+				
+				while(rSet.next())
 				{
-					while(rSet.next())
-					{
-						stripNail = new StripNail(rSet.getInt("id"));
-						itemList.add(stripNail);
-						System.out.print(i + ". ");
-						System.out.println(stripNail.toString());
-						i++;
-					}
-					rSet.close();
-					DatabaseGateway.closeStatements();
+					stripNail = new StripNail(rSet.getInt("id"));
+					itemList.add(stripNail);
+					System.out.print(i + ". ");
+					System.out.println(stripNail.toString());
+					i++;
 				}
-				catch(MySQLDataException e)
-				{
-					e.getCause();
-				}
+				rSet.close();
+				DatabaseGateway.closeStatements();				
 			}
 			else if(item instanceof StripNail)
 			{
-				try(ResultSet rSet = DatabaseGateway.getPowerToolUPCs())
+				ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
+					
+				while(rSet.next())
 				{
-					while(rSet.next())
-					{
-						powerTool = new PowerTool(rSet.getInt("id"));
-						itemList.add(powerTool);
-						System.out.println(i);
-						System.out.println(powerTool.toString());
-						i++;
-					}
-					rSet.close();
-					DatabaseGateway.closeStatements();
+					powerTool = new PowerTool(rSet.getInt("id"));
+					itemList.add(powerTool);
+					System.out.println(i);
+					System.out.println(powerTool.toString());
+					i++;
 				}
-				catch(MySQLDataException e)
-				{
-					e.getCause();
-				}
+				rSet.close();
+				DatabaseGateway.closeStatements();
 			}
 			input = sc.nextLine();
 			
