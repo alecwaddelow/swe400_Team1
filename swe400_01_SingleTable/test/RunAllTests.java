@@ -30,7 +30,7 @@ import other.*;
 			TestCreateLinkTable.class,
 			TestCreateDatabase.class,
 			TestRunner.class,
-			TestSimulatedInput.class,
+			//TestSimulatedInput.class,
 			TestInventoryItem.class,
 			TestCloseConnection.class
 		})

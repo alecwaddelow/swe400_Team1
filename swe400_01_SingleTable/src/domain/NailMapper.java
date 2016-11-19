@@ -118,6 +118,7 @@ public class NailMapper extends DBMapper
 		setPrice(nail.getPrice());
 		setLength(nail.getLength());
 		setNumberInBox(nail.getNumberInBox());
+		setClassName(nail.getClassName());
 		DatabaseGateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);
 	}
 }

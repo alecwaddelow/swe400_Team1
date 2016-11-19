@@ -53,4 +53,20 @@ public class TestNailMapper
 		assertEquals(4, nailMapper.getNumberInBox());
 		assertEquals("Nail", nailMapper.getClassName());
 	}
+	
+	@Test
+	public void testUpdateNail() throws ClassNotFoundException, SQLException
+	{
+		Nail nail = new Nail("upc", 1, 1, 1.0, 1, "Nail");
+		NailMapper mapper = new NailMapper();
+		mapper.updateNail(nail);
+		
+		assertEquals("upc", mapper.getUpc());
+		assertEquals(1, mapper.getManufacturerID());
+		assertEquals(1, mapper.getPrice());
+		assertEquals(1.0, mapper.getLength(), 0.001);
+		assertEquals(1, mapper.getNumberInBox());
+		assertEquals("Nail", mapper.getClassName());
+
+	}
 }
