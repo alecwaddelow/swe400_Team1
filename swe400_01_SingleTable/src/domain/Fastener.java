@@ -8,7 +8,6 @@ package domain;
 public abstract class Fastener extends InventoryItem
 {
 	protected double length;
-	
 
 	/**
 	 * Creation Constructor

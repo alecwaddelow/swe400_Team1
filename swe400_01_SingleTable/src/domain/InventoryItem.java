@@ -48,7 +48,6 @@ public abstract class InventoryItem
 	 */
 	InventoryItem(){}
 	
-	
 	/**
 	 * Set ID
 	 * 
@@ -60,6 +59,8 @@ public abstract class InventoryItem
 	}
 	
 	/**
+	 * Get ID
+	 * 
 	 * @return ID
 	 */
 	public int getId()
@@ -68,6 +69,8 @@ public abstract class InventoryItem
 	}
 
 	/**
+	 * Get UPC
+	 * 
 	 * @return UPC
 	 */
 	public String getUpc()
@@ -86,6 +89,8 @@ public abstract class InventoryItem
 	}
 
 	/**
+	 * Get manufacturerID
+	 * 
 	 * @return manufacturerID
 	 */
 	public int getManufacturerID()
@@ -104,6 +109,8 @@ public abstract class InventoryItem
 	}
 
 	/**
+	 * Get Price
+	 * 
 	 * @return price
 	 */
 	public int getPrice()
@@ -122,7 +129,9 @@ public abstract class InventoryItem
 	}
 
 	/**
-	 * @return the className
+	 * Get className
+	 * 
+	 * @return className
 	 */
 	public String getClassName() 
 	{
@@ -130,6 +139,8 @@ public abstract class InventoryItem
 	}
 	
 	/**
+	 * Set ClassName
+	 * 
 	 * @param className the className to set
 	 */
 	public void setClassName(String className) 
@@ -185,7 +196,6 @@ public abstract class InventoryItem
 			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
 		}
 		rs.close();
-
 		DatabaseGateway.closeStatements();
 		return item;
 	}

@@ -1,9 +1,5 @@
 package data_source;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -15,7 +11,6 @@ public class LinkTableGateway
 	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
-
 	private static Connection con = null;
 	private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;
@@ -161,7 +156,6 @@ public class LinkTableGateway
 	    preparedStatement = getConnection().prepareStatement(query);
 	    preparedStatement.setInt(1, powerToolID);
 	    preparedStatement.setInt(2, stripNailID);
-	    
 	    preparedStatement.execute();
 		closeStatements();
 	}

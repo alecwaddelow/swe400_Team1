@@ -1,6 +1,7 @@
 package domain;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
+import sun.security.action.GetBooleanAction;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -54,6 +55,8 @@ public abstract class DBMapper
 	}
 	
 	/**
+	 * Get ID
+	 * 
 	 * @return id
 	 */
 	public int getId()
@@ -62,6 +65,8 @@ public abstract class DBMapper
 	}
 
 	/**
+	 * Get UPC
+	 * 
 	 * @return the item's UPC
 	 */
 	public String getUpc()
@@ -80,7 +85,9 @@ public abstract class DBMapper
 	}
 
 	/**
-	 * @return the item's manufacturer ID
+	 * Get manufacturerID
+	 * 
+	 * @return manufacturerID
 	 */
 	public int getManufacturerID()
 	{
@@ -98,6 +105,8 @@ public abstract class DBMapper
 	}
 
 	/**
+	 * Get Price
+	 * 
 	 * @return the item's price
 	 */
 	public int getPrice()
@@ -116,6 +125,8 @@ public abstract class DBMapper
 	}
 
 	/**
+	 * Get ClassName
+	 * 
 	 * @return className
 	 */
 	public String getClassName()
