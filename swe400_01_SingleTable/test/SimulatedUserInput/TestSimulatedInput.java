@@ -631,7 +631,7 @@ public class TestSimulatedInput extends DBTest
 	}
 	
 	/**
-	 * Simulates looking for a nail by searching by a upc.
+	 * Simulates looking for a tool by searching by a upc.
 	 *
 	 * Since SearchByUPC is only input and output, the only way to test
 	 * is to save the output and test that the output is correct
@@ -679,6 +679,72 @@ public class TestSimulatedInput extends DBTest
 		System.setOut(stdout);
 	}
 	
+	/**
+	 * Simulates looking for a stripnail by searching by a upc.
+	 *
+	 * Since SearchByUPC is only input and output, the only way to test
+	 * is to save the output and test that the output is correct
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException 
+	 */
+	@Test
+	public void testUPCStripNail() throws ClassNotFoundException, IOException, SQLException
+	{
+		File inputFile = new File("SimulatedInput/UPC_Request/Input/StripNail_UPC.txt");
+		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputStripNail.txt");
+		
+		/* if the output file doesn't already exist, then create it */
+		outputFile.createNewFile();
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		PrintStream stdout = System.out;
+		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false));
+		
+		if(inputFile.exists() && outputFile.exists())
+		{
+			System.setIn(simulation);
+			System.setOut(output);
+			UserInput.userInput();
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputStripNail.txt").toPath(), Charset.defaultCharset());
+			StripNail stripNail = new StripNail(12);
+			
+			/* user entered that they wanted to search an item by UPC */
+			assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
+			
+			/* the user entered a valid input of what inventory item they wanted to search for by upc */
+			assertTrue(lines.contains("Please enter a UPC "));
+			
+			/* simulated the user wanting the stripnail with id 12 */
+			assertTrue(lines.contains(stripNail.toString()));
+			
+			/* stripnail 12 has two compatible powertools it can work with, which get printed out */
+			PowerTool compatible1 = new PowerTool(16);
+			PowerTool compatible2 = new PowerTool(17);
+			
+			assertTrue(lines.contains(compatible1.toString()));
+			assertTrue(lines.contains(compatible2.toString()));
+		}
+
+		/* close connections and delete the output file since it is no longer needed */
+		simulation.close();
+		output.close();
+		outputFile.delete();
+		System.setOut(stdout);
+	}
+	
+	/**
+	 * Simulates looking for a powertool by searching by a upc.
+	 *
+	 * Since SearchByUPC is only input and output, the only way to test
+	 * is to save the output and test that the output is correct
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException 
+	 */
 	@Test
 	public void testUPCPowerTool() throws ClassNotFoundException, SQLException, IOException
 	{
@@ -707,7 +773,7 @@ public class TestSimulatedInput extends DBTest
 			/* the user entered a valid input of what inventory item they wanted to search for by upc */
 			assertTrue(lines.contains("Please enter a UPC "));
 			
-			/* simulated the user wanted the tool with id 10 */
+			/* simulated the user wanted the powertool with id 21 */
 			assertTrue(lines.contains(powerTool.toString()));
 			
 			/* powertool 21 has two compatible stripnails it can work with, which get printed out */
