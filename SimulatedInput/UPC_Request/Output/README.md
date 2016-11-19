@@ -1,0 +1,1 @@
+This folder is for holding the simulated output for searching by UPC for nail, tool, powertool, and stripnail
