@@ -368,7 +368,7 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 */
 	@Test
-	public void testUpdatingCompatibleSPowerToolForStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatibleStripNailForPowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatibleStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
