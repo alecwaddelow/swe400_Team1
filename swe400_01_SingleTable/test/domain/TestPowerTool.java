@@ -3,8 +3,6 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Test;
-
-import domain.*;
 import enums.PowerTools;
 import other.DBTest;
 
@@ -104,6 +102,7 @@ public class TestPowerTool extends DBTest
 		powerTool.setDescription("test");
 		powerTool.setBatteryPowered(true);
 		powerTool.setClassName("PowerTool");
+		powerTool.setId(1);
 		
 		assertEquals("101", powerTool.getUpc());
 		assertEquals(10, powerTool.getManufacturerID());
@@ -111,6 +110,7 @@ public class TestPowerTool extends DBTest
 		assertEquals("test", powerTool.getDescription());
 		assertEquals(true, powerTool.isBatteryPowered());
 		assertEquals("PowerTool", powerTool.getClassName());
+		assertEquals(1, powerTool.getId());
 	}
 	
 	/**
@@ -127,7 +127,7 @@ public class TestPowerTool extends DBTest
 		}
 		catch(ClassNotFoundException notFound)
 		{
-			assertEquals("The requested PowerTool could not be found", notFound.getMessage() );
+			assertEquals("Could not find PowerTool with specified ID", notFound.getMessage() );
 		}
 	}
 	

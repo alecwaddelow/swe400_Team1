@@ -233,16 +233,4 @@ public class TestStripNail extends DBTest
 		assertEquals(1, powerTools.size());
 	}
 	
-	@Test
-	public void testComparePowerTools() throws ClassNotFoundException, SQLException
-	{
-		PowerTool pt1 = new PowerTool("1", 1, 1, "1", true, "1");
-		PowerTool pt2 = new PowerTool("2", 2, 2, "2", false, "2");
-		assertFalse(StripNail.comparePowerTools(pt1, pt2));
-		
-//		PowerTool pt1 = new PowerTool(16);
-//		PowerTool pt2 = new PowerTool(17);
-//		pt2.setClassName("testDifference");
-//		assertFalse(StripNail.comparePowerTools(pt1, pt2)); 
-	}
 }

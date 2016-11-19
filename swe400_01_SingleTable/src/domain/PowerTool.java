@@ -26,30 +26,33 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		super(id);
-		try(ResultSet rs = DatabaseGateway.queryPowerTool(this.id))
+		ResultSet rs = null;
+		rs = DatabaseGateway.queryPowerTool(this.id);
+		
+		if(rs.next())
 		{
-			if(rs.next())
-			{
-				String upc = rs.getString("upc");
-				int manufacturerID = rs.getInt("manufacturerID");
-				int price = rs.getInt("price");
-				String description = rs.getString("description");
-				boolean batteryPowered = rs.getBoolean("batteryPowered");
-				String className = rs.getString("className");
-				PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
-				setUpc(powerToolMapper.getUpc());
-				setManufacturerID(powerToolMapper.getManufacturerID());
-				setPrice(powerToolMapper.getPrice());
-				setDescription(powerToolMapper.getDescription());
-				setBatteryPowered(powerToolMapper.isBatteryPowered());
-				setClassName(powerToolMapper.getClassName());
-			}
-			rs.close();
+			String upc = rs.getString("upc");
+			int manufacturerID = rs.getInt("manufacturerID");
+			int price = rs.getInt("price");
+			String description = rs.getString("description");
+			boolean batteryPowered = rs.getBoolean("batteryPowered");
+			String className = rs.getString("className");
+			PowerToolMapper powerToolMapper = new PowerToolMapper(upc, manufacturerID, price, description, batteryPowered, className);
+			setUpc(powerToolMapper.getUpc());
+			setManufacturerID(powerToolMapper.getManufacturerID());
+			setPrice(powerToolMapper.getPrice());
+			setDescription(powerToolMapper.getDescription());
+			setBatteryPowered(powerToolMapper.isBatteryPowered());
+			setClassName(powerToolMapper.getClassName());
 		}
-		catch(Exception e)
+		else
 		{
-			e.getCause();
+			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find PowerTool with specified ID");
+			notFoundException.getMessage();
 		}
+		rs.close();
+		
+		
 		DatabaseGateway.closeStatements();
 	}
 
@@ -236,23 +239,18 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public void load() throws ClassNotFoundException, SQLException 
 	{
 		this.stripNailList = new ArrayList<StripNail>();
-		try(ResultSet rs = LinkTableGateway.queryDBForStripNails(this.id))
+		ResultSet rs = null;
+		rs = LinkTableGateway.queryDBForStripNails(this.id);
+		while(rs.next())
 		{
-			while(rs.next())
+			int id = rs.getInt("stripNailID");
+			
+			if(!this.stripNailList.contains(new StripNail(id)))
 			{
-				int id = rs.getInt("stripNailID");
-				
-				if(!this.stripNailList.contains(new StripNail(id)))
-				{
-					this.addStripNailToList(new StripNail(id));					
-				}
+				this.addStripNailToList(new StripNail(id));					
 			}
-			rs.close();
 		}
-		catch(Exception e)
-		{
-			e.getCause();
-		}
+		rs.close();
 		DatabaseGateway.closeStatements();
 	}
 

@@ -226,7 +226,7 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @param powerTool
 	 * @return boolean
 	 */
-	public static boolean comparePowerTools(PowerTool pTool, PowerTool powerTool) 
+	private static boolean comparePowerTools(PowerTool pTool, PowerTool powerTool) 
 	{
 		if(pTool.getUpc().equalsIgnoreCase(powerTool.getUpc())
 		&& pTool.getManufacturerID() == powerTool.getManufacturerID()
