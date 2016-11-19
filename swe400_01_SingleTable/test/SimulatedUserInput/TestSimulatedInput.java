@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import org.junit.Test;
 import data_source.LinkTableGateway;
 import domain.*;
@@ -324,9 +327,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException 
 	 */
 	@Test
-	public void testUpdatingCompatibleStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatiblePowerToolForStripNail () throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/StripNail/SimulateUpdatingCompatibleStripNail.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateUpdatingCompatibleStripNailForPowerTool.txt");
 		InputStream simulation = new FileInputStream(file);
 				
 		PowerTool powerTool = new PowerTool(21);
@@ -365,9 +368,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 */
 	@Test
-	public void testUpdatingCompatiblePowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatibleSPowerToolForStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatiblePowerTool.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatibleStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
 		
 		StripNail stripNail = new StripNail(12);
