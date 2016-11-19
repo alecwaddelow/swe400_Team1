@@ -1,0 +1,119 @@
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+Which item were you thinking of? (Enter the number)
+1. Nail 
+2.Tool 
+3. PowerTool 
+4. StripNail
+Please enter a UPC 
+Error: Not a valid UPC
+Please enter a UPC 
+Error: Not a valid UPC
+Please enter a UPC 
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+
+Invalid input, please re-enter
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+Please enter a UPC 
+Nail [upc=5453432767, manufacturerID=15, price=1348, length=3.0, numberInBox=500]
+
+Warning... You are about to update this item, if you don't want certain values to change, retype the same value
+Plase enter the UPC:
+Please enter the manufacturerID:
+Please enter the price of the item:
+Please enter length 
+
+Please enter Number in Box 
+
+
+Item updated:
+Nail [upc=3030030330, manufacturerID=15, price=1347, length=3.1, numberInBox=499]
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+Please enter a UPC 
+Tool [upc=1232343345, manufacturerID=42, price=3999, description=Ten piece screwdriver set]
+
+Warning... You are about to update this item, if you don't want certain values to change, retype the same value
+Plase enter the UPC:
+Please enter the manufacturerID:
+Please enter the price of the item:
+Please enter the description
+
+Item updated:
+Tool [upc=222222222, manufacturerID=230, price=3, description=Tool created from simulated input]
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+Please enter a UPC 
+PowerTool [upc=7784452828, manufacturerID=13, price=15758, description=Brad nailer, batteryPowered=false]
+
+Works with:
+StripNail [upc=6565459876, manufacturerID=24, price=1988, length=1.5, numberInStrip=150]
+StripNail [upc=4343432345, manufacturerID=13, price=1576, length=1.5, numberInStrip=150]
+
+Warning... You are about to update this item, if you don't want certain values to change, retype the same value
+Plase enter the UPC:
+Please enter the manufacturerID:
+Please enter the price of the item:
+Please enter the description
+If it's battery powered please type true, if not type false
+Would you like to:
+1. Add a compatible stripnail
+2. Remove a compatible stripnail
+3. Go back to main prompt
+
+Item updated:
+PowerTool [upc=222222222, manufacturerID=230, price=3, description=PowerTool created from simulated input, batteryPowered=true]
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program

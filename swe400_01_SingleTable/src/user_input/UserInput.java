@@ -87,7 +87,7 @@ public class UserInput
 			
 			int itemAssociation = Integer.parseInt(input);
 			
-			if(itemAssociation >= 1 || itemAssociation <= 4)
+			if(itemAssociation >= 1 && itemAssociation <= 4)
 			{
 				validUPCRequest(sc, itemAssociation);
 				valid = true;

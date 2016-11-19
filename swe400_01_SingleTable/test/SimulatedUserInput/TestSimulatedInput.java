@@ -1,8 +1,15 @@
 package SimulatedUserInput;
 import static org.junit.Assert.*;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import javax.imageio.stream.FileImageInputStream;
+
 import org.junit.Test;
 import data_source.LinkTableGateway;
 import domain.*;
@@ -570,22 +577,60 @@ public class TestSimulatedInput extends DBTest
 	}
 	
 	/**
-	 * TODO: GET THIS DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-	 * @throws FileNotFoundException
+	 * Simulates looking for a nail by searching by a upc.
+	 *
+	 * Since SearchByUPC is only input and output, the only way to test
+	 * is to save the output and test that the output is correct
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws IOException 
 	 */
 	@Test
-	public void testNailUPCRequest() throws FileNotFoundException, ClassNotFoundException, SQLException
+	public void testNailUPCRequest() throws ClassNotFoundException, SQLException, IOException
 	{
-		File file = new File("SimulatedInput/UPC_Request/Nail_UPC.txt");
-		InputStream simulation = new FileInputStream(file);
+		File inputFile = new File("SimulatedInput/UPC_Request/Input/Nail_UPC.txt");
+		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputNail.txt");
 		
-		if(file.exists())
+		/**
+		 * delete the file used from the previous ran testing
+		 */
+		if(!outputFile.exists())
+		{
+			try {
+				outputFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		PrintStream stdout = System.out;
+		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false));
+		
+		/* both files should be present before simulation */
+		if(inputFile.exists() && outputFile.exists())
 		{
 			System.setIn(simulation);
+			System.setOut(output);
 			UserInput.userInput();
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputNail.txt").toPath(), Charset.defaultCharset()); 
+			
+			/* user entered that they wanted to search an item by UPC */
+			assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
+			
+			/* user didn't enter a valid input */
+			assertTrue(lines.contains("Error: Not correct input"));
+			
+			/* user entered a valid nail upc */
+			assertTrue(lines.contains("Nail [upc=5453432767, manufacturerID=15, price=1348, length=3.0, numberInBox=500]"));
 		}
+		
+		simulation.close();
+		output.close();
+		System.setOut(stdout);
 	}
 	
 	/**
