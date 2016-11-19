@@ -1,20 +1,9 @@
 package SimulatedUserInput;
 import static org.junit.Assert.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.Scanner;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
 import org.junit.Test;
-
-import com.sun.xml.internal.ws.api.pipe.ThrowableContainerPropertySet;
-
 import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
@@ -578,5 +567,45 @@ public class TestSimulatedInput extends DBTest
 			
 			System.setIn(System.in);
 		}
+	}
+	
+	/**
+	 * test instantiation of NailInput class
+	 */
+	@Test
+	public void testNailInputInstantiation()
+	{
+		NailInput nailInput = new NailInput();
+		assertTrue(nailInput instanceof NailInput);
+	}
+	
+	/**
+	 * test instantiation of ToolInput class
+	 */
+	@Test
+	public void testToolInputInstantiation()
+	{
+		ToolInput toolInput = new ToolInput();
+		assertTrue(toolInput instanceof ToolInput);
+	}
+	
+	/**
+	 * test instantiation of PowerToolInput class
+	 */
+	@Test
+	public void testPowerToolInputInstantiation()
+	{
+		PowerToolInput powerToolInput = new PowerToolInput();
+		assertTrue(powerToolInput instanceof PowerToolInput);
+	}
+	
+	/**
+	 * test instantiation of StripNailInput class
+	 */
+	@Test
+	public void testStripNailInputInstantiation()
+	{
+		StripNailInput stripNailInput = new StripNailInput();
+		assertTrue(stripNailInput instanceof StripNailInput);
 	}
 }
