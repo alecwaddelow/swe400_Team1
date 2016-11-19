@@ -11,6 +11,9 @@ import java.util.Scanner;
 import javax.imageio.stream.FileImageInputStream;
 
 import org.junit.Test;
+
+import com.sun.corba.se.spi.orbutil.fsm.Input;
+
 import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
@@ -576,6 +579,7 @@ public class TestSimulatedInput extends DBTest
 		}
 	}
 	
+	
 	/**
 	 * Simulates looking for a nail by searching by a upc.
 	 *
@@ -593,15 +597,7 @@ public class TestSimulatedInput extends DBTest
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputNail.txt");
 		
 		/* if the output file doesn't already exist, then create it */
-		if(!outputFile.exists())
-		{
-			try {
-				outputFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		outputFile.createNewFile();
 		
 		InputStream simulation = new FileInputStream(inputFile);
 		PrintStream stdout = System.out;
@@ -615,6 +611,7 @@ public class TestSimulatedInput extends DBTest
 			UserInput.userInput();
 			
 			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputNail.txt").toPath(), Charset.defaultCharset()); 
+			Nail nail = new Nail(1);
 			
 			/* user entered that they wanted to search an item by UPC */
 			assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
@@ -622,12 +619,109 @@ public class TestSimulatedInput extends DBTest
 			/* user didn't enter a valid input */
 			assertTrue(lines.contains("Error: Not correct input"));
 			
-			/* user entered a valid nail upc */
-			assertTrue(lines.contains("Nail [upc=5453432767, manufacturerID=15, price=1348, length=3.0, numberInBox=500]"));
+			/* make sure the requested nail is correct with the database */
+			assertTrue(lines.contains(nail.toString()));
 		}
 		
+		/* close the streams and delete the output file since there is no need for it */
 		simulation.close();
 		output.close();
+		outputFile.delete();
+		System.setOut(stdout);
+	}
+	
+	/**
+	 * Simulates looking for a nail by searching by a upc.
+	 *
+	 * Since SearchByUPC is only input and output, the only way to test
+	 * is to save the output and test that the output is correct
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException 
+	 */
+	@Test
+	public void testUPCTool() throws ClassNotFoundException, SQLException, IOException
+	{
+		File inputFile = new File("SimulatedInput/UPC_Request/Input/Tool_UPC.txt");
+		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputTool.txt");
+		
+		/* if the output file doesn't already exist, then create it */
+		outputFile.createNewFile();
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		PrintStream stdout = System.out;
+		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false));
+		
+		if(inputFile.exists() && outputFile.exists())
+		{
+			System.setIn(simulation);
+			System.setOut(output);
+			UserInput.userInput();
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputTool.txt").toPath(), Charset.defaultCharset());
+			Tool tool = new Tool(10);
+			
+			/* user entered that they wanted to search an item by UPC */
+			assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
+			
+			/* the user entered a valid input of what inventory item they wanted to search for by upc */
+			assertTrue(lines.contains("Please enter a UPC "));
+			
+			/* simulated the user wanted the tool with id 10 */
+			assertTrue(lines.contains(tool.toString()));
+		}
+		
+		/* close connections and delete the output file since it is no longer needed */
+		simulation.close();
+		output.close();
+		outputFile.delete();
+		System.setOut(stdout);
+	}
+	
+	@Test
+	public void testUPCPowerTool() throws ClassNotFoundException, SQLException, IOException
+	{
+		File inputFile = new File("SimulatedInput/UPC_Request/Input/PowerTool_UPC.txt");
+		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputPowerTool.txt");
+		
+		/* if the output file doesn't already exist, then create it */
+		outputFile.createNewFile();
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		PrintStream stdout = System.out;
+		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false));
+		
+		if(inputFile.exists() && outputFile.exists())
+		{
+			System.setIn(simulation);
+			System.setOut(output);
+			UserInput.userInput();
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputPowerTool.txt").toPath(), Charset.defaultCharset());
+			PowerTool powerTool = new PowerTool(21);
+			
+			/* user entered that they wanted to search an item by UPC */
+			assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
+			
+			/* the user entered a valid input of what inventory item they wanted to search for by upc */
+			assertTrue(lines.contains("Please enter a UPC "));
+			
+			/* simulated the user wanted the tool with id 10 */
+			assertTrue(lines.contains(powerTool.toString()));
+			
+			/* powertool 21 has two compatible stripnails it can work with, which get printed out */
+			StripNail compatible1 = new StripNail(14);
+			StripNail compatible2 = new StripNail(15);
+			
+			assertTrue(lines.contains(compatible1.toString()));
+			assertTrue(lines.contains(compatible2.toString()));
+		}
+
+		/* close connections and delete the output file since it is no longer needed */
+		simulation.close();
+		output.close();
+		outputFile.delete();
 		System.setOut(stdout);
 	}
 	

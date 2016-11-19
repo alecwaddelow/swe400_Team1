@@ -81,7 +81,7 @@ public class UserInput
 		while(!valid)
 		{
 			System.out.println("Which item were you thinking of? (Enter the number)");
-			System.out.println("1. Nail \n2.Tool \n3. PowerTool \n4. StripNail");
+			System.out.println("1. Nail \n2. Tool \n3. PowerTool \n4. StripNail");
 			
 			String input = sc.nextLine();
 			
