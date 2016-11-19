@@ -9,7 +9,7 @@ import other.*;
 /**
  * @author Drew Rife & Alec Waddelow
  *
- * Runs all tests with simulated user input
+ * Runs all tests with simulated user 
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
