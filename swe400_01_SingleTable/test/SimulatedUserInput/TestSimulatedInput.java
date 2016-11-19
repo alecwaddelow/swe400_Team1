@@ -592,9 +592,7 @@ public class TestSimulatedInput extends DBTest
 		File inputFile = new File("SimulatedInput/UPC_Request/Input/Nail_UPC.txt");
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputNail.txt");
 		
-		/**
-		 * delete the file used from the previous ran testing
-		 */
+		/* if the output file doesn't already exist, then create it */
 		if(!outputFile.exists())
 		{
 			try {
