@@ -63,7 +63,7 @@ public class LinkTableGateway
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
 		return resultSet;
-	}
+	} 
 	
 	/**
 	 * Queries the database for PowerTools in Link table 
@@ -78,7 +78,7 @@ public class LinkTableGateway
 		String sqlStatement = ("SELECT * FROM LinkTable WHERE stripNailID=?");
 		preparedStatement = getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery();
+		resultSet = preparedStatement.executeQuery(); 
 		return resultSet;
 	}
 	

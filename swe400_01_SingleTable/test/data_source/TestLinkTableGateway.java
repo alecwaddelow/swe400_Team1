@@ -1,12 +1,11 @@
 package data_source;
 import static org.junit.Assert.*;
-
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.junit.Test;
-import java.sql.Connection;
 import data_source.LinkTableGateway;
+import other.DBTest;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -14,7 +13,7 @@ import data_source.LinkTableGateway;
  * Test LinkTableGateway
  *
  */
-public class TestLinkTableGateway 
+public class TestLinkTableGateway extends DBTest
 {
 	/**
 	 * Tests instantiation of LinkTableGateway 
@@ -38,8 +37,91 @@ public class TestLinkTableGateway
 		LinkTableGateway.removeRelation(20, 14);
 		ResultSet rSet = LinkTableGateway.queryDBForPowerTools(20);
 		assertFalse(rSet.next());
-		
 		rSet.close();
 		LinkTableGateway.closeStatements();
+	}
+	
+	/**
+	 * Test query for StripNails
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testQueryDBForStripNails() throws ClassNotFoundException, SQLException
+	{
+		ResultSet rs = null;
+		rs = LinkTableGateway.queryDBForStripNails(16);
+		rs.next();
+		assertEquals(11, rs.getInt("stripNailID"));
+		rs.next();
+		assertEquals(12, rs.getInt("stripNailID"));
+		rs.close();
+	}
+	
+	/**
+	 * Test query for PowerTools
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testQueryDBForPowerTools() throws ClassNotFoundException, SQLException
+	{
+		ResultSet rs = null;
+		rs = LinkTableGateway.queryDBForPowerTools(11);
+		rs.next(); 
+		assertEquals(16, rs.getInt("powerToolID"));
+		rs.next();
+		assertEquals(17, rs.getInt("powerToolID"));
+		rs.close();
+	}
+	
+	/**
+	 * Tests InsertRow
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testInsertRow() throws ClassNotFoundException, SQLException
+	{
+		PreparedStatement statement = null;
+		String sqlStatement = "select * from LinkTable";
+		statement = LinkTableGateway.getConnection().prepareStatement(sqlStatement);
+		LinkTableGateway.insertRow(statement);
+		assertTrue(statement.isClosed());
+	}
+	
+	@Test
+	public void testAddRelation() throws ClassNotFoundException, SQLException
+	{
+		LinkTableGateway.addRelation(21, 12);
+		int rowCount = 0;
+		PreparedStatement statement = null;
+		String sqlStatement = "select * from LinkTable";
+		statement = LinkTableGateway.getConnection().prepareStatement(sqlStatement);
+		ResultSet rs = statement.executeQuery();
+		while(rs.next())
+		{
+			rowCount++;
+		}
+		assertEquals(9, rowCount); 
+	}
+	
+	@Test
+	public void testAddRelationDuplicate() throws ClassNotFoundException, SQLException
+	{
+		LinkTableGateway.addRelation(16, 11);
+		int rowCount = 0;
+		PreparedStatement statement = null;
+		String sqlStatement = "select * from LinkTable";
+		statement = LinkTableGateway.getConnection().prepareStatement(sqlStatement);
+		ResultSet rs = statement.executeQuery();
+		while(rs.next())
+		{
+			rowCount++;
+		}
+		assertEquals(8, rowCount);
 	}
 }
