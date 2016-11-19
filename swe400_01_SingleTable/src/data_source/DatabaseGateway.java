@@ -251,7 +251,7 @@ public class DatabaseGateway
 		String sqlStatement = ("SELECT id,className FROM InventoryItem");
 		preparedStatement = getConnection().prepareStatement(sqlStatement);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		return resultSet; 
 	}
 
 	/**

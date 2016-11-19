@@ -33,6 +33,7 @@ public class Runner
 		InsertEnumData.insertToolsIntoTable();
 		InsertEnumData.insertStripNailsIntoTable();
 		InsertEnumData.insertPowerToolsIntoTable();
+		createList();
 		CreateLinkTable.createTable();
 		CreateLinkTable.createRelationships();
 		initiateUserInput();
@@ -123,8 +124,7 @@ public class Runner
 			String className = rSet.getString("className");
 			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
 		}
-		rSet.close();
-	
+		rSet.close(); 
 		DatabaseGateway.closeStatements();
 		return listOfObjects;
 	}
@@ -138,7 +138,6 @@ public class Runner
 	 */
 	public static ArrayList<InventoryItem> getList() throws ClassNotFoundException, SQLException
 	{
-		listOfObjects = createList();
 		return listOfObjects;
 	}
 }

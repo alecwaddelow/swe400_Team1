@@ -3,7 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 import data_source.DatabaseGateway;
 import domain.*;
 import runner.Runner;
@@ -169,11 +168,12 @@ public class UserInput
 					className = "StripNail";
 					break;
 			}
-			
-			item = InventoryItem.getDetails(upcCode, className);			
+		
 			
 			if(itemAssociation != 0)
 			{
+				item = InventoryItem.getDetails(upcCode, className);			
+
 				if((item instanceof Nail && itemAssociation == 1)
 				|| (item instanceof Tool && itemAssociation == 2)
 				|| (item instanceof PowerTool && itemAssociation == 3)
@@ -182,14 +182,7 @@ public class UserInput
 					Runner.printDetailsOfItem(item);
 					valid = true;
 				}
-				else if((item instanceof Nail && itemAssociation != 1)
-				||  	(item instanceof Tool && itemAssociation != 2)
-				||  	(item instanceof PowerTool && itemAssociation != 3)
-				||  	(item instanceof StripNail && itemAssociation != 4))
-				{
-					System.out.println("Error: UPC entered does not match item type entered");
-				}
-				else 
+				else if(item == null) 
 				{
 					System.out.println("Error: Not a valid UPC");
 				}
@@ -410,5 +403,7 @@ public class UserInput
 			}
 		}
 		return noDuplicates;
-	}	
+	}
+
+	
 }

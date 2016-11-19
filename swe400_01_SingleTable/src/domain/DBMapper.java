@@ -1,7 +1,6 @@
 package domain;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
-import sun.security.action.GetBooleanAction;
 
 /**
  * @author Drew Rife & Alec Waddelow

@@ -41,6 +41,7 @@ public class TestArrayList
 		InsertEnumData.insertToolsIntoTable();
 		InsertEnumData.insertStripNailsIntoTable();
 		InsertEnumData.insertPowerToolsIntoTable();
+		Runner.createList();
 		CreateLinkTable.createTable();
 		CreateLinkTable.createRelationships();
 		testRetrieveNailsFromArrayList();
@@ -57,8 +58,7 @@ public class TestArrayList
 	 */
 	public void testRetrieveNailsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = new ArrayList<InventoryItem>();
-		returnSet = Runner.createList();
+		ArrayList<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < Nails.values().length; i++)
 		{
@@ -81,8 +81,7 @@ public class TestArrayList
 	 */
 	public void testRetrieveToolsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = new ArrayList<InventoryItem>();
-		returnSet = Runner.createList();
+		ArrayList<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < Tools.values().length; i++)
 		{
@@ -105,8 +104,7 @@ public class TestArrayList
 	 */
 	public void testRetrieveStripNailsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = new ArrayList<InventoryItem>();
-		returnSet = Runner.createList();
+		ArrayList<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < StripNails.values().length; i++)
 		{
@@ -129,8 +127,7 @@ public class TestArrayList
 	 */
 	public void testRetrievePowerToolsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = new ArrayList<InventoryItem>();
-		returnSet = Runner.createList();
+		ArrayList<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < PowerTools.values().length; i++)
 		{

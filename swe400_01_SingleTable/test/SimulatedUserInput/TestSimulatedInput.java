@@ -3,19 +3,10 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.imageio.stream.FileImageInputStream;
-
 import org.junit.Test;
-
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-
 import data_source.LinkTableGateway;
 import domain.*;
 import other.DBTest;
@@ -868,6 +859,46 @@ public class TestSimulatedInput extends DBTest
 		output.close();
 		outputFile.delete();
 		outputFolder.delete();
+		System.setOut(stdout);
+	}
+	
+	/**
+	 * simulates the user entering an invalid upc for UserInput.UPCRequest()
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void invalidInputsForUPCRequestWithItemAssociation() throws IOException, ClassNotFoundException, SQLException
+	{
+		File inputFile = new File("SimulatedInput/UPC_Request/Input/SimulateInvalidUPCWithAssociation.txt");
+		File outputFile = new File("SimulatedINput/UPC_Request/Output/invalidUPCWithAssociation.txt");
+		
+		outputFile.createNewFile();
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		PrintStream stdout = System.out;
+		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false));
+		
+		if(inputFile.exists() && outputFile.exists())
+		{
+			System.setIn(simulation);
+			System.setOut(output);
+
+			Scanner sc = new Scanner(System.in);
+			UserInput.validUPCRequest(sc, 1);
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedINput/UPC_Request/Output/invalidUPCWithAssociation.txt").toPath(), Charset.defaultCharset());
+			
+			/* simulated the user entered an invalid UPC */
+			assertTrue(lines.contains("Error: Not a valid UPC"));			
+		}
+
+		/* close connections and delete the output file since it is no longer needed */
+		simulation.close();
+		output.close();
+		outputFile.delete();
 		System.setOut(stdout);
 	}
 	

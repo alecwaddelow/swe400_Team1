@@ -1,10 +1,8 @@
 package other;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.naming.NamingException;
 import org.junit.Test;
-
 import domain.InventoryItem;
 import domain.Nail;
 import enums.Nails;
@@ -38,8 +36,8 @@ public class TestRunner extends DBTest
 	 */
 	@Test
 	public void testGetList() throws ClassNotFoundException, SQLException, NamingException
-	{
-		ArrayList<InventoryItem> myList = Runner.getList();
+	{	
+		assertEquals(21, Runner.getList().size());
 	}
 	
 	/**
