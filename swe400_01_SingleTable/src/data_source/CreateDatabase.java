@@ -33,15 +33,9 @@ public class CreateDatabase
 		String sqlStatement = "CREATE TABLE InventoryItem (" + id + upc + manufacturerID + price + description + batteryPowered +
 				length + numberInStrip + numberInBox + className + ");";
 
-			try(Statement st = DatabaseGateway.getConnection().createStatement())
-			{
-				st.execute(sqlStatement);
-				st.close();
-			}
-			catch(SQLException e)
-			{
-				e.getCause();
-			}
+		Statement st = DatabaseGateway.getConnection().createStatement();
+		st.execute(sqlStatement);
+		st.close();
 	}
 
 	/**
