@@ -1,12 +1,7 @@
 package SimulatedUserInput;
 import static org.junit.Assert.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.Scanner;
 import org.junit.Test;
 import data_source.LinkTableGateway;
@@ -316,6 +311,7 @@ public class TestSimulatedInput extends DBTest
 		}
 	}
 	
+	
 	/**
 	 * Simulates adding a compatible stripNail
 	 * 
@@ -324,9 +320,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException 
 	 */
 	@Test
-	public void testUpdatingCompatibleStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatiblePowerToolForStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/StripNail/SimulateUpdatingCompatibleStripNail.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateUpdatingCompatiblePowerToolForStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
 				
 		PowerTool powerTool = new PowerTool(21);
@@ -358,6 +354,85 @@ public class TestSimulatedInput extends DBTest
 	}
 	
 	/**
+	 * Simulates adding a compatible stripnail to powertool
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 */
+	@Test
+	public void testSimulateAddCompatiblePowerToolToStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	{
+		File file = new File("SimulatedInput/StripNail/SimulateAddingCompatiblePowerToolForStripNail.txt");
+		InputStream simulation = new FileInputStream(file);
+		
+		StripNail stripNail = new StripNail(11);
+		if(file.exists())
+		{
+			System.setIn(simulation);
+			Scanner scanner = new Scanner(System.in);
+			
+			UserInput.addCompatibles(scanner, stripNail);
+			
+			System.setIn(System.in);
+			
+			PowerTool powerTool = stripNail.getPowerToolList().get(2);
+			
+			assertEquals(3, stripNail.getPowerToolList().size());
+			assertEquals(21, powerTool.getId());
+			assertEquals("7784452828", powerTool.getUpc());
+			assertEquals(13, powerTool.getManufacturerID());
+			assertEquals(15758, powerTool.getPrice());
+			assertEquals("Brad nailer", powerTool.getDescription());
+			assertFalse(powerTool.isBatteryPowered());
+			assertEquals("PowerTool", powerTool.getClassName());
+		}
+	}
+	
+	/**
+	 * Simulates adding a compatible stripnail to powertool
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 */
+	@Test
+	public void testSimulateAddCompatibleStripNailToPowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
+	{
+		File file = new File("SimulatedInput/PowerTool/SimulateAddingCompatibleStripNailForPowerTool.txt");
+		InputStream simulation = new FileInputStream(file);
+		
+		PowerTool powerTool = new PowerTool(20);
+		if(file.exists())
+		{
+			System.setIn(simulation);
+			Scanner scanner = new Scanner(System.in);
+			
+			UserInput.addCompatibles(scanner, powerTool);
+			
+			System.setIn(System.in);
+			
+			StripNail stripNail = powerTool.getStripNailList().get(1);
+			
+			assertEquals(2, powerTool.getStripNailList().size());
+			assertEquals(13, stripNail.getId());
+			assertEquals("9876784727", stripNail.getUpc());
+			assertEquals(13, stripNail.getManufacturerID());
+			assertEquals(2099, stripNail.getPrice());
+			assertEquals(2.5, stripNail.getLength(), 0.001);
+			assertEquals(50, stripNail.getNumberInStrip());
+			assertEquals("StripNail", stripNail.getClassName());
+		}
+
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Tests for adding compatible powerTools to StripNails
 	 * 
 	 * @throws ClassNotFoundException
@@ -365,9 +440,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 */
 	@Test
-	public void testUpdatingCompatiblePowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatibleStripNailForPowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatiblePowerTool.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatibleStripNailForPowerTool.txt");
 		InputStream simulation = new FileInputStream(file);
 		
 		StripNail stripNail = new StripNail(12);
@@ -492,5 +567,45 @@ public class TestSimulatedInput extends DBTest
 			
 			System.setIn(System.in);
 		}
+	}
+	
+	/**
+	 * test instantiation of NailInput class
+	 */
+	@Test
+	public void testNailInputInstantiation()
+	{
+		NailInput nailInput = new NailInput();
+		assertTrue(nailInput instanceof NailInput);
+	}
+	
+	/**
+	 * test instantiation of ToolInput class
+	 */
+	@Test
+	public void testToolInputInstantiation()
+	{
+		ToolInput toolInput = new ToolInput();
+		assertTrue(toolInput instanceof ToolInput);
+	}
+	
+	/**
+	 * test instantiation of PowerToolInput class
+	 */
+	@Test
+	public void testPowerToolInputInstantiation()
+	{
+		PowerToolInput powerToolInput = new PowerToolInput();
+		assertTrue(powerToolInput instanceof PowerToolInput);
+	}
+	
+	/**
+	 * test instantiation of StripNailInput class
+	 */
+	@Test
+	public void testStripNailInputInstantiation()
+	{
+		StripNailInput stripNailInput = new StripNailInput();
+		assertTrue(stripNailInput instanceof StripNailInput);
 	}
 }
