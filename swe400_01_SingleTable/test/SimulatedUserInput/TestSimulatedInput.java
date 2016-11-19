@@ -3,6 +3,8 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -382,7 +384,7 @@ public class TestSimulatedInput extends DBTest
 			System.setIn(simulation);
 			Scanner scanner = new Scanner(System.in);
 			
-			UserInput.addCompatibles(scanner, stripNail);
+			StripNailInput.stripNailRelationPrompt(scanner, stripNail);
 			
 			System.setIn(System.in);
 			
@@ -418,7 +420,7 @@ public class TestSimulatedInput extends DBTest
 			System.setIn(simulation);
 			Scanner scanner = new Scanner(System.in);
 			
-			UserInput.addCompatibles(scanner, powerTool);
+			PowerToolInput.powerToolRelationPrompt(scanner, powerTool);
 			
 			System.setIn(System.in);
 			
@@ -788,6 +790,84 @@ public class TestSimulatedInput extends DBTest
 		simulation.close();
 		output.close();
 		outputFile.delete();
+		System.setOut(stdout);
+	}
+	
+	/**
+	 * Removes all compatibles from a PowerTool
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testRemoveAllCompatiblesForStripNail() throws IOException, ClassNotFoundException, SQLException
+	{		
+		File inputFile = new File("SimulatedInput/StripNail/RemoveAllCompatiblesForStripNail.txt");
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		
+		if(inputFile.exists())
+		{
+			System.setIn(simulation);
+
+			Scanner sc = new Scanner(System.in);
+			StripNail stripNail = new StripNail(15);
+			StripNailInput.removeCompatibilities(sc, stripNail);
+						
+			/* simulated the user wanted the powertool with id 21 */
+			assertTrue(stripNail.getPowerToolList().isEmpty());
+		}
+
+		/* close connections and delete the output file since it is no longer needed */
+		simulation.close();
+	}
+	
+	/**
+	 * Removes all compatibles from a PowerTool
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	@Test
+	public void testRemoveAllCompatiblesForPowerTool() throws IOException, ClassNotFoundException, SQLException
+	{
+		File outputFolder = new File("SimulatedInput/PowerTool/Output");
+		outputFolder.mkdir();
+		
+		File inputFile = new File("SimulatedInput/PowerTool/RemoveAllCompatiblesForPowerTool.txt");
+		File outputFile = new File("SimulatedInput/PowerTool/Output/RemoveAllCompatiblesForPowerTool.txt");
+		
+		outputFile.createNewFile();
+		
+		InputStream simulation = new FileInputStream(inputFile);
+		PrintStream stdout = System.out;
+		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false));
+		
+		if(inputFile.exists() && outputFile.exists())
+		{
+			System.setIn(simulation);
+			System.setOut(output);
+
+			Scanner sc = new Scanner(System.in);
+			PowerTool powerTool = new PowerTool(20);
+			PowerToolInput.removeCompatibilities(sc, powerTool);
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/PowerTool/Output/RemoveAllCompatiblesForPowerTool.txt").toPath(), Charset.defaultCharset());
+			
+			/* simulated the user wanted the powertool with id 21 */
+			assertTrue(lines.contains("There are no compatibilities"));
+			
+			/* stripNail list for this powertool (20) should be empty */
+			assertTrue(powerTool.getStripNailList().isEmpty());
+		}
+
+		/* close connections and delete the output file since it is no longer needed */
+		simulation.close();
+		output.close();
+		outputFile.delete();
+		outputFolder.delete();
 		System.setOut(stdout);
 	}
 	
