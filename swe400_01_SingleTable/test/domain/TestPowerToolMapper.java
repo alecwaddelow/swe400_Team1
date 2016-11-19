@@ -33,7 +33,7 @@ public class TestPowerToolMapper
 	 * Tests setters of PowerToolMapper
 	 */
 	@Test
-	public void testSetters()
+	public void testSettersAndGetters()
 	{
 		PowerToolMapper powerToolMapper = new PowerToolMapper();
 		
@@ -50,5 +50,20 @@ public class TestPowerToolMapper
 		assertEquals("description", powerToolMapper.getDescription());
 		assertTrue(powerToolMapper.isBatteryPowered());
 		assertEquals("PowerTool", powerToolMapper.getClassName());
+	}
+	
+	@Test
+	public void testUpdatePowerTool() throws ClassNotFoundException, SQLException
+	{
+		PowerTool powerTool = new PowerTool("upc", 1, 1, "description", false, "PowerTool");
+		PowerToolMapper mapper = new PowerToolMapper();
+		mapper.updatePowerTool(powerTool);
+		
+		assertEquals("upc", mapper.getUpc());
+		assertEquals(1, mapper.getManufacturerID());
+		assertEquals(1, mapper.getPrice());
+		assertEquals("description", mapper.getDescription());
+		assertFalse(mapper.isBatteryPowered());
+		assertEquals("PowerTool", mapper.getClassName());
 	}
 }

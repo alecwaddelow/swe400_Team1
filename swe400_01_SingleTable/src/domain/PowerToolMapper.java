@@ -7,10 +7,6 @@ import data_source.DatabaseGateway;
  *
  * A mapper for PowerTool Objects
  */
-/**
- * @author Alec Waddelow and Drew Rife 
- *
- */
 public class PowerToolMapper extends DBMapper
 {
 	protected String description;
@@ -52,7 +48,6 @@ public class PowerToolMapper extends DBMapper
 	 */
 	public PowerToolMapper() {}
 	
-
 	/** 
 	 * @see domain.DBMapper#setId(java.lang.String)
 	 */
@@ -121,6 +116,7 @@ public class PowerToolMapper extends DBMapper
 		setPrice(powerTool.getPrice());
 		setDescription(powerTool.getDescription());
 		setBatteryPowered(powerTool.isBatteryPowered());
+		setClassName(powerTool.getClassName());
 		DatabaseGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
 	}
 }
