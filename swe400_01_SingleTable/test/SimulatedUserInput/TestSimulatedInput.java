@@ -372,6 +372,42 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 */
 	@Test
+	public void testSimulateAddCompatiblePowerToolToStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	{
+		File file = new File("SimulatedInput/StripNail/SimulateAddingCompatiblePowerToolForStripNail.txt");
+		InputStream simulation = new FileInputStream(file);
+		
+		StripNail stripNail = new StripNail(11);
+		if(file.exists())
+		{
+			System.setIn(simulation);
+			Scanner scanner = new Scanner(System.in);
+			
+			UserInput.addCompatibles(scanner, stripNail);
+			
+			System.setIn(System.in);
+			
+			PowerTool powerTool = stripNail.getPowerToolList().get(2);
+			
+			assertEquals(3, stripNail.getPowerToolList().size());
+			assertEquals(21, powerTool.getId());
+			assertEquals("7784452828", powerTool.getUpc());
+			assertEquals(13, powerTool.getManufacturerID());
+			assertEquals(15758, powerTool.getPrice());
+			assertEquals("Brad nailer", powerTool.getDescription());
+			assertFalse(powerTool.isBatteryPowered());
+			assertEquals("PowerTool", powerTool.getClassName());
+		}
+	}
+	
+	/**
+	 * Simulates adding a compatible stripnail to powertool
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 */
+	@Test
 	public void testSimulateAddCompatibleStripNailToPowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateAddingCompatibleStripNailForPowerTool.txt");
@@ -387,10 +423,24 @@ public class TestSimulatedInput extends DBTest
 			
 			System.setIn(System.in);
 			
+			StripNail stripNail = powerTool.getStripNailList().get(1);
+			
 			assertEquals(2, powerTool.getStripNailList().size());
+			assertEquals(13, stripNail.getId());
+			assertEquals("9876784727", stripNail.getUpc());
+			assertEquals(13, stripNail.getManufacturerID());
+			assertEquals(2099, stripNail.getPrice());
+			assertEquals(2.5, stripNail.getLength(), 0.001);
+			assertEquals(50, stripNail.getNumberInStrip());
+			assertEquals("StripNail", stripNail.getClassName());
 		}
-		
-		
+
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
