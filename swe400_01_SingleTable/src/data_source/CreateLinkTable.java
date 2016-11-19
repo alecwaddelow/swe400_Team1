@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * @author Alec Waddelow & Drew Rife 
  *
- * Creates the separate the table that shows the relationships between StripNails and PowerTools
+ * Creates a separate table that holds the relationships between StripNails and PowerTools
  */
 public class CreateLinkTable 
 {
@@ -14,7 +14,6 @@ public class CreateLinkTable
 	static String stripNailID = "stripNailID int, ";
 	static String PTForeign = "FOREIGN KEY (powerToolID) REFERENCES InventoryItem(id), ";
 	static String SNForeign = "FOREIGN KEY (stripNailID) REFERENCES InventoryItem(id) ";
-
 	private static PreparedStatement preparedStatement = null;
 	
 	/**

@@ -1,9 +1,5 @@
 package data_source;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author Drew Rife and Alec Waddelow
@@ -224,9 +220,10 @@ public class DatabaseGateway
 	}
 	
 	/**
-	 * Retrieves item by UPC 
+	 * Retrieves item by UPC and ClassName
 	 * 
 	 * @param upc
+	 * @param className
 	 * @return ResultSet
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -289,7 +286,6 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
-	
 	/**
 	 * 
 	 * Updates a single Tool in the DB
@@ -321,7 +317,6 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
-	
 	/**
 	 * Updates a single StripNail in the DB
 	 * 
@@ -355,7 +350,6 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
-	
 	/**
 	 * Updates a single PowerTool to the DB
 	 * 
@@ -389,7 +383,6 @@ public class DatabaseGateway
 		closeStatements();
 	}
 
-
 	/**
 	 * Returns the ID of the Item that matches the UPC and className
 	 * 
@@ -417,6 +410,8 @@ public class DatabaseGateway
 	}
 	
 	/**
+	 * Returns stripNail UPC's 
+	 * 
 	 * @return ResultSet for all StripNails
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -431,6 +426,8 @@ public class DatabaseGateway
 	}
 
 	/**
+	 * Returns PowerTool UPC's
+	 * 
 	 * @return ResultSet all powertools
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
