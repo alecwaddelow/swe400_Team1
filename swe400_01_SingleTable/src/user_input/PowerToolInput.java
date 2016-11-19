@@ -3,11 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import org.junit.experimental.theories.Theories;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
-
 import data_source.DatabaseGateway;
 import domain.*;
 
@@ -140,33 +135,29 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			try(ResultSet rSet = DatabaseGateway.getStripNailUPCs())
+			ResultSet rSet = null;
+			rSet =DatabaseGateway.getStripNailUPCs();
+			
+			while(rSet.next())
 			{
-				while(rSet.next())
-				{
-					System.out.println(rSet.getString("upc"));
-				}
-				rSet.close();
-				DatabaseGateway.closeStatements();
-				
-				System.out.println("Which one would you like to add :");
-				String input = sc.nextLine();
-				int stripNailID = DatabaseGateway.getID(input, "StripNail");
-				
-				LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
-				powerTool.addStripNailToList(new StripNail(stripNailID));
-				
-				System.out.println("Would you like to add another relation? (Y/N)");
-				input = sc.nextLine();
-				
-				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-				{
-					done = true;
-				}
+				System.out.println(rSet.getString("upc"));
 			}
-			catch(MySQLDataException e)
+			rSet.close();
+			DatabaseGateway.closeStatements();
+			
+			System.out.println("Which one would you like to add :");
+			String input = sc.nextLine();
+			int stripNailID = DatabaseGateway.getID(input, "StripNail");
+			
+			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
+			powerTool.addStripNailToList(new StripNail(stripNailID));
+			
+			System.out.println("Would you like to add another relation? (Y/N)");
+			input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
 			{
-				e.getCause();
+				done = true;
 			}
 		}
 	}
