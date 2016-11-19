@@ -83,7 +83,6 @@ public class StripNail extends Fastener implements LoadInterface
 		super();
 	}
 	
-
 	/** 
 	 * @see domain.InventoryItem#setId(int)
 	 */
@@ -99,7 +98,6 @@ public class StripNail extends Fastener implements LoadInterface
 	{
 		return super.getId();
 	}
-
 
 	/**
 	 * @return int numberInStrip

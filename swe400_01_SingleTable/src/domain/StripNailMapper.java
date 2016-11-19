@@ -47,7 +47,6 @@ public class StripNailMapper extends DBMapper
 	 * Empty constructor
 	 */
 	public StripNailMapper() {}
-	
 
 	/** 
 	 * @see domain.DBMapper#setId(java.lang.String)
@@ -57,7 +56,6 @@ public class StripNailMapper extends DBMapper
 		super.setId();
 	}
 	
-	
 	/** 
 	 * @see domain.DBMapper#getId()
 	 */
@@ -65,7 +63,6 @@ public class StripNailMapper extends DBMapper
 	{
 		return super.getId();
 	}
-
 
 	/**
 	 * @return double length

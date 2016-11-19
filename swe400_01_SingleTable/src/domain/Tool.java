@@ -47,7 +47,6 @@ public class Tool extends InventoryItem
 		DatabaseGateway.closeStatements();
 	}
 		
-
 	/**
 	 * Creation Constructor
 	 * 

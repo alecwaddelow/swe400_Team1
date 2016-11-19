@@ -51,8 +51,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			notFoundException.getMessage();
 		}
 		rs.close();
-		
-		
 		DatabaseGateway.closeStatements();
 	}
 

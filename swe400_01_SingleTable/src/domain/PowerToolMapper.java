@@ -56,7 +56,6 @@ public class PowerToolMapper extends DBMapper
 		super.setId();
 	}
 	
-
 	/** 
 	 * @see domain.DBMapper#getId()
 	 */

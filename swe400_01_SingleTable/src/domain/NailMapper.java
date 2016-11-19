@@ -13,7 +13,6 @@ public class NailMapper extends DBMapper
 	protected double length;
 	protected int numberInBox;
 	
-	
 	/**
 	 * Constructor
 	 * 
@@ -86,7 +85,7 @@ public class NailMapper extends DBMapper
 	}
 	
 	/**
-	 * @return int the number of item's in the box
+	 * @return numberInBox
 	 */
 	public int getNumberInBox()
 	{

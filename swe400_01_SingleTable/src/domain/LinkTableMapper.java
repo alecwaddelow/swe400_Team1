@@ -19,41 +19,58 @@ public class LinkTableMapper
 	public LinkTableMapper() {}
 	
 	/**
+	 * Get LinkID
+	 * 
 	 * @return the linkID
 	 */
 	public int getLinkID() 
 	{
 		return this.linkID;
 	}
+	
 	/**
+	 * Set LinkID
+	 * 
 	 * @param linkID the linkID to set
 	 */
 	public void setLinkID(int linkID) 
 	{
 		this.linkID = linkID;
 	}
+	
 	/**
+	 * Get PowerToolID
+	 * 
 	 * @return the powerToolID
 	 */
 	public int getPowerToolID() 
 	{
 		return this.powerToolID;
 	}
+	
 	/**
+	 * Set PowerToolID
+	 * 
 	 * @param powerToolID the powerToolID to set
 	 */
 	public void setPowerToolID(int powerToolID) 
 	{
 		this.powerToolID = powerToolID;
 	}
+	
 	/**
+	 * Get StripNailID
+	 * 
 	 * @return the stripNailID
 	 */
 	public int getStripNailID() 
 	{
 		return this.stripNailID;
 	}
+	
 	/**
+	 * Set StripNailID
+	 * 
 	 * @param stripNailID the stripNailID to set
 	 */
 	public void setStripNailID(int stripNailID) 
