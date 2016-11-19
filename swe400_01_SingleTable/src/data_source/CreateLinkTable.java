@@ -26,15 +26,9 @@ public class CreateLinkTable
 	public static void createTable() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "CREATE TABLE LinkTable (" + linkID + powerToolID + stripNailID + PTForeign + SNForeign +  ");";
-		try(Statement st = LinkTableGateway.getConnection().createStatement())
-		{
-			st.execute(sqlStatement);
-			st.close();
-		}
-		catch(SQLException e)
-		{
-			e.getCause();
-		}
+		Statement st = LinkTableGateway.getConnection().createStatement();
+		st.execute(sqlStatement);
+		st.close();
 	}
 
 	/**
