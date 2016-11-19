@@ -298,7 +298,7 @@ public class UserInput
 	 * Adds the compatible stripnail to the PowerTool
 	 * 
 	 * @param sc
-	 * @param powerTool
+	 * @param item
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */

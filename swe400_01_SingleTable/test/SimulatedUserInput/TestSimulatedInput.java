@@ -324,9 +324,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException 
 	 */
 	@Test
-	public void testAddingCompatibleStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatibleStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/StripNail/SimulateAddingCompatibleStripNail.txt");
+		File file = new File("SimulatedInput/StripNail/SimulateUpdatingCompatibleStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
 				
 		PowerTool powerTool = new PowerTool(21);
@@ -365,9 +365,9 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 */
 	@Test
-	public void testCompatiblePowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatiblePowerTool() throws ClassNotFoundException, SQLException, FileNotFoundException
 	{
-		File file = new File("SimulatedInput/PowerTool/SimulateAddingCompatiblePowerTool.txt");
+		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatiblePowerTool.txt");
 		InputStream simulation = new FileInputStream(file);
 		
 		StripNail stripNail = new StripNail(12);
