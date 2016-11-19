@@ -364,7 +364,6 @@ public class UserInput
 				{
 					stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
 					LinkTableMapper.addRelation(item.getId(), stripNail.getId());
-					System.out.println("Did you make it here");
 				}
 				else
 				{
@@ -377,12 +376,13 @@ public class UserInput
 				System.out.println("Error: you didn't enter in a valid number");
 			}	
 			
-			System.out.println("Would you like to add another relation? (Y/N)");
-			input = sc.nextLine();
-			boolean flag = false;
 			
+			boolean flag = false;
 			while(!flag)
 			{
+				System.out.println("Would you like to add another relation? (Y/N)");
+				input = sc.nextLine();
+				
 				if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))
 				{
 					flag = true;
