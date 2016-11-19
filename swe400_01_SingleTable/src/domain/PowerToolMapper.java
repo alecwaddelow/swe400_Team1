@@ -116,7 +116,7 @@ public class PowerToolMapper extends DBMapper
 		setPrice(powerTool.getPrice());
 		setDescription(powerTool.getDescription());
 		setBatteryPowered(powerTool.isBatteryPowered());
-		setClassName(powerTool.getClassName());
+		setClassName(powerTool.getClassName()); 
 		DatabaseGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
 	}
 }
