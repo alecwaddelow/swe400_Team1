@@ -2,6 +2,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
+import exceptions.ItemNotFoundException;
 
 /**
  * @authors Drew Rife & Alec Waddelow
@@ -156,8 +157,9 @@ public abstract class InventoryItem
 	 * @return InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException
+	public static InventoryItem matchClassAndConstruct(int ID, String className) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		switch(className)
 		{
@@ -185,8 +187,9 @@ public abstract class InventoryItem
 	 * @return InventoryItem 
 	 * @throws ClassNotFoundExceptiongetDetails
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException
+	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		InventoryItem item = null;
 		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc, className))

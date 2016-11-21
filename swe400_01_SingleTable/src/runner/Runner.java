@@ -5,6 +5,7 @@ import javax.naming.NamingException;
 import data_source.*;
 import domain.*;
 import enums.InsertEnumData;
+import exceptions.ItemNotFoundException;
 import user_input.UserInput;
 
 /**
@@ -23,8 +24,9 @@ public class Runner
 	 * @throws NamingException
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException
+	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException, ItemNotFoundException
 	{
 		CreateLinkTable.dropTableBeforeCreation();
 		CreateDatabase.dropTableBeforeCreation();
@@ -61,8 +63,9 @@ public class Runner
 	 * @param item
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void printDetailsOfItem(InventoryItem item) throws ClassNotFoundException, SQLException 
+	public static void printDetailsOfItem(InventoryItem item) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		if(item.getClassName().equals("Nail"))
 		{
@@ -112,8 +115,9 @@ public class Runner
 	 * @return listOfObjects ArrayList<InventoryItem> 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException
+	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		try(ResultSet rSet = DatabaseGateway.createList())
 		{

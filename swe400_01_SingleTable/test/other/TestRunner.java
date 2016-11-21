@@ -6,6 +6,7 @@ import org.junit.Test;
 import domain.InventoryItem;
 import domain.Nail;
 import enums.Nails;
+import exceptions.ItemNotFoundException;
 import runner.Runner;
 
 /**
@@ -45,9 +46,10 @@ public class TestRunner extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testGetDetails() throws ClassNotFoundException, SQLException
+	public void testGetDetails() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		Nail nail = new Nail(1);
 		Nail nailGD = (Nail) InventoryItem.getDetails(Nails.COMMON_10D.getUpc(), "Nail");  

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import data_source.DatabaseGateway;
 import domain.*;
+import exceptions.ItemNotFoundException;
 import runner.Runner;
 
 public class UserInput 
@@ -72,8 +73,9 @@ public class UserInput
 	 * @param sc
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	private static void itemUPC(Scanner sc) throws ClassNotFoundException, SQLException 
+	private static void itemUPC(Scanner sc) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		
 		boolean valid = false;
@@ -139,8 +141,9 @@ public class UserInput
 	 * @return true if the item is not null (exists); false otherwise
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static InventoryItem validUPCRequest(Scanner sc, int itemAssociation) throws ClassNotFoundException, SQLException 
+	public static InventoryItem validUPCRequest(Scanner sc, int itemAssociation) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean valid = false;
 		InventoryItem item = null;
@@ -208,8 +211,9 @@ public class UserInput
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void addItemToDB(Scanner sc) throws ClassNotFoundException, SQLException
+	public static void addItemToDB(Scanner sc) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		boolean resume = false;
 		
@@ -251,8 +255,9 @@ public class UserInput
 	 * @param sc
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	private static void updatePrompt(Scanner sc) throws ClassNotFoundException, SQLException 
+	private static void updatePrompt(Scanner sc) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean resume = false;
 		while(!resume)
@@ -293,8 +298,9 @@ public class UserInput
 	 * @param item
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void addCompatibles(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException 
+	public static void addCompatibles(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		ArrayList<InventoryItem> itemList = new ArrayList<InventoryItem>(); 
 		ArrayList<String> inputtedValues = new ArrayList<String>(); 

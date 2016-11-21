@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.junit.Test;
 import data_source.LinkTableGateway;
 import domain.*;
+import exceptions.ItemNotFoundException;
 import other.DBTest;
 import runner.Runner;
 import user_input.*;
@@ -26,9 +27,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testSimulateCreateNail() throws ClassNotFoundException, SQLException, IOException 
+	public void testSimulateCreateNail() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException 
 	{
 		File file = new File("SimulatedInput/Nail/SimulateCreateNail.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -64,9 +66,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testSimulateCreateTool() throws ClassNotFoundException, SQLException, IOException 
+	public void testSimulateCreateTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException 
 	{
 		File file = new File("SimulatedInput/Tool/SimulateCreateTool.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -100,9 +103,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testSimulateCreatePowerTool() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateCreatePowerTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateCreatePowerTool.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -136,9 +140,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testSimulateCreateStripNail() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateCreateStripNail() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateCreateStripNail.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -171,9 +176,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test 
-	public void testSimulateUpdateNail() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateUpdateNail() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/Nail/SimulateUpdatingNail.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -206,9 +212,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test 
-	public void testSimulateUpdateTool() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateUpdateTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/Tool/SimulateUpdatingTool.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -240,9 +247,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test 
-	public void testSimulateUpdatePowerToolWithAddedRelation() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateUpdatePowerToolWithAddedRelation() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingPowerTool.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -275,9 +283,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test 
-	public void testSimulateUpdateStripNail() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateUpdateStripNail() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateUpdatingStripNail.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -310,9 +319,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testUpdatingCompatiblePowerToolForStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException
+	public void testUpdatingCompatiblePowerToolForStripNail() throws ClassNotFoundException, SQLException, FileNotFoundException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateUpdatingCompatiblePowerToolForStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
@@ -347,9 +357,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testSimulateAddCompatiblePowerToolToStripNail() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateAddCompatiblePowerToolToStripNail() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateAddingCompatiblePowerToolForStripNail.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -386,9 +397,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testSimulateAddCompatibleStripNailToPowerTool() throws ClassNotFoundException, SQLException, IOException
+	public void testSimulateAddCompatibleStripNailToPowerTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateAddingCompatibleStripNailForPowerTool.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -425,9 +437,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testUpdatingCompatibleStripNailForPowerTool() throws ClassNotFoundException, SQLException, IOException
+	public void testUpdatingCompatibleStripNailForPowerTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateUpdatingCompatibleStripNailForPowerTool.txt");
 		try(InputStream simulation = new FileInputStream(file))
@@ -484,9 +497,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testRemoveCompatibilityForPowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException 
+	public void testRemoveCompatibilityForPowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateRemovingCompatibleStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
@@ -523,9 +537,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testRemoveCompatibilityForStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException
+	public void testRemoveCompatibilityForStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateRemovingCompatiblePowerTool.txt"); 
 		InputStream simulation = new FileInputStream(file);
@@ -564,9 +579,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testNailUPCRequest() throws ClassNotFoundException, SQLException, IOException
+	public void testNailUPCRequest() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File inputFile = new File("SimulatedInput/UPC_Request/Input/Nail_UPC.txt");
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputNail.txt");
@@ -615,9 +631,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testUPCTool() throws ClassNotFoundException, SQLException, IOException
+	public void testUPCTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File inputFile = new File("SimulatedInput/UPC_Request/Input/Tool_UPC.txt");
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputTool.txt");
@@ -665,9 +682,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testUPCStripNail() throws ClassNotFoundException, IOException, SQLException
+	public void testUPCStripNail() throws ClassNotFoundException, IOException, SQLException, ItemNotFoundException
 	{
 		File inputFile = new File("SimulatedInput/UPC_Request/Input/StripNail_UPC.txt");
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputStripNail.txt");
@@ -679,31 +697,28 @@ public class TestSimulatedInput extends DBTest
 		PrintStream stdout = System.out;
 		PrintStream output = new PrintStream(new FileOutputStream(outputFile, false)))
 		{
-			if(inputFile.exists() && outputFile.exists())
-			{
-				System.setIn(simulation);
-				System.setOut(output);
-				UserInput.userInput();
-				
-				List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputStripNail.txt").toPath(), Charset.defaultCharset());
-				StripNail stripNail = new StripNail(12);
-				
-				/* user entered that they wanted to search an item by UPC */
-				assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
-				
-				/* the user entered a valid input of what inventory item they wanted to search for by upc */
-				assertTrue(lines.contains("Please enter a UPC "));
-				
-				/* simulated the user wanting the stripnail with id 12 */
-				assertTrue(lines.contains(stripNail.toString()));
-				
-				/* stripnail 12 has two compatible powertools it can work with, which get printed out */
-				PowerTool compatible1 = new PowerTool(16);
-				PowerTool compatible2 = new PowerTool(17);
-				
-				assertTrue(lines.contains(compatible1.toString()));
-				assertTrue(lines.contains(compatible2.toString()));
-			}
+			System.setIn(simulation);
+			System.setOut(output);
+			UserInput.userInput();
+			
+			List<String> lines = Files.readAllLines(new File("SimulatedInput/UPC_Request/Output/outputStripNail.txt").toPath(), Charset.defaultCharset());
+			StripNail stripNail = new StripNail(12);
+			
+			/* user entered that they wanted to search an item by UPC */
+			assertTrue(lines.contains("Which item were you thinking of? (Enter the number)"));
+			
+			/* the user entered a valid input of what inventory item they wanted to search for by upc */
+			assertTrue(lines.contains("Please enter a UPC "));
+			
+			/* simulated the user wanting the stripnail with id 12 */
+			assertTrue(lines.contains(stripNail.toString()));
+			
+			/* stripnail 12 has two compatible powertools it can work with, which get printed out */
+			PowerTool compatible1 = new PowerTool(16);
+			PowerTool compatible2 = new PowerTool(17);
+			
+			assertTrue(lines.contains(compatible1.toString()));
+			assertTrue(lines.contains(compatible2.toString()));
 			
 			/* close connections and delete the output file since it is no longer needed */
 			simulation.close();
@@ -722,9 +737,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException 
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testUPCPowerTool() throws ClassNotFoundException, SQLException, IOException
+	public void testUPCPowerTool() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException
 	{
 		File inputFile = new File("SimulatedInput/UPC_Request/Input/PowerTool_UPC.txt");
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/outputPowerTool.txt");
@@ -776,9 +792,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testRemoveAllCompatiblesForStripNail() throws IOException, ClassNotFoundException, SQLException
+	public void testRemoveAllCompatiblesForStripNail() throws IOException, ClassNotFoundException, SQLException, ItemNotFoundException
 	{		
 		File inputFile = new File("SimulatedInput/StripNail/RemoveAllCompatiblesForStripNail.txt");
 		
@@ -807,9 +824,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testRemoveAllCompatiblesForPowerTool() throws IOException, ClassNotFoundException, SQLException
+	public void testRemoveAllCompatiblesForPowerTool() throws IOException, ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		File outputFolder = new File("SimulatedInput/PowerTool/Output");
 		outputFolder.mkdir();
@@ -856,9 +874,10 @@ public class TestSimulatedInput extends DBTest
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void invalidInputsForUPCRequest() throws IOException, ClassNotFoundException, SQLException
+	public void invalidInputsForUPCRequest() throws IOException, ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		File inputFile = new File("SimulatedInput/UPC_Request/Input/SimulateInvalidUPC.txt");
 		File outputFile = new File("SimulatedInput/UPC_Request/Output/invalidUPCOutput.txt");

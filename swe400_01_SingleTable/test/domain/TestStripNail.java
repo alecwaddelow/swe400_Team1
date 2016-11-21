@@ -6,6 +6,7 @@ import org.junit.Test;
 import domain.PowerTool;
 import domain.StripNail;
 import enums.StripNails;
+import exceptions.ItemNotFoundException;
 import other.DBTest;
 
 /**
@@ -23,7 +24,7 @@ public class TestStripNail extends DBTest
 	 */
 	public class MockStripNail extends StripNail
 	{
-		public MockStripNail(int i) throws ClassNotFoundException, SQLException 
+		public MockStripNail(int i) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 		{
 			super(i);
 		}
@@ -34,7 +35,7 @@ public class TestStripNail extends DBTest
 		}
 
 		@Override
-		public void load() throws ClassNotFoundException, SQLException
+		public void load() throws ClassNotFoundException, SQLException, ItemNotFoundException
 		{
 			TestStripNail.this.loadCounter++;
 			super.load();
@@ -70,9 +71,10 @@ public class TestStripNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testFinderConstructor() throws ClassNotFoundException, SQLException
+	public void testFinderConstructor() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		StripNail stripNail = new StripNail(11);
 		assertEquals(StripNails.ROUND_HEAD_NAIL_STRIP.getUpc(), stripNail.getUpc());
@@ -112,15 +114,17 @@ public class TestStripNail extends DBTest
 	 * Tests catching ClassNotFoundException
 	 * 
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test 
-	public void testStripNailNotFoundException() throws SQLException
+	public void testStripNailNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
 		try
 		{
 			new StripNail(30);
 		} 
-		catch(ClassNotFoundException notFound)
+		catch(ItemNotFoundException notFound)
 		{
 			assertEquals("Could not find StripNail with specified ID", notFound.getMessage());
 		}
@@ -131,9 +135,10 @@ public class TestStripNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testToString() throws ClassNotFoundException, SQLException
+	public void testToString() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		StripNail stripNail = new StripNail(11);
 		assertEquals("StripNail [upc=5453432345, manufacturerID=13, price=1099, length=2.5, numberInStrip=50]", stripNail.toString());
@@ -144,9 +149,10 @@ public class TestStripNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testGetList() throws ClassNotFoundException, SQLException
+	public void testGetList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		MockStripNail stripNail = new MockStripNail(11);
 		ArrayList<PowerTool> myList = stripNail.getPowerToolList();
@@ -174,9 +180,10 @@ public class TestStripNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void addPowerToolToList() throws ClassNotFoundException, SQLException
+	public void addPowerToolToList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		MockStripNail stripNail = new MockStripNail(11);
 		PowerTool ptAdd = new PowerTool(16);
@@ -218,9 +225,10 @@ public class TestStripNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testRemovePowerTool() throws ClassNotFoundException, SQLException
+	public void testRemovePowerTool() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		StripNail stripNail = new StripNail(11);
 		ArrayList<PowerTool> powerTools = stripNail.getPowerToolList();

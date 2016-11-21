@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
+import exceptions.ItemNotFoundException;
+
 /**
  * @author Alec Waddelow and Drew Rife 
  *
@@ -90,9 +92,10 @@ public class TestInventoryItem
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testMatchClassAndConstruct() throws ClassNotFoundException, SQLException
+	public void testMatchClassAndConstruct() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		InventoryItem item = InventoryItem.matchClassAndConstruct(1, "Nail");
 		assertTrue(item instanceof Nail);
@@ -112,9 +115,10 @@ public class TestInventoryItem
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test 
-	public void testGetDetails() throws ClassNotFoundException, SQLException
+	public void testGetDetails() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		InventoryItem item = InventoryItem.getDetails("5453432767", "Nail");
 		assertTrue(item instanceof Nail);
@@ -133,9 +137,10 @@ public class TestInventoryItem
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testGetDetailsBadUPC() throws ClassNotFoundException, SQLException 
+	public void testGetDetailsBadUPC() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		assertNull(InventoryItem.getDetails("10101010133", "Nail"));
 	}
@@ -146,9 +151,10 @@ public class TestInventoryItem
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test(expected= ClassNotFoundException.class)
-	public void testMatchClassAndConstructBadClassName() throws ClassNotFoundException, SQLException
+	public void testMatchClassAndConstructBadClassName() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		InventoryItem.matchClassAndConstruct(1, "");
 	}

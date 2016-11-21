@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import data_source.DatabaseGateway;
 import domain.*;
+import exceptions.ItemNotFoundException;
 
 public class PowerToolInput 
 {
@@ -13,8 +14,9 @@ public class PowerToolInput
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void createPowerTool(Scanner sc) throws ClassNotFoundException, SQLException 
+	public static void createPowerTool(Scanner sc) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		System.out.println("Please enter UPC code \n");
 		String upc = sc.nextLine();
@@ -49,8 +51,9 @@ public class PowerToolInput
 	 * @param item
 	 * @throws SQLException
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public static void updatePowerTool(Scanner sc, int item) throws SQLException, ClassNotFoundException 
+	public static void updatePowerTool(Scanner sc, int item) throws SQLException, ClassNotFoundException, ItemNotFoundException 
 	{
 		PowerTool powerTool = (PowerTool) UserInput.validUPCRequest(sc, item);
 		
@@ -127,8 +130,9 @@ public class PowerToolInput
 	 * @param powerTool
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void updateCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	public static void updateCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean done = false;
 		while(!done)
@@ -171,8 +175,9 @@ public class PowerToolInput
 	 * @param powerTool
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public static void removeCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	public static void removeCompatibilities(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean done = false;
 		while(!done)
@@ -219,8 +224,9 @@ public class PowerToolInput
 	 * @param powerTool
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void powerToolRelationPrompt(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	public static void powerToolRelationPrompt(Scanner sc, PowerTool powerTool) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean run = true;
 		InventoryItem item = powerTool;

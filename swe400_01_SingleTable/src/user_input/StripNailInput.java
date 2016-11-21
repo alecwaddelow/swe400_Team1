@@ -8,6 +8,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
 
 import data_source.*;
 import domain.*;
+import exceptions.ItemNotFoundException;
 
 public class StripNailInput 
 {
@@ -16,8 +17,9 @@ public class StripNailInput
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void createStripNail(Scanner sc) throws ClassNotFoundException, SQLException 
+	public static void createStripNail(Scanner sc) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		System.out.println("Please enter UPC code \n");
 		String upc = sc.nextLine();
@@ -53,8 +55,9 @@ public class StripNailInput
 	 * @param item
 	 * @throws SQLException
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public static void updateStripNail(Scanner sc, int item) throws SQLException, ClassNotFoundException 
+	public static void updateStripNail(Scanner sc, int item) throws SQLException, ClassNotFoundException, ItemNotFoundException 
 	{
 		StripNail stripNail = (StripNail) UserInput.validUPCRequest(sc, item);
 		
@@ -125,8 +128,9 @@ public class StripNailInput
 	 * @param powerTool
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public static void removeCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException
+	public static void removeCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		boolean done = false;
 		while(!done)
@@ -173,8 +177,9 @@ public class StripNailInput
 	 * @param powerTool
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void updateCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
+	public static void updateCompatibilities(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean done = false;
 		while(!done)
@@ -217,8 +222,9 @@ public class StripNailInput
 	 * @param powerTool
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void stripNailRelationPrompt(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException 
+	public static void stripNailRelationPrompt(Scanner sc, StripNail stripNail) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		boolean run = true;
 		InventoryItem item = stripNail;

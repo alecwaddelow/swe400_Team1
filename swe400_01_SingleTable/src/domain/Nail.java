@@ -2,6 +2,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
+import exceptions.ItemNotFoundException;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -19,7 +20,7 @@ public class Nail extends Fastener
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Nail(int id) throws ClassNotFoundException, SQLException
+	public Nail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
 		ResultSet rs = null;
@@ -36,7 +37,7 @@ public class Nail extends Fastener
 			}
 			else
 			{
-				ClassNotFoundException exception = new ClassNotFoundException("Could not find Nail with specified ID");
+				ItemNotFoundException exception = new ItemNotFoundException("Could not find Nail with specified ID");
 				exception.getMessage();
 			}
 			rs.close();

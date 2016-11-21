@@ -1,6 +1,8 @@
 package domain;
 import java.sql.SQLException;
 
+import exceptions.ItemNotFoundException;
+
 /**
  * @author Drew Rife & Alec Waddelow
  *
@@ -8,5 +10,5 @@ import java.sql.SQLException;
  */
 public interface LoadInterface 
 {
-	public abstract void load() throws ClassNotFoundException, SQLException;
+	public abstract void load() throws ClassNotFoundException, SQLException, ItemNotFoundException;
 }

@@ -2,6 +2,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import data_source.DatabaseGateway;
+import exceptions.ItemNotFoundException;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -19,7 +20,7 @@ public class Tool extends InventoryItem
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public Tool(int id) throws ClassNotFoundException, SQLException
+	public Tool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
 		ResultSet rs = null;
@@ -35,7 +36,7 @@ public class Tool extends InventoryItem
 			}
 			else
 			{
-				ClassNotFoundException exception = new ClassNotFoundException("Could not find Tool with specified ID");
+				ItemNotFoundException exception = new ItemNotFoundException("Could not find Tool with specified ID");
 				exception.getMessage();
 			}
 			rs.close();

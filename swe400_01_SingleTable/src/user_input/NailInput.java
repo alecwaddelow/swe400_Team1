@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import domain.Nail;
 import domain.NailMapper;
+import exceptions.ItemNotFoundException;
 
 public class NailInput 
 {
@@ -49,8 +50,9 @@ public class NailInput
 	 * @param item
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void updateNail(Scanner sc, int item)  throws ClassNotFoundException, SQLException 
+	public static void updateNail(Scanner sc, int item)  throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		Nail nail = (Nail)UserInput.validUPCRequest(sc, item);
 		

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import domain.Tool;
 import domain.ToolMapper;
+import exceptions.ItemNotFoundException;
 
 public class ToolInput 
 {
@@ -41,8 +42,9 @@ public class ToolInput
 	 * @param item
 	 * @throws SQLException
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public static void updateTool(Scanner sc, int item) throws SQLException, ClassNotFoundException 
+	public static void updateTool(Scanner sc, int item) throws SQLException, ClassNotFoundException, ItemNotFoundException 
 	{
 		Tool tool = (Tool) UserInput.validUPCRequest(sc, item);
 		

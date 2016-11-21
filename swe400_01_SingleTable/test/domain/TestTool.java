@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import domain.Tool;
 import enums.Tools;
+import exceptions.ItemNotFoundException;
 import other.DBTest;
 
 /**
@@ -41,9 +42,10 @@ public class TestTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testFinderConstructor() throws ClassNotFoundException, SQLException
+	public void testFinderConstructor() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		Tool tool = new Tool(6);
 		assertEquals(Tools.HAMMER.getUpc(), tool.getUpc());
@@ -80,15 +82,17 @@ public class TestTool extends DBTest
 	 * Tests catching the ClassNotFoundException
 	 * 
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test 
-	public void testToolNotFoundException() throws SQLException
+	public void testToolNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
 		try
 		{
 			new Tool(25);
 			
-		} catch(ClassNotFoundException notFound)
+		} catch(ItemNotFoundException notFound)
 		{
 			assertEquals("Could not find tool with specified ID", notFound.getMessage() );
 		}
@@ -99,9 +103,10 @@ public class TestTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testToString() throws ClassNotFoundException, SQLException
+	public void testToString() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		Tool tool = new Tool(6);		
 		assertEquals("Tool [upc=0121232234, manufacturerID=32, price=899, description=Ball Peen Hammer]", tool.toString());

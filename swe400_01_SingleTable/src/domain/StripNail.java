@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
+import exceptions.ItemNotFoundException;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -22,7 +23,7 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public StripNail(int id) throws ClassNotFoundException, SQLException
+	public StripNail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
 		ResultSet rs = null;
@@ -39,7 +40,7 @@ public class StripNail extends Fastener implements LoadInterface
 			}
 			else
 			{
-				ClassNotFoundException exception = new ClassNotFoundException("Could not find StripNail with specified ID");
+				ItemNotFoundException exception = new ItemNotFoundException("Could not find StripNail with specified ID");
 				exception.getMessage();
 			}
 			rs.close();
@@ -127,8 +128,9 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @return ArrayList<PowerTool> powerToolList
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public ArrayList<PowerTool> getPowerToolList() throws ClassNotFoundException, SQLException 
+	public ArrayList<PowerTool> getPowerToolList() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		if(this.powerToolList == null)
 		{
@@ -147,8 +149,9 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @param PowerTool
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public void addPowerToolToList(PowerTool tool) throws ClassNotFoundException, SQLException
+	public void addPowerToolToList(PowerTool tool) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		if(this.powerToolList == null)
 		{
@@ -172,11 +175,12 @@ public class StripNail extends Fastener implements LoadInterface
 
 	/**
 	 * Load Implementation for StripNail
+	 * @throws ItemNotFoundException 
 	 * 
 	 * @see domain.LoadInterface#load()
 	 */
 	@Override
-	public void load() throws SQLException, ClassNotFoundException 
+	public void load() throws SQLException, ClassNotFoundException, ItemNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
 		try(ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId()))

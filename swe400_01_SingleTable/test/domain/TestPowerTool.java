@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Test;
 import enums.PowerTools;
+import exceptions.ItemNotFoundException;
 import other.DBTest;
 
 /**
@@ -21,7 +22,7 @@ public class TestPowerTool extends DBTest
 	 */
 	public class MockPowerTool extends PowerTool
 	{
-		public MockPowerTool(int i) throws ClassNotFoundException, SQLException 
+		public MockPowerTool(int i) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 		{
 			super(i);
 			
@@ -33,7 +34,7 @@ public class TestPowerTool extends DBTest
 		}
 
 		@Override
-		public void load() throws ClassNotFoundException, SQLException
+		public void load() throws ClassNotFoundException, SQLException, ItemNotFoundException
 		{
 			TestPowerTool.this.loadCounter++;
 			super.load();
@@ -71,9 +72,10 @@ public class TestPowerTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testFinderConstructor() throws ClassNotFoundException, SQLException
+	public void testFinderConstructor() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		PowerTool powerTool = new PowerTool(16);
 		
@@ -117,15 +119,17 @@ public class TestPowerTool extends DBTest
 	 * Tests catching ClassNotFoundException
 	 * 
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test 
-	public void testPowerToolNotFoundException() throws SQLException
+	public void testPowerToolNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
 		try
 		{
 			new PowerTool(25);
 		}
-		catch(ClassNotFoundException e)
+		catch(ItemNotFoundException e)
 		{
 			assertEquals("Could not find PowerTool with specified ID", e.getMessage() );
 		}
@@ -136,9 +140,10 @@ public class TestPowerTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testToString() throws ClassNotFoundException, SQLException
+	public void testToString() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		PowerTool powerTool = new PowerTool(16);
 		assertEquals("PowerTool [upc=1231231234, manufacturerID=13, price=39900, description=Pheumatic Nail Gun, batteryPowered=false]", powerTool.toString());
@@ -149,9 +154,10 @@ public class TestPowerTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testGetList() throws ClassNotFoundException, SQLException
+	public void testGetList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		MockPowerTool testClass = new MockPowerTool(16);
 		ArrayList<StripNail> myList = testClass.getStripNailList();
@@ -182,9 +188,10 @@ public class TestPowerTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void addStripNailToList() throws ClassNotFoundException, SQLException
+	public void addStripNailToList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		MockPowerTool pt = new MockPowerTool(16);
 		StripNail snAdd = new StripNail(11);
@@ -225,9 +232,10 @@ public class TestPowerTool extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testRemoveStripNail() throws ClassNotFoundException, SQLException
+	public void testRemoveStripNail() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		PowerTool powerTool = new PowerTool(21);
 		ArrayList<StripNail> stripNails = powerTool.getStripNailList();

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import domain.Nail;
 import enums.Nails;
+import exceptions.ItemNotFoundException;
 import other.DBTest;
 
 /**
@@ -44,9 +45,10 @@ public class TestNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testFinderConstructor() throws ClassNotFoundException, SQLException
+	public void testFinderConstructor() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		Nail nail = new Nail(1);
 		assertEquals(Nails.COMMON_10D.getUpc(), nail.getUpc());
@@ -89,14 +91,16 @@ public class TestNail extends DBTest
 	 * Tests catching ClassNotFoundException
 	 * 
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test 
-	public void testNailNotFoundException() throws SQLException
+	public void testNailNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
 		try
 		{
 			new Nail(25);			
-		} catch(ClassNotFoundException notFound)
+		} catch(ItemNotFoundException notFound)
 		{
 			assertEquals("Could not find Nail with specified ID", notFound.getMessage());
 		}
@@ -107,9 +111,10 @@ public class TestNail extends DBTest
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testToString() throws ClassNotFoundException, SQLException
+	public void testToString() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		Nail nail = new Nail(1);
 		assertEquals("Nail [upc=5453432767, manufacturerID=15, price=1348, length=3.0, numberInBox=500]", nail.toString());

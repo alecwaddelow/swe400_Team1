@@ -13,6 +13,7 @@ import enums.Nails;
 import enums.PowerTools;
 import enums.StripNails;
 import enums.Tools;
+import exceptions.ItemNotFoundException;
 
 /**
  * @author Alec Waddelow & Drew Rife
@@ -30,9 +31,10 @@ public class TestArrayList
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws NamingException
+	 * @throws ItemNotFoundException 
 	 */
 	@Test
-	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException, NamingException
+	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException, NamingException, ItemNotFoundException
 	{
 		CreateLinkTable.dropTableBeforeCreation();
 		CreateDatabase.dropTableBeforeCreation();
