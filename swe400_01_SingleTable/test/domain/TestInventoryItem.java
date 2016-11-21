@@ -84,6 +84,13 @@ public class TestInventoryItem
 		assertEquals(1, item.getPrice());
 		assertEquals("item", item.getClassName());
 	}
+	
+	/**
+	 * Tests matchClassAndConstruct
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Test
 	public void testMatchClassAndConstruct() throws ClassNotFoundException, SQLException
 	{
@@ -100,6 +107,12 @@ public class TestInventoryItem
 		assertTrue(item instanceof PowerTool);
 	}
 	
+	/**
+	 * Tests getDetails
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Test 
 	public void testGetDetails() throws ClassNotFoundException, SQLException
 	{
@@ -139,5 +152,4 @@ public class TestInventoryItem
 	{
 		InventoryItem.matchClassAndConstruct(1, "");
 	}
-	
 }

@@ -1,7 +1,6 @@
 package data_source;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -33,9 +32,9 @@ public class CreateDatabase
 		String sqlStatement = "CREATE TABLE InventoryItem (" + id + upc + manufacturerID + price + description + batteryPowered +
 				length + numberInStrip + numberInBox + className + ");";
 
-		Statement st = DatabaseGateway.getConnection().createStatement();
-		st.execute(sqlStatement);
-		st.close();
+		preparedStatement = DatabaseGateway.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.execute(sqlStatement);
+		preparedStatement.close();
 	}
 
 	/**

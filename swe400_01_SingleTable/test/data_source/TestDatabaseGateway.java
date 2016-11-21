@@ -73,9 +73,11 @@ public class TestDatabaseGateway
 	@Test
 	public void testBadUPCInput() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail");
-		assertFalse(rSet.next());
-		rSet.close();
-		DatabaseGateway.closeStatements();
+		try(ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail"))
+		{
+			assertFalse(rSet.next());
+			rSet.close();
+			DatabaseGateway.closeStatements();
+		}
 	}
 }

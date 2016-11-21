@@ -23,31 +23,29 @@ public class Nail extends Fastener
 	{
 		super(id);
 		ResultSet rs = null;
-		rs = DatabaseGateway.queryNail(this.id);
-		
-		if(rs.next())
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInBox = rs.getInt("numberInBox");
-			String className = rs.getString("className");
-			NailMapper nailMapper = new NailMapper(upc, manufacturerID, price, length, numberInBox, className);
-			setUpc(nailMapper.getUpc());
-			setManufacturerID(nailMapper.getManufacturerID());
-			setPrice(nailMapper.getPrice());
-			setLength(nailMapper.getLength());
-			setNumberInBox(nailMapper.getNumberInBox());
-			setClassName(nailMapper.getClassName());
+		try{
+			rs = DatabaseGateway.queryNail(this.id);
+			if(rs.next())
+			{
+				setUpc(rs.getString("upc"));
+				setManufacturerID(rs.getInt("manufacturerID"));
+				setPrice(rs.getInt("price"));
+				setLength(rs.getDouble("length"));
+				setNumberInBox(rs.getInt("numberInBox"));
+				setClassName(rs.getString("className"));
+			}
+			else
+			{
+				ClassNotFoundException exception = new ClassNotFoundException("Could not find Nail with specified ID");
+				exception.getMessage();
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
+		catch(SQLException notFound)
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find Nail with specified ID");
-			notFoundException.getMessage();
+			notFound.getMessage();
 		}
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 
 	/**

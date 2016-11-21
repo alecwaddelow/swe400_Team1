@@ -26,31 +26,29 @@ public class StripNail extends Fastener implements LoadInterface
 	{
 		super(id);
 		ResultSet rs = null;
-		rs = DatabaseGateway.queryStripNail(this.id);
-		
-		if(rs.next())
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			double length = rs.getDouble("length");
-			int numberInStrip = rs.getInt("numberInStrip");
-			String className = rs.getString("className");
-			StripNailMapper stripNailMapper = new StripNailMapper(upc, manufacturerID, price, length, numberInStrip, className);
-			setUpc(stripNailMapper.getUpc());
-			setManufacturerID(stripNailMapper.getManufacturerID());
-			setPrice(stripNailMapper.getPrice());
-			setLength(stripNailMapper.getLength());
-			setNumberInStrip(stripNailMapper.getNumberInStrip());
-			setClassName(stripNailMapper.getClassName());
+		try{
+			rs = DatabaseGateway.queryStripNail(this.id);
+			if(rs.next())
+			{
+				setUpc(rs.getString("upc"));
+				setManufacturerID(rs.getInt("manufacturerID"));
+				setPrice(rs.getInt("price"));
+				setLength(rs.getDouble("length"));
+				setNumberInStrip(rs.getInt("numberInStrip"));
+				setClassName(rs.getString("className"));
+			}
+			else
+			{
+				ClassNotFoundException exception = new ClassNotFoundException("Could not find StripNail with specified ID");
+				exception.getMessage();
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
+		catch(SQLException notFound)
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find StripNail with specified ID");
-			notFoundException.getMessage();
+			notFound.getMessage();
 		}
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 
 	/**
@@ -84,6 +82,8 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 	
 	/** 
+	 * Set ID
+	 * 
 	 * @see domain.InventoryItem#setId(int)
 	 */
 	public void setId(int id)
@@ -92,6 +92,8 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 	
 	/** 
+	 * Get ID
+	 * 
 	 * @see domain.InventoryItem#getId()
 	 */
 	public int getId()
@@ -100,7 +102,9 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 
 	/**
-	 * @return int numberInStrip
+	 * Get numberInStrip
+	 * 
+	 * @return numberInStrip
 	 */
 	public int getNumberInStrip()
 	{
@@ -108,6 +112,8 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 
 	/**
+	 * Set numberInStrip
+	 * 
 	 * @param numberInStrip 
 	 */
 	public void setNumberInStrip(int numberInStrip)
@@ -166,24 +172,32 @@ public class StripNail extends Fastener implements LoadInterface
 
 	/**
 	 * Load Implementation for StripNail
+	 * 
 	 * @see domain.LoadInterface#load()
 	 */
 	@Override
 	public void load() throws SQLException, ClassNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
-		ResultSet rs = null;
-		rs = LinkTableGateway.queryDBForPowerTools(this.getId());
-		while(rs.next())
+		try(ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId()))
 		{
-			int id = rs.getInt("powerToolID");
-			this.addPowerToolToList(new PowerTool(id));
+			while(rs.next())
+			{
+				int id = rs.getInt("powerToolID");
+				this.addPowerToolToList(new PowerTool(id));
+			}
+			rs.close(); 
+			DatabaseGateway.closeStatements();
 		}
-		rs.close(); 
-		DatabaseGateway.closeStatements();
+		catch(SQLException notFound)
+		{
+			notFound.getMessage();
+		}
 	}
 
 	/**
+	 * Get className
+	 * 
 	 * @return String className
 	 */
 	public String getClassName() 
@@ -192,7 +206,8 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 	
 	/**
-	 * Sets className
+	 * Set className
+	 * 
 	 * @param className
 	 */
 	public void setClassName(String className)
@@ -201,7 +216,8 @@ public class StripNail extends Fastener implements LoadInterface
 	}
 
 	/**
-	 * Removes a powertool from the list
+	 * Removes powertool from the list
+	 * 
 	 * @param powerTool
 	 */
 	public void removePowerToolFromList(PowerTool powerTool) 

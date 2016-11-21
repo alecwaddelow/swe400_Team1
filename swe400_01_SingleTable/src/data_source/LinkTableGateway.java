@@ -23,7 +23,6 @@ public class LinkTableGateway
 	/**
 	 * Gets connection to the Database and returns the connection 
 	 * 
-	 * 
 	 * @return Connection
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -34,7 +33,6 @@ public class LinkTableGateway
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(hostName, user, password);
-			
 			return con;
 		}
 		else

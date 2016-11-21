@@ -14,7 +14,6 @@ public abstract class DBMapper
 	protected int manufacturerID;
 	protected int price;
 	protected String className;
-
 	
 	/**
 	 * Constructor

@@ -235,7 +235,6 @@ public class DatabaseGateway
 		preparedStatement.setString(1, upc);
 		preparedStatement.setString(2, className);
 		resultSet = preparedStatement.executeQuery();
-		
 		return resultSet;
 	}
 	
@@ -287,7 +286,6 @@ public class DatabaseGateway
 	}
 
 	/**
-	 * 
 	 * Updates a single Tool in the DB
 	 * 
 	 * @param upc

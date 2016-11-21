@@ -125,9 +125,9 @@ public class TestPowerTool extends DBTest
 		{
 			new PowerTool(25);
 		}
-		catch(ClassNotFoundException notFound)
+		catch(ClassNotFoundException e)
 		{
-			assertEquals("Could not find PowerTool with specified ID", notFound.getMessage() );
+			assertEquals("Could not find PowerTool with specified ID", e.getMessage() );
 		}
 	}
 	

@@ -35,9 +35,7 @@ public class PowerToolInput
 		boolean batteryPoweredParse = Boolean.parseBoolean(batteryPowered);
 		
 		PowerTool powerTool = new PowerTool(upc, manufacturerIDParse, priceParse, description, batteryPoweredParse, "PowerTool");
-		
-		System.out.println(powerTool.getId());
-		
+				
 		powerToolRelationPrompt(sc, powerTool);
 		
 		System.out.println("Item added");
@@ -104,7 +102,7 @@ public class PowerToolInput
 			switch(Integer.parseInt(input))
 			{
 				case 1:
-					updateCompatibilities(sc, powerTool);
+					UserInput.addCompatibles(sc, powerTool);
 					valid = true;
 					break;
 				case 2:
@@ -135,29 +133,33 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet rSet = null;
-			rSet =DatabaseGateway.getStripNailUPCs();
-			
-			while(rSet.next())
+			try(ResultSet rSet =DatabaseGateway.getStripNailUPCs())
 			{
-				System.out.println(rSet.getString("upc"));
+				while(rSet.next())
+				{
+					System.out.println(rSet.getString("upc"));
+				}
+				rSet.close();
+				DatabaseGateway.closeStatements();
+				
+				System.out.println("Which one would you like to add :");
+				String input = sc.nextLine();
+				int stripNailID = DatabaseGateway.getID(input, "StripNail");
+				
+				LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
+				powerTool.addStripNailToList(new StripNail(stripNailID));
+				
+				System.out.println("Would you like to add another relation? (Y/N)");
+				input = sc.nextLine();
+				
+				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+				{
+					done = true;
+				}
 			}
-			rSet.close();
-			DatabaseGateway.closeStatements();
-			
-			System.out.println("Which one would you like to add :");
-			String input = sc.nextLine();
-			int stripNailID = DatabaseGateway.getID(input, "StripNail");
-			
-			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
-			powerTool.addStripNailToList(new StripNail(stripNailID));
-			
-			System.out.println("Would you like to add another relation? (Y/N)");
-			input = sc.nextLine();
-			
-			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
+			catch(SQLException notFound)
 			{
-				done = true;
+				notFound.getMessage();
 			}
 		}
 	}
@@ -225,7 +227,7 @@ public class PowerToolInput
 		
 		while(run)
 		{
-			System.out.println("Would you like to add compatible strip nails (Y/N)");
+			System.out.println("Would you like to add compatible stripnails (Y/N)");
 			String input = sc.nextLine();
 			
 			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))

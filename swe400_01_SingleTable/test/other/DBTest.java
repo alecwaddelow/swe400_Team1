@@ -38,8 +38,10 @@ public abstract class DBTest
 		DatabaseGateway.getConnection().rollback();
 		LinkTableGateway.getConnection().rollback();
 		
-		PreparedStatement preparedStatement = DatabaseGateway.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1");
-		preparedStatement.execute();
-		preparedStatement.close();
+		try(PreparedStatement preparedStatement = DatabaseGateway.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1"))
+		{
+			preparedStatement.execute();
+			preparedStatement.close();
+		}
 	}
 }

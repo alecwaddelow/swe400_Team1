@@ -189,14 +189,20 @@ public abstract class InventoryItem
 	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException
 	{
 		InventoryItem item = null;
-		ResultSet rs = null;
-		rs = DatabaseGateway.retrieveUPC(upc, className);
-		if(rs.next())
+		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc, className))
 		{
-			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
+			if(rs.next())
+			{
+				item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
+			return item;
 		}
-		rs.close();
-		DatabaseGateway.closeStatements();
+		catch(SQLException notFound)
+		{
+			notFound.getMessage();
+		}
 		return item;
 	}
 }

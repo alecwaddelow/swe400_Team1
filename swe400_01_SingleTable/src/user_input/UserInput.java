@@ -306,50 +306,63 @@ public class UserInput
 		while (run)
 		{
 			System.out.println("Please enter the number you would like to add");
-			int i = 1;
+			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				ResultSet rSet = DatabaseGateway.getStripNailUPCs();
-				
-				while(rSet.next())
+				try(ResultSet rSet = DatabaseGateway.getStripNailUPCs())
 				{
-					stripNail = new StripNail(rSet.getInt("id"));
-					itemList.add(stripNail);
-					System.out.println(i + ". " + stripNail.toString());
-					i++;
+					while(rSet.next())
+					{
+						stripNail = new StripNail(rSet.getInt("id"));
+						itemList.add(stripNail);
+						i++;
+						System.out.println(i + ". " + stripNail.toString());
+					}
+					rSet.close();
+					DatabaseGateway.closeStatements();				
 				}
-				rSet.close();
-				DatabaseGateway.closeStatements();				
+				catch(SQLException notFound)
+				{
+					notFound.getMessage();
+				}
 			}
 			else if(item instanceof StripNail)
 			{
-				ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
-					
-				while(rSet.next())
+				try(ResultSet rSet = DatabaseGateway.getPowerToolUPCs())
 				{
-					powerTool = new PowerTool(rSet.getInt("id"));
-					itemList.add(powerTool);
-					System.out.println(i);
-					System.out.println(powerTool.toString());
-					i++;
+					while(rSet.next())
+					{
+						powerTool = new PowerTool(rSet.getInt("id"));
+						itemList.add(powerTool);
+						i++;
+						System.out.println(i + ". " + powerTool.toString());
+					}
+					rSet.close();
+					DatabaseGateway.closeStatements();
+					
 				}
-				rSet.close();
-				DatabaseGateway.closeStatements();
+				catch(SQLException notFound)
+				{
+					notFound.getMessage();
+				}
 			}
 			input = sc.nextLine();
 			
-			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i && checkForDuplicates(input, inputtedValues))
+			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i)
 			{
-				inputtedValues.add(input);
-				if(item.getClassName().equalsIgnoreCase("PowerTool"))
+				if(checkForDuplicates(input, inputtedValues))
 				{
-					stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
-					LinkTableMapper.addRelation(item.getId(), stripNail.getId());
-				}
-				else
-				{
-					powerTool = (PowerTool) itemList.get(Integer.parseInt(input)-1); 
-					LinkTableMapper.addRelation(powerTool.getId(), item.getId());
+					inputtedValues.add(input);
+					if(item.getClassName().equalsIgnoreCase("PowerTool"))
+					{
+						stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
+						LinkTableMapper.addRelation(item.getId(), stripNail.getId());
+					}
+					else
+					{
+						powerTool = (PowerTool) itemList.get(Integer.parseInt(input)-1); 
+						LinkTableMapper.addRelation(powerTool.getId(), item.getId());
+					}
 				}
 			}
 			else
@@ -404,6 +417,4 @@ public class UserInput
 		}
 		return noDuplicates;
 	}
-
-	
 }

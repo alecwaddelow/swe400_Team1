@@ -73,7 +73,7 @@ public class StripNailMapper extends DBMapper
 	}
 	
 	/**
-	 * set the item's length
+	 * Set length
 	 * 
 	 * @param length
 	 */
@@ -83,6 +83,8 @@ public class StripNailMapper extends DBMapper
 	}
 	
 	/**
+	 * Get numberInStrip
+	 * 
 	 * @return tint numberInStrip
 	 */
 	public int getNumberInStrip() 
@@ -91,6 +93,8 @@ public class StripNailMapper extends DBMapper
 	}
 	
 	/**
+	 * Set numberInStrip
+	 * 
 	 * @param numberInStrip 
 	 */
 	public void setNumberInStrip(int numberInStrip) 

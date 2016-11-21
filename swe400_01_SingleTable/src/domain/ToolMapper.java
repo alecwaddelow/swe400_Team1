@@ -12,7 +12,6 @@ public class ToolMapper extends DBMapper
 	protected String description;
 	
 	/**
-	 * 
 	 * Creation Constructor 
 	 * 
 	 * @param upc

@@ -100,7 +100,7 @@ public class StripNailInput
 			switch(Integer.parseInt(input))
 			{
 			case 1:
-				updateCompatibilities(sc, stripNail);
+				UserInput.addCompatibles(sc, stripNail);
 				valid = true;
 				break;
 			case 2:
@@ -225,7 +225,7 @@ public class StripNailInput
 		
 		while(run)
 		{
-			System.out.println("Would you like to add compatible strip nails (Y/N)");
+			System.out.println("Would you like to add compatible powertools? (Y/N)");
 			String input = sc.nextLine();
 			
 			if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes"))

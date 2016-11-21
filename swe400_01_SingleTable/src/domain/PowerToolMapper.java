@@ -65,6 +65,8 @@ public class PowerToolMapper extends DBMapper
 	}
 	
 	/**
+	 * Get isBatteryPowered
+	 * 
 	 * @return boolean true if the item is battery powered; false otherwise
 	 */
 	public boolean isBatteryPowered()
@@ -83,6 +85,8 @@ public class PowerToolMapper extends DBMapper
 	}
 	
 	/**
+	 * Get description
+	 * 
 	 * @return String item description
 	 */
 	public String getDescription()

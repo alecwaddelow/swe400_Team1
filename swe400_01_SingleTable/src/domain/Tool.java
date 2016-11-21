@@ -23,28 +23,28 @@ public class Tool extends InventoryItem
 	{
 		super(id);
 		ResultSet rs = null;
-		rs = DatabaseGateway.queryTool(this.id);
-		if(rs.next()) 
-		{
-			String upc = rs.getString("upc");
-			int manufacturerID = rs.getInt("manufacturerID");
-			int price = rs.getInt("price");
-			String description = rs.getString("description");
-			String className = rs.getString("className");
-			ToolMapper toolMapper = new ToolMapper(upc, manufacturerID, price, description, className);
-			this.setUpc(toolMapper.getUpc());
-			this.setManufacturerID(toolMapper.getManufacturerID());
-			this.setPrice(toolMapper.getPrice());
-			this.setDescription(toolMapper.getDescription());
-			this.setClassName(toolMapper.getClassName());			
+		try{
+			rs = DatabaseGateway.queryTool(this.id);
+			if(rs.next()) 
+			{
+				this.setUpc(rs.getString("upc"));
+				this.setManufacturerID(rs.getInt("manufacturerID"));
+				this.setPrice(rs.getInt("price"));
+				this.setDescription(rs.getString("description"));
+				this.setClassName(rs.getString("className"));			
+			}
+			else
+			{
+				ClassNotFoundException exception = new ClassNotFoundException("Could not find Tool with specified ID");
+				exception.getMessage();
+			}
+			rs.close();
+			DatabaseGateway.closeStatements();
 		}
-		else
+		catch(SQLException notFound)
 		{
-			ClassNotFoundException notFoundException = new ClassNotFoundException("Could not find tool with specified ID");
-			notFoundException.getMessage();
+			notFound.getMessage();
 		}
-		rs.close();
-		DatabaseGateway.closeStatements();
 	}
 		
 	/**
@@ -69,6 +69,8 @@ public class Tool extends InventoryItem
 	}
 
 	/**
+	 * Get description
+	 * 
 	 * @return String description
 	 */
 	public String getDescription()
@@ -97,6 +99,8 @@ public class Tool extends InventoryItem
 	}
 
 	/**
+	 * Get className
+	 * 
 	 * @return String className
 	 */
 	public String getClassName() 

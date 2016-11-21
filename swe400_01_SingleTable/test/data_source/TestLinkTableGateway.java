@@ -35,10 +35,12 @@ public class TestLinkTableGateway extends DBTest
 	public void testRemoveRelation() throws ClassNotFoundException, SQLException
 	{
 		LinkTableGateway.removeRelation(20, 14);
-		ResultSet rSet = LinkTableGateway.queryDBForPowerTools(20);
-		assertFalse(rSet.next());
-		rSet.close();
-		LinkTableGateway.closeStatements();
+		try(ResultSet rSet = LinkTableGateway.queryDBForPowerTools(20))
+		{
+			assertFalse(rSet.next());
+			rSet.close();
+			LinkTableGateway.closeStatements();
+		}
 	}
 	
 	/**
@@ -50,13 +52,14 @@ public class TestLinkTableGateway extends DBTest
 	@Test
 	public void testQueryDBForStripNails() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rs = null;
-		rs = LinkTableGateway.queryDBForStripNails(16);
-		rs.next();
-		assertEquals(11, rs.getInt("stripNailID"));
-		rs.next();
-		assertEquals(12, rs.getInt("stripNailID"));
-		rs.close();
+		try(ResultSet rs = LinkTableGateway.queryDBForStripNails(16))
+		{
+			rs.next();
+			assertEquals(11, rs.getInt("stripNailID"));
+			rs.next();
+			assertEquals(12, rs.getInt("stripNailID"));
+			rs.close();
+		}
 	}
 	
 	/**
@@ -68,13 +71,14 @@ public class TestLinkTableGateway extends DBTest
 	@Test
 	public void testQueryDBForPowerTools() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rs = null;
-		rs = LinkTableGateway.queryDBForPowerTools(11);
-		rs.next(); 
-		assertEquals(16, rs.getInt("powerToolID"));
-		rs.next();
-		assertEquals(17, rs.getInt("powerToolID"));
-		rs.close();
+		try(ResultSet rs = LinkTableGateway.queryDBForPowerTools(11))
+		{
+			rs.next(); 
+			assertEquals(16, rs.getInt("powerToolID"));
+			rs.next();
+			assertEquals(17, rs.getInt("powerToolID"));
+			rs.close();
+		}
 	}
 	
 	/**

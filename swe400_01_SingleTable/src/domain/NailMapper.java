@@ -85,6 +85,8 @@ public class NailMapper extends DBMapper
 	}
 	
 	/**
+	 * Get numberInBox
+	 * 
 	 * @return numberInBox
 	 */
 	public int getNumberInBox()
@@ -93,7 +95,7 @@ public class NailMapper extends DBMapper
 	}
 
 	/**
-	 * Sets numberInBox
+	 * Set numberInBox
 	 * 
 	 * @param numberInBox
 	 */
