@@ -7,7 +7,7 @@ import exceptions.ItemNotFoundException;
 /**
  * @authors Drew Rife & Alec Waddelow
  *
- * Anything that inherits InventoryItem will have an id, upc, manufacturerID and a price
+ * Anything that inherits InventoryItem will have an id, upc, manufacturerID, price, and a className
  */
 public abstract class InventoryItem
 {
@@ -45,7 +45,7 @@ public abstract class InventoryItem
 	}
 	
 	/**
-	 * Empty Constructor for testing 
+	 * Empty Constructor
 	 */
 	InventoryItem(){}
 	
@@ -163,20 +163,20 @@ public abstract class InventoryItem
 	{
 		switch(className)
 		{
-		case "Tool":
-			Tool tool = new Tool(ID);
-			return tool;
-		case "PowerTool":
-			PowerTool powerTool= new PowerTool(ID);
-			return powerTool;
-		case "StripNail":
-			StripNail stripNail = new StripNail(ID);
-			return stripNail;
-		case "Nail":
-			Nail nail = new Nail(ID);
-			return nail;
-		default:
-			throw new ClassNotFoundException();
+			case "Tool":
+				Tool tool = new Tool(ID);
+				return tool;
+			case "PowerTool":
+				PowerTool powerTool= new PowerTool(ID);
+				return powerTool;
+			case "StripNail":
+				StripNail stripNail = new StripNail(ID);
+				return stripNail;
+			case "Nail":
+				Nail nail = new Nail(ID);
+				return nail;
+			default:
+				throw new ClassNotFoundException();
 		}
 	}
 	
@@ -192,20 +192,13 @@ public abstract class InventoryItem
 	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		InventoryItem item = null;
-		try(ResultSet rs = DatabaseGateway.retrieveUPC(upc, className))
+		ResultSet rs = DatabaseGateway.retrieveUPC(upc, className);
+		if(rs.next())
 		{
-			if(rs.next())
-			{
-				item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
-			return item;
+			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
 		}
-		catch(SQLException notFound)
-		{
-			notFound.getMessage();
-		}
+		rs.close();
+		DatabaseGateway.closeStatements();
 		return item;
 	}
 }

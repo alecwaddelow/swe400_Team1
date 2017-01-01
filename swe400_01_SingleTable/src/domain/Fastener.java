@@ -35,7 +35,7 @@ public abstract class Fastener extends InventoryItem
 	}
 
 	/**
-	 * Constructor with call to super for testing  
+	 * Constructor with call to super 
 	 */
 	public Fastener() 
 	{
