@@ -48,21 +48,6 @@ public class PowerToolMapper extends DBMapper
 	 */
 	public PowerToolMapper() {}
 	
-	/** 
-	 * @see domain.DBMapper#setId(java.lang.String)
-	 */
-	public void setId() throws ClassNotFoundException, SQLException
-	{
-		super.setId();
-	}
-	
-	/** 
-	 * @see domain.DBMapper#getId()
-	 */
-	public int getId()
-	{
-		return super.getId();
-	}
 	
 	/**
 	 * Get isBatteryPowered
@@ -105,7 +90,7 @@ public class PowerToolMapper extends DBMapper
 	}
 
 	/**
-	 * Updates powertool
+	 * Updates Powertool
 	 * 
 	 * @param powerTool
 	 * @throws SQLException 

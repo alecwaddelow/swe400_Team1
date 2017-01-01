@@ -50,22 +50,6 @@ public class NailMapper extends DBMapper
 	public NailMapper() {}
 	
 	
-	/** 
-	 * @see domain.DBMapper#setId(java.lang.String)
-	 */
-	public void setId() throws ClassNotFoundException, SQLException
-	{
-		super.setId();
-	}
-
-	/* 
-	 * @see domain_layer.DBMapper#getId()
-	 */
-	public int getId()
-	{
-		return super.getId();
-	}
-	
 	/**
 	 * @return double length
 	 */
@@ -113,7 +97,7 @@ public class NailMapper extends DBMapper
 	 */
 	public void updateNail(Nail nail) throws SQLException, ClassNotFoundException 
 	{
-		this.id =nail.getId();
+		this.id = nail.getId();
 		setUpc(nail.getUpc());
 		setManufacturerID(nail.getManufacturerID());
 		setPrice(nail.getPrice());

@@ -27,30 +27,23 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs = null;
-		try{
-			rs = DatabaseGateway.queryPowerTool(this.id);
-			if(rs.next())
-			{
-				setUpc(rs.getString("upc"));
-				setManufacturerID(rs.getInt("manufacturerID"));
-				setPrice(rs.getInt("price"));
-				setDescription(rs.getString("description"));
-				setBatteryPowered(rs.getBoolean("batteryPowered"));
-				setClassName(rs.getString("className"));
-			}
-			else
-			{
-				ItemNotFoundException exception = new ItemNotFoundException("Could not find PowerTool with specified ID");
-				exception.getMessage();
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
-		}
-		catch(SQLException notFound)
+		ResultSet rs = DatabaseGateway.queryPowerTool(this.id);
+		if(rs.next())
 		{
-			 notFound.getMessage();
+			setUpc(rs.getString("upc"));
+			setManufacturerID(rs.getInt("manufacturerID"));
+			setPrice(rs.getInt("price"));
+			setDescription(rs.getString("description"));
+			setBatteryPowered(rs.getBoolean("batteryPowered"));
+			setClassName(rs.getString("className"));
 		}
+		else
+		{
+			ItemNotFoundException exception = new ItemNotFoundException("Could not find PowerTool with specified ID");
+			exception.getMessage();
+		}
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 
 	/**
@@ -82,22 +75,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool()
 	{
 		super();
-	}
-	
-	/**
-	 * @see domain.InventoryItem#setId(int)
-	 */
-	public void setId(int id)
-	{
-		super.setId(id);
-	}
-	
-	/** 
-	 * @see domain.InventoryItem#getId()
-	 */
-	public int getId()
-	{
-		return super.getId();
 	}
 
 	/**
@@ -234,7 +211,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	}
 
 	/** 
-	 * Load method for that Lazy Loads StripNail
+	 * Load method that Lazy Loads StripNail
 	 * @throws ItemNotFoundException 
 	 * 
 	 * @see domain.LoadInterface#load()
@@ -243,43 +220,18 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public void load() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		this.stripNailList = new ArrayList<StripNail>();
-		try(ResultSet rs = LinkTableGateway.queryDBForStripNails(this.id))
+		ResultSet rs = LinkTableGateway.queryDBForStripNails(this.id);
+		
+		while(rs.next())
 		{
-			while(rs.next())
+			int id = rs.getInt("stripNailID");
+			
+			if(!this.stripNailList.contains(new StripNail(id)))
 			{
-				int id = rs.getInt("stripNailID");
-				
-				if(!this.stripNailList.contains(new StripNail(id)))
-				{
-					this.addStripNailToList(new StripNail(id));					
-				}
+				this.addStripNailToList(new StripNail(id));					
 			}
-			rs.close();
-			DatabaseGateway.closeStatements();
 		}
-		catch(SQLException notFound)
-		{
-			notFound.getMessage();
-		}
-	}
-
-	/**
-	 * Get className
-	 *  
-	 * @return the name of the class
-	 */
-	public String getClassName() 
-	{
-		return super.getClassName();
-	}
-	
-	/** 
-	 * Set className
-	 * 
-	 * @see domain.InventoryItem#setClassName(java.lang.String)
-	 */
-	public void setClassName(String className)
-	{
-		super.setClassName(className);
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 }
