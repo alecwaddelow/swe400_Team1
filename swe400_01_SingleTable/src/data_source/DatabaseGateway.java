@@ -410,7 +410,7 @@ public class DatabaseGateway
 	/**
 	 * Returns stripNail UPC's 
 	 * 
-	 * @return ResultSet for all StripNails
+	 * @return ResultSet of all StripNails
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -426,7 +426,7 @@ public class DatabaseGateway
 	/**
 	 * Returns PowerTool UPC's
 	 * 
-	 * @return ResultSet all powertools
+	 * @return ResultSet of all powertools
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -440,7 +440,7 @@ public class DatabaseGateway
 	}
 	
 	/**
-	 * Closes the statements when done
+	 * Closes statements when done
 	 * 
 	 * @throws SQLException
 	 */

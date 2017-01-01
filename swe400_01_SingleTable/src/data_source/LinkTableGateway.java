@@ -16,11 +16,6 @@ public class LinkTableGateway
 	private static ResultSet resultSet = null;
 
 	/**
-	 * Empty constructor for testing 
-	 */
-	public LinkTableGateway(){}
-	
-	/**
 	 * Gets connection to the Database and returns the connection 
 	 * 
 	 * @return Connection
@@ -159,7 +154,7 @@ public class LinkTableGateway
 	}
 	
 	/**
-	 * closes the statements and result sets when done
+	 * Closes the statements and result sets when done
 	 * 
 	 * @throws SQLException
 	 */
@@ -185,7 +180,7 @@ public class LinkTableGateway
 	}
 	
 	/**
-	 * closes the connection when finished 
+	 * Closes the connection when finished 
 	 * 
 	 * @throws SQLException
 	 */
