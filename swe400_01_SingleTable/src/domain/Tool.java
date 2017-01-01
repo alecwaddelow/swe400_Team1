@@ -23,29 +23,22 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs = null;
-		try{
-			rs = DatabaseGateway.queryTool(this.id);
-			if(rs.next()) 
-			{
-				this.setUpc(rs.getString("upc"));
-				this.setManufacturerID(rs.getInt("manufacturerID"));
-				this.setPrice(rs.getInt("price"));
-				this.setDescription(rs.getString("description"));
-				this.setClassName(rs.getString("className"));			
-			}
-			else
-			{
-				ItemNotFoundException exception = new ItemNotFoundException("Could not find Tool with specified ID");
-				exception.getMessage();
-			}
-			rs.close();
-			DatabaseGateway.closeStatements();
-		}
-		catch(SQLException notFound)
+		ResultSet rs =  DatabaseGateway.queryTool(this.id);
+		if(rs.next()) 
 		{
-			notFound.getMessage();
+			this.setUpc(rs.getString("upc"));
+			this.setManufacturerID(rs.getInt("manufacturerID"));
+			this.setPrice(rs.getInt("price"));
+			this.setDescription(rs.getString("description"));
+			this.setClassName(rs.getString("className"));			
 		}
+		else
+		{
+			ItemNotFoundException exception = new ItemNotFoundException("Could not find Tool with specified ID");
+			exception.getMessage();
+		}
+		rs.close();
+		DatabaseGateway.closeStatements();
 	}
 		
 	/**
@@ -99,23 +92,4 @@ public class Tool extends InventoryItem
 				+ ", description=" + this.description + "]";
 	}
 
-	/**
-	 * Get className
-	 * 
-	 * @return String className
-	 */
-	public String getClassName() 
-	{
-		return super.getClassName();
-	}
-	
-	/**
-	 * Sets the className for the Tool Object
-	 * 
-	 * @param className
-	 */
-	public void setClassName(String className)
-	{
-		super.setClassName(className);
-	}
 }

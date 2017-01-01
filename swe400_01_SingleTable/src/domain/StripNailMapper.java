@@ -48,22 +48,6 @@ public class StripNailMapper extends DBMapper
 	 */
 	public StripNailMapper() {}
 
-	/** 
-	 * @see domain.DBMapper#setId(java.lang.String)
-	 */
-	public void setId() throws ClassNotFoundException, SQLException
-	{
-		super.setId();
-	}
-	
-	/** 
-	 * @see domain.DBMapper#getId()
-	 */
-	public int getId()
-	{
-		return super.getId();
-	}
-
 	/**
 	 * @return double length
 	 */

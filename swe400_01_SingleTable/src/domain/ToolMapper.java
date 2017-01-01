@@ -45,21 +45,6 @@ public class ToolMapper extends DBMapper
 	 */
 	public ToolMapper() {}
 	
-	/**
-	 * Sets the id of the mapper
-	 */
-	public void setId() throws ClassNotFoundException, SQLException
-	{
-		super.setId();
-	}
-	
-	/**
-	 * Returns the id of the mapper
-	 */
-	public int getId()
-	{
-		return super.getId();
-	}
 	
 	/**
 	 * @return the item's description
@@ -92,7 +77,6 @@ public class ToolMapper extends DBMapper
 		setManufacturerID(tool.getManufacturerID());
 		setPrice(tool.getPrice());
 		setDescription(tool.getDescription());
-		
 		DatabaseGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
 	}
 }
