@@ -16,55 +16,49 @@ public class UserInput
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public static void userInput() throws ClassNotFoundException, SQLException
+	public static void userInput() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{	
 		boolean run = true;
-		try(Scanner sc = new Scanner(System.in))
-		{
-			do
-			{						
-				String input = null;
-				boolean validChoice = false;
-				
-				/* the beginning prompt */
-				while(!validChoice)
-				{
-					System.out.println("\nPlease enter the number of which task you would like to do:");
-					System.out.println("1:Search an item by UPC");
-					System.out.println("2:Add an item");
-					System.out.println("3:Update an item");
-					System.out.println("4:End the program");
-					input = sc.nextLine();
-					validChoice = validateSearchAddUpdateOrEnd(input);
-				}
-				
-				/* based off the user's input, decide what to do next */
-				switch(Integer.parseInt(input))
-				{
-					case 1:
-						itemUPC(sc);
-						break;
-					case 2:
-						addItemToDB(sc);
-						break;
-					case 3:
-						updatePrompt(sc);
-						break;
-					case 4:
-						run = false;
-						break;
-				}
-				
-			}while(run);	
-			sc.close();
-		}
-		catch(Exception e)
-		{
-			e.getCause();
-		}
+		Scanner sc = new Scanner(System.in);
+		do
+		{						
+			String input = null;
+			boolean validChoice = false;
+			
+			/* the beginning prompt */
+			while(!validChoice)
+			{
+				System.out.println("\nPlease enter the number of which task you would like to do:");
+				System.out.println("1:Search an item by UPC");
+				System.out.println("2:Add an item");
+				System.out.println("3:Update an item");
+				System.out.println("4:End the program");
+				input = sc.nextLine();
+				validChoice = validateSearchAddUpdateOrEnd(input);
+			}
+			
+			/* based off the user's input, decide what to do next */
+			switch(Integer.parseInt(input))
+			{
+				case 1:
+					itemUPC(sc);
+					break;
+				case 2:
+					addItemToDB(sc);
+					break;
+				case 3:
+					updatePrompt(sc);
+					break;
+				case 4:
+					run = false;
+					break;
+			}
+		}while(run);	
+		sc.close();
 	}
 	
 	/**

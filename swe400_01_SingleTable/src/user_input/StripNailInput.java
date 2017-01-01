@@ -10,6 +10,12 @@ import data_source.*;
 import domain.*;
 import exceptions.ItemNotFoundException;
 
+/**
+ * @author Drew Rife and Alec Waddelow 
+ * 
+ * StripNail Input class 
+ *
+ */
 public class StripNailInput 
 {
 	/**
@@ -184,36 +190,31 @@ public class StripNailInput
 		boolean done = false;
 		while(!done)
 		{
-			try(ResultSet resultSet = DatabaseGateway.getPowerToolUPCs())
+			ResultSet resultSet = DatabaseGateway.getPowerToolUPCs();
+			while(resultSet.next())
 			{
-				while(resultSet.next())
-				{
-					System.out.println(resultSet.getString("upc"));
-				}
-				resultSet.close();
-				DatabaseGateway.closeStatements();
-				
-				System.out.println("Which one would you like to add :");
-				String input = sc.nextLine();
-				int powerToolID = DatabaseGateway.getID(input, "PowerTool");
-				
-				LinkTableMapper.addRelation(powerToolID, stripNail.getId());
-				stripNail.addPowerToolToList(new PowerTool(powerToolID));
-				
-				System.out.println("Would you like to add another relation? (Y/N)");
-				input = sc.nextLine();
-				
-				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-				{
-					done = true;
-				} 
+				System.out.println(resultSet.getString("upc"));
 			}
-			catch(MySQLDataException e)
+			resultSet.close();
+			DatabaseGateway.closeStatements();
+			
+			System.out.println("Which one would you like to add :");
+			String input = sc.nextLine();
+			int powerToolID = DatabaseGateway.getID(input, "PowerTool");
+			
+			LinkTableMapper.addRelation(powerToolID, stripNail.getId());
+			stripNail.addPowerToolToList(new PowerTool(powerToolID));
+			
+			System.out.println("Would you like to add another relation? (Y/N)");
+			input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
 			{
-				e.getCause();
-			}
+				done = true;
+			} 
 		}
 	}
+	
 
 	/**
 	 * Sets the relationship for the created PowerTool

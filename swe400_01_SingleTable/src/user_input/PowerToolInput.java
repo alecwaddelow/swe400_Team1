@@ -7,6 +7,12 @@ import data_source.DatabaseGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
 
+/**
+ * @author Drew Rife and Alec Waddelow 
+ * 
+ * PowerTool input class 
+ *
+ */
 public class PowerToolInput 
 {
 	/**
@@ -137,33 +143,27 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			try(ResultSet rSet =DatabaseGateway.getStripNailUPCs())
+			ResultSet rSet =DatabaseGateway.getStripNailUPCs();
+			while(rSet.next())
 			{
-				while(rSet.next())
-				{
-					System.out.println(rSet.getString("upc"));
-				}
-				rSet.close();
-				DatabaseGateway.closeStatements();
-				
-				System.out.println("Which one would you like to add :");
-				String input = sc.nextLine();
-				int stripNailID = DatabaseGateway.getID(input, "StripNail");
-				
-				LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
-				powerTool.addStripNailToList(new StripNail(stripNailID));
-				
-				System.out.println("Would you like to add another relation? (Y/N)");
-				input = sc.nextLine();
-				
-				if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
-				{
-					done = true;
-				}
+				System.out.println(rSet.getString("upc"));
 			}
-			catch(SQLException notFound)
+			rSet.close();
+			DatabaseGateway.closeStatements();
+			
+			System.out.println("Which one would you like to add :");
+			String input = sc.nextLine();
+			int stripNailID = DatabaseGateway.getID(input, "StripNail");
+			
+			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
+			powerTool.addStripNailToList(new StripNail(stripNailID));
+			
+			System.out.println("Would you like to add another relation? (Y/N)");
+			input = sc.nextLine();
+			
+			if(input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no"))
 			{
-				notFound.getMessage();
+				done = true;
 			}
 		}
 	}

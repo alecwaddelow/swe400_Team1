@@ -6,6 +6,12 @@ import domain.Nail;
 import domain.NailMapper;
 import exceptions.ItemNotFoundException;
 
+/**
+ * @author Drew Rife and Alec Waddelow 
+ * 
+ * Nail Input Class 
+ *
+ */
 public class NailInput 
 {
 
