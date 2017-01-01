@@ -22,10 +22,8 @@ public class TestDBMapper
 		{
 			super(upc,manufacturerID, price, className);
 		}
-		public MockDBMapper()
-		{
-			
-		}
+		
+		public MockDBMapper(){}
 	}
 	
 	/**

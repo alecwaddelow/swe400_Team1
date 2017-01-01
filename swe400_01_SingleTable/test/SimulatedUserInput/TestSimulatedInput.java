@@ -33,30 +33,26 @@ public class TestSimulatedInput extends DBTest
 	public void testSimulateCreateNail() throws ClassNotFoundException, SQLException, IOException, ItemNotFoundException 
 	{
 		File file = new File("SimulatedInput/Nail/SimulateCreateNail.txt");
-		try(InputStream simulation = new FileInputStream(file))
+		InputStream simulation = new FileInputStream(file);
+		if(file.exists())
 		{
-			if(file.exists())
-			{
-				System.setIn(simulation);
-				Runner.initiateUserInput();
-				
-				Nail nail = new Nail(22);
-				assertEquals("3030303", nail.getUpc());
-				assertEquals(20, nail.getManufacturerID());
-				assertEquals(10, nail.getPrice());
-				assertEquals(30.03, nail.getLength(), 0.001);
-				assertEquals(20, nail.getNumberInBox());
-				assertEquals("Nail", nail.getClassName());
-				
-				System.setIn(System.in);
-			}
+			System.setIn(simulation);
+			Runner.initiateUserInput();
 			
-			try {
-				simulation.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Nail nail = new Nail(22);
+			assertEquals("3030303", nail.getUpc());
+			assertEquals(20, nail.getManufacturerID());
+			assertEquals(10, nail.getPrice());
+			assertEquals(30.03, nail.getLength(), 0.001);
+			assertEquals(20, nail.getNumberInBox());
+			assertEquals("Nail", nail.getClassName());
+			
+			System.setIn(System.in);
+		}
+		try {
+			simulation.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

@@ -50,8 +50,9 @@ public class Runner
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws ItemNotFoundException 
 	 */
-	public static void initiateUserInput() throws ClassNotFoundException, SQLException
+	public static void initiateUserInput() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		UserInput.userInput();
 	}

@@ -33,7 +33,6 @@ public class TestDatabaseGateway
 	public void testGettingPowerToolUPCs() throws ClassNotFoundException, SQLException
 	{
 		ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
-		
 		String[] upcArray = {"1231231234", "4445553333", "7657896543", "9993458585", "7654564848", "7784452828"};
 	
 		int i = 0;
@@ -73,11 +72,9 @@ public class TestDatabaseGateway
 	@Test
 	public void testBadUPCInput() throws ClassNotFoundException, SQLException
 	{
-		try(ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail"))
-		{
-			assertFalse(rSet.next());
-			rSet.close();
-			DatabaseGateway.closeStatements();
-		}
+		ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail");
+		assertFalse(rSet.next());
+		rSet.close();
+		DatabaseGateway.closeStatements();
 	}
 }

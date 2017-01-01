@@ -13,7 +13,6 @@ import other.DBTest;
  */
 public class TestLinkTableMapper extends DBTest
 {
-
 	/**
 	 * Tests creation of LinkTableMapper
 	 */

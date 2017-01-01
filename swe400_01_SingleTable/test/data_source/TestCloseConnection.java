@@ -1,18 +1,16 @@
+package data_source;
+import static org.junit.Assert.assertTrue;
+import java.sql.Connection;
+import java.sql.SQLException;
+import org.junit.Test;
+import data_source.DatabaseGateway;
+import data_source.LinkTableGateway;
+
 /**
  * Drew Rife and Alec Waddelow
  * 
  * Test class that is to be run at the end for testing closing connections
  */
-package data_source;
-
-import static org.junit.Assert.assertTrue;
-import java.sql.Connection;
-import java.sql.SQLException;
-import org.junit.Test;
-
-import data_source.DatabaseGateway;
-import data_source.LinkTableGateway;
-
 public class TestCloseConnection 
 {
 	/**
