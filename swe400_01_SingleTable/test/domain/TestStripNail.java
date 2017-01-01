@@ -120,14 +120,9 @@ public class TestStripNail extends DBTest
 	@Test 
 	public void testStripNailNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
-		try
-		{
+		
 			new StripNail(30);
-		} 
-		catch(ItemNotFoundException notFound)
-		{
-			assertEquals("Could not find StripNail with specified ID", notFound.getMessage());
-		}
+		
 	}
 	
 	/**

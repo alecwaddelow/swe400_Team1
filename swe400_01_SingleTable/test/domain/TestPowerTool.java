@@ -125,14 +125,7 @@ public class TestPowerTool extends DBTest
 	@Test 
 	public void testPowerToolNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
-		try
-		{
-			new PowerTool(25);
-		}
-		catch(ItemNotFoundException e)
-		{
-			assertEquals("Could not find PowerTool with specified ID", e.getMessage() );
-		}
+		new PowerTool(25);
 	}
 	
 	/**

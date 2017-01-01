@@ -97,13 +97,7 @@ public class TestNail extends DBTest
 	@Test 
 	public void testNailNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
-		try
-		{
 			new Nail(25);			
-		} catch(ItemNotFoundException notFound)
-		{
-			assertEquals("Could not find Nail with specified ID", notFound.getMessage());
-		}
 	}
 	
 	/**

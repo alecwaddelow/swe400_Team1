@@ -88,14 +88,7 @@ public class TestTool extends DBTest
 	@Test 
 	public void testToolNotFoundException() throws SQLException, ItemNotFoundException, ClassNotFoundException
 	{
-		try
-		{
-			new Tool(25);
-			
-		} catch(ItemNotFoundException notFound)
-		{
-			assertEquals("Could not find tool with specified ID", notFound.getMessage() );
-		}
+		new Tool(25);
 	}
 	
 	/**
