@@ -2,10 +2,7 @@ package other;
 import java.sql.*;
 import org.junit.After;
 import org.junit.Before;
-
 import data_source.ConnectionManager;
-import data_source.DatabaseGateway;
-import data_source.LinkTableGateway;
 
 /**
  * @author Drew Rife and Alec Waddelow
