@@ -25,6 +25,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import javax.swing.JScrollBar;
+import java.awt.event.MouseMotionAdapter;
 
 public class SearchByUPC {
 
@@ -59,23 +61,30 @@ public class SearchByUPC {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 441, 320);
+		frame.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
+		frame.setBounds(100, 100, 754, 320);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 0, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, comboBox, -248, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, comboBox, 431, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, comboBox, -253, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, comboBox, 0, SpringLayout.EAST, frame.getContentPane());
+		comboBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Nail", "Tool", "PowerTool", "StripNail"}));
 		comboBox.setSelectedIndex(0);
 		frame.getContentPane().add(comboBox);
 		
 		textField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 33, SpringLayout.SOUTH, comboBox);
+		springLayout.putConstraint(SpringLayout.NORTH, textField, 38, SpringLayout.SOUTH, comboBox);
 		springLayout.putConstraint(SpringLayout.EAST, textField, -158, SpringLayout.EAST, frame.getContentPane());
 		textField.setBackground(Color.LIGHT_GRAY);
 		textField.setForeground(Color.BLACK);
@@ -84,14 +93,15 @@ public class SearchByUPC {
 		
 		JTextArea textArea = new JTextArea();
 		springLayout.putConstraint(SpringLayout.SOUTH, textField, -38, SpringLayout.NORTH, textArea);
+		springLayout.putConstraint(SpringLayout.EAST, textArea, 744, SpringLayout.WEST, frame.getContentPane());
+		textArea.setLineWrap(true);
 		springLayout.putConstraint(SpringLayout.NORTH, textArea, 167, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, textArea, 0, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, textArea, 0, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, textArea, 441, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(textArea);
 		
 		JLabel lblEnterUpc = new JLabel("Enter UPC:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblEnterUpc, 51, SpringLayout.SOUTH, comboBox);
+		springLayout.putConstraint(SpringLayout.NORTH, lblEnterUpc, 56, SpringLayout.SOUTH, comboBox);
+		springLayout.putConstraint(SpringLayout.WEST, textArea, 0, SpringLayout.WEST, lblEnterUpc);
 		springLayout.putConstraint(SpringLayout.WEST, textField, 6, SpringLayout.EAST, lblEnterUpc);
 		lblEnterUpc.setFont(new Font("Dialog", Font.BOLD, 20));
 		springLayout.putConstraint(SpringLayout.WEST, lblEnterUpc, 10, SpringLayout.WEST, frame.getContentPane());
@@ -105,7 +115,14 @@ public class SearchByUPC {
 				String upc = textField.getText();
 				try {
 					InventoryItem item = InventoryItem.getDetails(upc, comboBox.getSelectedItem().toString());
-					textArea.setText(item.toString());
+					if(item != null)
+					{
+						textArea.setText(item.toString());		
+					}
+					else
+					{
+						textArea.setText("Error: No Such Item Exists");
+					}
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

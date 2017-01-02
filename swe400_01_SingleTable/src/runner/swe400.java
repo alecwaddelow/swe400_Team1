@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class swe400 {
 
@@ -45,7 +46,14 @@ public class swe400 {
 	 */
 	private void initialize() {
 		frmInvenotryItemManager = new JFrame();
-		frmInvenotryItemManager.setTitle("Invenotry Item Manager");
+		frmInvenotryItemManager.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				frmInvenotryItemManager.revalidate();
+				frmInvenotryItemManager.repaint();
+			}
+		});
+		frmInvenotryItemManager.setTitle("Inventory Item Manager");
 		frmInvenotryItemManager.setBounds(100, 100, 550, 405);
 		frmInvenotryItemManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInvenotryItemManager.getContentPane().setLayout(null);
