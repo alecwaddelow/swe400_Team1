@@ -44,7 +44,7 @@ public class swe400 {
 	private void initialize() {
 		frmInvenotryItemManager = new JFrame();
 		frmInvenotryItemManager.setTitle("Invenotry Item Manager");
-		frmInvenotryItemManager.setBounds(100, 100, 635, 405);
+		frmInvenotryItemManager.setBounds(100, 100, 550, 405);
 		frmInvenotryItemManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInvenotryItemManager.getContentPane().setLayout(null);
 		
@@ -59,7 +59,7 @@ public class swe400 {
 		frmInvenotryItemManager.getContentPane().add(button_searchByUPC);
 		
 		JButton button = new JButton("New button");
-		button.setBounds(373, 211, 250, 155);
+		button.setBounds(288, 211, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("New button");
@@ -72,7 +72,7 @@ public class swe400 {
 			}
 		});
 		button_AddItem.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/add_item_icon.png"));
-		button_AddItem.setBounds(373, 12, 250, 155);
+		button_AddItem.setBounds(288, 12, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button_AddItem);
 	}
 }
