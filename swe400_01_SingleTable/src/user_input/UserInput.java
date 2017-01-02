@@ -309,43 +309,33 @@ public class UserInput
 			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				try(ResultSet rSet = InventoryItemGateway.getStripNailUPCs())
+				ResultSet rSet = InventoryItemGateway.getStripNailUPCs();
+				
+				while(rSet.next())
 				{
-					while(rSet.next())
-					{
-						stripNail = new StripNail(rSet.getInt("id"));
-						itemList.add(stripNail);
-						i++;
-						System.out.println(i + ". " + stripNail.toString());
-					}
-					rSet.close();
-					InventoryItemGateway.closeStatements();				
+					stripNail = new StripNail(rSet.getInt("id"));
+					itemList.add(stripNail);
+					i++;
+					System.out.println(i + ". " + stripNail.toString());
 				}
-				catch(SQLException notFound)
-				{
-					notFound.getMessage();
-				}
+				rSet.close();
+				InventoryItemGateway.closeStatements();				
 			}
 			else if(item instanceof StripNail)
 			{
-				try(ResultSet rSet = InventoryItemGateway.getPowerToolUPCs())
+				ResultSet rSet = InventoryItemGateway.getPowerToolUPCs();
+				
+				while(rSet.next())
 				{
-					while(rSet.next())
-					{
-						powerTool = new PowerTool(rSet.getInt("id"));
-						itemList.add(powerTool);
-						i++;
-						System.out.println(i + ". " + powerTool.toString());
-					}
-					rSet.close();
-					InventoryItemGateway.closeStatements();
-					
+					powerTool = new PowerTool(rSet.getInt("id"));
+					itemList.add(powerTool);
+					i++;
+					System.out.println(i + ". " + powerTool.toString());
 				}
-				catch(SQLException notFound)
-				{
-					notFound.getMessage();
-				}
+				rSet.close();
+				InventoryItemGateway.closeStatements();
 			}
+			
 			input = sc.nextLine();
 			
 			if(Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= i)
