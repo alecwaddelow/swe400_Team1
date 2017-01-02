@@ -91,6 +91,12 @@ public class TestLinkTableGateway extends DBTest
 		assertTrue(statement.isClosed());
 	}
 	
+	/**
+	 * tests adding a relation
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Test
 	public void testAddRelation() throws ClassNotFoundException, SQLException
 	{
@@ -107,6 +113,12 @@ public class TestLinkTableGateway extends DBTest
 		assertEquals(9, rowCount); 
 	}
 	
+	/**
+	 * test adding duplicate relations 
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	@Test
 	public void testAddRelationDuplicate() throws ClassNotFoundException, SQLException
 	{
