@@ -1,6 +1,6 @@
 package domain;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -39,7 +39,7 @@ public class PowerToolMapper extends DBMapper
 	 */
 	public void insertPowerTool() throws ClassNotFoundException, SQLException
 	{
-		DatabaseGateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
+		InventoryItemGateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
 		setId();		
 	}
 	
@@ -105,6 +105,6 @@ public class PowerToolMapper extends DBMapper
 		setDescription(powerTool.getDescription());
 		setBatteryPowered(powerTool.isBatteryPowered());
 		setClassName(powerTool.getClassName()); 
-		DatabaseGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
+		InventoryItemGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
 	}
 }

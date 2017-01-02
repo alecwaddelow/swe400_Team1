@@ -1,7 +1,7 @@
 package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -192,13 +192,13 @@ public abstract class InventoryItem
 	public static InventoryItem getDetails(String upc, String className) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		InventoryItem item = null;
-		ResultSet rs = DatabaseGateway.retrieveUPC(upc, className);
+		ResultSet rs = InventoryItemGateway.retrieveUPC(upc, className);
 		if(rs.next())
 		{
 			item = InventoryItem.matchClassAndConstruct(rs.getInt("id"), rs.getString("className"));
 		}
 		rs.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 		return item;
 	}
 }

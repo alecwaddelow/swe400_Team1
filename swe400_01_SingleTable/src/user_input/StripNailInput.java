@@ -155,7 +155,7 @@ public class StripNailInput
 				
 				System.out.println("\n");
 				String input = sc.nextLine();
-				int powerToolID = DatabaseGateway.getID(input, "PowerTool");
+				int powerToolID = InventoryItemGateway.getID(input, "PowerTool");
 				
 				LinkTableMapper.removeRelation(powerToolID, stripNail.getId());
 				stripNail.removePowerToolFromList(new PowerTool(powerToolID));
@@ -190,17 +190,17 @@ public class StripNailInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet resultSet = DatabaseGateway.getPowerToolUPCs();
+			ResultSet resultSet = InventoryItemGateway.getPowerToolUPCs();
 			while(resultSet.next())
 			{
 				System.out.println(resultSet.getString("upc"));
 			}
 			resultSet.close();
-			DatabaseGateway.closeStatements();
+			InventoryItemGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();
-			int powerToolID = DatabaseGateway.getID(input, "PowerTool");
+			int powerToolID = InventoryItemGateway.getID(input, "PowerTool");
 			
 			LinkTableMapper.addRelation(powerToolID, stripNail.getId());
 			stripNail.addPowerToolToList(new PowerTool(powerToolID));

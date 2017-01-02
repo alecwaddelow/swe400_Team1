@@ -1,7 +1,7 @@
 package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -23,7 +23,7 @@ public class Nail extends Fastener
 	public Nail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs = DatabaseGateway.queryNail(this.id);
+		ResultSet rs = InventoryItemGateway.queryNail(this.id);
 		if(rs.next())
 		{
 			setUpc(rs.getString("upc"));
@@ -39,7 +39,7 @@ public class Nail extends Fastener
 			exception.getMessage();
 		}
 		rs.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 
 	/**

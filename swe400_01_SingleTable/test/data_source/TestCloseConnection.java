@@ -3,7 +3,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.junit.Test;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import data_source.LinkTableGateway;
 
 /**

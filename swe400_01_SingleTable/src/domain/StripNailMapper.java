@@ -1,6 +1,6 @@
 package domain;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -39,7 +39,7 @@ public class StripNailMapper extends DBMapper
 	 */
 	public void insertStripNail() throws ClassNotFoundException, SQLException
 	{
-		DatabaseGateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
+		InventoryItemGateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
 		setId();
 	}
 
@@ -102,6 +102,6 @@ public class StripNailMapper extends DBMapper
 		setLength(stripNail.getLength());
 		setNumberInStrip(stripNail.getNumberInStrip());
 		setClassName(stripNail.getClassName());
-		DatabaseGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
+		InventoryItemGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
 	}
 }

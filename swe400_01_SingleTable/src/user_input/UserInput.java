@@ -3,7 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
 import runner.Runner;
@@ -309,7 +309,7 @@ public class UserInput
 			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				try(ResultSet rSet = DatabaseGateway.getStripNailUPCs())
+				try(ResultSet rSet = InventoryItemGateway.getStripNailUPCs())
 				{
 					while(rSet.next())
 					{
@@ -319,7 +319,7 @@ public class UserInput
 						System.out.println(i + ". " + stripNail.toString());
 					}
 					rSet.close();
-					DatabaseGateway.closeStatements();				
+					InventoryItemGateway.closeStatements();				
 				}
 				catch(SQLException notFound)
 				{
@@ -328,7 +328,7 @@ public class UserInput
 			}
 			else if(item instanceof StripNail)
 			{
-				try(ResultSet rSet = DatabaseGateway.getPowerToolUPCs())
+				try(ResultSet rSet = InventoryItemGateway.getPowerToolUPCs())
 				{
 					while(rSet.next())
 					{
@@ -338,7 +338,7 @@ public class UserInput
 						System.out.println(i + ". " + powerTool.toString());
 					}
 					rSet.close();
-					DatabaseGateway.closeStatements();
+					InventoryItemGateway.closeStatements();
 					
 				}
 				catch(SQLException notFound)

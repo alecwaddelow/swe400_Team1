@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.Test;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -19,8 +19,8 @@ public class TestDatabaseGateway
 	@Test
 	public void testCreation() 
 	{
-		DatabaseGateway dg = new DatabaseGateway();
-		assertTrue(dg instanceof DatabaseGateway);
+		InventoryItemGateway dg = new InventoryItemGateway();
+		assertTrue(dg instanceof InventoryItemGateway);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingPowerToolUPCs() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = DatabaseGateway.getPowerToolUPCs();
+		ResultSet rSet = InventoryItemGateway.getPowerToolUPCs();
 		String[] upcArray = {"1231231234", "4445553333", "7657896543", "9993458585", "7654564848", "7784452828"};
 	
 		int i = 0;
@@ -52,7 +52,7 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingStripNailUPCs() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = DatabaseGateway.getStripNailUPCs();
+		ResultSet rSet = InventoryItemGateway.getStripNailUPCs();
 		String[] upcArray = {"5453432345", "4343434543", "9876784727", "6565459876", "4343432345"};
 	
 		int i = 0;
@@ -72,9 +72,9 @@ public class TestDatabaseGateway
 	@Test
 	public void testBadUPCInput() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = DatabaseGateway.retrieveUPC("000000000000000", "nail");
+		ResultSet rSet = InventoryItemGateway.retrieveUPC("000000000000000", "nail");
 		assertFalse(rSet.next());
 		rSet.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 }

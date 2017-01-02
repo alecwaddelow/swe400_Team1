@@ -1,6 +1,6 @@
 package domain;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 
 /**
  * @author Alec Waddelow & Drew Rife
@@ -36,7 +36,7 @@ public class ToolMapper extends DBMapper
 	 */
 	public void insertTool() throws ClassNotFoundException, SQLException
 	{
-		DatabaseGateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
+		InventoryItemGateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
 		setId();
 	}
 
@@ -77,6 +77,6 @@ public class ToolMapper extends DBMapper
 		setManufacturerID(tool.getManufacturerID());
 		setPrice(tool.getPrice());
 		setDescription(tool.getDescription());
-		DatabaseGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
+		InventoryItemGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
 	}
 }

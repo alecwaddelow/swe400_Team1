@@ -2,7 +2,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import data_source.LinkTableGateway;
 import exceptions.ItemNotFoundException;
 
@@ -26,7 +26,7 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs  = DatabaseGateway.queryStripNail(this.id);
+		ResultSet rs  = InventoryItemGateway.queryStripNail(this.id);
 		if(rs.next())
 		{
 			setUpc(rs.getString("upc"));
@@ -42,7 +42,7 @@ public class StripNail extends Fastener implements LoadInterface
 			exception.getMessage();
 		}
 		rs.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class StripNail extends Fastener implements LoadInterface
 			this.addPowerToolToList(new PowerTool(id));
 		}
 		rs.close(); 
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 
 	/**

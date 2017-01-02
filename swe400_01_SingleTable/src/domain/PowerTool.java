@@ -2,7 +2,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import data_source.LinkTableGateway;
 import exceptions.ItemNotFoundException;
 
@@ -27,7 +27,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs = DatabaseGateway.queryPowerTool(this.id);
+		ResultSet rs = InventoryItemGateway.queryPowerTool(this.id);
 		if(rs.next())
 		{
 			setUpc(rs.getString("upc"));
@@ -43,7 +43,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			exception.getMessage();
 		}
 		rs.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 
 	/**
@@ -232,6 +232,6 @@ public class PowerTool extends InventoryItem implements LoadInterface
 			}
 		}
 		rs.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 }

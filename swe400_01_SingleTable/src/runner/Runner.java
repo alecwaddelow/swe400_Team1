@@ -119,7 +119,7 @@ public class Runner
 	 */
 	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
-		ResultSet rSet = DatabaseGateway.createList();
+		ResultSet rSet = InventoryItemGateway.createList();
 		for(int i = 0; rSet.next(); i++)
 		{
 			int id  = rSet.getRow();
@@ -127,7 +127,7 @@ public class Runner
 			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
 		}
 		rSet.close(); 
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 		return listOfObjects;
 	}
 

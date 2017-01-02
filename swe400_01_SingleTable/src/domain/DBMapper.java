@@ -1,6 +1,6 @@
 package domain;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -49,7 +49,7 @@ public abstract class DBMapper
 	 */
 	public void setId() throws ClassNotFoundException, SQLException
 	{
-		this.id = DatabaseGateway.getID(this.upc, this.className);
+		this.id = InventoryItemGateway.getID(this.upc, this.className);
 	}
 	
 	/**

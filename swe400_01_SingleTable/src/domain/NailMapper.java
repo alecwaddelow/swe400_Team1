@@ -1,6 +1,6 @@
 package domain;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 
 /**
  * @author Drew Rife & Alec Waddelow
@@ -40,7 +40,7 @@ public class NailMapper extends DBMapper
 	 */
 	public void insertNail() throws ClassNotFoundException, SQLException
 	{
-		DatabaseGateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
+		InventoryItemGateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
 		setId();
 	}
 	
@@ -104,6 +104,6 @@ public class NailMapper extends DBMapper
 		setLength(nail.getLength());
 		setNumberInBox(nail.getNumberInBox());
 		setClassName(nail.getClassName());
-		DatabaseGateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);
+		InventoryItemGateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);
 	}
 }

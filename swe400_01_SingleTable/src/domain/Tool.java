@@ -1,7 +1,7 @@
 package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -23,7 +23,7 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs =  DatabaseGateway.queryTool(this.id);
+		ResultSet rs =  InventoryItemGateway.queryTool(this.id);
 		if(rs.next()) 
 		{
 			this.setUpc(rs.getString("upc"));
@@ -38,7 +38,7 @@ public class Tool extends InventoryItem
 			exception.getMessage();
 		}
 		rs.close();
-		DatabaseGateway.closeStatements();
+		InventoryItemGateway.closeStatements();
 	}
 		
 	/**

@@ -6,7 +6,7 @@ import java.sql.*;
  *
  * Establishes a connection to the database and contains common database functions
  */
-public class DatabaseGateway
+public class InventoryItemGateway
 {
 	private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;

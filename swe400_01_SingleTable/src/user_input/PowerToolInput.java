@@ -3,7 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import data_source.DatabaseGateway;
+import data_source.InventoryItemGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
 
@@ -143,17 +143,17 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet rSet =DatabaseGateway.getStripNailUPCs();
+			ResultSet rSet =InventoryItemGateway.getStripNailUPCs();
 			while(rSet.next())
 			{
 				System.out.println(rSet.getString("upc"));
 			}
 			rSet.close();
-			DatabaseGateway.closeStatements();
+			InventoryItemGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();
-			int stripNailID = DatabaseGateway.getID(input, "StripNail");
+			int stripNailID = InventoryItemGateway.getID(input, "StripNail");
 			
 			LinkTableMapper.addRelation(powerTool.getId(), stripNailID);
 			powerTool.addStripNailToList(new StripNail(stripNailID));
@@ -196,7 +196,7 @@ public class PowerToolInput
 				
 				System.out.println("\n");
 				String input = sc.nextLine();
-				int stripNailID = DatabaseGateway.getID(input, "StripNail");
+				int stripNailID = InventoryItemGateway.getID(input, "StripNail");
 				
 				LinkTableMapper.removeRelation(powerTool.getId(), stripNailID);
 				powerTool.removeStripNailFromList(new StripNail(stripNailID));
