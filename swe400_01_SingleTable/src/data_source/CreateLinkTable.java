@@ -64,6 +64,5 @@ public class CreateLinkTable
 		preparedStatement.setInt(2, 13);
 		LinkTableGateway.insertRow(preparedStatement);
 		preparedStatement.close();
-		preparedStatement = null;
 	}
 }
