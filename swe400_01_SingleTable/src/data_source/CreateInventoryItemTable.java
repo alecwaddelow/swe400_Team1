@@ -7,7 +7,7 @@ import java.sql.SQLException;
  *
  * Creates the table within the Database and inserts the enum objects into it
  */
-public class CreateDatabase
+public class CreateInventoryItemTable
 {
 	static String id = "id INT PRIMARY KEY NOT NULL auto_increment, ";
 	static String upc = "upc VARCHAR(25), ";

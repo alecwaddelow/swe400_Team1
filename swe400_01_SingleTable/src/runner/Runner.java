@@ -29,8 +29,8 @@ public class Runner
 	public static void main(String[] args) throws NamingException, SQLException, ClassNotFoundException, ItemNotFoundException
 	{
 		CreateLinkTable.dropTableBeforeCreation();
-		CreateDatabase.dropTableBeforeCreation();
-		CreateDatabase.createTable();
+		CreateInventoryItemTable.dropTableBeforeCreation();
+		CreateInventoryItemTable.createTable();
 		InsertEnumData.insertNailsIntoTable();
 		InsertEnumData.insertToolsIntoTable();
 		InsertEnumData.insertStripNailsIntoTable();

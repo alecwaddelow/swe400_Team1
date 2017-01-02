@@ -1,7 +1,7 @@
 package data_source;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import data_source.CreateDatabase;
+import data_source.CreateInventoryItemTable;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -16,7 +16,7 @@ public class TestCreateDatabase
 	@Test
 	public void testCreation() 
 	{
-		CreateDatabase cd = new CreateDatabase();
-		assertTrue(cd instanceof CreateDatabase);
+		CreateInventoryItemTable cd = new CreateInventoryItemTable();
+		assertTrue(cd instanceof CreateInventoryItemTable);
 	}
 }

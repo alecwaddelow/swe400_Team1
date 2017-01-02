@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import org.junit.Test;
-import data_source.CreateDatabase;
+import data_source.CreateInventoryItemTable;
 import data_source.CreateLinkTable;
 import domain.InventoryItem;
 import runner.*;
@@ -37,8 +37,8 @@ public class TestArrayList
 	public void testInventoryItemsInArrayList() throws ClassNotFoundException, SQLException, NamingException, ItemNotFoundException
 	{
 		CreateLinkTable.dropTableBeforeCreation();
-		CreateDatabase.dropTableBeforeCreation();
-		CreateDatabase.createTable();
+		CreateInventoryItemTable.dropTableBeforeCreation();
+		CreateInventoryItemTable.createTable();
 		InsertEnumData.insertNailsIntoTable();
 		InsertEnumData.insertToolsIntoTable();
 		InsertEnumData.insertStripNailsIntoTable();
