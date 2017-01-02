@@ -58,13 +58,15 @@ public class swe400 {
 		button_searchByUPC.setBounds(12, 12, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button_searchByUPC);
 		
-		JButton button = new JButton("New button");
-		button.setBounds(288, 211, 250, 155);
-		frmInvenotryItemManager.getContentPane().add(button);
+		JButton btnExit = new JButton("Exit");
+		btnExit.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/exit_icon.png"));
+		btnExit.setBounds(288, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(btnExit);
 		
-		JButton button_1 = new JButton("New button");
-		button_1.setBounds(12, 211, 250, 155);
-		frmInvenotryItemManager.getContentPane().add(button_1);
+		JButton btnUpdateItem = new JButton("Update Item");
+		btnUpdateItem.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/update_item.png"));
+		btnUpdateItem.setBounds(12, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(btnUpdateItem);
 		
 		JButton button_AddItem = new JButton("Add Item");
 		button_AddItem.addActionListener(new ActionListener() {
