@@ -6,6 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author Drew Rife and Alec Waddelow
+ * 
+ * Single source of getting a connection to the database
+ */
 public class ConnectionManager 
 {
 	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
