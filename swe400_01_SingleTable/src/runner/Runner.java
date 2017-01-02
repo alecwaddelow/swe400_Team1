@@ -40,7 +40,7 @@ public class Runner
 		CreateLinkTable.createRelationships();
 		initiateUserInput();
 		
-		/* program has finished so close the connection */
+		/* close the connection when finished */
 		ConnectionManager.closeConnection();
 	}
 	
