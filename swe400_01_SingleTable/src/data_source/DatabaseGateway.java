@@ -8,33 +8,8 @@ import java.sql.*;
  */
 public class DatabaseGateway
 {
-//	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
-//	private static final String user = "swe400_1";
-//	private static final String password = "pwd4swe400_1F16";
-//	private static Connection con = null;
 	private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;
-
-	/**
-	 * Gets connection to the Database and returns the connection 
-	 * 
-	 * @return Connection
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-//	public static Connection getConnection() throws ClassNotFoundException, SQLException
-//	{
-//		if(con == null)
-//		{
-//			Class.forName("com.mysql.jdbc.Driver");
-//			con = DriverManager.getConnection(hostName, user, password);
-//			return con;
-//		}
-//		else
-//		{
-//			return con;
-//		}
-//	}
 
 	/**
 	 * Query for Nail
