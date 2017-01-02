@@ -2,8 +2,6 @@ package data_source;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -17,8 +15,6 @@ public class ConnectionManager
 	private static final String user = "swe400_1";
 	private static final String password = "pwd4swe400_1F16";
 	private static Connection connection = null;
-	private static PreparedStatement preparedStatement = null;
-	private static ResultSet resultSet = null;
 	
 	/**
 	 * established a connection to the database and returns it
