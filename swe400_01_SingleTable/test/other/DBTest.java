@@ -2,6 +2,8 @@ package other;
 import java.sql.*;
 import org.junit.After;
 import org.junit.Before;
+
+import data_source.ConnectionManager;
 import data_source.DatabaseGateway;
 import data_source.LinkTableGateway;
 
@@ -22,8 +24,7 @@ public abstract class DBTest
 	@Before
 	public void testStartTransaction() throws ClassNotFoundException, SQLException
 	{		
-		DatabaseGateway.getConnection().setAutoCommit(false);
-		LinkTableGateway.getConnection().setAutoCommit(false);
+		ConnectionManager.getConnection().setAutoCommit(false);
 	}
 
 	/**
@@ -35,10 +36,9 @@ public abstract class DBTest
 	@After
 	public void testRollBack() throws ClassNotFoundException, SQLException
 	{		
-		DatabaseGateway.getConnection().rollback();
-		LinkTableGateway.getConnection().rollback();
+		ConnectionManager.getConnection().rollback();
 		
-		PreparedStatement preparedStatement = DatabaseGateway.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1");
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement("ALTER TABLE InventoryItem AUTO_INCREMENT = 1");
 		preparedStatement.execute();
 		preparedStatement.close();
 	}

@@ -22,8 +22,8 @@ public class TestCloseConnection
 	@Test
 	public void testCloseLinkTableGatewayConnection() throws ClassNotFoundException, SQLException
 	{
-		Connection connection = LinkTableGateway.getConnection();
-		LinkTableGateway.closeConnection();
+		Connection connection = ConnectionManager.getConnection();
+		ConnectionManager.closeConnection();
 		assertTrue(connection.isClosed());
 	}
 	
@@ -35,8 +35,8 @@ public class TestCloseConnection
 	@Test
 	public void testCloseDatabaseGatewayConnection() throws ClassNotFoundException, SQLException
 	{
-		Connection connection = DatabaseGateway.getConnection();
-		DatabaseGateway.closeConnection();
+		Connection connection = ConnectionManager.getConnection();
+		ConnectionManager.closeConnection();
 		assertTrue(connection.isClosed());
 	}
 }

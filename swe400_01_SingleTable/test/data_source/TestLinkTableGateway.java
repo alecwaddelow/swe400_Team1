@@ -86,7 +86,7 @@ public class TestLinkTableGateway extends DBTest
 	{
 		PreparedStatement statement = null;
 		String sqlStatement = "select * from LinkTable";
-		statement = LinkTableGateway.getConnection().prepareStatement(sqlStatement);
+		statement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		LinkTableGateway.insertRow(statement);
 		assertTrue(statement.isClosed());
 	}
@@ -98,7 +98,7 @@ public class TestLinkTableGateway extends DBTest
 		int rowCount = 0;
 		PreparedStatement statement = null;
 		String sqlStatement = "select * from LinkTable";
-		statement = LinkTableGateway.getConnection().prepareStatement(sqlStatement);
+		statement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		ResultSet rs = statement.executeQuery();
 		while(rs.next())
 		{
@@ -114,7 +114,7 @@ public class TestLinkTableGateway extends DBTest
 		int rowCount = 0;
 		PreparedStatement statement = null;
 		String sqlStatement = "select * from LinkTable";
-		statement = LinkTableGateway.getConnection().prepareStatement(sqlStatement);
+		statement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		ResultSet rs = statement.executeQuery();
 		while(rs.next())
 		{

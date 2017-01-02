@@ -8,10 +8,10 @@ import java.sql.*;
  */
 public class LinkTableGateway 
 {
-	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
-	private static final String user = "swe400_1";
-	private static final String password = "pwd4swe400_1F16";
-	private static Connection con = null;
+//	private static final String hostName = "jdbc:mysql://db.cs.ship.edu/swe400-12?useSSL=false";
+//	private static final String user = "swe400_1";
+//	private static final String password = "pwd4swe400_1F16";
+//	private static Connection con = null;
 	private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;
 
@@ -22,19 +22,19 @@ public class LinkTableGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static Connection getConnection() throws ClassNotFoundException, SQLException
-	{
-		if(con == null)
-		{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(hostName, user, password);
-			return con;
-		}
-		else
-		{
-			return con;
-		}
-	}
+//	public static Connection getConnection() throws ClassNotFoundException, SQLException
+//	{
+//		if(con == null)
+//		{
+//			Class.forName("com.mysql.jdbc.Driver");
+//			con = DriverManager.getConnection(hostName, user, password);
+//			return con;
+//		}
+//		else
+//		{
+//			return con;
+//		}
+//	}
 	
 	/**
 	 * Queries the database for stripNails in Link table 
@@ -47,7 +47,7 @@ public class LinkTableGateway
 	public static ResultSet queryDBForStripNails(int id) throws SQLException, ClassNotFoundException
 	{
 		String sqlStatement = ("SELECT * FROM LinkTable WHERE powerToolID =?");
-		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
 		return resultSet;
@@ -64,7 +64,7 @@ public class LinkTableGateway
 	public static ResultSet queryDBForPowerTools(int id) throws SQLException, ClassNotFoundException
 	{
 		String sqlStatement = ("SELECT * FROM LinkTable WHERE stripNailID=?");
-		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery(); 
 		return resultSet;
@@ -95,7 +95,7 @@ public class LinkTableGateway
 	{
 		if(!containsDuplicates(powerToolID, stripNailID))
 		{
-			PreparedStatement statement = getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
+			PreparedStatement statement = ConnectionManager.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
 			statement.setInt(1, powerToolID);
 			statement.setInt(2, stripNailID);
 			insertRow(statement);
@@ -119,7 +119,7 @@ public class LinkTableGateway
 	private static boolean containsDuplicates(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from LinkTable where powerToolID=? and stripNailID=?";
-		preparedStatement = getConnection().prepareStatement(sqlStatement);
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, powerToolID);
 		preparedStatement.setInt(2, stripNailID);
 		resultSet = preparedStatement.executeQuery();
@@ -146,7 +146,7 @@ public class LinkTableGateway
 	public static void removeRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
 		String query = "delete from LinkTable where powerToolID=? and stripNailID=?";
-	    preparedStatement = getConnection().prepareStatement(query);
+	    preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
 	    preparedStatement.setInt(1, powerToolID);
 	    preparedStatement.setInt(2, stripNailID);
 	    preparedStatement.execute();
@@ -176,24 +176,6 @@ public class LinkTableGateway
 				preparedStatement.close();
 				preparedStatement = null;
 			}			
-		}
-	}
-	
-	/**
-	 * Closes the connection when finished 
-	 * 
-	 * @throws SQLException
-	 */
-	public static void closeConnection() throws SQLException
-	{
-		closeStatements();
-		
-		if(con != null)
-		{
-			if(!con.isClosed())
-			{
-				con.close();
-			}
 		}
 	}
 }

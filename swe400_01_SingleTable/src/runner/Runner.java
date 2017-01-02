@@ -41,8 +41,7 @@ public class Runner
 		initiateUserInput();
 		
 		/* program has finished so close the connection */
-		LinkTableGateway.closeConnection();
-		DatabaseGateway.closeConnection();
+		ConnectionManager.closeConnection();
 	}
 	
 	/**

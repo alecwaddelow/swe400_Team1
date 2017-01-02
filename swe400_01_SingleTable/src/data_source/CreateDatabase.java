@@ -32,7 +32,7 @@ public class CreateDatabase
 		String sqlStatement = "CREATE TABLE InventoryItem (" + id + upc + manufacturerID + price + description + batteryPowered +
 				length + numberInStrip + numberInBox + className + ");";
 
-		preparedStatement = DatabaseGateway.getConnection().prepareStatement(sqlStatement);
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.execute(sqlStatement);
 		preparedStatement.close();
 	}
@@ -46,7 +46,7 @@ public class CreateDatabase
 	public static void dropTableBeforeCreation() throws ClassNotFoundException, SQLException
 	{
 		String dropTable = "DROP TABLE IF EXISTS InventoryItem;";
-		preparedStatement = DatabaseGateway.getConnection().prepareStatement(dropTable);
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(dropTable);
 		preparedStatement.execute();
 		preparedStatement.close();
 	}
