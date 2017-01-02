@@ -10,6 +10,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class swe400 {
 
@@ -49,6 +51,12 @@ public class swe400 {
 		frmInvenotryItemManager.getContentPane().setLayout(null);
 		
 		JButton button_searchByUPC = new JButton("Search By UPC");
+		button_searchByUPC.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				SearchByUPC.searchByUPCScreen();
+			}
+		});
 		button_searchByUPC.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/search_icon2.png"));
 		button_searchByUPC.setIgnoreRepaint(true);
 		button_searchByUPC.addActionListener(new ActionListener() {
@@ -59,6 +67,12 @@ public class swe400 {
 		frmInvenotryItemManager.getContentPane().add(button_searchByUPC);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				frmInvenotryItemManager.dispose();
+			}
+		});
 		btnExit.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/exit_icon.png"));
 		btnExit.setBounds(288, 211, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(btnExit);
