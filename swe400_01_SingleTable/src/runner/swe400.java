@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 public class swe400 {
 
-	private JFrame frame;
+	private JFrame frmInvenotryItemManager;
 
 	/**
 	 * Launch the application.
@@ -23,7 +23,7 @@ public class swe400 {
 			public void run() {
 				try {
 					swe400 window = new swe400();
-					window.frame.setVisible(true);
+					window.frmInvenotryItemManager.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,31 +42,37 @@ public class swe400 {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmInvenotryItemManager = new JFrame();
+		frmInvenotryItemManager.setTitle("Invenotry Item Manager");
+		frmInvenotryItemManager.setBounds(100, 100, 635, 405);
+		frmInvenotryItemManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmInvenotryItemManager.getContentPane().setLayout(null);
 		
-		JButton searchByUPC = new JButton("Search By UPC");
-		searchByUPC.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/search_icon2.png"));
-		searchByUPC.setIgnoreRepaint(true);
-		searchByUPC.addActionListener(new ActionListener() {
+		JButton button_searchByUPC = new JButton("Search By UPC");
+		button_searchByUPC.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/search_icon2.png"));
+		button_searchByUPC.setIgnoreRepaint(true);
+		button_searchByUPC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		searchByUPC.setBounds(12, 12, 192, 118);
-		frame.getContentPane().add(searchByUPC);
+		button_searchByUPC.setBounds(12, 12, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(button_searchByUPC);
 		
 		JButton button = new JButton("New button");
-		button.setBounds(246, 142, 192, 118);
-		frame.getContentPane().add(button);
+		button.setBounds(373, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("New button");
-		button_1.setBounds(12, 142, 192, 118);
-		frame.getContentPane().add(button_1);
+		button_1.setBounds(12, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(button_1);
 		
-		JButton button_2 = new JButton("New button");
-		button_2.setBounds(246, 12, 192, 118);
-		frame.getContentPane().add(button_2);
+		JButton button_AddItem = new JButton("Add Item");
+		button_AddItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		button_AddItem.setIcon(new ImageIcon("/home/drew/Documents/git/swe400_Team1/Pictures/add_item_icon.png"));
+		button_AddItem.setBounds(373, 12, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(button_AddItem);
 	}
 }
