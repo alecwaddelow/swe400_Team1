@@ -31,11 +31,14 @@ import java.util.ArrayList;
 
 import javax.swing.JScrollBar;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SearchByUPC {
 
 	private JFrame frame;
 	private JTextField textField;
+	private JButton button_submit = new JButton("Submit");
 
 	/**
 	 * Launch the application.
@@ -88,6 +91,12 @@ public class SearchByUPC {
 		frame.getContentPane().add(comboBox);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				button_submit.setEnabled(true);
+			}
+		});
 		springLayout.putConstraint(SpringLayout.NORTH, textField, 38, SpringLayout.SOUTH, comboBox);
 		springLayout.putConstraint(SpringLayout.EAST, textField, -158, SpringLayout.EAST, frame.getContentPane());
 		textField.setBackground(Color.LIGHT_GRAY);
@@ -112,7 +121,7 @@ public class SearchByUPC {
 		springLayout.putConstraint(SpringLayout.WEST, lblEnterUpc, 10, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblEnterUpc);
 		
-		JButton button_submit = new JButton("Submit");
+		
 		button_submit.addMouseListener(new MouseAdapter() {
 			/**
 			 * when the mouse is clicked and released
@@ -175,6 +184,7 @@ public class SearchByUPC {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
+		button_submit.setEnabled(false);
 		frame.getContentPane().add(button_submit);
 	}
 }
