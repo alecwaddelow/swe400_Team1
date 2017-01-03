@@ -54,7 +54,7 @@ public class AddItemToDB {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		JPanel nailPanel = new JPanel();
+		JPanel mainItemPanel = new JPanel();
 		frame.setBounds(100, 100, 725, 509);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
@@ -65,17 +65,17 @@ public class AddItemToDB {
 		
 		
 		JComboBox comboBox = new JComboBox();
-		springLayout.putConstraint(SpringLayout.NORTH, nailPanel, 6, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.WEST, nailPanel, 0, SpringLayout.WEST, comboBox);
-		springLayout.putConstraint(SpringLayout.SOUTH, nailPanel, 440, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.EAST, nailPanel, -353, SpringLayout.EAST, comboBox);
+		springLayout.putConstraint(SpringLayout.NORTH, mainItemPanel, 6, SpringLayout.SOUTH, comboBox);
+		springLayout.putConstraint(SpringLayout.WEST, mainItemPanel, 0, SpringLayout.WEST, comboBox);
+		springLayout.putConstraint(SpringLayout.SOUTH, mainItemPanel, 440, SpringLayout.SOUTH, comboBox);
+		springLayout.putConstraint(SpringLayout.EAST, mainItemPanel, -353, SpringLayout.EAST, comboBox);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String item = comboBox.getSelectedItem().toString();
 				
 				if(item.equals("Nail"))
 				{
-					nailPanel.setVisible(true);
+					mainItemPanel.setVisible(true);
 				}
 				else if(item.equals("Tool"))
 				{
@@ -91,7 +91,7 @@ public class AddItemToDB {
 				}
 				else
 				{
-					nailPanel.setVisible(false);
+					mainItemPanel.setVisible(false);
 				}
 			}
 		});
@@ -101,9 +101,9 @@ public class AddItemToDB {
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 10, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, comboBox, 715, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(comboBox);
-		frame.getContentPane().add(nailPanel);
-		SpringLayout sl_nailPanel = new SpringLayout();
-		nailPanel.setLayout(sl_nailPanel);
+		frame.getContentPane().add(mainItemPanel);
+		SpringLayout sl_mainItemPanel = new SpringLayout();
+		mainItemPanel.setLayout(sl_mainItemPanel);
 		
 		
 		NumberFormat format = NumberFormat.getInstance();
@@ -116,18 +116,38 @@ public class AddItemToDB {
 		
 		
 		JLabel lblNewLabel = new JLabel("UPC");
-		sl_nailPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, nailPanel);
-		sl_nailPanel.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, nailPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, mainItemPanel);
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
-		nailPanel.add(lblNewLabel);
+		mainItemPanel.add(lblNewLabel);
 		
 		JSpinner spinner = new JSpinner();
+		sl_mainItemPanel.putConstraint(SpringLayout.EAST, lblNewLabel, -6, SpringLayout.WEST, spinner);
+		sl_mainItemPanel.putConstraint(SpringLayout.NORTH, spinner, 6, SpringLayout.NORTH, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.WEST, spinner, 202, SpringLayout.WEST, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.SOUTH, spinner, -378, SpringLayout.SOUTH, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.EAST, spinner, -3, SpringLayout.EAST, mainItemPanel);
 		spinner.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
-		sl_nailPanel.putConstraint(SpringLayout.NORTH, spinner, -4, SpringLayout.NORTH, lblNewLabel);
-		sl_nailPanel.putConstraint(SpringLayout.WEST, spinner, 6, SpringLayout.EAST, lblNewLabel);
-		sl_nailPanel.putConstraint(SpringLayout.SOUTH, spinner, 9, SpringLayout.SOUTH, lblNewLabel);
-		sl_nailPanel.putConstraint(SpringLayout.EAST, spinner, 153, SpringLayout.EAST, lblNewLabel);
-		nailPanel.add(spinner);
-		nailPanel.setVisible(false);
+		mainItemPanel.add(spinner);
+		
+		JLabel lblManufacturerId = new JLabel("Manufacturer ID");
+		sl_mainItemPanel.putConstraint(SpringLayout.NORTH, lblManufacturerId, 209, SpringLayout.NORTH, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.WEST, lblManufacturerId, 10, SpringLayout.WEST, mainItemPanel);
+		lblManufacturerId.setFont(new Font("Dialog", Font.BOLD, 20));
+		mainItemPanel.add(lblManufacturerId);
+		
+		JSpinner spinner_1 = new JSpinner();
+		sl_mainItemPanel.putConstraint(SpringLayout.NORTH, spinner_1, 143, SpringLayout.SOUTH, spinner);
+		sl_mainItemPanel.putConstraint(SpringLayout.WEST, spinner_1, 6, SpringLayout.EAST, lblManufacturerId);
+		sl_mainItemPanel.putConstraint(SpringLayout.EAST, spinner_1, -3, SpringLayout.EAST, mainItemPanel);
+		mainItemPanel.add(spinner_1);
+		
+		JSpinner spinner_2 = new JSpinner();
+		sl_mainItemPanel.putConstraint(SpringLayout.SOUTH, spinner_1, -128, SpringLayout.NORTH, spinner_2);
+		sl_mainItemPanel.putConstraint(SpringLayout.NORTH, spinner_2, -57, SpringLayout.SOUTH, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.WEST, spinner_2, 202, SpringLayout.WEST, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.SOUTH, spinner_2, 0, SpringLayout.SOUTH, mainItemPanel);
+		sl_mainItemPanel.putConstraint(SpringLayout.EAST, spinner_2, 0, SpringLayout.EAST, spinner);
+		mainItemPanel.add(spinner_2);
+		mainItemPanel.setVisible(false);
 	}
 }
