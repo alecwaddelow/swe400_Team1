@@ -73,7 +73,7 @@ public class SearchByUPC {
 			}
 		});
 		frame.setBounds(100, 100, 754, 320);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		

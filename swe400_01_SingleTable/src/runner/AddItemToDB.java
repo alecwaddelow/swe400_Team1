@@ -54,7 +54,7 @@ public class AddItemToDB {
 		frmAddInventoryItem = new JFrame();
 		frmAddInventoryItem.setTitle("Add Inventory Item");
 		frmAddInventoryItem.setBounds(100, 100, 725, 509);
-		frmAddInventoryItem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAddInventoryItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frmAddInventoryItem.getContentPane().setLayout(springLayout);
 		
