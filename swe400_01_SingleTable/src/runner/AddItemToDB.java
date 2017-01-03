@@ -75,7 +75,6 @@ public class AddItemToDB {
 				
 				if(item.equals("Nail"))
 				{
-					mainItemPanel.setVisible(true);
 				}
 				else if(item.equals("Tool"))
 				{
@@ -91,7 +90,6 @@ public class AddItemToDB {
 				}
 				else
 				{
-					mainItemPanel.setVisible(false);
 				}
 			}
 		});
@@ -104,16 +102,7 @@ public class AddItemToDB {
 		frame.getContentPane().add(mainItemPanel);
 		SpringLayout sl_mainItemPanel = new SpringLayout();
 		mainItemPanel.setLayout(sl_mainItemPanel);
-		
-		
-		NumberFormat format = NumberFormat.getInstance();
-		NumberFormatter formatter = new NumberFormatter(format);
-		formatter.setValueClass(Integer.class);
-		format.setMaximumIntegerDigits(20);
-//		formatter.setMaximum(Integer.MAX_VALUE);
-		formatter.setAllowsInvalid(false);
-		formatter.setCommitsOnValidEdit(true);
-		
+		mainItemPanel.setVisible(true);
 		
 		JLabel lblNewLabel = new JLabel("UPC");
 		sl_mainItemPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, mainItemPanel);
@@ -148,6 +137,5 @@ public class AddItemToDB {
 		sl_mainItemPanel.putConstraint(SpringLayout.SOUTH, spinner_2, 0, SpringLayout.SOUTH, mainItemPanel);
 		sl_mainItemPanel.putConstraint(SpringLayout.EAST, spinner_2, 0, SpringLayout.EAST, spinner);
 		mainItemPanel.add(spinner_2);
-		mainItemPanel.setVisible(false);
 	}
 }
