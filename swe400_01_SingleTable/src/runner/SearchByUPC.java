@@ -114,11 +114,15 @@ public class SearchByUPC {
 		
 		JButton button_submit = new JButton("Submit");
 		button_submit.addMouseListener(new MouseAdapter() {
+			/**
+			 * when the mouse is clicked and released
+			 */
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				
 				String upc = textField.getText();
 				try {
+					/* get the details of the inventory item */
 					InventoryItem item = InventoryItem.getDetails(upc, comboBox.getSelectedItem().toString());
 					if(item != null)
 					{
@@ -128,10 +132,22 @@ public class SearchByUPC {
 							ArrayList<StripNail> stripList = ((PowerTool) item).getStripNailList();
 							textArea.append("\nWorks With:\n");
 							
+							/* print the array list of what stripnails work with the power tools */
 							for(StripNail stripNail : stripList)
 							{
 								textArea.append(stripNail.toString() + "\n");
 							}							
+						}
+						else if(item instanceof StripNail)
+						{
+							ArrayList<PowerTool> powerToolList = ((StripNail) item).getPowerToolList();
+							textArea.append("\nWorks with:\n");
+							
+							/* print the array list of what powertools work witht eh stripnail */
+							for(PowerTool powerTool : powerToolList)
+							{
+								textArea.append(powerTool.toString() + "\n");
+							}
 						}
 					}
 					else
