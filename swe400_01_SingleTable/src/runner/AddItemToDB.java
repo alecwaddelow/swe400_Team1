@@ -3,6 +3,9 @@ package runner;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
+
+import domain.Nail;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -18,6 +21,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class AddItemToDB {
 
@@ -62,8 +68,8 @@ public class AddItemToDB {
 		JPanel panel_nail = new JPanel();
 		JPanel panel_tool = new JPanel();
 		JButton btnSubmit = new JButton("Submit");
+		
 		sharedItemPanel.setVisible(true);
-		panel_nail.setVisible(false);
 		panel_tool.setVisible(false);
 		
 		
@@ -167,6 +173,32 @@ public class AddItemToDB {
 		springLayout.putConstraint(SpringLayout.EAST, layeredPane, 353, SpringLayout.EAST, sharedItemPanel);
 		frmAddInventoryItem.getContentPane().add(layeredPane);
 		layeredPane.setVisible(true);
+		panel_nail.setVisible(false);
+		
+		
+		panel_nail.setBounds(0, 0, 347, 369);
+		layeredPane.add(panel_nail);
+		panel_nail.setLayout(null);
+		panel_nail.setVisible(false);
+		
+		JSpinner spinner_length = new JSpinner();
+		spinner_length.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		spinner_length.setBounds(177, 98, 170, 48);
+		panel_nail.add(spinner_length);
+		
+		JLabel lblLength = new JLabel("Length");
+		lblLength.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblLength.setBounds(87, 103, 85, 32);
+		panel_nail.add(lblLength);
+		
+		JSpinner spinner_numberInBox = new JSpinner();
+		spinner_numberInBox.setBounds(177, 284, 170, 48);
+		panel_nail.add(spinner_numberInBox);
+		
+		JLabel lblNumberInBox = new JLabel("Number In Box");
+		lblNumberInBox.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblNumberInBox.setBounds(0, 289, 172, 32);
+		panel_nail.add(lblNumberInBox);
 		
 		btnSubmit.setBounds(116, 393, 117, 39);
 		layeredPane.add(btnSubmit);
@@ -195,28 +227,39 @@ public class AddItemToDB {
 					}
 				});
 		
-		
-		panel_nail.setBounds(0, 0, 347, 369);
-		layeredPane.add(panel_nail);
-		panel_nail.setLayout(null);
-		panel_nail.setVisible(false);
-		
-		JSpinner spinner_length = new JSpinner();
-		spinner_length.setBounds(177, 98, 170, 48);
-		panel_nail.add(spinner_length);
-		
-		JLabel lblLength = new JLabel("Length");
-		lblLength.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblLength.setBounds(87, 103, 85, 32);
-		panel_nail.add(lblLength);
-		
-		JSpinner spinner_numberInBox = new JSpinner();
-		spinner_numberInBox.setBounds(177, 284, 170, 48);
-		panel_nail.add(spinner_numberInBox);
-		
-		JLabel lblNumberInBox = new JLabel("Number In Box");
-		lblNumberInBox.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblNumberInBox.setBounds(0, 289, 172, 32);
-		panel_nail.add(lblNumberInBox);
+		/**
+		 * add actions listener to the button when it is clicked
+		 */
+		btnSubmit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String item = comboBox.getSelectedItem().toString();
+				String upc;
+				int manufacturerID;
+				int price;
+				
+				if(item.equals("Nail"))
+				{
+					upc = spinner_upc.getValue().toString();
+					manufacturerID = (int) spinner_manufacturerID.getValue();
+					price = (int) spinner_price.getValue();
+					
+					double length = (double) spinner_length.getValue();
+					int numberInBox = (int) spinner_numberInBox.getValue();
+					
+					try {
+						Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					frmAddInventoryItem.dispose();
+				}
+			}
+		});
 	}
 }
