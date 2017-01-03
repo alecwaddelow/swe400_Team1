@@ -40,13 +40,14 @@ public class swe400 {
 	 * Create the application.
 	 */
 	public swe400() {
-		initialize();
+		initialize();	
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frmInvenotryItemManager = new JFrame();
 		frmInvenotryItemManager.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
