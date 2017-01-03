@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import javax.swing.JTextField;
 public class AddItemToDB {
 
 	private JFrame frmAddInventoryItem;
-	private JTextField textField_Description;
+	private JTextArea textField_Description;
 
 	/**
 	 * Launch the application.
@@ -180,7 +181,9 @@ public class AddItemToDB {
 		lblDescription.setBounds(0, 0, 146, 61);
 		panel_tool.add(lblDescription);
 		
-		textField_Description = new JTextField();
+		textField_Description = new JTextArea();
+		textField_Description.setLineWrap(true);
+		textField_Description.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textField_Description.setBounds(0, 85, 347, 284);
 		panel_tool.add(textField_Description);
 		textField_Description.setColumns(10);

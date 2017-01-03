@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 
 import domain.InventoryItem;
+import domain.PowerTool;
+import domain.StripNail;
 import exceptions.ItemNotFoundException;
 
 import javax.swing.JLabel;
@@ -25,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.swing.JScrollBar;
 import java.awt.event.MouseMotionAdapter;
 
@@ -92,6 +96,7 @@ public class SearchByUPC {
 		textField.setColumns(10);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		springLayout.putConstraint(SpringLayout.SOUTH, textField, -38, SpringLayout.NORTH, textArea);
 		springLayout.putConstraint(SpringLayout.EAST, textArea, 744, SpringLayout.WEST, frame.getContentPane());
 		textArea.setLineWrap(true);
@@ -117,7 +122,17 @@ public class SearchByUPC {
 					InventoryItem item = InventoryItem.getDetails(upc, comboBox.getSelectedItem().toString());
 					if(item != null)
 					{
-						textArea.setText(item.toString());		
+						textArea.setText(item.toString());
+						if(item instanceof PowerTool)
+						{
+							ArrayList<StripNail> stripList = ((PowerTool) item).getStripNailList();
+							textArea.append("\nWorks With:\n");
+							
+							for(StripNail stripNail : stripList)
+							{
+								textArea.append(stripNail.toString() + "\n");
+							}							
+						}
 					}
 					else
 					{
