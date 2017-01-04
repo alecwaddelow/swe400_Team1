@@ -28,11 +28,22 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 public class AddItemToDB {
 
 	private JFrame frmAddInventoryItem;
 	private JTextArea textField_Description;
+	private JLabel label_AddCompatibles = new JLabel();
+	JScrollPane scrollPane_AddCompatibles = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -63,12 +74,11 @@ public class AddItemToDB {
 	private void initialize() {
 		frmAddInventoryItem = new JFrame();
 		frmAddInventoryItem.setTitle("Add Inventory Item");
-		frmAddInventoryItem.setBounds(100, 100, 725, 509);
+		frmAddInventoryItem.setBounds(100, 100, 1079, 509);
 		frmAddInventoryItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		SpringLayout springLayout = new SpringLayout();
-		frmAddInventoryItem.getContentPane().setLayout(springLayout);
 		
 		JPanel sharedItemPanel = new JPanel();
+		sharedItemPanel.setBounds(10, 40, 352, 434);
 		JPanel panel_nail = new JPanel();
 		JPanel panel_tool = new JPanel();
 		JButton btnSubmit = new JButton("Submit");
@@ -78,10 +88,7 @@ public class AddItemToDB {
 		
 		
 		JComboBox comboBox = new JComboBox();
-		springLayout.putConstraint(SpringLayout.NORTH, sharedItemPanel, 6, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.WEST, sharedItemPanel, 0, SpringLayout.WEST, comboBox);
-		springLayout.putConstraint(SpringLayout.SOUTH, sharedItemPanel, 440, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.EAST, sharedItemPanel, -353, SpringLayout.EAST, comboBox);
+		comboBox.setBounds(10, 10, 705, 24);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String item = comboBox.getSelectedItem().toString();
@@ -93,21 +100,29 @@ public class AddItemToDB {
 					{
 						panel_tool.setVisible(false);
 						panel_nail.setVisible(true);
+						label_AddCompatibles.setVisible(false);
+						scrollPane_AddCompatibles.setVisible(false);
 					}
 					else if(item.equals("Tool"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(true);
+						label_AddCompatibles.setVisible(false);
+						scrollPane_AddCompatibles.setVisible(false);
 					}
 					else if(item.equals("StripNail"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
+						label_AddCompatibles.setVisible(true);
+						scrollPane_AddCompatibles.setVisible(true);
 					}
 					else if(item.equals("PowerTool"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
+						label_AddCompatibles.setVisible(true);
+						scrollPane_AddCompatibles.setVisible(true);
 					}
 				}
 				else
@@ -115,66 +130,50 @@ public class AddItemToDB {
 					panel_nail.setVisible(false);
 					panel_tool.setVisible(false);
 					btnSubmit.setEnabled(false);
+					label_AddCompatibles.setVisible(false);
+					scrollPane_AddCompatibles.setVisible(false);
 				}
 				
 			}
 		});
+		frmAddInventoryItem.getContentPane().setLayout(null);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
 		comboBox.setSelectedIndex(0);
-		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 10, SpringLayout.NORTH, frmAddInventoryItem.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, comboBox, 10, SpringLayout.WEST, frmAddInventoryItem.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, comboBox, 715, SpringLayout.WEST, frmAddInventoryItem.getContentPane());
 		frmAddInventoryItem.getContentPane().add(comboBox);
 		frmAddInventoryItem.getContentPane().add(sharedItemPanel);
-		SpringLayout sl_sharedItemPanel = new SpringLayout();
-		sharedItemPanel.setLayout(sl_sharedItemPanel);
 		sharedItemPanel.setVisible(true);
+		sharedItemPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("UPC");
-		sl_sharedItemPanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, sharedItemPanel);
+		lblNewLabel.setBounds(150, 10, 46, 24);
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
 		sharedItemPanel.add(lblNewLabel);
 		
 		JSpinner spinner_upc = new JSpinner();
-		sl_sharedItemPanel.putConstraint(SpringLayout.EAST, lblNewLabel, -6, SpringLayout.WEST, spinner_upc);
-		sl_sharedItemPanel.putConstraint(SpringLayout.NORTH, spinner_upc, 6, SpringLayout.NORTH, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.WEST, spinner_upc, 202, SpringLayout.WEST, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.SOUTH, spinner_upc, -378, SpringLayout.SOUTH, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.EAST, spinner_upc, -3, SpringLayout.EAST, sharedItemPanel);
+		spinner_upc.setBounds(202, 6, 147, 50);
 		spinner_upc.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
 		sharedItemPanel.add(spinner_upc);
 		
 		JLabel lblManufacturerId = new JLabel("Manufacturer ID");
-		sl_sharedItemPanel.putConstraint(SpringLayout.NORTH, lblManufacturerId, 209, SpringLayout.NORTH, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.WEST, lblManufacturerId, 10, SpringLayout.WEST, sharedItemPanel);
+		lblManufacturerId.setBounds(10, 209, 186, 24);
 		lblManufacturerId.setFont(new Font("Dialog", Font.BOLD, 20));
 		sharedItemPanel.add(lblManufacturerId);
 		
 		JSpinner spinner_manufacturerID = new JSpinner();
-		sl_sharedItemPanel.putConstraint(SpringLayout.NORTH, spinner_manufacturerID, 143, SpringLayout.SOUTH, spinner_upc);
-		sl_sharedItemPanel.putConstraint(SpringLayout.WEST, spinner_manufacturerID, 6, SpringLayout.EAST, lblManufacturerId);
-		sl_sharedItemPanel.putConstraint(SpringLayout.EAST, spinner_manufacturerID, -3, SpringLayout.EAST, sharedItemPanel);
+		spinner_manufacturerID.setBounds(202, 199, 147, 50);
 		sharedItemPanel.add(spinner_manufacturerID);
 		
 		JSpinner spinner_price = new JSpinner();
-		sl_sharedItemPanel.putConstraint(SpringLayout.SOUTH, spinner_manufacturerID, -128, SpringLayout.NORTH, spinner_price);
-		sl_sharedItemPanel.putConstraint(SpringLayout.NORTH, spinner_price, -57, SpringLayout.SOUTH, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.WEST, spinner_price, 202, SpringLayout.WEST, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.SOUTH, spinner_price, 0, SpringLayout.SOUTH, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.EAST, spinner_price, 0, SpringLayout.EAST, spinner_upc);
+		spinner_price.setBounds(202, 377, 147, 57);
 		sharedItemPanel.add(spinner_price);
 		
 		JLabel lblPrice = new JLabel("Price");
-		sl_sharedItemPanel.putConstraint(SpringLayout.SOUTH, lblPrice, -21, SpringLayout.SOUTH, sharedItemPanel);
-		sl_sharedItemPanel.putConstraint(SpringLayout.EAST, lblPrice, 0, SpringLayout.EAST, lblNewLabel);
+		lblPrice.setBounds(138, 389, 58, 24);
 		lblPrice.setFont(new Font("Dialog", Font.BOLD, 20));
 		sharedItemPanel.add(lblPrice);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		springLayout.putConstraint(SpringLayout.NORTH, layeredPane, 6, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.WEST, layeredPane, 6, SpringLayout.EAST, sharedItemPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, layeredPane, 438, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.EAST, layeredPane, 353, SpringLayout.EAST, sharedItemPanel);
+		layeredPane.setBounds(368, 40, 347, 432);
 		frmAddInventoryItem.getContentPane().add(layeredPane);
 		layeredPane.setVisible(true);
 		panel_nail.setVisible(false);
@@ -182,17 +181,17 @@ public class AddItemToDB {
 		
 		panel_nail.setBounds(0, 0, 347, 369);
 		layeredPane.add(panel_nail);
-		panel_nail.setLayout(null);
 		panel_nail.setVisible(false);
+		panel_nail.setLayout(null);
 		
 		JSpinner spinner_length = new JSpinner();
-		spinner_length.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		spinner_length.setBounds(177, 98, 170, 48);
+		spinner_length.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		panel_nail.add(spinner_length);
 		
 		JLabel lblLength = new JLabel("Length");
-		lblLength.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblLength.setBounds(87, 103, 85, 32);
+		lblLength.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_nail.add(lblLength);
 		
 		JSpinner spinner_numberInBox = new JSpinner();
@@ -200,8 +199,8 @@ public class AddItemToDB {
 		panel_nail.add(spinner_numberInBox);
 		
 		JLabel lblNumberInBox = new JLabel("Number In Box");
-		lblNumberInBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblNumberInBox.setBounds(0, 289, 172, 32);
+		lblNumberInBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_nail.add(lblNumberInBox);
 		
 		btnSubmit.setBounds(116, 393, 117, 39);
@@ -223,6 +222,32 @@ public class AddItemToDB {
 		textField_Description.setBounds(0, 85, 347, 284);
 		panel_tool.add(textField_Description);
 		textField_Description.setColumns(10);
+		
+		label_AddCompatibles.setText("Add Compatibles");
+		label_AddCompatibles.setHorizontalAlignment(SwingConstants.CENTER);
+		label_AddCompatibles.setFont(new Font("Dialog", Font.BOLD, 20));
+		label_AddCompatibles.setBounds(733, 10, 334, 24);
+		label_AddCompatibles.setVisible(false);
+		frmAddInventoryItem.getContentPane().add(label_AddCompatibles);
+		
+		scrollPane_AddCompatibles.setBounds(727, 41, 340, 433);
+		frmAddInventoryItem.getContentPane().add(scrollPane_AddCompatibles);
+		scrollPane_AddCompatibles.setVisible(false);
+		
+		JPanel panel = new JPanel();
+		scrollPane_AddCompatibles.setViewportView(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
+		gbc_rdbtnNewRadioButton.gridx = 0;
+		gbc_rdbtnNewRadioButton.gridy = 0;
+		panel.add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
 		textField_Description.addKeyListener(new KeyAdapter()
 				{
 					public void keyTyped(KeyEvent e) {
@@ -263,7 +288,7 @@ public class AddItemToDB {
 				contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 				dialog.getContentPane().add(contentPanel, BorderLayout.CENTER);
 				{
-					dialog.add(confirmationLabel, BorderLayout.CENTER);
+					dialog.getContentPane().add(confirmationLabel, BorderLayout.CENTER);
 					
 					confirmationLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 					
