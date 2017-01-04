@@ -1,12 +1,17 @@
 package runner;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
+import javax.swing.border.EmptyBorder;
 
 import domain.Nail;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -20,7 +25,6 @@ import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -230,34 +234,76 @@ public class AddItemToDB {
 		/**
 		 * add actions listener to the button when it is clicked
 		 */
-		btnSubmit.addMouseListener(new MouseAdapter() {
+		btnSubmit.addMouseListener(new MouseAdapter() 
+		{
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) 
+			{
 				String item = comboBox.getSelectedItem().toString();
-				String upc;
-				int manufacturerID;
-				int price;
 				
-				if(item.equals("Nail"))
+				String upc = spinner_upc.getValue().toString();
+				int manufacturerID = (int) spinner_manufacturerID.getValue();
+				int price = (int) spinner_price.getValue();
+			
+				JDialog dialog = new JDialog();
+				JPanel contentPanel = new JPanel();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);	
+			
+				dialog.setBounds(100, 100, 450, 300);
+				dialog.getContentPane().setLayout(new BorderLayout());
+				contentPanel.setLayout(new FlowLayout());
+				contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+				dialog.getContentPane().add(contentPanel, BorderLayout.CENTER);
 				{
-					upc = spinner_upc.getValue().toString();
-					manufacturerID = (int) spinner_manufacturerID.getValue();
-					price = (int) spinner_price.getValue();
+					JPanel buttonPane = new JPanel();
+					buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+					dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
+					{
+						JButton okButton = new JButton("OK");
+						okButton.addMouseListener(new MouseAdapter() 
+						{
+							@Override
+							public void mouseClicked(MouseEvent e) 
+							{
+								try {
+								
+								
+								if(item.equals("Nail"))
+								{
+									double length = (double) spinner_length.getValue();
+									int numberInBox = (int) spinner_numberInBox.getValue();
+									Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
+								}		
+								
+								
+								} catch (ClassNotFoundException | SQLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							
+								dialog.dispose();
+								frmAddInventoryItem.dispose();
+							}
+						});
 					
-					double length = (double) spinner_length.getValue();
-					int numberInBox = (int) spinner_numberInBox.getValue();
-					
-					try {
-						Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						okButton.setActionCommand("OK");
+						buttonPane.add(okButton);
+						dialog.getRootPane().setDefaultButton(okButton);
 					}
-					
-					frmAddInventoryItem.dispose();
+					{
+						JButton cancelButton = new JButton("Cancel");
+						cancelButton.addMouseListener(new MouseAdapter() 
+						{
+							@Override
+							public void mouseClicked(MouseEvent e) 
+							{
+								dialog.dispose();
+							}
+						});
+						cancelButton.setActionCommand("Cancel");
+						buttonPane.add(cancelButton);
+					}
 				}
 			}
 		});
