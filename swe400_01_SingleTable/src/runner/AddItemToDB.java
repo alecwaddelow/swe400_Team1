@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
-import domain.Nail;
+import domain.*;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -265,7 +265,7 @@ public class AddItemToDB {
 				{
 					dialog.add(confirmationLabel, BorderLayout.CENTER);
 					
-					confirmationLabel.setFont(new Font("Dialog", Font.BOLD, 20));
+					confirmationLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 					
 					JPanel buttonPane = new JPanel();
 					buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -280,12 +280,19 @@ public class AddItemToDB {
 								try {
 								
 								
-									if(item.equals("Nail"))
+									switch(item)
 									{
+									case "Nail":
 										double length = (double) spinner_length.getValue();
 										int numberInBox = (int) spinner_numberInBox.getValue();
 										Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
-									}		
+										break;
+										
+									case "Tool":
+										String description = textField_Description.getText();
+										Tool tool = new Tool(upc, manufacturerID, price, description, "Tool");
+										break;
+									}
 								
 								
 								} catch (ClassNotFoundException | SQLException e1) {
