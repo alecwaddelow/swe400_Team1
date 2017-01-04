@@ -244,9 +244,16 @@ public class AddItemToDB {
 				String upc = spinner_upc.getValue().toString();
 				int manufacturerID = (int) spinner_manufacturerID.getValue();
 				int price = (int) spinner_price.getValue();
+				
+				
 			
+				/**
+				 * Create a dialog box for confirmation
+				 */
 				JDialog dialog = new JDialog();
 				JPanel contentPanel = new JPanel();
+				JLabel itemLabel = new JLabel();
+				JLabel confirmationLabel = new JLabel("Are you sure you want to add this " + item + "?\n");
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);	
 			
@@ -256,6 +263,10 @@ public class AddItemToDB {
 				contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 				dialog.getContentPane().add(contentPanel, BorderLayout.CENTER);
 				{
+					dialog.add(confirmationLabel, BorderLayout.CENTER);
+					
+					confirmationLabel.setFont(new Font("Dialog", Font.BOLD, 20));
+					
 					JPanel buttonPane = new JPanel();
 					buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 					dialog.getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -269,12 +280,12 @@ public class AddItemToDB {
 								try {
 								
 								
-								if(item.equals("Nail"))
-								{
-									double length = (double) spinner_length.getValue();
-									int numberInBox = (int) spinner_numberInBox.getValue();
-									Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
-								}		
+									if(item.equals("Nail"))
+									{
+										double length = (double) spinner_length.getValue();
+										int numberInBox = (int) spinner_numberInBox.getValue();
+										Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
+									}		
 								
 								
 								} catch (ClassNotFoundException | SQLException e1) {
