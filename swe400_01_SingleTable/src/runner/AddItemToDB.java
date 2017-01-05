@@ -53,6 +53,8 @@ public class AddItemToDB {
 	private JTextArea textField_Description;
 	private JLabel label_AddCompatibles = new JLabel();
 	private JPanel panel_AddCompatibles = new JPanel();
+	ArrayList<PowerTool> powerToolList = new ArrayList<PowerTool>();
+	ArrayList<JRadioButton> buttonList = new ArrayList<JRadioButton>();
 
 	/**
 	 * Launch the application.
@@ -122,9 +124,6 @@ public class AddItemToDB {
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
 						label_AddCompatibles.setVisible(true);
-						
-						ArrayList<PowerTool> powerToolList = new ArrayList<PowerTool>();
-						ArrayList<JRadioButton> buttonList = new ArrayList<JRadioButton>();
 						
 						try {
 							
