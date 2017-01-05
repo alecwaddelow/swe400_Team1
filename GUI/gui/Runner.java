@@ -1,4 +1,4 @@
-package runner;
+package gui;
 
 import java.awt.EventQueue;
 
@@ -16,7 +16,7 @@ import java.awt.event.MouseMotionAdapter;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
-public class swe400 {
+public class Runner {
 
 	private JFrame frmInvenotryItemManager;
 
@@ -27,7 +27,7 @@ public class swe400 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					swe400 window = new swe400();
+					Runner window = new Runner();
 					window.frmInvenotryItemManager.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class swe400 {
 	/**
 	 * Create the application.
 	 */
-	public swe400() {
+	public Runner() {
 		initialize();	
 	}
 
