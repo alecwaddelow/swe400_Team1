@@ -53,8 +53,9 @@ public class AddItemToDB {
 	private JTextArea textField_Description;
 	private JLabel label_AddCompatibles = new JLabel();
 	private JPanel panel_AddCompatibles = new JPanel();
-	ArrayList<PowerTool> powerToolList = new ArrayList<PowerTool>();
-	ArrayList<JRadioButton> buttonList = new ArrayList<JRadioButton>();
+	private JScrollPane scrollPane_AddCompatibles = new JScrollPane();
+	private ArrayList<PowerTool> powerToolList;
+	private ArrayList<JRadioButton> buttonList;
 
 	/**
 	 * Launch the application.
@@ -112,18 +113,24 @@ public class AddItemToDB {
 						panel_tool.setVisible(false);
 						panel_nail.setVisible(true);
 						label_AddCompatibles.setVisible(false);
+						scrollPane_AddCompatibles.setVisible(false);
 					}
 					else if(item.equals("Tool"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(true);
 						label_AddCompatibles.setVisible(false);
+						scrollPane_AddCompatibles.setVisible(false);
 					}
 					else if(item.equals("StripNail"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
 						label_AddCompatibles.setVisible(true);
+						scrollPane_AddCompatibles.setVisible(true);
+						
+						powerToolList = new ArrayList<PowerTool>();
+						buttonList = new ArrayList<JRadioButton>();
 						
 						try {
 							
@@ -136,17 +143,19 @@ public class AddItemToDB {
 							
 							
 							GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
-							gbc_ptRadioButton.insets = new Insets(20, 0, 20, 0);
+							gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
 							gbc_ptRadioButton.gridx = 0;
 							gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
 							gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
 							for(PowerTool pt : powerToolList)
 							{
 								JRadioButton jrb = new JRadioButton(pt.toString());
+								System.out.println(pt.getUpc());
 								buttonList.add(jrb);
 								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
-								gbc_ptRadioButton.gridy++;
 							}
+							
+							
 							
 							
 						} catch (ClassNotFoundException e) {
@@ -165,6 +174,7 @@ public class AddItemToDB {
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
 						label_AddCompatibles.setVisible(true);
+						scrollPane_AddCompatibles.setVisible(false);
 					}
 				}
 				else
@@ -173,6 +183,7 @@ public class AddItemToDB {
 					panel_tool.setVisible(false);
 					btnSubmit.setEnabled(false);
 					label_AddCompatibles.setVisible(false);
+					scrollPane_AddCompatibles.setVisible(false);
 				}
 				
 			}
@@ -271,8 +282,8 @@ public class AddItemToDB {
 		label_AddCompatibles.setVisible(false);
 		frmAddInventoryItem.getContentPane().add(label_AddCompatibles);
 		
-		JScrollPane scrollPane_AddCompatibles = new JScrollPane();
 		scrollPane_AddCompatibles.setBounds(727, 40, 340, 430);
+		scrollPane_AddCompatibles.setVisible(false);
 		frmAddInventoryItem.getContentPane().add(scrollPane_AddCompatibles);
 		
 		scrollPane_AddCompatibles.setViewportView(panel_AddCompatibles);
