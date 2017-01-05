@@ -62,7 +62,7 @@ public class AddItemToDB {
 	private JSpinner spinner_manufacturerID = new JSpinner();
 	private JSpinner spinner_price = new JSpinner();
 	private JSpinner spinner_SNLength = new JSpinner();
-	private JSpinner spinner_NumberInStrip = new JSpinner();
+	private JSpinner spinner_numberInStrip = new JSpinner();
 	private JSpinner spinner_length = new JSpinner();
 	private JSpinner spinner_numberInBox = new JSpinner();
 	
@@ -220,7 +220,7 @@ public class AddItemToDB {
 				spinner_length.setValue(0);
 				spinner_SNLength.setValue(0);
 				spinner_numberInBox.setValue(1);
-				spinner_NumberInStrip.setValue(1);
+				spinner_numberInStrip.setValue(1);
 				textArea_Description.setText(null);
 				textArea_PT_Description.setText(null);
 				
@@ -320,7 +320,7 @@ public class AddItemToDB {
 		layeredPane.add(panel_StripNail);
 		panel_StripNail.setLayout(null);
 		
-		spinner_SNLength.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinner_SNLength.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
 		spinner_SNLength.setBounds(177, 99, 170, 48);
 		panel_StripNail.add(spinner_SNLength);
 		
@@ -329,9 +329,9 @@ public class AddItemToDB {
 		label_SNLength.setBounds(91, 103, 85, 32);
 		panel_StripNail.add(label_SNLength);
 		
-		spinner_NumberInStrip.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		spinner_NumberInStrip.setBounds(177, 279, 170, 48);
-		panel_StripNail.add(spinner_NumberInStrip);
+		spinner_numberInStrip.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinner_numberInStrip.setBounds(177, 279, 170, 48);
+		panel_StripNail.add(spinner_numberInStrip);
 		
 		JLabel lblNumberInStrip = new JLabel("Number In Strip");
 		lblNumberInStrip.setFont(new Font("Dialog", Font.BOLD, 19));
@@ -512,6 +512,18 @@ public class AddItemToDB {
 											if(buttonList.get(i).isSelected())
 											{
 												LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(i).getId());
+											}
+										}
+										break;
+									case "StripNail":
+										double stripNailLength = (double) spinner_SNLength.getValue();
+										int numberInStrip = (int) spinner_numberInStrip.getValue();
+										StripNail stripNail = new StripNail(upc, manufacturerID, price, stripNailLength, numberInStrip, "StripNail");
+										for(int i = 0; i < buttonList.size(); i++)
+										{
+											if(buttonList.get(i).isSelected())
+											{
+												LinkTableGateway.addRelation(powerToolList.get(i).getId(), stripNail.getId());
 											}
 										}
 										break;
