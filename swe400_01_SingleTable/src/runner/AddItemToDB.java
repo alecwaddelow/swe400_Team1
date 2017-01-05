@@ -52,17 +52,36 @@ import javax.swing.JTextField;
 public class AddItemToDB {
 
 	private JFrame frmAddInventoryItem;
-	private JTextArea textField_Description;
 	private JLabel label_AddCompatibles = new JLabel();
-	private JPanel panel_AddCompatibles = new JPanel();
-	private JScrollPane scrollPane_AddCompatibles = new JScrollPane();
-	private static ArrayList<PowerTool> powerToolList;
-	private static ArrayList<StripNail> stripNailList;
-	private ArrayList<JRadioButton> buttonList;
+	
 	private JRadioButton radioButton_True = new JRadioButton("TRUE");
 	private JRadioButton radioButton_False = new JRadioButton("FALSE");
 	private ButtonGroup buttonGroup = new ButtonGroup();
+	
+	private JSpinner spinner_upc = new JSpinner();
+	private JSpinner spinner_manufacturerID = new JSpinner();
+	private JSpinner spinner_price = new JSpinner();
+	private JSpinner spinner_SNLength = new JSpinner();
+	private JSpinner spinner_NumberInStrip = new JSpinner();
+	private JSpinner spinner_length = new JSpinner();
+	private JSpinner spinner_numberInBox = new JSpinner();
+	
+	private JTextArea textArea_Description = new JTextArea();
+	private JTextArea textArea_PT_Description = new JTextArea();
+	
 	private JPanel panel_PowerTool = new JPanel();
+	private JPanel panel_StripNail = new JPanel();
+	private JPanel sharedItemPanel = new JPanel();
+	private JPanel panel_nail = new JPanel();
+	private JPanel panel_tool = new JPanel();
+	private JPanel panel_AddCompatibles = new JPanel();
+	private JScrollPane scrollPane_AddCompatibles = new JScrollPane();
+	
+	private JButton btnSubmit = new JButton("Submit");
+
+	private static ArrayList<PowerTool> powerToolList;
+	private static ArrayList<StripNail> stripNailList;
+	private ArrayList<JRadioButton> buttonList;
 
 	/**
 	 * Launch the application.
@@ -96,11 +115,8 @@ public class AddItemToDB {
 		frmAddInventoryItem.setBounds(100, 100, 1079, 509);
 		frmAddInventoryItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JPanel sharedItemPanel = new JPanel();
+		
 		sharedItemPanel.setBounds(10, 40, 352, 434);
-		JPanel panel_nail = new JPanel();
-		JPanel panel_tool = new JPanel();
-		JButton btnSubmit = new JButton("Submit");
 		
 		sharedItemPanel.setVisible(true);
 		panel_tool.setVisible(false);
@@ -112,125 +128,149 @@ public class AddItemToDB {
 			public void actionPerformed(ActionEvent arg0) {
 				String item = comboBox.getSelectedItem().toString();
 				
-				if(!item.equals(""))
-				{
-					btnSubmit.setEnabled(true);
-					if(item.equals("Nail"))
-					{
-						panel_tool.setVisible(false);
-						panel_PowerTool.setVisible(false);
-						label_AddCompatibles.setVisible(false);
-						panel_AddCompatibles.setVisible(false);
-						panel_nail.setVisible(true);
-					}
-					else if(item.equals("Tool"))
-					{
-						panel_nail.setVisible(false);
-						label_AddCompatibles.setVisible(false);
-						panel_AddCompatibles.setVisible(false);
-						panel_PowerTool.setVisible(false);
-						panel_tool.setVisible(true);
-					}
-					else if(item.equals("StripNail"))
-					{
-						panel_AddCompatibles.removeAll();
-						panel_nail.setVisible(false);
-						panel_tool.setVisible(false);
-						panel_PowerTool.setVisible(false);
-						label_AddCompatibles.setVisible(true);
-						panel_AddCompatibles.setVisible(true);
+				manageDisplay(item);
+				if(item.equals("StripNail"))
+				{					
+					powerToolList = new ArrayList<PowerTool>();
+					buttonList = new ArrayList<JRadioButton>();
+					
+					try {
 						
-						powerToolList = new ArrayList<PowerTool>();
-						buttonList = new ArrayList<JRadioButton>();
 						
-						try {
-							
-							
-							ResultSet rs = InventoryItemGateway.getPowerToolUPCs();
-							while(rs.next())
-							{
-								powerToolList.add(new PowerTool(rs.getInt("id")));
-							}
-							
-							
-							GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
-							gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
-							gbc_ptRadioButton.gridx = 0;
-							gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
-							gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
-							for(PowerTool pt : powerToolList)
-							{
-								JRadioButton jrb = new JRadioButton(pt.toString());
-								buttonList.add(jrb);
-								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
-							}
-							
-							
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ItemNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						ResultSet rs = InventoryItemGateway.getPowerToolUPCs();
+						while(rs.next())
+						{
+							powerToolList.add(new PowerTool(rs.getInt("id")));
 						}
-					}
-					else if(item.equals("PowerTool"))
-					{
-						panel_AddCompatibles.removeAll();
-						panel_nail.setVisible(false);
-						panel_tool.setVisible(false);
-						panel_PowerTool.setVisible(true);
-						label_AddCompatibles.setVisible(true);
-						panel_AddCompatibles.setVisible(true);
 						
-						stripNailList = new ArrayList<StripNail>();
-						buttonList = new ArrayList<JRadioButton>();
 						
-						try {
-							
-							
-							ResultSet rs = InventoryItemGateway.getStripNailUPCs();
-							while(rs.next())
-							{
-								stripNailList.add(new StripNail(rs.getInt("id")));
-							}
-							
-							GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
-							gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
-							gbc_ptRadioButton.gridx = 0;
-							gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
-							gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
-							for(StripNail sn : stripNailList)
-							{
-								JRadioButton jrb = new JRadioButton(sn.toString());
-								buttonList.add(jrb);
-								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
-							}
-							
-							
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ItemNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
+						gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
+						gbc_ptRadioButton.gridx = 0;
+						gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
+						gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
+						for(PowerTool pt : powerToolList)
+						{
+							JRadioButton jrb = new JRadioButton(pt.toString());
+							buttonList.add(jrb);
+							panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
 						}
+						
+						
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ItemNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
-				else
+				else if(item.equals("PowerTool"))
 				{
+					stripNailList = new ArrayList<StripNail>();
+					buttonList = new ArrayList<JRadioButton>();
+					
+					try {
+						
+						
+						ResultSet rs = InventoryItemGateway.getStripNailUPCs();
+						while(rs.next())
+						{
+							stripNailList.add(new StripNail(rs.getInt("id")));
+						}
+						
+						GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
+						gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
+						gbc_ptRadioButton.gridx = 0;
+						gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
+						gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
+						for(StripNail sn : stripNailList)
+						{
+							JRadioButton jrb = new JRadioButton(sn.toString());
+							buttonList.add(jrb);
+							panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
+						}
+						
+						
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ItemNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}				
+			}
+
+			/**
+			 * manages what to display
+			 * @param item
+			 */
+			private void manageDisplay(String item) 
+			{
+				spinner_upc.setValue(0);
+				spinner_manufacturerID.setValue(0);
+				spinner_price.setValue(1);
+				spinner_length.setValue(0);
+				spinner_SNLength.setValue(0);
+				spinner_numberInBox.setValue(1);
+				spinner_NumberInStrip.setValue(1);
+				textArea_Description.setText(null);
+				textArea_PT_Description.setText(null);
+				
+				btnSubmit.setEnabled((!item.equals("")) ? true:false);
+				
+				switch(item)
+				{
+				case "Nail":
+					panel_tool.setVisible(false);
+					panel_PowerTool.setVisible(false);
+					label_AddCompatibles.setVisible(false);
+					panel_AddCompatibles.setVisible(false);
+					panel_StripNail.setVisible(false);
+					panel_nail.setVisible(true);
+					break;
+				case "Tool":
+					panel_nail.setVisible(false);
+					label_AddCompatibles.setVisible(false);
+					panel_AddCompatibles.setVisible(false);
+					panel_PowerTool.setVisible(false);
+					panel_StripNail.setVisible(false);
+					panel_tool.setVisible(true);
+					break;
+				case "StripNail":
+					panel_AddCompatibles.removeAll();
+					panel_nail.setVisible(false);
+					panel_tool.setVisible(false);
+					panel_PowerTool.setVisible(false);
+					panel_StripNail.setVisible(true);
+					label_AddCompatibles.setVisible(true);
+					panel_AddCompatibles.setVisible(true);
+					break;
+				case "PowerTool":
+					panel_AddCompatibles.removeAll();
+					panel_nail.setVisible(false);
+					panel_tool.setVisible(false);
+					panel_StripNail.setVisible(false);
+					panel_PowerTool.setVisible(true);
+					label_AddCompatibles.setVisible(true);
+					panel_AddCompatibles.setVisible(true);
+					break;
+				default:
 					panel_nail.setVisible(false);
 					panel_tool.setVisible(false);
 					btnSubmit.setEnabled(false);
 					panel_PowerTool.setVisible(false);
+					panel_StripNail.setVisible(false);
 					label_AddCompatibles.setVisible(false);
 					panel_AddCompatibles.setVisible(false);
+					break;					
 				}
 				
 			}
@@ -248,7 +288,6 @@ public class AddItemToDB {
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
 		sharedItemPanel.add(lblNewLabel);
 		
-		JSpinner spinner_upc = new JSpinner();
 		spinner_upc.setBounds(202, 6, 147, 50);
 		spinner_upc.setModel(new SpinnerNumberModel(new Long(0), new Long(0), null, new Long(1)));
 		sharedItemPanel.add(spinner_upc);
@@ -258,13 +297,11 @@ public class AddItemToDB {
 		lblManufacturerId.setFont(new Font("Dialog", Font.BOLD, 20));
 		sharedItemPanel.add(lblManufacturerId);
 		
-		JSpinner spinner_manufacturerID = new JSpinner();
 		spinner_manufacturerID.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinner_manufacturerID.setBounds(202, 199, 147, 50);
 		sharedItemPanel.add(spinner_manufacturerID);
 		
-		JSpinner spinner_price = new JSpinner();
-		spinner_price.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinner_price.setModel(new SpinnerNumberModel(new Integer(1), new Integer(0), null, new Integer(1)));
 		spinner_price.setBounds(202, 377, 147, 57);
 		sharedItemPanel.add(spinner_price);
 		
@@ -279,12 +316,33 @@ public class AddItemToDB {
 		layeredPane.setVisible(true);
 		panel_nail.setVisible(false);
 		
+		panel_StripNail.setBounds(0, 0, 347, 369);
+		layeredPane.add(panel_StripNail);
+		panel_StripNail.setLayout(null);
+		
+		spinner_SNLength.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinner_SNLength.setBounds(177, 99, 170, 48);
+		panel_StripNail.add(spinner_SNLength);
+		
+		JLabel label_SNLength = new JLabel("Length");
+		label_SNLength.setFont(new Font("Dialog", Font.BOLD, 20));
+		label_SNLength.setBounds(91, 103, 85, 32);
+		panel_StripNail.add(label_SNLength);
+		
+		spinner_NumberInStrip.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinner_NumberInStrip.setBounds(177, 279, 170, 48);
+		panel_StripNail.add(spinner_NumberInStrip);
+		
+		JLabel lblNumberInStrip = new JLabel("Number In Strip");
+		lblNumberInStrip.setFont(new Font("Dialog", Font.BOLD, 19));
+		lblNumberInStrip.setBounds(0, 286, 190, 32);
+		panel_StripNail.add(lblNumberInStrip);
+		
 		panel_PowerTool.setBounds(0, 0, 347, 369);
 		layeredPane.add(panel_PowerTool);
 		panel_PowerTool.setLayout(null);
 		panel_PowerTool.setVisible(false);
 		
-		JTextArea textArea_PT_Description = new JTextArea();
 		textArea_PT_Description.setBounds(0, 191, 347, 178);
 		panel_PowerTool.add(textArea_PT_Description);
 		
@@ -311,7 +369,6 @@ public class AddItemToDB {
 		panel_nail.setVisible(false);
 		panel_nail.setLayout(null);
 		
-		JSpinner spinner_length = new JSpinner();
 		spinner_length.setBounds(177, 98, 170, 48);
 		spinner_length.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
 		panel_nail.add(spinner_length);
@@ -321,7 +378,6 @@ public class AddItemToDB {
 		lblLength.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_nail.add(lblLength);
 		
-		JSpinner spinner_numberInBox = new JSpinner();
 		spinner_numberInBox.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spinner_numberInBox.setBounds(177, 284, 170, 48);
 		panel_nail.add(spinner_numberInBox);
@@ -344,12 +400,11 @@ public class AddItemToDB {
 		lblDescription.setBounds(0, 0, 146, 61);
 		panel_tool.add(lblDescription);
 		
-		textField_Description = new JTextArea();
-		textField_Description.setLineWrap(true);
-		textField_Description.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textField_Description.setBounds(0, 85, 347, 284);
-		panel_tool.add(textField_Description);
-		textField_Description.setColumns(10);
+		textArea_Description.setLineWrap(true);
+		textArea_Description.setFont(new Font("Dialog", Font.PLAIN, 14));
+		textArea_Description.setBounds(0, 85, 347, 284);
+		panel_tool.add(textArea_Description);
+		textArea_Description.setColumns(10);
 		
 		label_AddCompatibles.setText("Add Compatibles");
 		label_AddCompatibles.setHorizontalAlignment(SwingConstants.CENTER);
@@ -369,13 +424,23 @@ public class AddItemToDB {
 		panel_AddCompatibles.setLayout(gbl_panel_AddCompatibles);
 		panel_AddCompatibles.setVisible(false);
 		
-		textField_Description.addKeyListener(new KeyAdapter()
+		textArea_Description.addKeyListener(new KeyAdapter()
 				{
 					public void keyTyped(KeyEvent e) {
-						if(textField_Description.getText().length() >= 100)
+						if(textArea_Description.getText().length() >= 100)
 							e.consume();
 					}
 				});
+		
+		textArea_PT_Description.addKeyListener(new KeyAdapter()
+				{
+					public void keyTyped(KeyEvent e) {
+						if(textArea_PT_Description.getText().length() >= 100)
+							e.consume();
+					}
+				});
+		
+		
 		
 		/**
 		 * add actions listener to the button when it is clicked
@@ -435,7 +500,7 @@ public class AddItemToDB {
 										break;
 										
 									case "Tool":
-										String toolDescription = textField_Description.getText();
+										String toolDescription = textArea_Description.getText();
 										Tool tool = new Tool(upc, manufacturerID, price, toolDescription, "Tool");
 										break;
 									case "PowerTool":
