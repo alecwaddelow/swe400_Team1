@@ -41,6 +41,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import data_source.InventoryItemGateway;
+import data_source.LinkTableGateway;
 
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
@@ -163,8 +164,6 @@ public class AddItemToDB {
 								buttonList.add(jrb);
 								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
 							}
-							
-							
 							
 							
 						} catch (ClassNotFoundException e) {
@@ -433,9 +432,22 @@ public class AddItemToDB {
 										break;
 										
 									case "Tool":
-										String description = textField_Description.getText();
-										Tool tool = new Tool(upc, manufacturerID, price, description, "Tool");
+										String toolDescription = textField_Description.getText();
+										Tool tool = new Tool(upc, manufacturerID, price, toolDescription, "Tool");
 										break;
+									case "PowerTool":
+										String powerToolDescription = textArea_PT_Description.getText(); 
+										boolean batteryPowered = (radioButton_True.isSelected()) ? true:false;
+										PowerTool powerTool = new PowerTool(upc, manufacturerID, price, powerToolDescription, batteryPowered, "PowerTool");
+										for(int i = 0; i < buttonList.size(); i++)
+										{
+											if(buttonList.get(i).isSelected())
+											{
+												LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(i).getId());
+											}
+										}
+										break;
+										
 									}
 								
 								
