@@ -33,12 +33,14 @@ import javax.swing.JScrollBar;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JScrollPane;
 
 public class SearchByUPC {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JButton button_submit = new JButton("Submit");
+	private JTextArea textArea_Output = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -77,49 +79,33 @@ public class SearchByUPC {
 		});
 		frame.setBounds(100, 100, 754, 320);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
+		frame.getContentPane().setLayout(null);
 		
 		JComboBox comboBox = new JComboBox();
-		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 0, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, comboBox, -253, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, comboBox, 0, SpringLayout.EAST, frame.getContentPane());
+		comboBox.setBounds(6, 12, 730, 40);
 		comboBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Nail", "Tool", "PowerTool", "StripNail"}));
 		comboBox.setSelectedIndex(0);
 		frame.getContentPane().add(comboBox);
 		
 		textField = new JTextField();
+		textField.setBounds(139, 78, 457, 51);
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 				button_submit.setEnabled(true);
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 38, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.EAST, textField, -158, SpringLayout.EAST, frame.getContentPane());
 		textField.setBackground(Color.LIGHT_GRAY);
 		textField.setForeground(Color.BLACK);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		springLayout.putConstraint(SpringLayout.SOUTH, textField, -38, SpringLayout.NORTH, textArea);
-		springLayout.putConstraint(SpringLayout.EAST, textArea, 744, SpringLayout.WEST, frame.getContentPane());
-		textArea.setLineWrap(true);
-		springLayout.putConstraint(SpringLayout.NORTH, textArea, 167, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, textArea, 0, SpringLayout.SOUTH, frame.getContentPane());
-		frame.getContentPane().add(textArea);
-		
 		JLabel lblEnterUpc = new JLabel("Enter UPC:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblEnterUpc, 56, SpringLayout.SOUTH, comboBox);
-		springLayout.putConstraint(SpringLayout.WEST, textArea, 0, SpringLayout.WEST, lblEnterUpc);
-		springLayout.putConstraint(SpringLayout.WEST, textField, 6, SpringLayout.EAST, lblEnterUpc);
+		lblEnterUpc.setBounds(10, 96, 123, 24);
 		lblEnterUpc.setFont(new Font("Dialog", Font.BOLD, 20));
-		springLayout.putConstraint(SpringLayout.WEST, lblEnterUpc, 10, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblEnterUpc);
+		button_submit.setBounds(608, 76, 128, 51);
 		
 		
 		button_submit.addMouseListener(new MouseAdapter() {
@@ -135,33 +121,33 @@ public class SearchByUPC {
 					InventoryItem item = InventoryItem.getDetails(upc, comboBox.getSelectedItem().toString());
 					if(item != null)
 					{
-						textArea.setText(item.toString());
+						textArea_Output.setText(item.toString());
 						if(item instanceof PowerTool)
 						{
 							ArrayList<StripNail> stripList = ((PowerTool) item).getStripNailList();
-							textArea.append("\nWorks With:\n");
+							textArea_Output.append("\nWorks With:\n");
 							
 							/* print the array list of what stripnails work with the power tools */
 							for(StripNail stripNail : stripList)
 							{
-								textArea.append(stripNail.toString() + "\n");
+								textArea_Output.append(stripNail.toString() + "\n");
 							}							
 						}
 						else if(item instanceof StripNail)
 						{
 							ArrayList<PowerTool> powerToolList = ((StripNail) item).getPowerToolList();
-							textArea.append("\nWorks with:\n");
+							textArea_Output.append("\nWorks with:\n");
 							
 							/* print the array list of what powertools work witht eh stripnail */
 							for(PowerTool powerTool : powerToolList)
 							{
-								textArea.append(powerTool.toString() + "\n");
+								textArea_Output.append(powerTool.toString() + "\n");
 							}
 						}
 					}
 					else
 					{
-						textArea.setText("Error: No Such Item Exists");
+						textArea_Output.setText("Error: No Such Item Exists");
 					}
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -176,15 +162,17 @@ public class SearchByUPC {
 			}
 		});
 		button_submit.setFont(new Font("Dialog", Font.BOLD, 20));
-		springLayout.putConstraint(SpringLayout.NORTH, button_submit, 0, SpringLayout.NORTH, textField);
-		springLayout.putConstraint(SpringLayout.WEST, button_submit, -138, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, button_submit, 0, SpringLayout.SOUTH, textField);
-		springLayout.putConstraint(SpringLayout.EAST, button_submit, -10, SpringLayout.EAST, frame.getContentPane());
 		button_submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
 		button_submit.setEnabled(false);
 		frame.getContentPane().add(button_submit);
+		
+		JScrollPane scrollPane_Output = new JScrollPane();
+		scrollPane_Output.setBounds(12, 145, 730, 136);
+		frame.getContentPane().add(scrollPane_Output);
+		
+		scrollPane_Output.setViewportView(textArea_Output);
 	}
 }
