@@ -309,7 +309,7 @@ public class UserInput
 			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				ResultSet rSet = InventoryItemGateway.getStripNailUPCs();
+				ResultSet rSet = InventoryItemGateway.getAllStripNails();
 				
 				while(rSet.next())
 				{
@@ -323,7 +323,7 @@ public class UserInput
 			}
 			else if(item instanceof StripNail)
 			{
-				ResultSet rSet = InventoryItemGateway.getPowerToolUPCs();
+				ResultSet rSet = InventoryItemGateway.getAllPowerTools();
 				
 				while(rSet.next())
 				{

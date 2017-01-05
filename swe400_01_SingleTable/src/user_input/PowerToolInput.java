@@ -143,7 +143,7 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet rSet =InventoryItemGateway.getStripNailUPCs();
+			ResultSet rSet =InventoryItemGateway.getAllStripNails();
 			while(rSet.next())
 			{
 				System.out.println(rSet.getString("upc"));
