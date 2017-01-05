@@ -390,7 +390,7 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getStripNailUPCs() throws ClassNotFoundException, SQLException 
+	public static ResultSet getAllStripNails() throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
@@ -406,7 +406,7 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getPowerToolUPCs() throws ClassNotFoundException, SQLException
+	public static ResultSet getAllPowerTools() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
@@ -414,6 +414,40 @@ public class InventoryItemGateway
 		resultSet = preparedStatement.executeQuery();
 		return resultSet;
 	}
+	
+	/**
+	 * Returns all nails
+	 * 
+	 * @return ResultSet of all nails
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static ResultSet getAllNails() throws ClassNotFoundException, SQLException
+	{
+		String sqlStatement = "select * from InventoryItem where className=?";
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, "Nail");
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
+	}
+	
+	/**
+	 * Returns all tools
+	 * 
+	 * @return ResultSet of all tools
+	 * @throws ClassnotFoundException
+	 * @throws SQLException
+	 */
+	public static ResultSet getAllTools() throws ClassNotFoundException, SQLException
+	{
+		String sqlStatement = "select * from InventoryItem where className=?";
+		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, "Tool");
+		resultSet = preparedStatement.executeQuery();
+		return resultSet;
+	}
+	
+
 	
 	/**
 	 * Closes statements when done
