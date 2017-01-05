@@ -150,7 +150,6 @@ public class AddItemToDB {
 							for(PowerTool pt : powerToolList)
 							{
 								JRadioButton jrb = new JRadioButton(pt.toString());
-								System.out.println(pt.getUpc());
 								buttonList.add(jrb);
 								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
 							}
