@@ -137,7 +137,7 @@ public class AddItemToDB {
 					try {
 						
 						
-						ResultSet rs = InventoryItemGateway.getPowerToolUPCs();
+						ResultSet rs = InventoryItemGateway.getAllPowerTools();
 						while(rs.next())
 						{
 							powerToolList.add(new PowerTool(rs.getInt("id")));
@@ -176,7 +176,7 @@ public class AddItemToDB {
 					try {
 						
 						
-						ResultSet rs = InventoryItemGateway.getStripNailUPCs();
+						ResultSet rs = InventoryItemGateway.getAllStripNails();
 						while(rs.next())
 						{
 							stripNailList.add(new StripNail(rs.getInt("id")));
