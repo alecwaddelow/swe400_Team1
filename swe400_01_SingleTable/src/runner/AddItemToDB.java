@@ -9,9 +9,11 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import domain.*;
+import exceptions.ItemNotFoundException;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -27,23 +29,30 @@ import javax.swing.JLayeredPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
+import data_source.InventoryItemGateway;
+
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class AddItemToDB {
 
 	private JFrame frmAddInventoryItem;
 	private JTextArea textField_Description;
 	private JLabel label_AddCompatibles = new JLabel();
-	JScrollPane scrollPane_AddCompatibles = new JScrollPane();
+	private JPanel panel_AddCompatibles = new JPanel();
 
 	/**
 	 * Launch the application.
@@ -101,28 +110,62 @@ public class AddItemToDB {
 						panel_tool.setVisible(false);
 						panel_nail.setVisible(true);
 						label_AddCompatibles.setVisible(false);
-						scrollPane_AddCompatibles.setVisible(false);
 					}
 					else if(item.equals("Tool"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(true);
 						label_AddCompatibles.setVisible(false);
-						scrollPane_AddCompatibles.setVisible(false);
 					}
 					else if(item.equals("StripNail"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
 						label_AddCompatibles.setVisible(true);
-						scrollPane_AddCompatibles.setVisible(true);
+						
+						ArrayList<PowerTool> powerToolList = new ArrayList<PowerTool>();
+						ArrayList<JRadioButton> buttonList = new ArrayList<JRadioButton>();
+						
+						try {
+							
+							
+							ResultSet rs = InventoryItemGateway.getPowerToolUPCs();
+							while(rs.next())
+							{
+								powerToolList.add(new PowerTool(rs.getInt("id")));
+							}
+							
+							
+							GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
+							gbc_ptRadioButton.insets = new Insets(20, 0, 20, 0);
+							gbc_ptRadioButton.gridx = 0;
+							gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
+							gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
+							for(PowerTool pt : powerToolList)
+							{
+								JRadioButton jrb = new JRadioButton(pt.toString());
+								buttonList.add(jrb);
+								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
+								gbc_ptRadioButton.gridy++;
+							}
+							
+							
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ItemNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else if(item.equals("PowerTool"))
 					{
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
 						label_AddCompatibles.setVisible(true);
-						scrollPane_AddCompatibles.setVisible(true);
 					}
 				}
 				else
@@ -131,7 +174,6 @@ public class AddItemToDB {
 					panel_tool.setVisible(false);
 					btnSubmit.setEnabled(false);
 					label_AddCompatibles.setVisible(false);
-					scrollPane_AddCompatibles.setVisible(false);
 				}
 				
 			}
@@ -230,24 +272,16 @@ public class AddItemToDB {
 		label_AddCompatibles.setVisible(false);
 		frmAddInventoryItem.getContentPane().add(label_AddCompatibles);
 		
-		scrollPane_AddCompatibles.setBounds(727, 41, 340, 433);
+		JScrollPane scrollPane_AddCompatibles = new JScrollPane();
+		scrollPane_AddCompatibles.setBounds(727, 40, 340, 430);
 		frmAddInventoryItem.getContentPane().add(scrollPane_AddCompatibles);
-		scrollPane_AddCompatibles.setVisible(false);
 		
-		JPanel panel = new JPanel();
-		scrollPane_AddCompatibles.setViewportView(panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		scrollPane_AddCompatibles.setViewportView(panel_AddCompatibles);
+		GridBagLayout gbl_panel_AddCompatibles = new GridBagLayout();
+		gbl_panel_AddCompatibles.columnWidths = new int[]{0};
+		gbl_panel_AddCompatibles.rowHeights = new int[]{0};
+		panel_AddCompatibles.setLayout(gbl_panel_AddCompatibles);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
-		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
-		gbc_rdbtnNewRadioButton.gridx = 0;
-		gbc_rdbtnNewRadioButton.gridy = 0;
-		panel.add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
 		textField_Description.addKeyListener(new KeyAdapter()
 				{
 					public void keyTyped(KeyEvent e) {
