@@ -250,7 +250,7 @@ public class AddItemToDB {
 		
 		JSpinner spinner_upc = new JSpinner();
 		spinner_upc.setBounds(202, 6, 147, 50);
-		spinner_upc.setModel(new SpinnerNumberModel(new Long(0), null, null, new Long(1)));
+		spinner_upc.setModel(new SpinnerNumberModel(new Long(0), new Long(0), null, new Long(1)));
 		sharedItemPanel.add(spinner_upc);
 		
 		JLabel lblManufacturerId = new JLabel("Manufacturer ID");
@@ -259,10 +259,12 @@ public class AddItemToDB {
 		sharedItemPanel.add(lblManufacturerId);
 		
 		JSpinner spinner_manufacturerID = new JSpinner();
+		spinner_manufacturerID.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinner_manufacturerID.setBounds(202, 199, 147, 50);
 		sharedItemPanel.add(spinner_manufacturerID);
 		
 		JSpinner spinner_price = new JSpinner();
+		spinner_price.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spinner_price.setBounds(202, 377, 147, 57);
 		sharedItemPanel.add(spinner_price);
 		
@@ -311,7 +313,7 @@ public class AddItemToDB {
 		
 		JSpinner spinner_length = new JSpinner();
 		spinner_length.setBounds(177, 98, 170, 48);
-		spinner_length.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		spinner_length.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
 		panel_nail.add(spinner_length);
 		
 		JLabel lblLength = new JLabel("Length");
@@ -320,6 +322,7 @@ public class AddItemToDB {
 		panel_nail.add(lblLength);
 		
 		JSpinner spinner_numberInBox = new JSpinner();
+		spinner_numberInBox.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spinner_numberInBox.setBounds(177, 284, 170, 48);
 		panel_nail.add(spinner_numberInBox);
 		
