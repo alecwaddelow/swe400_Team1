@@ -55,7 +55,8 @@ public class AddItemToDB {
 	private JLabel label_AddCompatibles = new JLabel();
 	private JPanel panel_AddCompatibles = new JPanel();
 	private JScrollPane scrollPane_AddCompatibles = new JScrollPane();
-	private ArrayList<PowerTool> powerToolList;
+	private static ArrayList<PowerTool> powerToolList;
+	private static ArrayList<StripNail> stripNailList;
 	private ArrayList<JRadioButton> buttonList;
 	private JPanel panel_PowerTool = new JPanel();
 
@@ -182,6 +183,42 @@ public class AddItemToDB {
 						panel_PowerTool.setVisible(true);
 						label_AddCompatibles.setVisible(true);
 						panel_AddCompatibles.setVisible(true);
+						
+						stripNailList = new ArrayList<StripNail>();
+						buttonList = new ArrayList<JRadioButton>();
+						
+						try {
+							
+							
+							ResultSet rs = InventoryItemGateway.getStripNailUPCs();
+							while(rs.next())
+							{
+								stripNailList.add(new StripNail(rs.getInt("id")));
+							}
+							
+							GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
+							gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
+							gbc_ptRadioButton.gridx = 0;
+							gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
+							gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
+							for(StripNail sn : stripNailList)
+							{
+								JRadioButton jrb = new JRadioButton(sn.toString());
+								buttonList.add(jrb);
+								panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
+							}
+							
+							
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ItemNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				else
