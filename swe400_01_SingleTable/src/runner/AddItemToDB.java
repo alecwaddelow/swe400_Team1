@@ -58,6 +58,9 @@ public class AddItemToDB {
 	private static ArrayList<PowerTool> powerToolList;
 	private static ArrayList<StripNail> stripNailList;
 	private ArrayList<JRadioButton> buttonList;
+	private JRadioButton radioButton_True = new JRadioButton("TRUE");
+	private JRadioButton radioButton_False = new JRadioButton("FALSE");
+	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JPanel panel_PowerTool = new JPanel();
 
 	/**
@@ -294,14 +297,13 @@ public class AddItemToDB {
 		lblBatteryPowered.setBounds(12, 12, 323, 37);
 		panel_PowerTool.add(lblBatteryPowered);
 		
-		JRadioButton rdbtnTrue = new JRadioButton("TRUE");
-		rdbtnTrue.setBounds(12, 86, 149, 23);
-		panel_PowerTool.add(rdbtnTrue);
+		radioButton_True.setBounds(12, 86, 149, 23);
+		panel_PowerTool.add(radioButton_True);
+		buttonGroup.add(radioButton_True);
 		
-		JRadioButton radioButton_False = new JRadioButton("FALSE");
 		radioButton_False.setBounds(190, 86, 149, 23);
 		panel_PowerTool.add(radioButton_False);
-		
+		buttonGroup.add(radioButton_False);
 		
 		panel_nail.setBounds(0, 0, 347, 369);
 		layeredPane.add(panel_nail);
