@@ -46,6 +46,7 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JTextField;
 
 public class AddItemToDB {
 
@@ -56,6 +57,7 @@ public class AddItemToDB {
 	private JScrollPane scrollPane_AddCompatibles = new JScrollPane();
 	private ArrayList<PowerTool> powerToolList;
 	private ArrayList<JRadioButton> buttonList;
+	private JPanel panel_PowerTool = new JPanel();
 
 	/**
 	 * Launch the application.
@@ -111,23 +113,27 @@ public class AddItemToDB {
 					if(item.equals("Nail"))
 					{
 						panel_tool.setVisible(false);
-						panel_nail.setVisible(true);
+						panel_PowerTool.setVisible(false);
 						label_AddCompatibles.setVisible(false);
-						scrollPane_AddCompatibles.setVisible(false);
+						panel_AddCompatibles.setVisible(false);
+						panel_nail.setVisible(true);
 					}
 					else if(item.equals("Tool"))
 					{
 						panel_nail.setVisible(false);
-						panel_tool.setVisible(true);
 						label_AddCompatibles.setVisible(false);
-						scrollPane_AddCompatibles.setVisible(false);
+						panel_AddCompatibles.setVisible(false);
+						panel_PowerTool.setVisible(false);
+						panel_tool.setVisible(true);
 					}
 					else if(item.equals("StripNail"))
 					{
+						panel_AddCompatibles.removeAll();
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
+						panel_PowerTool.setVisible(false);
 						label_AddCompatibles.setVisible(true);
-						scrollPane_AddCompatibles.setVisible(true);
+						panel_AddCompatibles.setVisible(true);
 						
 						powerToolList = new ArrayList<PowerTool>();
 						buttonList = new ArrayList<JRadioButton>();
@@ -170,10 +176,12 @@ public class AddItemToDB {
 					}
 					else if(item.equals("PowerTool"))
 					{
+						panel_AddCompatibles.removeAll();
 						panel_nail.setVisible(false);
 						panel_tool.setVisible(false);
+						panel_PowerTool.setVisible(true);
 						label_AddCompatibles.setVisible(true);
-						scrollPane_AddCompatibles.setVisible(false);
+						panel_AddCompatibles.setVisible(true);
 					}
 				}
 				else
@@ -181,8 +189,9 @@ public class AddItemToDB {
 					panel_nail.setVisible(false);
 					panel_tool.setVisible(false);
 					btnSubmit.setEnabled(false);
+					panel_PowerTool.setVisible(false);
 					label_AddCompatibles.setVisible(false);
-					scrollPane_AddCompatibles.setVisible(false);
+					panel_AddCompatibles.setVisible(false);
 				}
 				
 			}
@@ -228,6 +237,33 @@ public class AddItemToDB {
 		frmAddInventoryItem.getContentPane().add(layeredPane);
 		layeredPane.setVisible(true);
 		panel_nail.setVisible(false);
+		
+		panel_PowerTool.setBounds(0, 0, 347, 369);
+		layeredPane.add(panel_PowerTool);
+		panel_PowerTool.setLayout(null);
+		panel_PowerTool.setVisible(false);
+		
+		JTextArea textArea_PT_Description = new JTextArea();
+		textArea_PT_Description.setBounds(0, 191, 347, 178);
+		panel_PowerTool.add(textArea_PT_Description);
+		
+		JLabel label_PT_Description = new JLabel("Description");
+		label_PT_Description.setFont(new Font("Dialog", Font.BOLD, 20));
+		label_PT_Description.setBounds(12, 144, 146, 61);
+		panel_PowerTool.add(label_PT_Description);
+		
+		JLabel lblBatteryPowered = new JLabel("Battery Powered?");
+		lblBatteryPowered.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblBatteryPowered.setBounds(12, 12, 323, 37);
+		panel_PowerTool.add(lblBatteryPowered);
+		
+		JRadioButton rdbtnTrue = new JRadioButton("TRUE");
+		rdbtnTrue.setBounds(12, 86, 149, 23);
+		panel_PowerTool.add(rdbtnTrue);
+		
+		JRadioButton radioButton_False = new JRadioButton("FALSE");
+		radioButton_False.setBounds(190, 86, 149, 23);
+		panel_PowerTool.add(radioButton_False);
 		
 		
 		panel_nail.setBounds(0, 0, 347, 369);
@@ -282,7 +318,7 @@ public class AddItemToDB {
 		frmAddInventoryItem.getContentPane().add(label_AddCompatibles);
 		
 		scrollPane_AddCompatibles.setBounds(727, 40, 340, 430);
-		scrollPane_AddCompatibles.setVisible(false);
+		scrollPane_AddCompatibles.setVisible(true);
 		frmAddInventoryItem.getContentPane().add(scrollPane_AddCompatibles);
 		
 		scrollPane_AddCompatibles.setViewportView(panel_AddCompatibles);
@@ -290,6 +326,7 @@ public class AddItemToDB {
 		gbl_panel_AddCompatibles.columnWidths = new int[]{0};
 		gbl_panel_AddCompatibles.rowHeights = new int[]{0};
 		panel_AddCompatibles.setLayout(gbl_panel_AddCompatibles);
+		panel_AddCompatibles.setVisible(false);
 		
 		textField_Description.addKeyListener(new KeyAdapter()
 				{
