@@ -199,6 +199,7 @@ public class AddItemToDB {
 				textArea_Description.setText(null);
 				textArea_PT_Description.setText(null);
 				
+				/* if the current selection is nothing ("") then disable the submit button */
 				btnSubmit.setEnabled((!item.equals("")) ? true:false);
 				
 				switch(item)
