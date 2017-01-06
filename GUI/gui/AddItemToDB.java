@@ -493,6 +493,7 @@ public class AddItemToDB {
 										String toolDescription = textArea_Description.getText();
 										Tool tool = new Tool(upc, manufacturerID, price, toolDescription, "Tool");
 										break;
+										
 									case "PowerTool":
 										String powerToolDescription = textArea_PT_Description.getText(); 
 										boolean batteryPowered = (radioButton_True.isSelected()) ? true:false;
@@ -505,6 +506,7 @@ public class AddItemToDB {
 											}
 										}
 										break;
+										
 									case "StripNail":
 										double stripNailLength = (double) spinner_SNLength.getValue();
 										int numberInStrip = (int) spinner_numberInStrip.getValue();
@@ -517,7 +519,6 @@ public class AddItemToDB {
 											}
 										}
 										break;
-										
 									}
 								
 								
