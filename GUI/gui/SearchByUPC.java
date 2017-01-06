@@ -1,24 +1,16 @@
 package gui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
-import java.awt.GridBagConstraints;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JTextArea;
-import javax.swing.SpringLayout;
-
 import domain.InventoryItem;
 import domain.PowerTool;
 import domain.StripNail;
 import exceptions.ItemNotFoundException;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -28,8 +20,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.swing.JScrollBar;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

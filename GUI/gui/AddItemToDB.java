@@ -3,14 +3,10 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
-import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
-
 import domain.*;
 import exceptions.ItemNotFoundException;
-
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.ButtonGroup;
@@ -29,28 +25,17 @@ import javax.swing.JLayeredPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
 import data_source.InventoryItemGateway;
 import data_source.LinkTableGateway;
-
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextField;
 
 public class AddItemToDB {
 
@@ -175,7 +160,7 @@ public class AddItemToDB {
 					try {
 						
 						ResultSet rs = InventoryItemGateway.getAllStripNails();
-						for(int index = 0; rs.next(); index++)
+						while(rs.next())
 						{
 							StripNail stripNail = new StripNail(rs.getInt("id"));
 							stripNailList.add(stripNail);
@@ -266,7 +251,7 @@ public class AddItemToDB {
 			}
 		});
 		frmAddInventoryItem.getContentPane().setLayout(null);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
+		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
 		comboBox.setSelectedIndex(0);
 		frmAddInventoryItem.getContentPane().add(comboBox);
 		frmAddInventoryItem.getContentPane().add(sharedItemPanel);

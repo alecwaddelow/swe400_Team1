@@ -7,18 +7,14 @@ import java.util.List;
 import javax.swing.JFrame;
 import domain.*;
 import exceptions.ItemNotFoundException;
-
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JList;
 import javax.swing.border.MatteBorder;
-
 import data_source.InventoryItemGateway;
-
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -27,8 +23,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.ListSelectionModel;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
