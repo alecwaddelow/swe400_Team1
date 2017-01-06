@@ -95,8 +95,8 @@ public class ItemToUpdatePrompt
 				gbc_RadioButton.gridx = 0;
 				gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
 				gbc_RadioButton.anchor = GridBagConstraints.WEST;
-				JRadioButton jrb;
-				
+				JRadioButton jrb = null;
+
 				try {
 					
 					switch(item)
@@ -106,11 +106,9 @@ public class ItemToUpdatePrompt
 						nailsList = new ArrayList<Nail>();
 						while(rs_Nail.next())
 						{
-							nailsList.add(new Nail(rs_Nail.getInt("id")));							
-						}
-						
-						for(Nail nail : nailsList)
-						{
+							Nail nail = new Nail(rs_Nail.getInt("id"));
+							nailsList.add(nail);
+							
 							jrb = new JRadioButton(nail.toString());
 							buttonGroup.add(jrb);
 							buttonList.add(jrb);
@@ -118,21 +116,18 @@ public class ItemToUpdatePrompt
 						}
 						break;
 						
-						
 					case "Tool":
 						ResultSet rs_Tool = InventoryItemGateway.getAllTools();
 						toolsList = new ArrayList<Tool>();
 						while(rs_Tool.next())
 						{
-							toolsList.add(new Tool(rs_Tool.getInt("id")));
-						}
-						
-						for(Tool tool : toolsList)
-						{
+							Tool tool = new Tool(rs_Tool.getInt("id"));
+							toolsList.add(tool);
+							
 							jrb = new JRadioButton(tool.toString());
 							buttonGroup.add(jrb);
 							buttonList.add(jrb);
-							panel_InventoryItem.add(jrb, gbc_RadioButton);
+							panel_InventoryItem.add(jrb,gbc_RadioButton);
 						}
 						break;
 						
@@ -141,11 +136,9 @@ public class ItemToUpdatePrompt
 						stripNailsList = new ArrayList<StripNail>();
 						while(rs_StripNail.next())
 						{
-							stripNailsList.add(new StripNail(rs_StripNail.getInt("id")));
-						}
-						
-						for(StripNail stripNail : stripNailsList)
-						{
+							StripNail stripNail = new StripNail(rs_StripNail.getInt("id"));
+							stripNailsList.add(stripNail);
+							
 							jrb = new JRadioButton(stripNail.toString());
 							buttonGroup.add(jrb);
 							buttonList.add(jrb);
@@ -158,17 +151,14 @@ public class ItemToUpdatePrompt
 						powerToolsList = new ArrayList<PowerTool>();
 						while(rs_powerTool.next())
 						{
-							powerToolsList.add(new PowerTool(rs_powerTool.getInt("id")));
-						}
-						
-						for(PowerTool powerTool : powerToolsList)
-						{
+							PowerTool powerTool = new PowerTool(rs_powerTool.getInt("id"));
+							powerToolsList.add(powerTool);
+							
 							jrb = new JRadioButton(powerTool.toString());
 							buttonGroup.add(jrb);
 							buttonList.add(jrb);
 							panel_InventoryItem.add(jrb, gbc_RadioButton);
 						}
-						break;
 					}
 					panel_InventoryItem.revalidate();
 					panel_InventoryItem.repaint();
