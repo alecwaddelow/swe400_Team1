@@ -89,6 +89,12 @@ public class Runner {
 		frmInvenotryItemManager.getContentPane().add(btnExit);
 		
 		JButton btnUpdateItem = new JButton("Update Item");
+		btnUpdateItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				ItemToUpdatePrompt.updateItemPrompt();
+			}
+		});
 		btnUpdateItem.setIcon(new ImageIcon("Pictures/update_item.png"));
 		btnUpdateItem.setBounds(12, 211, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(btnUpdateItem);
