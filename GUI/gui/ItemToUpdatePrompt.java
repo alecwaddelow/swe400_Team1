@@ -12,6 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ItemToUpdatePrompt 
 {
@@ -52,7 +57,7 @@ public class ItemToUpdatePrompt
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 426, 434);
+		frame.setBounds(100, 100, 426, 464);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -69,5 +74,28 @@ public class ItemToUpdatePrompt
 		
 		list_InventoryItem.setSelectedIndex(0);
 		panel_InventoryItem.add(list_InventoryItem);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnSubmit.setBounds(176, 400, 117, 25);
+		frame.getContentPane().add(btnSubmit);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+			}
+		});
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnCancel.setBounds(297, 400, 117, 25);
+		frame.getContentPane().add(btnCancel);
 	}
 }
