@@ -121,6 +121,12 @@ public class AddItemToDB {
 		sharedItemPanel.setVisible(true);
 		panel_tool.setVisible(false);
 		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(10, 10, 705, 24);
@@ -141,19 +147,13 @@ public class AddItemToDB {
 						while(rs.next())
 						{
 							powerToolList.add(new PowerTool(rs.getInt("id")));
-						}
+						}					
 						
-						
-						GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
-						gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
-						gbc_ptRadioButton.gridx = 0;
-						gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
-						gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
 						for(PowerTool pt : powerToolList)
 						{
 							JRadioButton jrb = new JRadioButton(pt.toString());
 							buttonList.add(jrb);
-							panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
+							panel_AddCompatibles.add(jrb, gbc_RadioButton);
 						}
 						
 						
@@ -182,16 +182,11 @@ public class AddItemToDB {
 							stripNailList.add(new StripNail(rs.getInt("id")));
 						}
 						
-						GridBagConstraints gbc_ptRadioButton = new GridBagConstraints();
-						gbc_ptRadioButton.insets = new Insets(0, 0, 20, 0);
-						gbc_ptRadioButton.gridx = 0;
-						gbc_ptRadioButton.gridy = GridBagConstraints.RELATIVE;
-						gbc_ptRadioButton.anchor = GridBagConstraints.WEST;
 						for(StripNail sn : stripNailList)
 						{
 							JRadioButton jrb = new JRadioButton(sn.toString());
 							buttonList.add(jrb);
-							panel_AddCompatibles.add(jrb, gbc_ptRadioButton);
+							panel_AddCompatibles.add(jrb, gbc_RadioButton);
 						}
 						
 						

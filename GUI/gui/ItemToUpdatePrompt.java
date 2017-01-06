@@ -1,33 +1,53 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import domain.*;
+import exceptions.ItemNotFoundException;
+
 import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.border.MatteBorder;
+
+import data_source.InventoryItemGateway;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.ListSelectionModel;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class ItemToUpdatePrompt 
 {
 
 	private JFrame frame;
-	private JComboBox comboBox_InventoryItem = new JComboBox();
-	private JScrollPane scrollPane = new JScrollPane();
-	JPanel panel_InventoryItem = new JPanel();
-	JList list_InventoryItem = new JList();
+	private JComboBox comboBox_InventoryItem;
+	private JScrollPane scrollPane;
+	private JPanel panel_InventoryItem = new JPanel();
+	private ButtonGroup buttonGroup;
 	
-	private static List<InventoryItem> inventoryItems = new ArrayList<InventoryItem>();
+	private static List<JRadioButton> buttonList;
+	
+	/* list of items */
+	private static List<Nail> nailsList;
+	private static List<Tool> toolsList;
+	private static List<PowerTool> powerToolsList;
+	private static List<StripNail> stripNailsList;
 
 	/**
 	 * Launch the application.
@@ -60,20 +80,129 @@ public class ItemToUpdatePrompt
 		frame.setBounds(100, 100, 426, 464);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		comboBox_InventoryItem = new JComboBox();
+		comboBox_InventoryItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String item = comboBox_InventoryItem.getSelectedItem().toString();
+				buttonList = new ArrayList<JRadioButton>();
+				buttonGroup = new ButtonGroup();
+				
+				panel_InventoryItem.removeAll();
+				
+				GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+				gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+				gbc_RadioButton.gridx = 0;
+				gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+				gbc_RadioButton.anchor = GridBagConstraints.WEST;
+				JRadioButton jrb;
+				
+				try {
+					
+					switch(item)
+					{
+					case "Nail":
+						ResultSet rs_Nail = InventoryItemGateway.getAllNails();
+						nailsList = new ArrayList<Nail>();
+						while(rs_Nail.next())
+						{
+							nailsList.add(new Nail(rs_Nail.getInt("id")));							
+						}
+						
+						for(Nail nail : nailsList)
+						{
+							jrb = new JRadioButton(nail.toString());
+							buttonGroup.add(jrb);
+							buttonList.add(jrb);
+							panel_InventoryItem.add(jrb, gbc_RadioButton);
+						}
+						break;
+						
+						
+					case "Tool":
+						ResultSet rs_Tool = InventoryItemGateway.getAllTools();
+						toolsList = new ArrayList<Tool>();
+						while(rs_Tool.next())
+						{
+							toolsList.add(new Tool(rs_Tool.getInt("id")));
+						}
+						
+						for(Tool tool : toolsList)
+						{
+							jrb = new JRadioButton(tool.toString());
+							buttonGroup.add(jrb);
+							buttonList.add(jrb);
+							panel_InventoryItem.add(jrb, gbc_RadioButton);
+						}
+						break;
+						
+					case "StripNail":
+						ResultSet rs_StripNail = InventoryItemGateway.getAllStripNails();
+						stripNailsList = new ArrayList<StripNail>();
+						while(rs_StripNail.next())
+						{
+							stripNailsList.add(new StripNail(rs_StripNail.getInt("id")));
+						}
+						
+						for(StripNail stripNail : stripNailsList)
+						{
+							jrb = new JRadioButton(stripNail.toString());
+							buttonGroup.add(jrb);
+							buttonList.add(jrb);
+							panel_InventoryItem.add(jrb, gbc_RadioButton);
+						}
+						break;
+						
+					case "PowerTool":
+						ResultSet rs_powerTool = InventoryItemGateway.getAllPowerTools();
+						powerToolsList = new ArrayList<PowerTool>();
+						while(rs_powerTool.next())
+						{
+							powerToolsList.add(new PowerTool(rs_powerTool.getInt("id")));
+						}
+						
+						for(PowerTool powerTool : powerToolsList)
+						{
+							jrb = new JRadioButton(powerTool.toString());
+							buttonGroup.add(jrb);
+							buttonList.add(jrb);
+							panel_InventoryItem.add(jrb, gbc_RadioButton);
+						}
+						break;
+					}
+					panel_InventoryItem.revalidate();
+					panel_InventoryItem.repaint();
+					
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ItemNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}			
+				
+			}
+		});
 		
 		comboBox_InventoryItem.setModel(new DefaultComboBoxModel(new String[] {"", "Nail", "Tool", "PowerTool", "StripNail"}));
 		comboBox_InventoryItem.setSelectedIndex(0);
 		comboBox_InventoryItem.setBounds(12, 12, 402, 33);
 		frame.getContentPane().add(comboBox_InventoryItem);
 		
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 56, 392, 336);
 		frame.getContentPane().add(scrollPane);
 		
 		panel_InventoryItem.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		scrollPane.setViewportView(panel_InventoryItem);
-		
-		list_InventoryItem.setSelectedIndex(0);
-		panel_InventoryItem.add(list_InventoryItem);
+		GridBagLayout gbl_panel_InventoryItem = new GridBagLayout();
+		gbl_panel_InventoryItem.columnWidths = new int[]{0};
+		gbl_panel_InventoryItem.rowHeights = new int[]{0};
+		panel_InventoryItem.setLayout(gbl_panel_InventoryItem);
+		panel_InventoryItem.setVisible(true);
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addMouseListener(new MouseAdapter() {
