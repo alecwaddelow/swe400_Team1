@@ -29,6 +29,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -142,20 +145,16 @@ public class AddItemToDB {
 					
 					try {
 						
-						
 						ResultSet rs = InventoryItemGateway.getAllPowerTools();
 						while(rs.next())
 						{
-							powerToolList.add(new PowerTool(rs.getInt("id")));
-						}					
-						
-						for(PowerTool pt : powerToolList)
-						{
-							JRadioButton jrb = new JRadioButton(pt.toString());
+							PowerTool powerTool = new PowerTool(rs.getInt("id"));
+							powerToolList.add(powerTool);
+							
+							JRadioButton jrb = new JRadioButton(powerTool.toString());
 							buttonList.add(jrb);
 							panel_AddCompatibles.add(jrb, gbc_RadioButton);
 						}
-						
 						
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -175,20 +174,16 @@ public class AddItemToDB {
 					
 					try {
 						
-						
 						ResultSet rs = InventoryItemGateway.getAllStripNails();
-						while(rs.next())
+						for(int index = 0; rs.next(); index++)
 						{
-							stripNailList.add(new StripNail(rs.getInt("id")));
-						}
-						
-						for(StripNail sn : stripNailList)
-						{
-							JRadioButton jrb = new JRadioButton(sn.toString());
+							StripNail stripNail = new StripNail(rs.getInt("id"));
+							stripNailList.add(stripNail);
+							
+							JRadioButton jrb = new JRadioButton(stripNail.toString());
 							buttonList.add(jrb);
 							panel_AddCompatibles.add(jrb, gbc_RadioButton);
 						}
-						
 						
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
