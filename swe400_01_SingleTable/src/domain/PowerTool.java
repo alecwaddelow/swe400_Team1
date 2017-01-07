@@ -221,14 +221,13 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	{
 		this.stripNailList = new ArrayList<StripNail>();
 		ResultSet rs = LinkTableGateway.queryDBForStripNails(this.id);
-		
 		while(rs.next())
 		{
 			int id = rs.getInt("stripNailID");
-			
-			if(!this.stripNailList.contains(new StripNail(id)))
+			StripNail stripNail = new StripNail(id);
+			if(!this.stripNailList.contains(stripNail))
 			{
-				this.addStripNailToList(new StripNail(id));					
+				this.addStripNailToList(stripNail);					
 			}
 		}
 		rs.close();

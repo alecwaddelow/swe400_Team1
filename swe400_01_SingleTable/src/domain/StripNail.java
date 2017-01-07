@@ -160,7 +160,11 @@ public class StripNail extends Fastener implements LoadInterface
 		while(rs.next())
 		{
 			int id = rs.getInt("powerToolID");
-			this.addPowerToolToList(new PowerTool(id));
+			PowerTool powerTool = new PowerTool(id);
+			if(this.powerToolList.contains(powerTool))
+			{
+				this.addPowerToolToList(powerTool);
+			}
 		}
 		rs.close(); 
 		InventoryItemGateway.closeStatements();
