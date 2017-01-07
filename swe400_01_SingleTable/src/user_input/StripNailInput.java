@@ -3,9 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLDataException;
-
 import data_source.*;
 import domain.*;
 import exceptions.ItemNotFoundException;
