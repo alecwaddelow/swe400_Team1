@@ -161,7 +161,7 @@ public class StripNail extends Fastener implements LoadInterface
 		{
 			int id = rs.getInt("powerToolID");
 			PowerTool powerTool = new PowerTool(id);
-			if(this.powerToolList.contains(powerTool))
+			if(!this.powerToolList.contains(powerTool))
 			{
 				this.addPowerToolToList(powerTool);
 			}
