@@ -37,7 +37,6 @@ public class Nail extends Fastener
 			ItemNotFoundException exception = new ItemNotFoundException("Could not find Nail with specified ID");
 			exception.getMessage();
 		}
-		InventoryItemGateway.closeStatements();
 	}
 
 	/**
