@@ -28,6 +28,8 @@ import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
@@ -199,55 +201,14 @@ public class AddItemToDB {
 				textArea_Description.setText(null);
 				textArea_PT_Description.setText(null);
 				
-				/* if the current selection is nothing ("") then disable the submit button */
-				btnSubmit.setEnabled((!item.equals("")) ? true:false);
-				
-				switch(item)
-				{
-				case "Nail":
-					panel_tool.setVisible(false);
-					panel_PowerTool.setVisible(false);
-					label_AddCompatibles.setVisible(false);
-					panel_AddCompatibles.setVisible(false);
-					panel_StripNail.setVisible(false);
-					panel_nail.setVisible(true);
-					break;
-				case "Tool":
-					panel_nail.setVisible(false);
-					label_AddCompatibles.setVisible(false);
-					panel_AddCompatibles.setVisible(false);
-					panel_PowerTool.setVisible(false);
-					panel_StripNail.setVisible(false);
-					panel_tool.setVisible(true);
-					break;
-				case "StripNail":
-					panel_AddCompatibles.removeAll();
-					panel_nail.setVisible(false);
-					panel_tool.setVisible(false);
-					panel_PowerTool.setVisible(false);
-					panel_StripNail.setVisible(true);
-					label_AddCompatibles.setVisible(true);
-					panel_AddCompatibles.setVisible(true);
-					break;
-				case "PowerTool":
-					panel_AddCompatibles.removeAll();
-					panel_nail.setVisible(false);
-					panel_tool.setVisible(false);
-					panel_StripNail.setVisible(false);
-					panel_PowerTool.setVisible(true);
-					label_AddCompatibles.setVisible(true);
-					panel_AddCompatibles.setVisible(true);
-					break;
-				default:
-					panel_nail.setVisible(false);
-					panel_tool.setVisible(false);
-					btnSubmit.setEnabled(false);
-					panel_PowerTool.setVisible(false);
-					panel_StripNail.setVisible(false);
-					label_AddCompatibles.setVisible(false);
-					panel_AddCompatibles.setVisible(false);
-					break;					
-				}
+				/* manage what to display based on type of item is selected */
+				btnSubmit.setEnabled((!item.equals("")));
+				panel_nail.setVisible((item.equals("Nail")));
+				panel_tool.setVisible((item.equals("Tool")));
+				panel_PowerTool.setVisible((item.equals("PowerTool")));
+				panel_StripNail.setVisible((item.equals("StripNail")));
+				label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
+				panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
 				
 			}
 		});
