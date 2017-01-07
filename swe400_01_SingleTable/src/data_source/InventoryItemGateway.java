@@ -27,17 +27,17 @@ public class InventoryItemGateway
 		resultSet = preparedStatement.executeQuery();
 		if(resultSet.next())
 		{
-			DataTransferObject DTO = new DataTransferObject();
-			DTO.setId(resultSet.getInt("id"));
-			DTO.setUpc(resultSet.getString("upc"));
-			DTO.setManufacturerID(resultSet.getInt("manufacturerID"));
-			DTO.setPrice(resultSet.getInt("price"));
-			DTO.setLength(resultSet.getDouble("length"));
-			DTO.setNumberInBox(resultSet.getInt("numberInBox"));
-			DTO.setClassName("Nail");
+			DataTransferObject dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			dto.setLength(resultSet.getDouble("length"));
+			dto.setNumberInBox(resultSet.getInt("numberInBox"));
+			dto.setClassName("Nail");
 			resultSet.close();
 			preparedStatement.close();
-			return DTO;
+			return dto;
 		}
 		else
 		{
