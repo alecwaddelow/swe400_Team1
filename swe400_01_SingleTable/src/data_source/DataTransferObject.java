@@ -6,13 +6,7 @@ package data_source;
  */
 public class DataTransferObject 
 {
-	
-	public DataTransferObject()
-	{
-		//empty, only getters and setters used 
-	}
-	
-	private String id;
+	private int id;
 	private String upc; 
 	private int manufacturerID;
 	private int price;
@@ -22,17 +16,22 @@ public class DataTransferObject
 	private int numberInStrip;
 	private int numberInBox;
 	private String className;
+
+	public DataTransferObject()
+	{
+		//empty, only getters and setters used 
+	}
 	
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	/**

@@ -1,6 +1,6 @@
 package domain;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import data_source.DataTransferObject;
 import data_source.InventoryItemGateway;
 import exceptions.ItemNotFoundException;
 
@@ -23,22 +23,20 @@ public class Nail extends Fastener
 	public Nail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs = InventoryItemGateway.queryNail(this.id);
-		if(rs.next())
+		DataTransferObject dto = InventoryItemGateway.queryNail(this.id);
+		if(dto != null)
 		{
-			setUpc(rs.getString("upc"));
-			setManufacturerID(rs.getInt("manufacturerID"));
-			setPrice(rs.getInt("price"));
-			setLength(rs.getDouble("length"));
-			setNumberInBox(rs.getInt("numberInBox"));
-			setClassName(rs.getString("className"));
+			this.manufacturerID = dto.getManufacturerID();
+			this.price = dto.getPrice();
+			this.length = dto.getLength();
+			this.numberInBox = dto.getNumberInBox();
+			this.className = "Nail";
 		}
 		else
 		{
 			ItemNotFoundException exception = new ItemNotFoundException("Could not find Nail with specified ID");
 			exception.getMessage();
 		}
-		rs.close();
 		InventoryItemGateway.closeStatements();
 	}
 
@@ -59,9 +57,8 @@ public class Nail extends Fastener
 		super(upc, manufacturerID, price, length, className);
 		this.numberInBox = numberInBox;
 		this.className = "Nail";
-		NailMapper nailMapper = new NailMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
-		nailMapper.insertNail();
-		setId(nailMapper.getId());
+		InventoryItemGateway.insertNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.className);
+		this.id = InventoryItemGateway.getID(this.upc, this.className);
 	}
 
 	/**

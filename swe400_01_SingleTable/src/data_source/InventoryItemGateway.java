@@ -10,7 +10,7 @@ public class InventoryItemGateway
 {
 	private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;
-
+	
 	/**
 	 * Query for Nail
 	 * 
@@ -19,13 +19,30 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet queryNail(int id) throws ClassNotFoundException, SQLException
+	public static DataTransferObject queryNail(int id) throws ClassNotFoundException, SQLException
 	{		
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		if(resultSet.next())
+		{
+			DataTransferObject DTO = new DataTransferObject();
+			DTO.setId(resultSet.getInt("id"));
+			DTO.setUpc(resultSet.getString("upc"));
+			DTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			DTO.setPrice(resultSet.getInt("price"));
+			DTO.setLength(resultSet.getDouble("length"));
+			DTO.setNumberInBox(resultSet.getInt("numberInBox"));
+			DTO.setClassName("Nail");
+			resultSet.close();
+			preparedStatement.close();
+			return DTO;
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/**
