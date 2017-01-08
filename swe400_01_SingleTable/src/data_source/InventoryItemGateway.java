@@ -25,9 +25,11 @@ public class InventoryItemGateway
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
+		DataTransferObject dto = null;
+		
 		if(resultSet.next())
 		{
-			DataTransferObject dto = new DataTransferObject();
+			dto = new DataTransferObject();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -35,14 +37,11 @@ public class InventoryItemGateway
 			dto.setLength(resultSet.getDouble("length"));
 			dto.setNumberInBox(resultSet.getInt("numberInBox"));
 			dto.setClassName("Nail");
-			resultSet.close();
-			preparedStatement.close();
-			return dto;
 		}
-		else
-		{
-			return null;
-		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return dto;
 	}
 	
 	/**
@@ -53,13 +52,27 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet queryTool(int id) throws ClassNotFoundException, SQLException
+	public static DataTransferObject queryTool(int id) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem where id=?");
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		DataTransferObject dto = null;
+		
+		if(resultSet.next())
+		{
+			dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			dto.setDescription(resultSet.getString("description"));
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return dto;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package domain;
+
 import java.sql.SQLException;
-import data_source.DataTransferObject;
-import data_source.InventoryItemGateway;
+import data_source.*;
 import exceptions.ItemNotFoundException;
 
 /**
