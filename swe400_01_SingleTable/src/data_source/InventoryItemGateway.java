@@ -180,7 +180,6 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5,  numberInBox);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -204,7 +203,6 @@ public class InventoryItemGateway
 		preparedStatement.setString(4, description);
 		preparedStatement.setString(5, className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -230,7 +228,6 @@ public class InventoryItemGateway
 		preparedStatement.setBoolean(5, batteryPowered);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -256,7 +253,6 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5,  numberInStrip);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -309,7 +305,8 @@ public class InventoryItemGateway
 			}
 		}
 		
-		
+		resultSet.close();
+		preparedStatement.close();
 		return dto;
 	}
 	
@@ -320,12 +317,24 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet createList() throws ClassNotFoundException, SQLException
+	public static List<DataTransferObject> createList() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT id,className FROM InventoryItem");
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet; 
+		List<DataTransferObject> dtoList = new ArrayList<DataTransferObject>();
+		
+		while(resultSet.next())
+		{
+			DataTransferObject dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setClassName(resultSet.getString("className"));
+			dtoList.add(dto);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return dtoList; 
 	}
 
 	/**
@@ -358,7 +367,7 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5, numberInBox);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -388,7 +397,7 @@ public class InventoryItemGateway
 		preparedStatement.setString(4, description);
 		preparedStatement.setInt(5, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -421,7 +430,7 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5, numberInStrip);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -454,7 +463,7 @@ public class InventoryItemGateway
 		preparedStatement.setBoolean(5, batteryPowered);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -478,7 +487,8 @@ public class InventoryItemGateway
 		if(resultSet.next())
 		{
 			id = resultSet.getInt("id");
-			closeStatements();
+			resultSet.close();
+			preparedStatement.close();
 		}
 		return id;
 	}
@@ -511,6 +521,8 @@ public class InventoryItemGateway
 			dtoList.add(dto);
 		}
 		
+		resultSet.close();
+		preparedStatement.close();
 		return dtoList;
 	}
 
@@ -542,6 +554,8 @@ public class InventoryItemGateway
 			dtoList.add(dto);
 		}
 		
+		resultSet.close();
+		preparedStatement.close();
 		return dtoList;
 	}
 	

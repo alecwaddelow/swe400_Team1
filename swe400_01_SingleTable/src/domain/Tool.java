@@ -26,6 +26,7 @@ public class Tool extends InventoryItem
 		DataTransferObject dto = InventoryItemGateway.queryTool(this.id);
 		if(dto != null)
 		{
+			this.upc = dto.getUpc();
 			this.manufacturerID = dto.getManufacturerID();
 			this.price = dto.getPrice();
 			this.description = dto.getDescription();

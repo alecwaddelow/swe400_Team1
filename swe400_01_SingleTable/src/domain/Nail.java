@@ -26,6 +26,7 @@ public class Nail extends Fastener
 		DataTransferObject dto = InventoryItemGateway.queryNail(this.id);
 		if(dto != null)
 		{
+			this.upc = dto.getUpc();
 			this.manufacturerID = dto.getManufacturerID();
 			this.price = dto.getPrice();
 			this.length = dto.getLength();

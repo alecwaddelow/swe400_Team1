@@ -61,6 +61,7 @@ public class TestDatabaseGateway
 		for(DataTransferObject dto : dtoList)
 		{
 			assertEquals(upcArray[i], dto.getUpc());
+			i++;
 		}
 	}
 	

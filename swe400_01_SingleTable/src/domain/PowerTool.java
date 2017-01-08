@@ -30,6 +30,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		DataTransferObject dto = InventoryItemGateway.queryPowerTool(this.id);
 		if(dto != null)
 		{
+			this.upc = dto.getUpc();
 			this.manufacturerID = dto.getManufacturerID();
 			this.price = dto.getPrice();
 			this.description = dto.getDescription();
