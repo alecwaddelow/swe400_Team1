@@ -3,6 +3,8 @@ import static org.junit.Assert.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.Test;
 import data_source.LinkTableGateway;
 import other.DBTest;
@@ -35,10 +37,9 @@ public class TestLinkTableGateway extends DBTest
 	public void testRemoveRelation() throws ClassNotFoundException, SQLException
 	{
 		LinkTableGateway.removeRelation(20, 14);
-		ResultSet rSet = LinkTableGateway.queryDBForPowerTools(20);
-		assertFalse(rSet.next());
-		rSet.close();
-		LinkTableGateway.closeStatements();
+		
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(20);
+		assertTrue(listLinkTableDTO.isEmpty());
 	}
 	
 	/**
@@ -50,12 +51,9 @@ public class TestLinkTableGateway extends DBTest
 	@Test
 	public void testQueryDBForStripNails() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rs = LinkTableGateway.queryDBForStripNails(16);
-		rs.next();
-		assertEquals(11, rs.getInt("stripNailID"));
-		rs.next();
-		assertEquals(12, rs.getInt("stripNailID"));
-		rs.close();
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(16);
+		assertEquals(11, listLinkTableDTO.get(0).getStripNailID());
+		assertEquals(12, listLinkTableDTO.get(1).getStripNailID());
 	}
 	
 	/**
@@ -67,12 +65,9 @@ public class TestLinkTableGateway extends DBTest
 	@Test
 	public void testQueryDBForPowerTools() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rs = LinkTableGateway.queryDBForPowerTools(11);
-		rs.next(); 
-		assertEquals(16, rs.getInt("powerToolID"));
-		rs.next();
-		assertEquals(17, rs.getInt("powerToolID"));
-		rs.close();
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(11);
+		assertEquals(16, listLinkTableDTO.get(0).getPowerToolID());
+		assertEquals(17, listLinkTableDTO.get(1).getPowerToolID());
 	}
 	
 	/**

@@ -3,6 +3,8 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import data_source.*;
 import exceptions.ItemNotFoundException;
 
@@ -153,18 +155,15 @@ public class StripNail extends Fastener implements LoadInterface
 	public void load() throws SQLException, ClassNotFoundException, ItemNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
-		ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId());
-		while(rs.next())
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(this.getId());
+		for(LinkTableDTO ltDTO : listLinkTableDTO)
 		{
-			int id = rs.getInt("powerToolID");
-			PowerTool powerTool = new PowerTool(id);
+			PowerTool powerTool = new PowerTool(ltDTO.getPowerToolID());
 			if(!this.powerToolList.contains(powerTool))
 			{
 				this.addPowerToolToList(powerTool);
 			}
 		}
-		rs.close(); 
-		InventoryItemGateway.closeStatements();
 	}
 
 	/**

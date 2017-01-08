@@ -24,23 +24,23 @@ public class InventoryItemGateway
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		InventoryItemDTO dto = null;
+		InventoryItemDTO iiDTO = null;
 		
 		if(resultSet.next())
 		{
-			dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
-			dto.setLength(resultSet.getDouble("length"));
-			dto.setNumberInBox(resultSet.getInt("numberInBox"));
-			dto.setClassName("Nail");
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInBox(resultSet.getInt("numberInBox"));
+			iiDTO.setClassName("Nail");
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dto;
+		return iiDTO;
 	}
 	
 	/**
@@ -57,22 +57,22 @@ public class InventoryItemGateway
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		InventoryItemDTO dto = null;
+		InventoryItemDTO iiDTO = null;
 		
 		if(resultSet.next())
 		{
-			dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
-			dto.setDescription(resultSet.getString("description"));
-			dto.setClassName("Tool");
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setClassName("Tool");
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dto;
+		return iiDTO;
 	}
 
 	/**
@@ -89,23 +89,23 @@ public class InventoryItemGateway
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		InventoryItemDTO dto = null;
+		InventoryItemDTO iiDTO = null;
 		
 		if(resultSet.next())
 		{
-			dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
-			dto.setDescription(resultSet.getString("description"));
-			dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
-			dto.setClassName("PowerTool");
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+			iiDTO.setClassName("PowerTool");
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dto;
+		return iiDTO;
 	}
 	
 	/**
@@ -122,23 +122,23 @@ public class InventoryItemGateway
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		InventoryItemDTO dto = null;
+		InventoryItemDTO iiDTO = null;
 		
 		if(resultSet.next())
 		{
-			dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
-			dto.setLength(resultSet.getDouble("length"));
-			dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
-			dto.setClassName("StripNail");
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInStrip(resultSet.getInt("numberInStrip"));
+			iiDTO.setClassName("StripNail");
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dto;
+		return iiDTO;
 	}
 	
 	/**
@@ -268,43 +268,43 @@ public class InventoryItemGateway
 		preparedStatement.setString(1, upc);
 		preparedStatement.setString(2, className);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		InventoryItemDTO dto = null;
+		InventoryItemDTO iiDTO = null;
 		
 		if(resultSet.next())
 		{
-			dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
 			
 			switch(className)
 			{
 			case "Nail":
-				dto.setLength(resultSet.getDouble("length"));
-				dto.setNumberInBox(resultSet.getInt("numberInBox"));
-				dto.setClassName("Nail");
+				iiDTO.setLength(resultSet.getDouble("length"));
+				iiDTO.setNumberInBox(resultSet.getInt("numberInBox"));
+				iiDTO.setClassName("Nail");
 				break;
 			case "Tool":
-				dto.setDescription(resultSet.getString("description"));
-				dto.setClassName("Tool");
+				iiDTO.setDescription(resultSet.getString("description"));
+				iiDTO.setClassName("Tool");
 				break;
 			case "PowerTool":
-				dto.setDescription(resultSet.getString("description"));
-				dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
-				dto.setClassName("PowerTool");
+				iiDTO.setDescription(resultSet.getString("description"));
+				iiDTO.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+				iiDTO.setClassName("PowerTool");
 				break;
 			case "StripNail":
-				dto.setLength(resultSet.getDouble("length"));
-				dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
-				dto.setClassName("StripNail");
+				iiDTO.setLength(resultSet.getDouble("length"));
+				iiDTO.setNumberInStrip(resultSet.getInt("numberInStrip"));
+				iiDTO.setClassName("StripNail");
 				break;				
 			}
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dto;
+		return iiDTO;
 	}
 	
 	/**
@@ -319,19 +319,19 @@ public class InventoryItemGateway
 		String sqlStatement = ("SELECT id,className FROM InventoryItem");
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		List<InventoryItemDTO> dtoList = new ArrayList<InventoryItemDTO>();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
 		
 		while(resultSet.next())
 		{
-			InventoryItemDTO dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setClassName(resultSet.getString("className"));
-			dtoList.add(dto);
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setClassName(resultSet.getString("className"));
+			listInventoryItemDTO.add(iiDTO);
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dtoList; 
+		return listInventoryItemDTO; 
 	}
 
 	/**
@@ -503,24 +503,24 @@ public class InventoryItemGateway
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "StripNail");
 		ResultSet resultSet = preparedStatement.executeQuery();
-		List<InventoryItemDTO> dtoList = new ArrayList<InventoryItemDTO>();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
 		
 		while(resultSet.next())
 		{
-			InventoryItemDTO dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
-			dto.setLength(resultSet.getDouble("length"));
-			dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
-			dto.setClassName("StripNail");
-			dtoList.add(dto);
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInStrip(resultSet.getInt("numberInStrip"));
+			iiDTO.setClassName("StripNail");
+			listInventoryItemDTO.add(iiDTO);
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dtoList;
+		return listInventoryItemDTO;
 	}
 
 	/**
@@ -536,23 +536,23 @@ public class InventoryItemGateway
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "PowerTool");
 		ResultSet resultSet = preparedStatement.executeQuery();
-		List<InventoryItemDTO> dtoList = new ArrayList<InventoryItemDTO>();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
 		
 		while(resultSet.next())
 		{
-			InventoryItemDTO dto = new InventoryItemDTO();
-			dto.setId(resultSet.getInt("id"));
-			dto.setUpc(resultSet.getString("upc"));
-			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
-			dto.setPrice(resultSet.getInt("price"));
-			dto.setDescription(resultSet.getString("description"));
-			dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
-			dto.setClassName("StripNail");
-			dtoList.add(dto);
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+			iiDTO.setClassName("StripNail");
+			listInventoryItemDTO.add(iiDTO);
 		}
 		
 		resultSet.close();
 		preparedStatement.close();
-		return dtoList;
+		return listInventoryItemDTO;
 	}
 }

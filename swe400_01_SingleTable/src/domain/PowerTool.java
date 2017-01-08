@@ -3,6 +3,8 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import data_source.*;
 import exceptions.ItemNotFoundException;
 
@@ -217,18 +219,15 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public void load() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		this.stripNailList = new ArrayList<StripNail>();
-		ResultSet rs = LinkTableGateway.queryDBForStripNails(this.id);
-		while(rs.next())
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(this.id);
+		for(LinkTableDTO ltDTO : listLinkTableDTO)
 		{
-			int id = rs.getInt("stripNailID");
-			StripNail stripNail = new StripNail(id);
+			StripNail stripNail = new StripNail(ltDTO.getStripNailID());
 			if(!this.stripNailList.contains(stripNail))
 			{
-				this.addStripNailToList(stripNail);					
+				this.addStripNailToList(stripNail);
 			}
 		}
-		rs.close();
-		InventoryItemGateway.closeStatements();
 	}
 
 	public void update(String upc, int manufacturerIDParse, int priceParse, String description, boolean batteryPowered) throws ClassNotFoundException, SQLException 

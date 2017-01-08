@@ -1,7 +1,11 @@
 package domain;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.Test;
+
+import data_source.LinkTableDTO;
 import data_source.LinkTableGateway;
 import domain.LinkTableMapper;
 import other.DBTest;
@@ -40,13 +44,15 @@ public class TestLinkTableMapper extends DBTest
 	public void testRemoveRelation() throws ClassNotFoundException, SQLException
 	{
 		LinkTableMapper.removeRelation(20, 14);
-		assertFalse(LinkTableGateway.queryDBForPowerTools(20).next());
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(20);
+		assertTrue(listLinkTableDTO.isEmpty());
 	}
 	
 	@Test
 	public void testAddRelation() throws ClassNotFoundException, SQLException
 	{
 		LinkTableMapper.addRelation(16, 14);
-		assertTrue(LinkTableGateway.queryDBForPowerTools(14).next());
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(14);
+		assertFalse(listLinkTableDTO.isEmpty());
 	}
 }
