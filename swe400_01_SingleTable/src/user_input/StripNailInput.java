@@ -187,7 +187,7 @@ public class StripNailInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet resultSet = InventoryItemGateway.getPowerToolUPCs();
+			ResultSet resultSet = InventoryItemGateway.getAllPowerTools();
 			while(resultSet.next())
 			{
 				System.out.println(resultSet.getString("upc"));

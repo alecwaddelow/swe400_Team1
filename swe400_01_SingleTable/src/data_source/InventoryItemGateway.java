@@ -450,7 +450,7 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getStripNailUPCs() throws ClassNotFoundException, SQLException 
+	public static ResultSet getAllStripNails() throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
@@ -466,7 +466,7 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getPowerToolUPCs() throws ClassNotFoundException, SQLException
+	public static ResultSet getAllPowerTools() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
