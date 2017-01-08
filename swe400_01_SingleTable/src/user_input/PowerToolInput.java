@@ -2,8 +2,10 @@ package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import data_source.InventoryItemGateway;
+
+import data_source.*;
 import domain.*;
 import exceptions.ItemNotFoundException;
 
@@ -143,13 +145,11 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet rSet =InventoryItemGateway.getAllStripNails();
-			while(rSet.next())
+			List<DataTransferObject> dtoList = InventoryItemGateway.getAllStripNails();
+			for(DataTransferObject dto : dtoList)
 			{
-				System.out.println(rSet.getString("upc"));
+				System.out.println(dto.getUpc());
 			}
-			rSet.close();
-			InventoryItemGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();

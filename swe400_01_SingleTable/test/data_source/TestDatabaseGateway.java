@@ -2,6 +2,8 @@ package data_source;
 import static org.junit.Assert.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.Test;
 import data_source.InventoryItemGateway;
 
@@ -32,7 +34,7 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingPowerToolUPCs() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = InventoryItemGateway.getPowerToolUPCs();
+		ResultSet rSet = InventoryItemGateway.getAllPowerTools();
 		String[] upcArray = {"1231231234", "4445553333", "7657896543", "9993458585", "7654564848", "7784452828"};
 	
 		int i = 0;
@@ -52,15 +54,14 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingStripNailUPCs() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = InventoryItemGateway.getStripNailUPCs();
+		List<DataTransferObject> dtoList = InventoryItemGateway.getAllStripNails();
 		String[] upcArray = {"5453432345", "4343434543", "9876784727", "6565459876", "4343432345"};
 	
 		int i = 0;
-		while(rSet.next())
-		{	 
-			assertEquals(upcArray[i], rSet.getString("upc"));
-			i++;
-		}		
+		for(DataTransferObject dto : dtoList)
+		{
+			assertEquals(upcArray[i], dto.getUpc());
+		}
 	}
 	
 	/**

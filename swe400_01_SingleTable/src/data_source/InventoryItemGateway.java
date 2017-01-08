@@ -1,5 +1,7 @@
 package data_source;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Drew Rife and Alec Waddelow
@@ -68,6 +70,7 @@ public class InventoryItemGateway
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
 			dto.setPrice(resultSet.getInt("price"));
 			dto.setDescription(resultSet.getString("description"));
+			dto.setClassName("Tool");
 		}
 		
 		resultSet.close();
@@ -100,6 +103,7 @@ public class InventoryItemGateway
 			dto.setPrice(resultSet.getInt("price"));
 			dto.setDescription(resultSet.getString("description"));
 			dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+			dto.setClassName("PowerTool");
 		}
 		
 		resultSet.close();
@@ -132,6 +136,7 @@ public class InventoryItemGateway
 			dto.setPrice(resultSet.getInt("price"));
 			dto.setLength(resultSet.getDouble("length"));
 			dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
+			dto.setClassName("StripNail");
 		}
 		
 		resultSet.close();
@@ -450,13 +455,28 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getAllStripNails() throws ClassNotFoundException, SQLException 
+	public static List<DataTransferObject> getAllStripNails() throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "StripNail");
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		List<DataTransferObject> dtoList = new ArrayList<DataTransferObject>();
+		
+		while(resultSet.next())
+		{
+			DataTransferObject dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			dto.setLength(resultSet.getDouble("length"));
+			dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
+			dto.setClassName("StripNail");
+			dtoList.add(dto);
+		}
+		
+		return dtoList;
 	}
 
 	/**

@@ -2,7 +2,10 @@ package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import data_source.DataTransferObject;
 import data_source.InventoryItemGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
@@ -309,17 +312,15 @@ public class UserInput
 			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				ResultSet rSet = InventoryItemGateway.getAllStripNails();
+				List<DataTransferObject> dtoList = InventoryItemGateway.getAllStripNails();
 				
-				while(rSet.next())
+				for(DataTransferObject dto : dtoList)
 				{
-					stripNail = new StripNail(rSet.getInt("id"));
+					stripNail = new StripNail(dto.getId());
 					itemList.add(stripNail);
 					i++;
 					System.out.println(i + ". " + stripNail.toString());
-				}
-				rSet.close();
-				InventoryItemGateway.closeStatements();				
+				}			
 			}
 			else if(item instanceof StripNail)
 			{
