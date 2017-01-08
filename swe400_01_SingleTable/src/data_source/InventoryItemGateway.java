@@ -555,4 +555,69 @@ public class InventoryItemGateway
 		preparedStatement.close();
 		return listInventoryItemDTO;
 	}
+
+	/**
+	 * retrieves all nails 
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static List<InventoryItemDTO> getAllNails() throws ClassNotFoundException, SQLException
+	{
+		String sqlStatement = "select * from InventoryItem where className=?";
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, "Nail");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
+		
+		while(resultSet.next())
+		{
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInBox(resultSet.getInt("numberInBox"));
+			iiDTO.setClassName("Nail");
+			listInventoryItemDTO.add(iiDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listInventoryItemDTO;
+	}
+	
+	/**
+	 * Returns all tools
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static List<InventoryItemDTO> getAllTools() throws ClassNotFoundException, SQLException
+	{
+		String sqlStatement = "select * from InventoryItem where className=?";
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setString(1, "Tool");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
+		
+		while(resultSet.next())
+		{
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setClassName("Tool");
+			listInventoryItemDTO.add(iiDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listInventoryItemDTO;
+	}
 }

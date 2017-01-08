@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.MatteBorder;
+
+import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -96,11 +98,11 @@ public class ItemToUpdatePrompt
 					switch(item)
 					{
 					case "Nail":
-						ResultSet rs_Nail = InventoryItemGateway.getAllNails();
+						List<InventoryItemDTO> listInventoryItemDTO_Nail = InventoryItemGateway.getAllNails();
 						nailsList = new ArrayList<Nail>();
-						while(rs_Nail.next())
+						for(InventoryItemDTO iiDTO : listInventoryItemDTO_Nail)
 						{
-							Nail nail = new Nail(rs_Nail.getInt("id"));
+							Nail nail = new Nail(iiDTO.getId());
 							nailsList.add(nail);
 							
 							jrb = new JRadioButton(nail.toString());
@@ -111,26 +113,26 @@ public class ItemToUpdatePrompt
 						break;
 						
 					case "Tool":
-						ResultSet rs_Tool = InventoryItemGateway.getAllTools();
+						List<InventoryItemDTO> listInventoryItemDTO_Tool = InventoryItemGateway.getAllTools();
 						toolsList = new ArrayList<Tool>();
-						while(rs_Tool.next())
+						for(InventoryItemDTO iiDTO : listInventoryItemDTO_Tool)
 						{
-							Tool tool = new Tool(rs_Tool.getInt("id"));
+							Tool tool = new Tool(iiDTO.getId());
 							toolsList.add(tool);
 							
 							jrb = new JRadioButton(tool.toString());
 							buttonGroup.add(jrb);
 							buttonList.add(jrb);
-							panel_InventoryItem.add(jrb,gbc_RadioButton);
+							panel_InventoryItem.add(jrb, gbc_RadioButton);
 						}
 						break;
 						
 					case "StripNail":
-						ResultSet rs_StripNail = InventoryItemGateway.getAllStripNails();
+						List<InventoryItemDTO> listInventoryItemDTO_SN = InventoryItemGateway.getAllStripNails();
 						stripNailsList = new ArrayList<StripNail>();
-						while(rs_StripNail.next())
+						for(InventoryItemDTO iiDTO : listInventoryItemDTO_SN)
 						{
-							StripNail stripNail = new StripNail(rs_StripNail.getInt("id"));
+							StripNail stripNail = new StripNail(iiDTO.getId());
 							stripNailsList.add(stripNail);
 							
 							jrb = new JRadioButton(stripNail.toString());
@@ -141,11 +143,11 @@ public class ItemToUpdatePrompt
 						break;
 						
 					case "PowerTool":
-						ResultSet rs_powerTool = InventoryItemGateway.getAllPowerTools();
+						List<InventoryItemDTO> listInventoryItemDTO_PT = InventoryItemGateway.getAllPowerTools();
 						powerToolsList = new ArrayList<PowerTool>();
-						while(rs_powerTool.next())
+						for(InventoryItemDTO iiDTO : listInventoryItemDTO_PT)
 						{
-							PowerTool powerTool = new PowerTool(rs_powerTool.getInt("id"));
+							PowerTool powerTool = new PowerTool(iiDTO.getId());
 							powerToolsList.add(powerTool);
 							
 							jrb = new JRadioButton(powerTool.toString());
@@ -153,6 +155,8 @@ public class ItemToUpdatePrompt
 							buttonList.add(jrb);
 							panel_InventoryItem.add(jrb, gbc_RadioButton);
 						}
+						break;
+						
 					}
 					panel_InventoryItem.revalidate();
 					panel_InventoryItem.repaint();

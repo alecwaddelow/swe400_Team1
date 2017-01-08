@@ -33,6 +33,8 @@ import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
+
+import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
 import data_source.LinkTableGateway;
 import java.awt.GridBagLayout;
@@ -132,17 +134,16 @@ public class AddItemToDB {
 					
 					try {
 						
-						ResultSet rs = InventoryItemGateway.getAllPowerTools();
-						while(rs.next())
+						List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllPowerTools();
+						for(InventoryItemDTO iiDTO : listInventoryItemDTO)
 						{
-							PowerTool powerTool = new PowerTool(rs.getInt("id"));
+							PowerTool powerTool = new PowerTool(iiDTO.getId());
 							powerToolList.add(powerTool);
 							
 							JRadioButton jrb = new JRadioButton(powerTool.toString());
 							buttonList.add(jrb);
 							panel_AddCompatibles.add(jrb, gbc_RadioButton);
 						}
-						
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -161,17 +162,16 @@ public class AddItemToDB {
 					
 					try {
 						
-						ResultSet rs = InventoryItemGateway.getAllStripNails();
-						while(rs.next())
+						List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllStripNails();
+						for(InventoryItemDTO iiDTO : listInventoryItemDTO)
 						{
-							StripNail stripNail = new StripNail(rs.getInt("id"));
+							StripNail stripNail = new StripNail(iiDTO.getId());
 							stripNailList.add(stripNail);
 							
 							JRadioButton jrb = new JRadioButton(stripNail.toString());
 							buttonList.add(jrb);
 							panel_AddCompatibles.add(jrb, gbc_RadioButton);
 						}
-						
 					} catch (ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
