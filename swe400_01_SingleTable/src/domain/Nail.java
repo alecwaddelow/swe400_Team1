@@ -87,4 +87,26 @@ public class Nail extends Fastener
 		return "Nail [upc=" + this.upc + ", manufacturerID=" + this.manufacturerID + ", price=" + this.price 
 				+ ", length=" + this.length + ", numberInBox=" + this.numberInBox + "]";
 	}
+
+	/**
+	 * updates the nail to the DB
+	 * 
+	 * @param upc
+	 * @param manufacturerIDParse
+	 * @param priceParse
+	 * @param lengthParse
+	 * @param numberInBoxParse
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void update(String upc, int manufacturerIDParse, int priceParse, double lengthParse, int numberInBoxParse) throws ClassNotFoundException, SQLException 
+	{
+		this.upc = upc;
+		this.manufacturerID = manufacturerIDParse;
+		this.price = priceParse;
+		this.length = lengthParse;
+		this.numberInBox = numberInBoxParse;
+		
+		InventoryItemGateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);		
+	}
 }

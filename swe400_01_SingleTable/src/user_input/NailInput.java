@@ -3,7 +3,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import domain.Nail;
-import domain.NailMapper;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -82,17 +81,9 @@ public class NailInput
 		System.out.println("Please enter Number in Box \n");
 		String numberInBox = sc.nextLine();
 		int numberInBoxParse = Integer.parseInt(numberInBox);
-			
-		nail.setUpc(upc);
-		nail.setManufacturerID(manufacturerIDParse);
-		nail.setPrice(priceParse);
-		nail.setLength(lengthParse);
-		nail.setNumberInBox(numberInBoxParse);
 		
-		/* updates the nail to the mapper and to the database */
-		NailMapper nailMapper = new NailMapper();
-		nailMapper.updateNail(nail);
-		
+		nail.update(upc, manufacturerIDParse, priceParse, lengthParse, numberInBoxParse);
+					
 		System.out.println("\nItem updated:");
 		System.out.println(nail.toString());
 	}	

@@ -86,15 +86,7 @@ public class StripNailInput
 		String numberInStrip = sc.nextLine();
 		int numberInStripParse = Integer.parseInt(numberInStrip);
 		
-		stripNail.setUpc(upc);
-		stripNail.setManufacturerID(manufacturerIDParse);
-		stripNail.setPrice(priceParse);
-		stripNail.setLength(lengthParse);
-		stripNail.setNumberInStrip(numberInStripParse);	
-		
-		/* updates the nail to the mapper and to the database */
-		StripNailMapper stripNailsMapper = new StripNailMapper();
-		stripNailsMapper.updateStripNail(stripNail);
+		stripNail.update(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse);
 		
 		boolean valid = false;
 		while(!valid)

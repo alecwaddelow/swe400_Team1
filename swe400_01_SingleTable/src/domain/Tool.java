@@ -90,4 +90,14 @@ public class Tool extends InventoryItem
 				+ ", description=" + this.description + "]";
 	}
 
+	public void update(String upc, int manufacturerIDParse, int priceParse, String description) throws ClassNotFoundException, SQLException 
+	{
+		this.upc = upc;
+		this.manufacturerID = manufacturerIDParse;
+		this.price = priceParse;
+		this.description = description;
+		
+		InventoryItemGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
+	}
+
 }

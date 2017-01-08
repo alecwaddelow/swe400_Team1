@@ -3,7 +3,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import domain.Tool;
-import domain.ToolMapper;
 import exceptions.ItemNotFoundException;
 
 public class ToolInput 
@@ -64,14 +63,7 @@ public class ToolInput
 		System.out.println("Please enter the description");
 		String description = sc.nextLine();
 		
-		tool.setUpc(upc);
-		tool.setManufacturerID(manufacturerIDParse);
-		tool.setPrice(priceParse);
-		tool.setDescription(description);
-		
-		/* updates the tool to the mapper and to the database */
-		ToolMapper toolMapper = new ToolMapper();
-		toolMapper.updateTool(tool);
+		tool.update(upc, manufacturerIDParse, priceParse, description);
 		
 		System.out.println("\nItem updated:");
 		System.out.println(tool.toString());

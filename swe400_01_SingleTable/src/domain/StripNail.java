@@ -207,4 +207,26 @@ public class StripNail extends Fastener implements LoadInterface
 			return false;
 		}		
 	}
+
+	/**
+	 * updates all the fields of the item locally and to the DB
+	 * 
+	 * @param upc
+	 * @param manufacturerIDParse
+	 * @param priceParse
+	 * @param lengthParse
+	 * @param numberInStripParse
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void update(String upc, int manufacturerIDParse, int priceParse, double lengthParse, int numberInStripParse) throws ClassNotFoundException, SQLException 
+	{
+		this.upc = upc;
+		this.manufacturerID = manufacturerIDParse;
+		this.price = priceParse;
+		this.length = lengthParse;
+		this.numberInStrip = numberInStripParse;
+		
+		InventoryItemGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
+	}
 }

@@ -82,25 +82,10 @@ public class PowerToolInput
 		String description = sc.nextLine();
 		
 		System.out.println("If it's battery powered please type true, if not type false");
-		String batteryPowered = sc.nextLine();
+		String isBatteryPowered = sc.nextLine();
+		boolean batteryPowered = isBatteryPowered.equalsIgnoreCase("true");
 		
-		powerTool.setUpc(upc);
-		powerTool.setManufacturerID(manufacturerIDParse);
-		powerTool.setPrice(priceParse);
-		powerTool.setDescription(description);
-
-		if(batteryPowered.equalsIgnoreCase("true"))
-		{
-			powerTool.setBatteryPowered(true);
-		}
-		else
-		{
-			powerTool.setBatteryPowered(false);
-		}
-		
-		/* updates the powerTool to the mapper and to the database */
-		PowerToolMapper powerToolMapper = new PowerToolMapper();
-		powerToolMapper.updatePowerTool(powerTool);
+		powerTool.update(upc, manufacturerIDParse, priceParse, description, batteryPowered);
 		
 		boolean valid = false;
 		while(!valid)

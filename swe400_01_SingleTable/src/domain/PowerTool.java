@@ -230,4 +230,15 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		rs.close();
 		InventoryItemGateway.closeStatements();
 	}
+
+	public void update(String upc, int manufacturerIDParse, int priceParse, String description, boolean batteryPowered) throws ClassNotFoundException, SQLException 
+	{
+		this.upc = upc;
+		this.manufacturerID = manufacturerIDParse;
+		this.price = priceParse;
+		this.description = description;
+		this.batteryPowered = batteryPowered;
+		
+		InventoryItemGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
+	}
 }
