@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
 import org.junit.Test;
+
+import data_source.LinkTableDTO;
 import data_source.LinkTableGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
@@ -332,15 +334,17 @@ public class TestSimulatedInput extends DBTest
 
 			/* strip nail in the text file for simulation that has been added to the relation */
 			StripNail stripNailAdded = new StripNail(11);
-			ResultSet rSet = LinkTableGateway.queryDBForPowerTools(stripNailAdded.getId());
+			
+			List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(stripNailAdded.getId());
 			boolean hasAddedRelation = false;
-			while(rSet.next())
+			for(LinkTableDTO ltDTO : listLinkTableDTO)
 			{
-				if(rSet.getInt("stripNailID") == 11)
+				if(ltDTO.getPowerToolID() == 21)
 				{
 					hasAddedRelation = true;
 				}
 			}
+			
 			/* the relation has been added to the table */
 			assertTrue(hasAddedRelation);
 		}
@@ -451,46 +455,24 @@ public class TestSimulatedInput extends DBTest
 			/* powertool in the text file for simulation that has been added to the relation */
 			PowerTool powerToolAdded1 = new PowerTool(16);
 			PowerTool powerToolAdded2 = new PowerTool(17);
-			ResultSet rSet1 = LinkTableGateway.queryDBForStripNails(powerToolAdded1.getId());
-			ResultSet rSet2 = LinkTableGateway.queryDBForStripNails(powerToolAdded2.getId());
+			List<LinkTableDTO> listLinkTableDTO1 = LinkTableGateway.queryDBForStripNails(powerToolAdded1.getId());
+			List<LinkTableDTO> listLinkTableDTO2 = LinkTableGateway.queryDBForStripNails(powerToolAdded2.getId());
 			
-			boolean hasPowerTool = false;
-			
-			while(rSet1.next())
-			{
-				if(rSet1.getInt("powerToolID") == 16)
-				{
-					hasPowerTool = true;
-				}
-			}
-			assertTrue(hasPowerTool);
-			
-			hasPowerTool = false;
-			while(rSet2.next())
-			{
-				if(rSet2.getInt("powerToolID") == 17)
-				{
-					hasPowerTool = true;
-				}
-			}
-			
-			assertTrue(hasPowerTool);
+			assertFalse(listLinkTableDTO1.isEmpty());
+			assertFalse(listLinkTableDTO2.isEmpty());
 		}
-		
-			simulation.close();
-			
 	}
 	
 	/**
 	 * Tests simulating removing a compatible stripnail from a powertool.
 	 * 
-	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ItemNotFoundException 
+	 * @throws IOException 
 	 */
 	@Test
-	public void testRemoveCompatibilityForPowerTool() throws FileNotFoundException, ClassNotFoundException, SQLException, ItemNotFoundException 
+	public void testRemoveCompatibilityForPowerTool() throws ClassNotFoundException, SQLException, ItemNotFoundException, IOException 
 	{
 		File file = new File("SimulatedInput/PowerTool/SimulateRemovingCompatibleStripNail.txt");
 		InputStream simulation = new FileInputStream(file);
@@ -503,34 +485,22 @@ public class TestSimulatedInput extends DBTest
 			PowerTool powerTool = new PowerTool(20);
 			PowerToolInput.removeCompatibilities(sc, powerTool); 
 			
-			try(ResultSet resultSet = LinkTableGateway.queryDBForPowerTools(powerTool.getId()))
-			{
-				assertFalse(resultSet.next());
-				
-				resultSet.close();
-				LinkTableGateway.closeStatements();
-				
-				try {
-					simulation.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.setIn(System.in);
-			}
+			List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(powerTool.getId());
+			assertTrue(listLinkTableDTO.isEmpty());
+			simulation.close();
 		}
 	}
 	
 	/**
 	 * Tests simulating removing a compatible powertool from stripnail
 	 * 
-	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws ItemNotFoundException 
+	 * @throws IOException 
 	 */
 	@Test
-	public void testRemoveCompatibilityForStripNail() throws FileNotFoundException, ClassNotFoundException, SQLException, ItemNotFoundException
+	public void testRemoveCompatibilityForStripNail() throws ClassNotFoundException, SQLException, ItemNotFoundException, IOException
 	{
 		File file = new File("SimulatedInput/StripNail/SimulateRemovingCompatiblePowerTool.txt"); 
 		InputStream simulation = new FileInputStream(file);
@@ -543,18 +513,9 @@ public class TestSimulatedInput extends DBTest
 			StripNail stripNail = new StripNail(15);
 			StripNailInput.removeCompatibilities(sc, stripNail);
 			
-			ResultSet resultSet = LinkTableGateway.queryDBForStripNails(stripNail.getId());
-			assertFalse(resultSet.next());
-			resultSet.close();
-			LinkTableGateway.closeStatements();
-
-			try {
-				simulation.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.setIn(System.in);
+			List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(stripNail.getId());
+			assertTrue(listLinkTableDTO.isEmpty());
+			simulation.close();
 		}
 	}
 	

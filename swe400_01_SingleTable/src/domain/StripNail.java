@@ -1,9 +1,11 @@
 package domain;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import data_source.InventoryItemGateway;
-import data_source.LinkTableGateway;
+import java.util.List;
+
+import data_source.*;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -26,23 +28,21 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs  = InventoryItemGateway.queryStripNail(this.id);
-		if(rs.next())
+		InventoryItemDTO dto = InventoryItemGateway.queryStripNail(this.id);
+		if(dto != null)
 		{
-			setUpc(rs.getString("upc"));
-			setManufacturerID(rs.getInt("manufacturerID"));
-			setPrice(rs.getInt("price"));
-			setLength(rs.getDouble("length"));
-			setNumberInStrip(rs.getInt("numberInStrip"));
-			setClassName(rs.getString("className"));
+			this.upc = dto.getUpc();
+			this.manufacturerID = dto.getManufacturerID();
+			this.price = dto.getPrice();
+			this.length = dto.getLength();
+			this.numberInStrip = dto.getNumberInStrip();
+			this.className = "StripNail";
 		}
 		else
 		{
 			ItemNotFoundException exception = new ItemNotFoundException("Could not find StripNail with specified ID");
 			exception.getMessage();
 		}
-		rs.close();
-		InventoryItemGateway.closeStatements();
 	}
 
 	/**
@@ -62,9 +62,8 @@ public class StripNail extends Fastener implements LoadInterface
 		super(upc, manufacturerID, price, length, className);
 		this.numberInStrip = numberInStrip;
 		this.className = className;
-		StripNailMapper mapper = new StripNailMapper(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
-		mapper.insertStripNail();
-		setId(mapper.getId());
+		InventoryItemGateway.insertStripNail(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.className);
+		this.id = InventoryItemGateway.getID(this.upc, this.className);
 	}
 
 	/**
@@ -156,14 +155,15 @@ public class StripNail extends Fastener implements LoadInterface
 	public void load() throws SQLException, ClassNotFoundException, ItemNotFoundException 
 	{
 		this.powerToolList = new ArrayList<PowerTool>();
-		ResultSet rs = LinkTableGateway.queryDBForPowerTools(this.getId());
-		while(rs.next())
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(this.getId());
+		for(LinkTableDTO ltDTO : listLinkTableDTO)
 		{
-			int id = rs.getInt("powerToolID");
-			this.addPowerToolToList(new PowerTool(id));
+			PowerTool powerTool = new PowerTool(ltDTO.getPowerToolID());
+			if(!this.powerToolList.contains(powerTool))
+			{
+				this.addPowerToolToList(powerTool);
+			}
 		}
-		rs.close(); 
-		InventoryItemGateway.closeStatements();
 	}
 
 	/**
@@ -205,5 +205,27 @@ public class StripNail extends Fastener implements LoadInterface
 		{
 			return false;
 		}		
+	}
+
+	/**
+	 * updates all the fields of the item locally and to the DB
+	 * 
+	 * @param upc
+	 * @param manufacturerIDParse
+	 * @param priceParse
+	 * @param lengthParse
+	 * @param numberInStripParse
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void update(String upc, int manufacturerIDParse, int priceParse, double lengthParse, int numberInStripParse) throws ClassNotFoundException, SQLException 
+	{
+		this.upc = upc;
+		this.manufacturerID = manufacturerIDParse;
+		this.price = priceParse;
+		this.length = lengthParse;
+		this.numberInStrip = numberInStripParse;
+		
+		InventoryItemGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
 	}
 }

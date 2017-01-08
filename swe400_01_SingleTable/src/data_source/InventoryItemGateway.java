@@ -1,5 +1,7 @@
 package data_source;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Drew Rife and Alec Waddelow
@@ -8,9 +10,6 @@ import java.sql.*;
  */
 public class InventoryItemGateway
 {
-	private static PreparedStatement preparedStatement = null;
-	private static ResultSet resultSet = null;
-
 	/**
 	 * Query for Nail
 	 * 
@@ -19,13 +18,29 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet queryNail(int id) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO queryNail(int id) throws ClassNotFoundException, SQLException
 	{		
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		InventoryItemDTO iiDTO = null;
+		
+		if(resultSet.next())
+		{
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInBox(resultSet.getInt("numberInBox"));
+			iiDTO.setClassName("Nail");
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return iiDTO;
 	}
 	
 	/**
@@ -36,13 +51,28 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet queryTool(int id) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO queryTool(int id) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem where id=?");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		InventoryItemDTO iiDTO = null;
+		
+		if(resultSet.next())
+		{
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setClassName("Tool");
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return iiDTO;
 	}
 
 	/**
@@ -53,13 +83,29 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet queryPowerTool(int id) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO queryPowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		InventoryItemDTO iiDTO = null;
+		
+		if(resultSet.next())
+		{
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+			iiDTO.setClassName("PowerTool");
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return iiDTO;
 	}
 	
 	/**
@@ -70,13 +116,29 @@ public class InventoryItemGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static ResultSet queryStripNail(int id) throws SQLException, ClassNotFoundException
+	public static InventoryItemDTO queryStripNail(int id) throws SQLException, ClassNotFoundException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		InventoryItemDTO iiDTO = null;
+		
+		if(resultSet.next())
+		{
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInStrip(resultSet.getInt("numberInStrip"));
+			iiDTO.setClassName("StripNail");
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return iiDTO;
 	}
 	
 	/**
@@ -107,7 +169,7 @@ public class InventoryItemGateway
 	public static void insertNail(String upc, int manufacturerID, int price, double length, int numberInBox, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, length, numberInBox, className) VALUES(?,?,?,?,?,?)";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
@@ -115,7 +177,6 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5,  numberInBox);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -132,14 +193,13 @@ public class InventoryItemGateway
 	public static void insertTool(String upc, int manufacturerID, int price, String description, String className) throws SQLException, ClassNotFoundException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, description, className) VALUES(?,?,?,?,?)";
-		preparedStatement  = ConnectionManager.getConnection().prepareStatement(statement);
+		PreparedStatement preparedStatement   = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
 		preparedStatement.setString(4, description);
 		preparedStatement.setString(5, className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -157,7 +217,7 @@ public class InventoryItemGateway
 	public static void insertPowerTool(String upc, int manufacturerID, int price, String description, boolean batteryPowered, String className) throws SQLException, ClassNotFoundException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, description, batteryPowered, className) VALUES(?,?,?,?,?,?)";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1,  upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
@@ -165,7 +225,6 @@ public class InventoryItemGateway
 		preparedStatement.setBoolean(5, batteryPowered);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -183,7 +242,7 @@ public class InventoryItemGateway
 	public static void insertStripNail(String upc, int manufacturerID, int price, double length, int numberInStrip, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "INSERT INTO InventoryItem (upc, manufacturerID, price, length, numberInStrip, className) VALUES(?,?,?,?,?,?)";
-		preparedStatement  = ConnectionManager.getConnection().prepareStatement(statement);
+		PreparedStatement preparedStatement  = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
@@ -191,7 +250,6 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5,  numberInStrip);
 		preparedStatement.setString(6,  className);
 		insertRow(preparedStatement);
-		closeStatements();
 	}
 	
 	/**
@@ -203,29 +261,77 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet retrieveUPC(String upc, String className) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO retrieveItemByUPC(String upc, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "SELECT * FROM InventoryItem WHERE upc=? and className=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setString(2, className);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		InventoryItemDTO iiDTO = null;
+		
+		if(resultSet.next())
+		{
+			iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			
+			switch(className)
+			{
+			case "Nail":
+				iiDTO.setLength(resultSet.getDouble("length"));
+				iiDTO.setNumberInBox(resultSet.getInt("numberInBox"));
+				iiDTO.setClassName("Nail");
+				break;
+			case "Tool":
+				iiDTO.setDescription(resultSet.getString("description"));
+				iiDTO.setClassName("Tool");
+				break;
+			case "PowerTool":
+				iiDTO.setDescription(resultSet.getString("description"));
+				iiDTO.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+				iiDTO.setClassName("PowerTool");
+				break;
+			case "StripNail":
+				iiDTO.setLength(resultSet.getDouble("length"));
+				iiDTO.setNumberInStrip(resultSet.getInt("numberInStrip"));
+				iiDTO.setClassName("StripNail");
+				break;				
+			}
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return iiDTO;
 	}
 	
 	/**
-	 * Builds the ArrayList of the objects
+	 * Builds the List of the objects
 	 * 
 	 * @return ResultSet
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet createList() throws ClassNotFoundException, SQLException
+	public static List<InventoryItemDTO> createList() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT id,className FROM InventoryItem");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet; 
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
+		
+		while(resultSet.next())
+		{
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setClassName(resultSet.getString("className"));
+			listInventoryItemDTO.add(iiDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listInventoryItemDTO; 
 	}
 
 	/**
@@ -250,7 +356,7 @@ public class InventoryItemGateway
 				+ ", numberInBox=?"
 				+ " where id=?";
 		
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
@@ -258,7 +364,7 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5, numberInBox);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -281,14 +387,14 @@ public class InventoryItemGateway
 				+ ", description=?"
 				+ " where id=?";
 
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
 		preparedStatement.setString(4, description);
 		preparedStatement.setInt(5, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -313,7 +419,7 @@ public class InventoryItemGateway
 				+ ", numberInStrip=?"
 				+ " where id=?";
 		
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
@@ -321,7 +427,7 @@ public class InventoryItemGateway
 		preparedStatement.setInt(5, numberInStrip);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -346,7 +452,7 @@ public class InventoryItemGateway
 				+ ", batteryPowered=?"
 				+ " where id=?";
 
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setInt(2, manufacturerID);
 		preparedStatement.setInt(3, price);
@@ -354,7 +460,7 @@ public class InventoryItemGateway
 		preparedStatement.setBoolean(5, batteryPowered);
 		preparedStatement.setInt(6, id);
 		preparedStatement.executeUpdate();	
-		closeStatements();
+		preparedStatement.close();
 	}
 
 	/**
@@ -369,16 +475,17 @@ public class InventoryItemGateway
 	public static int getID(String upc, String className) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "select id from InventoryItem where upc=? and className=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setString(2, className);
-		resultSet = preparedStatement.executeQuery();
+		ResultSet resultSet = preparedStatement.executeQuery();
 		
 		int id = 0;
 		if(resultSet.next())
 		{
 			id = resultSet.getInt("id");
-			closeStatements();
+			resultSet.close();
+			preparedStatement.close();
 		}
 		return id;
 	}
@@ -390,13 +497,30 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getAllStripNails() throws ClassNotFoundException, SQLException 
+	public static List<InventoryItemDTO> getAllStripNails() throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "StripNail");
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
+		
+		while(resultSet.next())
+		{
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setLength(resultSet.getDouble("length"));
+			iiDTO.setNumberInStrip(resultSet.getInt("numberInStrip"));
+			iiDTO.setClassName("StripNail");
+			listInventoryItemDTO.add(iiDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listInventoryItemDTO;
 	}
 
 	/**
@@ -406,72 +530,29 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getAllPowerTools() throws ClassNotFoundException, SQLException
+	public static List<InventoryItemDTO> getAllPowerTools() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "PowerTool");
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
-	}
-	
-	/**
-	 * Returns all nails
-	 * 
-	 * @return ResultSet of all nails
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public static ResultSet getAllNails() throws ClassNotFoundException, SQLException
-	{
-		String sqlStatement = "select * from InventoryItem where className=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
-		preparedStatement.setString(1, "Nail");
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
-	}
-	
-	/**
-	 * Returns all tools
-	 * 
-	 * @return ResultSet of all tools
-	 * @throws ClassnotFoundException
-	 * @throws SQLException
-	 */
-	public static ResultSet getAllTools() throws ClassNotFoundException, SQLException
-	{
-		String sqlStatement = "select * from InventoryItem where className=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
-		preparedStatement.setString(1, "Tool");
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
-	}
-	
-
-	
-	/**
-	 * Closes statements when done
-	 * 
-	 * @throws SQLException
-	 */
-	public static void closeStatements() throws SQLException
-	{
-		if(resultSet != null)
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<InventoryItemDTO> listInventoryItemDTO = new ArrayList<InventoryItemDTO>();
+		
+		while(resultSet.next())
 		{
-			if(!resultSet.isClosed())
-			{
-				resultSet.close();
-				resultSet = null;
-			}
+			InventoryItemDTO iiDTO = new InventoryItemDTO();
+			iiDTO.setId(resultSet.getInt("id"));
+			iiDTO.setUpc(resultSet.getString("upc"));
+			iiDTO.setManufacturerID(resultSet.getInt("manufacturerID"));
+			iiDTO.setPrice(resultSet.getInt("price"));
+			iiDTO.setDescription(resultSet.getString("description"));
+			iiDTO.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+			iiDTO.setClassName("StripNail");
+			listInventoryItemDTO.add(iiDTO);
 		}
 		
-		if(preparedStatement != null)
-		{
-			if(!preparedStatement.isClosed())
-			{
-				preparedStatement.close();
-				preparedStatement = null;
-			}			
-		}
+		resultSet.close();
+		preparedStatement.close();
+		return listInventoryItemDTO;
 	}
 }

@@ -2,8 +2,10 @@ package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import data_source.InventoryItemGateway;
+
+import data_source.*;
 import domain.*;
 import exceptions.ItemNotFoundException;
 
@@ -80,25 +82,10 @@ public class PowerToolInput
 		String description = sc.nextLine();
 		
 		System.out.println("If it's battery powered please type true, if not type false");
-		String batteryPowered = sc.nextLine();
+		String isBatteryPowered = sc.nextLine();
+		boolean batteryPowered = isBatteryPowered.equalsIgnoreCase("true");
 		
-		powerTool.setUpc(upc);
-		powerTool.setManufacturerID(manufacturerIDParse);
-		powerTool.setPrice(priceParse);
-		powerTool.setDescription(description);
-
-		if(batteryPowered.equalsIgnoreCase("true"))
-		{
-			powerTool.setBatteryPowered(true);
-		}
-		else
-		{
-			powerTool.setBatteryPowered(false);
-		}
-		
-		/* updates the powerTool to the mapper and to the database */
-		PowerToolMapper powerToolMapper = new PowerToolMapper();
-		powerToolMapper.updatePowerTool(powerTool);
+		powerTool.update(upc, manufacturerIDParse, priceParse, description, batteryPowered);
 		
 		boolean valid = false;
 		while(!valid)
@@ -143,13 +130,11 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet rSet =InventoryItemGateway.getAllStripNails();
-			while(rSet.next())
+			List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllStripNails();
+			for(InventoryItemDTO dto : dtoList)
 			{
-				System.out.println(rSet.getString("upc"));
+				System.out.println(dto.getUpc());
 			}
-			rSet.close();
-			InventoryItemGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();

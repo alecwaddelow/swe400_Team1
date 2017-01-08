@@ -2,7 +2,10 @@ package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
@@ -309,31 +312,27 @@ public class UserInput
 			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				ResultSet rSet = InventoryItemGateway.getAllStripNails();
+				List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllStripNails();
 				
-				while(rSet.next())
+				for(InventoryItemDTO dto : dtoList)
 				{
-					stripNail = new StripNail(rSet.getInt("id"));
+					stripNail = new StripNail(dto.getId());
 					itemList.add(stripNail);
 					i++;
 					System.out.println(i + ". " + stripNail.toString());
-				}
-				rSet.close();
-				InventoryItemGateway.closeStatements();				
+				}			
 			}
 			else if(item instanceof StripNail)
 			{
-				ResultSet rSet = InventoryItemGateway.getAllPowerTools();
-				
-				while(rSet.next())
+				List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllPowerTools();
+
+				for(InventoryItemDTO dto : dtoList)
 				{
-					powerTool = new PowerTool(rSet.getInt("id"));
+					powerTool = new PowerTool(dto.getId());
 					itemList.add(powerTool);
 					i++;
 					System.out.println(i + ". " + powerTool.toString());
 				}
-				rSet.close();
-				InventoryItemGateway.closeStatements();
 			}
 			
 			input = sc.nextLine();

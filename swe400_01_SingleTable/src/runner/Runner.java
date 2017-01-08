@@ -1,6 +1,8 @@
 package runner;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.naming.NamingException;
 import data_source.*;
 import domain.*;
@@ -117,18 +119,23 @@ public class Runner
 	 * @throws SQLException
 	 * @throws ItemNotFoundException 
 	 */
-	public static ArrayList<InventoryItem> createList() throws ClassNotFoundException, SQLException, ItemNotFoundException
+	public static void createList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
-		ResultSet rSet = InventoryItemGateway.createList();
-		for(int i = 0; rSet.next(); i++)
+		List<InventoryItemDTO> dtoList = InventoryItemGateway.createList();
+		
+		for(InventoryItemDTO dto : dtoList)
 		{
-			int id  = rSet.getRow();
-			String className = rSet.getString("className");
-			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
+			listOfObjects.add(InventoryItem.matchClassAndConstruct(dto.getId(), dto.getClassName()));
 		}
-		rSet.close(); 
-		InventoryItemGateway.closeStatements();
-		return listOfObjects;
+//		ResultSet rSet = InventoryItemGateway.createList();
+//		for(int i = 0; rSet.next(); i++)
+//		{
+//			int id  = rSet.getRow();
+//			String className = rSet.getString("className");
+//			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
+//		}
+//		rSet.close(); 
+//		InventoryItemGateway.closeStatements();
 	}
 
 	/**

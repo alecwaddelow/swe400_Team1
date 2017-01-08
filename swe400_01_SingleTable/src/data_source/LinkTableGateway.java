@@ -1,5 +1,7 @@
 package data_source;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alec Waddelow and Drew Rife 
@@ -8,9 +10,6 @@ import java.sql.*;
  */
 public class LinkTableGateway 
 {
-	private static PreparedStatement preparedStatement = null;
-	private static ResultSet resultSet = null;
-	
 	/**
 	 * Queries the database for stripNails in Link table 
 	 * 
@@ -19,13 +18,24 @@ public class LinkTableGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static ResultSet queryDBForStripNails(int id) throws SQLException, ClassNotFoundException
+	public static List<LinkTableDTO> queryDBForStripNails(int id) throws SQLException, ClassNotFoundException
 	{
-		String sqlStatement = ("SELECT * FROM LinkTable WHERE powerToolID =?");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		String sqlStatement = ("SELECT * FROM LinkTable WHERE powerToolID = ?");
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<LinkTableDTO> listLinkTableDTO = new ArrayList<LinkTableDTO>();
+		
+		while(resultSet.next())
+		{
+			LinkTableDTO ltDTO = new LinkTableDTO();
+			ltDTO.setStripNailID(resultSet.getInt("stripNailID"));
+			listLinkTableDTO.add(ltDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listLinkTableDTO;
 	} 
 	
 	/**
@@ -36,13 +46,24 @@ public class LinkTableGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static ResultSet queryDBForPowerTools(int id) throws SQLException, ClassNotFoundException
+	public static List<LinkTableDTO> queryDBForPowerTools(int id) throws SQLException, ClassNotFoundException
 	{
 		String sqlStatement = ("SELECT * FROM LinkTable WHERE stripNailID=?");
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
-		resultSet = preparedStatement.executeQuery(); 
-		return resultSet;
+		ResultSet resultSet = preparedStatement.executeQuery(); 
+		List<LinkTableDTO> listLinkTableDTO = new ArrayList<LinkTableDTO>();
+		
+		while(resultSet.next())
+		{
+			LinkTableDTO ltDTO = new LinkTableDTO();
+			ltDTO.setPowerToolID(resultSet.getInt("powerToolID"));
+			listLinkTableDTO.add(ltDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listLinkTableDTO;
 	}
 	
 	/**
@@ -70,11 +91,10 @@ public class LinkTableGateway
 	{
 		if(!containsDuplicates(powerToolID, stripNailID))
 		{
-			PreparedStatement statement = ConnectionManager.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-			statement.setInt(1, powerToolID);
-			statement.setInt(2, stripNailID);
-			insertRow(statement);
-			closeStatements();
+			PreparedStatement preparedStatemet = ConnectionManager.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
+			preparedStatemet.setInt(1, powerToolID);
+			preparedStatemet.setInt(2, stripNailID);
+			insertRow(preparedStatemet);
 		}
 		else
 		{
@@ -94,20 +114,20 @@ public class LinkTableGateway
 	private static boolean containsDuplicates(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from LinkTable where powerToolID=? and stripNailID=?";
-		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, powerToolID);
 		preparedStatement.setInt(2, stripNailID);
-		resultSet = preparedStatement.executeQuery();
+		ResultSet resultSet = preparedStatement.executeQuery();
 		
+		boolean containsDuplicates = false;
 		if(resultSet.next())
 		{
-			closeStatements();
-			return true;
+			containsDuplicates = true;
 		}
-		else
-		{
-			return false;
-		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return containsDuplicates;
 	}
 
 	/**
@@ -121,36 +141,10 @@ public class LinkTableGateway
 	public static void removeRelation(int powerToolID, int stripNailID) throws ClassNotFoundException, SQLException 
 	{
 		String query = "delete from LinkTable where powerToolID=? and stripNailID=?";
-	    preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(query);
 	    preparedStatement.setInt(1, powerToolID);
 	    preparedStatement.setInt(2, stripNailID);
 	    preparedStatement.execute();
-		closeStatements();
-	}
-	
-	/**
-	 * Closes the statements and result sets when done
-	 * 
-	 * @throws SQLException
-	 */
-	public static void closeStatements() throws SQLException
-	{
-		if(resultSet != null)
-		{
-			if(!resultSet.isClosed())
-			{
-				resultSet.close();
-				resultSet = null;
-			}
-		}
-		
-		if(preparedStatement != null)
-		{
-			if(!preparedStatement.isClosed())
-			{
-				preparedStatement.close();
-				preparedStatement = null;
-			}			
-		}
+		preparedStatement.close();
 	}
 }

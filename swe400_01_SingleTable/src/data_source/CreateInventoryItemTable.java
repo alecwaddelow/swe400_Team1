@@ -5,7 +5,7 @@ import java.sql.SQLException;
 /**
  * @author Drew Rife & Alec Waddelow
  *
- * Creates the table within the Database and inserts the enum objects into it
+ * Creates the InventoryItem table within the Database and inserts the enum objects into it
  */
 public class CreateInventoryItemTable
 {

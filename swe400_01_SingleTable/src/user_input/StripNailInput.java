@@ -2,6 +2,7 @@ package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import data_source.*;
 import domain.*;
@@ -85,15 +86,7 @@ public class StripNailInput
 		String numberInStrip = sc.nextLine();
 		int numberInStripParse = Integer.parseInt(numberInStrip);
 		
-		stripNail.setUpc(upc);
-		stripNail.setManufacturerID(manufacturerIDParse);
-		stripNail.setPrice(priceParse);
-		stripNail.setLength(lengthParse);
-		stripNail.setNumberInStrip(numberInStripParse);	
-		
-		/* updates the nail to the mapper and to the database */
-		StripNailMapper stripNailsMapper = new StripNailMapper();
-		stripNailsMapper.updateStripNail(stripNail);
+		stripNail.update(upc, manufacturerIDParse, priceParse, lengthParse, numberInStripParse);
 		
 		boolean valid = false;
 		while(!valid)
@@ -187,13 +180,11 @@ public class StripNailInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet resultSet = InventoryItemGateway.getAllPowerTools();
-			while(resultSet.next())
+			List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllPowerTools();
+			for(InventoryItemDTO dto : dtoList)
 			{
-				System.out.println(resultSet.getString("upc"));
+				System.out.println(dto.getUpc());
 			}
-			resultSet.close();
-			InventoryItemGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();

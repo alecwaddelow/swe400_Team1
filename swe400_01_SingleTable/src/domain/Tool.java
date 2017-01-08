@@ -1,7 +1,7 @@
 package domain;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import data_source.InventoryItemGateway;
+import data_source.*;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -23,22 +23,21 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs =  InventoryItemGateway.queryTool(this.id);
-		if(rs.next()) 
+		InventoryItemDTO dto = InventoryItemGateway.queryTool(this.id);
+		if(dto != null)
 		{
-			this.setUpc(rs.getString("upc"));
-			this.setManufacturerID(rs.getInt("manufacturerID"));
-			this.setPrice(rs.getInt("price"));
-			this.setDescription(rs.getString("description"));
-			this.setClassName(rs.getString("className"));			
+			this.upc = dto.getUpc();
+			this.manufacturerID = dto.getManufacturerID();
+			this.price = dto.getPrice();
+			this.description = dto.getDescription();
+			this.className = "Tool";
 		}
 		else
 		{
-			ItemNotFoundException exception = new ItemNotFoundException("Could not find Tool with specified ID");
+			ItemNotFoundException exception = new ItemNotFoundException("Could not find Nail with specified ID");
 			exception.getMessage();
 		}
-		rs.close();
-		InventoryItemGateway.closeStatements();
+		
 	}
 		
 	/**
@@ -57,9 +56,8 @@ public class Tool extends InventoryItem
 		super(upc, manufacturerID, price, className);
 		this.description = description;
 		this.className = "Tool";
-		ToolMapper toolMapper = new ToolMapper(this.upc, this.manufacturerID, this.price, this.description, this.className);
-		toolMapper.insertTool();
-		setId(toolMapper.getId());
+		InventoryItemGateway.insertTool(this.upc, this.manufacturerID, this.price, this.description, this.className);
+		this.id = InventoryItemGateway.getID(this.upc, this.className);
 	}
 
 	/**
@@ -90,6 +88,16 @@ public class Tool extends InventoryItem
 	{
 		return "Tool [upc=" + this.upc + ", manufacturerID=" + this.manufacturerID + ", price=" + this.price
 				+ ", description=" + this.description + "]";
+	}
+
+	public void update(String upc, int manufacturerIDParse, int priceParse, String description) throws ClassNotFoundException, SQLException 
+	{
+		this.upc = upc;
+		this.manufacturerID = manufacturerIDParse;
+		this.price = priceParse;
+		this.description = description;
+		
+		InventoryItemGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
 	}
 
 }
