@@ -174,8 +174,7 @@ public class DataTransferObject
 	/**
 	 * @param className the className to set
 	 */
-	public void setClassName(String className) 
-	{
+	public void setClassName(String className) {
 		this.className = className;
 	}
 }
