@@ -1,6 +1,5 @@
 package domain;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import data_source.*;
 import exceptions.ItemNotFoundException;
