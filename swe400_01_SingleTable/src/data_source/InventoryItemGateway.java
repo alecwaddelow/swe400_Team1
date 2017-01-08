@@ -83,13 +83,28 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet queryPowerTool(int id) throws ClassNotFoundException, SQLException
+	public static DataTransferObject queryPowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		DataTransferObject dto = null;
+		
+		if(resultSet.next())
+		{
+			dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			dto.setDescription(resultSet.getString("description"));
+			dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return dto;
 	}
 	
 	/**

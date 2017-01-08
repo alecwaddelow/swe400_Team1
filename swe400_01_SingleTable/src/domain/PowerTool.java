@@ -1,9 +1,9 @@
 package domain;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import data_source.InventoryItemGateway;
-import data_source.LinkTableGateway;
+import data_source.*;
 import exceptions.ItemNotFoundException;
 
 /**
@@ -27,23 +27,20 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		ResultSet rs = InventoryItemGateway.queryPowerTool(this.id);
-		if(rs.next())
+		DataTransferObject dto = InventoryItemGateway.queryPowerTool(this.id);
+		if(dto != null)
 		{
-			setUpc(rs.getString("upc"));
-			setManufacturerID(rs.getInt("manufacturerID"));
-			setPrice(rs.getInt("price"));
-			setDescription(rs.getString("description"));
-			setBatteryPowered(rs.getBoolean("batteryPowered"));
-			setClassName(rs.getString("className"));
+			this.manufacturerID = dto.getManufacturerID();
+			this.price = dto.getPrice();
+			this.description = dto.getDescription();
+			this.batteryPowered = dto.isBatteryPowered();
+			this.className = "PowerTool";
 		}
 		else
 		{
-			ItemNotFoundException exception = new ItemNotFoundException("Could not find PowerTool with specified ID");
+			ItemNotFoundException exception = new ItemNotFoundException("Could not find Nail with specified ID");
 			exception.getMessage();
 		}
-		rs.close();
-		InventoryItemGateway.closeStatements();
 	}
 
 	/**
@@ -64,9 +61,8 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		this.description = description;
 		this.batteryPowered = batteryPowered;
 		this.className = className;
-		PowerToolMapper mapper = new PowerToolMapper(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
-		mapper.insertPowerTool();
-		setId(mapper.getId());
+		InventoryItemGateway.insertPowerTool(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.className);
+		this.id = InventoryItemGateway.getID(this.upc, this.className);
 	}
 	
 	/**
