@@ -23,7 +23,7 @@ public class Tool extends InventoryItem
 	public Tool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		DataTransferObject dto = InventoryItemGateway.queryTool(this.id);
+		InventoryItemDTO dto = InventoryItemGateway.queryTool(this.id);
 		if(dto != null)
 		{
 			this.upc = dto.getUpc();

@@ -4,7 +4,7 @@ package data_source;
  * @author Alec Waddelow and Drew Rife 
  *
  */
-public class DataTransferObject 
+public class InventoryItemDTO 
 {
 	private int id;
 	private String upc; 
@@ -17,7 +17,7 @@ public class DataTransferObject
 	private int numberInBox;
 	private String className;
 
-	public DataTransferObject() {}
+	public InventoryItemDTO() {}
 	
 	/**
 	 * @return the id

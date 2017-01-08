@@ -130,8 +130,8 @@ public class PowerToolInput
 		boolean done = false;
 		while(!done)
 		{
-			List<DataTransferObject> dtoList = InventoryItemGateway.getAllStripNails();
-			for(DataTransferObject dto : dtoList)
+			List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllStripNails();
+			for(InventoryItemDTO dto : dtoList)
 			{
 				System.out.println(dto.getUpc());
 			}

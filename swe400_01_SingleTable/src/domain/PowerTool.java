@@ -27,7 +27,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	public PowerTool(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		DataTransferObject dto = InventoryItemGateway.queryPowerTool(this.id);
+		InventoryItemDTO dto = InventoryItemGateway.queryPowerTool(this.id);
 		if(dto != null)
 		{
 			this.upc = dto.getUpc();

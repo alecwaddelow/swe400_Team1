@@ -2,7 +2,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import data_source.DataTransferObject;
+import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
 import exceptions.ItemNotFoundException;
 
@@ -195,7 +195,7 @@ public abstract class InventoryItem
 	{
 		InventoryItem item = null;
 		
-		DataTransferObject dto = InventoryItemGateway.retrieveItemByUPC(upc, className);
+		InventoryItemDTO dto = InventoryItemGateway.retrieveItemByUPC(upc, className);
 		if(dto != null)
 		{
 			item = InventoryItem.matchClassAndConstruct(dto.getId(), dto.getClassName());

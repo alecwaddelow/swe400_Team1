@@ -26,7 +26,7 @@ public class StripNail extends Fastener implements LoadInterface
 	public StripNail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		DataTransferObject dto = InventoryItemGateway.queryStripNail(this.id);
+		InventoryItemDTO dto = InventoryItemGateway.queryStripNail(this.id);
 		if(dto != null)
 		{
 			this.upc = dto.getUpc();

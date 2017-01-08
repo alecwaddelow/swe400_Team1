@@ -34,11 +34,11 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingPowerToolUPCs() throws ClassNotFoundException, SQLException
 	{
-		List<DataTransferObject> dtoList = InventoryItemGateway.getAllPowerTools();
+		List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllPowerTools();
 		String[] upcArray = {"1231231234", "4445553333", "7657896543", "9993458585", "7654564848", "7784452828"};
 	
 		int i = 0;
-		for(DataTransferObject dto : dtoList)
+		for(InventoryItemDTO dto : dtoList)
 		{
 			assertEquals(upcArray[i], dto.getUpc());
 			i++;
@@ -54,11 +54,11 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingStripNailUPCs() throws ClassNotFoundException, SQLException
 	{
-		List<DataTransferObject> dtoList = InventoryItemGateway.getAllStripNails();
+		List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllStripNails();
 		String[] upcArray = {"5453432345", "4343434543", "9876784727", "6565459876", "4343432345"};
 	
 		int i = 0;
-		for(DataTransferObject dto : dtoList)
+		for(InventoryItemDTO dto : dtoList)
 		{
 			assertEquals(upcArray[i], dto.getUpc());
 			i++;
@@ -74,7 +74,7 @@ public class TestDatabaseGateway
 	@Test
 	public void testBadUPCInput() throws ClassNotFoundException, SQLException
 	{
-		DataTransferObject dto = InventoryItemGateway.retrieveItemByUPC("000000000000000", "nail");
+		InventoryItemDTO dto = InventoryItemGateway.retrieveItemByUPC("000000000000000", "nail");
 		assertNull(dto);
 	}
 }

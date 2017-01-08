@@ -23,7 +23,7 @@ public class Nail extends Fastener
 	public Nail(int id) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		super(id);
-		DataTransferObject dto = InventoryItemGateway.queryNail(this.id);
+		InventoryItemDTO dto = InventoryItemGateway.queryNail(this.id);
 		if(dto != null)
 		{
 			this.upc = dto.getUpc();

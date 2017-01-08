@@ -180,8 +180,8 @@ public class StripNailInput
 		boolean done = false;
 		while(!done)
 		{
-			List<DataTransferObject> dtoList = InventoryItemGateway.getAllPowerTools();
-			for(DataTransferObject dto : dtoList)
+			List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllPowerTools();
+			for(InventoryItemDTO dto : dtoList)
 			{
 				System.out.println(dto.getUpc());
 			}

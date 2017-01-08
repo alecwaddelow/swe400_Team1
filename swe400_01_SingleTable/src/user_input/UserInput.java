@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import data_source.DataTransferObject;
+import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
 import domain.*;
 import exceptions.ItemNotFoundException;
@@ -312,9 +312,9 @@ public class UserInput
 			int i = 0;
 			if(item instanceof PowerTool)
 			{
-				List<DataTransferObject> dtoList = InventoryItemGateway.getAllStripNails();
+				List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllStripNails();
 				
-				for(DataTransferObject dto : dtoList)
+				for(InventoryItemDTO dto : dtoList)
 				{
 					stripNail = new StripNail(dto.getId());
 					itemList.add(stripNail);
@@ -324,9 +324,9 @@ public class UserInput
 			}
 			else if(item instanceof StripNail)
 			{
-				List<DataTransferObject> dtoList = InventoryItemGateway.getAllPowerTools();
+				List<InventoryItemDTO> dtoList = InventoryItemGateway.getAllPowerTools();
 
-				for(DataTransferObject dto : dtoList)
+				for(InventoryItemDTO dto : dtoList)
 				{
 					powerTool = new PowerTool(dto.getId());
 					itemList.add(powerTool);

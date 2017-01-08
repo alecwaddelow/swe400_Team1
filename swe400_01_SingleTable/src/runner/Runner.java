@@ -121,9 +121,9 @@ public class Runner
 	 */
 	public static void createList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
-		List<DataTransferObject> dtoList = InventoryItemGateway.createList();
+		List<InventoryItemDTO> dtoList = InventoryItemGateway.createList();
 		
-		for(DataTransferObject dto : dtoList)
+		for(InventoryItemDTO dto : dtoList)
 		{
 			listOfObjects.add(InventoryItem.matchClassAndConstruct(dto.getId(), dto.getClassName()));
 		}

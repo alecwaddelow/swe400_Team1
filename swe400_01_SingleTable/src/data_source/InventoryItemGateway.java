@@ -18,17 +18,17 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static DataTransferObject queryNail(int id) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO queryNail(int id) throws ClassNotFoundException, SQLException
 	{		
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		DataTransferObject dto = null;
+		InventoryItemDTO dto = null;
 		
 		if(resultSet.next())
 		{
-			dto = new DataTransferObject();
+			dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -51,17 +51,17 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static DataTransferObject queryTool(int id) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO queryTool(int id) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem where id=?");
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		DataTransferObject dto = null;
+		InventoryItemDTO dto = null;
 		
 		if(resultSet.next())
 		{
-			dto = new DataTransferObject();
+			dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -83,17 +83,17 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static DataTransferObject queryPowerTool(int id) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO queryPowerTool(int id) throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		DataTransferObject dto = null;
+		InventoryItemDTO dto = null;
 		
 		if(resultSet.next())
 		{
-			dto = new DataTransferObject();
+			dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -116,17 +116,17 @@ public class InventoryItemGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static DataTransferObject queryStripNail(int id) throws SQLException, ClassNotFoundException
+	public static InventoryItemDTO queryStripNail(int id) throws SQLException, ClassNotFoundException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		DataTransferObject dto = null;
+		InventoryItemDTO dto = null;
 		
 		if(resultSet.next())
 		{
-			dto = new DataTransferObject();
+			dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -261,18 +261,18 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static DataTransferObject retrieveItemByUPC(String upc, String className) throws ClassNotFoundException, SQLException
+	public static InventoryItemDTO retrieveItemByUPC(String upc, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "SELECT * FROM InventoryItem WHERE upc=? and className=?";
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setString(2, className);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		DataTransferObject dto = null;
+		InventoryItemDTO dto = null;
 		
 		if(resultSet.next())
 		{
-			dto = new DataTransferObject();
+			dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -314,16 +314,16 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static List<DataTransferObject> createList() throws ClassNotFoundException, SQLException
+	public static List<InventoryItemDTO> createList() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = ("SELECT id,className FROM InventoryItem");
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		ResultSet resultSet = preparedStatement.executeQuery();
-		List<DataTransferObject> dtoList = new ArrayList<DataTransferObject>();
+		List<InventoryItemDTO> dtoList = new ArrayList<InventoryItemDTO>();
 		
 		while(resultSet.next())
 		{
-			DataTransferObject dto = new DataTransferObject();
+			InventoryItemDTO dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setClassName(resultSet.getString("className"));
 			dtoList.add(dto);
@@ -497,17 +497,17 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static List<DataTransferObject> getAllStripNails() throws ClassNotFoundException, SQLException 
+	public static List<InventoryItemDTO> getAllStripNails() throws ClassNotFoundException, SQLException 
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "StripNail");
 		ResultSet resultSet = preparedStatement.executeQuery();
-		List<DataTransferObject> dtoList = new ArrayList<DataTransferObject>();
+		List<InventoryItemDTO> dtoList = new ArrayList<InventoryItemDTO>();
 		
 		while(resultSet.next())
 		{
-			DataTransferObject dto = new DataTransferObject();
+			InventoryItemDTO dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
@@ -530,17 +530,17 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static List<DataTransferObject> getAllPowerTools() throws ClassNotFoundException, SQLException
+	public static List<InventoryItemDTO> getAllPowerTools() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "PowerTool");
 		ResultSet resultSet = preparedStatement.executeQuery();
-		List<DataTransferObject> dtoList = new ArrayList<DataTransferObject>();
+		List<InventoryItemDTO> dtoList = new ArrayList<InventoryItemDTO>();
 		
 		while(resultSet.next())
 		{
-			DataTransferObject dto = new DataTransferObject();
+			InventoryItemDTO dto = new InventoryItemDTO();
 			dto.setId(resultSet.getInt("id"));
 			dto.setUpc(resultSet.getString("upc"));
 			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
