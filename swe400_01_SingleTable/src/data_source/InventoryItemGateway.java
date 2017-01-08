@@ -115,13 +115,28 @@ public class InventoryItemGateway
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static ResultSet queryStripNail(int id) throws SQLException, ClassNotFoundException
+	public static DataTransferObject queryStripNail(int id) throws SQLException, ClassNotFoundException
 	{
 		String sqlStatement = ("SELECT * FROM InventoryItem WHERE id=?");
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setInt(1, id);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		DataTransferObject dto = null;
+		
+		if(resultSet.next())
+		{
+			dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			dto.setLength(resultSet.getDouble("length"));
+			dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return dto;
 	}
 	
 	/**
