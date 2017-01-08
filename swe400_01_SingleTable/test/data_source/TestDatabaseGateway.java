@@ -34,15 +34,15 @@ public class TestDatabaseGateway
 	@Test
 	public void testGettingPowerToolUPCs() throws ClassNotFoundException, SQLException
 	{
-		ResultSet rSet = InventoryItemGateway.getAllPowerTools();
+		List<DataTransferObject> dtoList = InventoryItemGateway.getAllPowerTools();
 		String[] upcArray = {"1231231234", "4445553333", "7657896543", "9993458585", "7654564848", "7784452828"};
 	
 		int i = 0;
-		while(rSet.next())
-		{	 
-			assertEquals(upcArray[i], rSet.getString("upc"));
+		for(DataTransferObject dto : dtoList)
+		{
+			assertEquals(upcArray[i], dto.getUpc());
 			i++;
-		}		
+		}
 	}
 	
 	/**

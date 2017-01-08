@@ -2,6 +2,7 @@ package user_input;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import data_source.*;
 import domain.*;
@@ -187,13 +188,11 @@ public class StripNailInput
 		boolean done = false;
 		while(!done)
 		{
-			ResultSet resultSet = InventoryItemGateway.getAllPowerTools();
-			while(resultSet.next())
+			List<DataTransferObject> dtoList = InventoryItemGateway.getAllPowerTools();
+			for(DataTransferObject dto : dtoList)
 			{
-				System.out.println(resultSet.getString("upc"));
+				System.out.println(dto.getUpc());
 			}
-			resultSet.close();
-			InventoryItemGateway.closeStatements();
 			
 			System.out.println("Which one would you like to add :");
 			String input = sc.nextLine();

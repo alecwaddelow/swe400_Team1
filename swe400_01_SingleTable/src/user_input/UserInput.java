@@ -324,17 +324,15 @@ public class UserInput
 			}
 			else if(item instanceof StripNail)
 			{
-				ResultSet rSet = InventoryItemGateway.getAllPowerTools();
-				
-				while(rSet.next())
+				List<DataTransferObject> dtoList = InventoryItemGateway.getAllPowerTools();
+
+				for(DataTransferObject dto : dtoList)
 				{
-					powerTool = new PowerTool(rSet.getInt("id"));
+					powerTool = new PowerTool(dto.getId());
 					itemList.add(powerTool);
 					i++;
 					System.out.println(i + ". " + powerTool.toString());
 				}
-				rSet.close();
-				InventoryItemGateway.closeStatements();
 			}
 			
 			input = sc.nextLine();

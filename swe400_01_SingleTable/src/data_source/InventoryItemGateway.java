@@ -486,13 +486,28 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet getAllPowerTools() throws ClassNotFoundException, SQLException
+	public static List<DataTransferObject> getAllPowerTools() throws ClassNotFoundException, SQLException
 	{
 		String sqlStatement = "select * from InventoryItem where className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
 		preparedStatement.setString(1, "PowerTool");
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		List<DataTransferObject> dtoList = new ArrayList<DataTransferObject>();
+		
+		while(resultSet.next())
+		{
+			DataTransferObject dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			dto.setDescription(resultSet.getString("description"));
+			dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+			dto.setClassName("StripNail");
+			dtoList.add(dto);
+		}
+		
+		return dtoList;
 	}
 	
 	/**
