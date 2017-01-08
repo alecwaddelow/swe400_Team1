@@ -1,0 +1,19 @@
+Please enter a UPC 
+1231231234
+4445553333
+7657896543
+9993458585
+7654564848
+7784452828
+Which one would you like to add :
+Already exists within the Database
+Would you like to add another relation? (Y/N)
+1231231234
+4445553333
+7657896543
+9993458585
+7654564848
+7784452828
+Which one would you like to add :
+Already exists within the Database
+Would you like to add another relation? (Y/N)

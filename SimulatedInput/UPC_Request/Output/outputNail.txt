@@ -1,0 +1,63 @@
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+Which item were you thinking of? (Enter the number)
+1. Nail 
+2. Tool 
+3. PowerTool 
+4. StripNail
+
+Error: Not correct input
+
+Which item were you thinking of? (Enter the number)
+1. Nail 
+2. Tool 
+3. PowerTool 
+4. StripNail
+Please enter a UPC 
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+
+Invalid input, please re-enter
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+Please enter a UPC 
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+Please enter a UPC 
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to update
+Please enter a UPC 

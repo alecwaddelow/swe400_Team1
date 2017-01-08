@@ -1,0 +1,12 @@
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+Which item were you thinking of? (Enter the number)
+1. Nail 
+2. Tool 
+3. PowerTool 
+4. StripNail
+Please enter a UPC 

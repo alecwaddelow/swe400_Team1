@@ -268,18 +268,53 @@ public class InventoryItemGateway
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ResultSet retrieveUPC(String upc, String className) throws ClassNotFoundException, SQLException
+	public static DataTransferObject retrieveItemByUPC(String upc, String className) throws ClassNotFoundException, SQLException
 	{
 		String statement = "SELECT * FROM InventoryItem WHERE upc=? and className=?";
 		preparedStatement = ConnectionManager.getConnection().prepareStatement(statement);
 		preparedStatement.setString(1, upc);
 		preparedStatement.setString(2, className);
 		resultSet = preparedStatement.executeQuery();
-		return resultSet;
+		DataTransferObject dto = null;
+		
+		if(resultSet.next())
+		{
+			dto = new DataTransferObject();
+			dto.setId(resultSet.getInt("id"));
+			dto.setUpc(resultSet.getString("upc"));
+			dto.setManufacturerID(resultSet.getInt("manufacturerID"));
+			dto.setPrice(resultSet.getInt("price"));
+			
+			switch(className)
+			{
+			case "Nail":
+				dto.setLength(resultSet.getDouble("length"));
+				dto.setNumberInBox(resultSet.getInt("numberInBox"));
+				dto.setClassName("Nail");
+				break;
+			case "Tool":
+				dto.setDescription(resultSet.getString("description"));
+				dto.setClassName("Tool");
+				break;
+			case "PowerTool":
+				dto.setDescription(resultSet.getString("description"));
+				dto.setBatteryPowered(resultSet.getBoolean("batteryPowered"));
+				dto.setClassName("PowerTool");
+				break;
+			case "StripNail":
+				dto.setLength(resultSet.getDouble("length"));
+				dto.setNumberInStrip(resultSet.getInt("numberInStrip"));
+				dto.setClassName("StripNail");
+				break;				
+			}
+		}
+		
+		
+		return dto;
 	}
 	
 	/**
-	 * Builds the ArrayList of the objects
+	 * Builds the List of the objects
 	 * 
 	 * @return ResultSet
 	 * @throws ClassNotFoundException

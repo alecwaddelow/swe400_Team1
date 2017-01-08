@@ -1,0 +1,90 @@
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+Which item were you thinking of? (Enter the number)
+1. Nail 
+2. Tool 
+3. PowerTool 
+4. StripNail
+Please enter a UPC 
+Which one would you like to remove? (enter the UPC only)
+
+Works with:
+PowerTool [upc=null, manufacturerID=13, price=15758, description=Brad nailer, batteryPowered=false]
+
+
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+1. Nail 
+2. Tool 
+3. PowerTool
+4. StripNail
+Please enter the number of item you would like to add
+Please enter UPC code 
+
+Please enter Manufacturer ID  
+
+Please enter Price 
+
+Please enter length 
+
+Please enter number in strip 
+
+Would you like to add compatible powertools? (Y/N)
+Item added
+StripNail [upc=2015, manufacturerID=202, price=10, length=5.01, numberInStrip=36]
+
+Please enter the number of which task you would like to do:
+1:Search an item by UPC
+2:Add an item
+3:Update an item
+4:End the program
+Would you like to add compatible stripnails (Y/N)
+Error: invalid input
+Would you like to add compatible stripnails (Y/N)
+Please enter the number you would like to add
+1. StripNail [upc=null, manufacturerID=13, price=1099, length=2.5, numberInStrip=0]
+2. StripNail [upc=null, manufacturerID=24, price=1299, length=3.0, numberInStrip=0]
+3. StripNail [upc=null, manufacturerID=13, price=2099, length=2.5, numberInStrip=0]
+4. StripNail [upc=null, manufacturerID=24, price=1988, length=1.5, numberInStrip=0]
+5. StripNail [upc=null, manufacturerID=13, price=1576, length=1.5, numberInStrip=0]
+Error: you didn't enter in a valid number
+Would you like to add another relation? (Y/N)
+Error: invalid input
+Would you like to add another relation? (Y/N)
+Please enter the number you would like to add
+1. StripNail [upc=null, manufacturerID=13, price=1099, length=2.5, numberInStrip=0]
+2. StripNail [upc=null, manufacturerID=24, price=1299, length=3.0, numberInStrip=0]
+3. StripNail [upc=null, manufacturerID=13, price=2099, length=2.5, numberInStrip=0]
+4. StripNail [upc=null, manufacturerID=24, price=1988, length=1.5, numberInStrip=0]
+5. StripNail [upc=null, manufacturerID=13, price=1576, length=1.5, numberInStrip=0]
+Already exists within the Database
+Would you like to add another relation? (Y/N)
+Please enter the number you would like to add
+1. StripNail [upc=null, manufacturerID=13, price=1099, length=2.5, numberInStrip=0]
+2. StripNail [upc=null, manufacturerID=24, price=1299, length=3.0, numberInStrip=0]
+3. StripNail [upc=null, manufacturerID=13, price=2099, length=2.5, numberInStrip=0]
+4. StripNail [upc=null, manufacturerID=24, price=1988, length=1.5, numberInStrip=0]
+5. StripNail [upc=null, manufacturerID=13, price=1576, length=1.5, numberInStrip=0]
+Would you like to add another relation? (Y/N)
+Please enter the number you would like to add
+1. StripNail [upc=null, manufacturerID=13, price=1099, length=2.5, numberInStrip=0]
+2. StripNail [upc=null, manufacturerID=24, price=1299, length=3.0, numberInStrip=0]
+3. StripNail [upc=null, manufacturerID=13, price=2099, length=2.5, numberInStrip=0]
+4. StripNail [upc=null, manufacturerID=24, price=1988, length=1.5, numberInStrip=0]
+5. StripNail [upc=null, manufacturerID=13, price=1576, length=1.5, numberInStrip=0]
+Error: You are not allowed to enter a duplicate relation
+Would you like to add another relation? (Y/N)
+Which one would you like to remove? (enter the UPC only):
+
+Works with:
+StripNail [upc=null, manufacturerID=24, price=1988, length=1.5, numberInStrip=0]
+
+
