@@ -361,7 +361,8 @@ public class UpdateItem {
 										
 									case "Tool":
 										String toolDescription = textArea_Description.getText();
-										Tool tool = new Tool(upc, manufacturerID, price, toolDescription, "Tool");
+										Tool tool = (Tool) itemToUpdate;
+										tool.update(upc, manufacturerID, price, toolDescription);
 										break;
 										
 									case "PowerTool":
