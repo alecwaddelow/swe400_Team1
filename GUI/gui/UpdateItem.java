@@ -356,7 +356,8 @@ public class UpdateItem {
 									case "Nail":
 										double length = (double) spinner_length.getValue();
 										int numberInBox = (int) spinner_numberInBox.getValue();
-										Nail nail = new Nail(upc, manufacturerID, price, length, numberInBox, "Nail");
+										Nail nail = (Nail) itemToUpdate;
+										nail.update(upc, manufacturerID, price, length, numberInBox);
 										break;
 										
 									case "Tool":
