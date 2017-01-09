@@ -1,22 +1,37 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
+import data_source.*;
+import domain.*;
+import exceptions.ItemNotFoundException;
+
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.GridBagLayout;
 
 public class DeleteItem {
 
 	private JFrame frameDeleteItem;
-
+	private String itemType = null;
+	private List<InventoryItem> itemList = new ArrayList<InventoryItem>();
+	private List<JRadioButton> buttonList;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -48,12 +63,79 @@ public class DeleteItem {
 		frameDeleteItem.setBounds(100, 100, 973, 625);
 		frameDeleteItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameDeleteItem.getContentPane().setLayout(null);
+
+		JButton button_Submit = new JButton("Submit");
+		button_Submit.setBounds(715, 535, 117, 51);
+		frameDeleteItem.getContentPane().add(button_Submit);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 77, 949, 446);
+		frameDeleteItem.getContentPane().add(scrollPane);
+		
+		JPanel panel_ListOfItem = new JPanel();
+		scrollPane.setViewportView(panel_ListOfItem);
+		GridBagLayout gbl_panel_ListOfItem = new GridBagLayout();
+		gbl_panel_ListOfItem.columnWidths = new int[]{0};
+		gbl_panel_ListOfItem.rowHeights = new int[]{0};
+		panel_ListOfItem.setLayout(gbl_panel_ListOfItem);
 		
 		JComboBox comboBox_Item = new JComboBox();
 		comboBox_Item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String item = comboBox_Item.getSelectedItem().toString();
+				itemType = comboBox_Item.getSelectedItem().toString();
+				button_Submit.setEnabled(!itemType.equals(""));
 				
+				try {
+					
+					switch(itemType)
+					{
+					case "Nail":
+						panel_ListOfItem.removeAll();
+						loadNails();
+						break;	
+					default:
+						panel_ListOfItem.removeAll();
+					}
+					
+					frameDeleteItem.revalidate();
+					frameDeleteItem.repaint();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ItemNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			/**
+			 * loads the nails
+			 * @throws SQLException 
+			 * @throws ClassNotFoundException 
+			 * @throws ItemNotFoundException 
+			 */
+			private void loadNails() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+			{
+				GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+				gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+				gbc_RadioButton.gridx = 0;
+				gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+				gbc_RadioButton.anchor = GridBagConstraints.WEST;
+				buttonList = new ArrayList<JRadioButton>();
+				
+				List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllNails();	
+				for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+				{
+					Nail nail = new Nail(iiDTO.getId());
+					itemList.add((InventoryItem) nail);
+					
+					JRadioButton jrb = new JRadioButton(nail.toString());
+					buttonList.add(jrb);
+					panel_ListOfItem.add(jrb, gbc_RadioButton);
+				}
 			}
 		});
 		comboBox_Item.setModel(new DefaultComboBoxModel(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
@@ -61,16 +143,7 @@ public class DeleteItem {
 		comboBox_Item.setBounds(230, 12, 484, 31);
 		frameDeleteItem.getContentPane().add(comboBox_Item);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 77, 949, 446);
-		frameDeleteItem.getContentPane().add(scrollPane);
 		
-		JPanel panel_ListOfItem = new JPanel();
-		scrollPane.setViewportView(panel_ListOfItem);
-		
-		JButton button_Submit = new JButton("Submit");
-		button_Submit.setBounds(715, 535, 117, 51);
-		frameDeleteItem.getContentPane().add(button_Submit);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addMouseListener(new MouseAdapter() {
