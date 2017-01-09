@@ -375,14 +375,9 @@ public class UpdateItem {
 									case "StripNail":
 										double stripNailLength = (double) spinner_SNLength.getValue();
 										int numberInStrip = (int) spinner_numberInStrip.getValue();
-										StripNail stripNail = new StripNail(upc, manufacturerID, price, stripNailLength, numberInStrip, "StripNail");
-										for(int i = 0; i < buttonList.size(); i++)
-										{
-											if(buttonList.get(i).isSelected())
-											{
-												LinkTableGateway.addRelation(powerToolList.get(i).getId(), stripNail.getId());
-											}
-										}
+										StripNail stripNail = (StripNail) itemToUpdate;
+										stripNail.update(upc, manufacturerID, price, stripNailLength, numberInStrip);
+										manageStripNailCompatibles(stripNail);
 										break;
 									}
 								
@@ -394,6 +389,50 @@ public class UpdateItem {
 							
 								dialog.dispose();
 								frameUpdateItem.dispose();
+							}
+
+							/**
+							 * manages the stripnail compatibles 
+							 * 
+							 * @param stripNail
+							 * @throws ClassNotFoundException
+							 * @throws SQLException
+							 */
+							private void manageStripNailCompatibles(StripNail stripNail) throws ClassNotFoundException, SQLException 
+							{
+								List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(stripNail.getId());
+								for(int index = 0; index < buttonList.size(); index++)
+								{
+									/* only adds compatibles that don't already exist within the relationship */
+									if(buttonList.get(index).isSelected())
+									{
+										boolean alreadyExists = false;
+										for(LinkTableDTO ltDTO : listLinkTableDTO)
+										{
+											if(ltDTO.getPowerToolID() == powerToolList.get(index).getId())
+											{
+												alreadyExists = true;
+											}
+										}
+										
+										if(!alreadyExists)
+										{
+											LinkTableGateway.addRelation(powerToolList.get(index).getId(), stripNail.getId());
+										}
+									}
+									/* removes relations if pre-existing relations' buttons are no longer selected */
+									else
+									{
+										for(LinkTableDTO ltDTO : listLinkTableDTO)
+										{
+											if(ltDTO.getPowerToolID() == powerToolList.get(index).getId())
+											{
+												LinkTableGateway.removeRelation(ltDTO.getPowerToolID(), stripNail.getId());												
+											}
+										}
+									}
+								}
+								
 							}
 
 							/**
