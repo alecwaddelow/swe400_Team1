@@ -28,6 +28,7 @@ import java.awt.GridBagLayout;
 public class DeleteItem {
 
 	private JFrame frameDeleteItem;
+	private JPanel panel_ListOfItem = new JPanel();
 	private String itemType = null;
 	private List<InventoryItem> itemList = new ArrayList<InventoryItem>();
 	private List<JRadioButton> buttonList;
@@ -65,6 +66,35 @@ public class DeleteItem {
 		frameDeleteItem.getContentPane().setLayout(null);
 
 		JButton button_Submit = new JButton("Submit");
+		button_Submit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				try {
+				
+					switch(itemType)
+					{
+					case "Nail":
+						removeNails();
+						loadNails();
+						break;
+					}
+					
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ItemNotFoundException e) {
+					// TODO Auto-Generated catch block
+					e.printStackTrace();
+				}
+				
+				frameDeleteItem.revalidate();
+				frameDeleteItem.repaint();
+			}
+		});
 		button_Submit.setBounds(715, 535, 117, 51);
 		frameDeleteItem.getContentPane().add(button_Submit);
 
@@ -72,7 +102,6 @@ public class DeleteItem {
 		scrollPane.setBounds(12, 77, 949, 446);
 		frameDeleteItem.getContentPane().add(scrollPane);
 		
-		JPanel panel_ListOfItem = new JPanel();
 		scrollPane.setViewportView(panel_ListOfItem);
 		GridBagLayout gbl_panel_ListOfItem = new GridBagLayout();
 		gbl_panel_ListOfItem.columnWidths = new int[]{0};
@@ -90,7 +119,6 @@ public class DeleteItem {
 					switch(itemType)
 					{
 					case "Nail":
-						panel_ListOfItem.removeAll();
 						loadNails();
 						break;	
 					default:
@@ -110,33 +138,6 @@ public class DeleteItem {
 					e.printStackTrace();
 				}
 			}
-
-			/**
-			 * loads the nails
-			 * @throws SQLException 
-			 * @throws ClassNotFoundException 
-			 * @throws ItemNotFoundException 
-			 */
-			private void loadNails() throws ClassNotFoundException, SQLException, ItemNotFoundException 
-			{
-				GridBagConstraints gbc_RadioButton = new GridBagConstraints();
-				gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
-				gbc_RadioButton.gridx = 0;
-				gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
-				gbc_RadioButton.anchor = GridBagConstraints.WEST;
-				buttonList = new ArrayList<JRadioButton>();
-				
-				List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllNails();	
-				for(InventoryItemDTO iiDTO : listInventoryItemDTO)
-				{
-					Nail nail = new Nail(iiDTO.getId());
-					itemList.add((InventoryItem) nail);
-					
-					JRadioButton jrb = new JRadioButton(nail.toString());
-					buttonList.add(jrb);
-					panel_ListOfItem.add(jrb, gbc_RadioButton);
-				}
-			}
 		});
 		comboBox_Item.setModel(new DefaultComboBoxModel(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
 		comboBox_Item.setSelectedIndex(0);
@@ -154,5 +155,52 @@ public class DeleteItem {
 		});
 		btnCancel.setBounds(844, 535, 117, 51);
 		frameDeleteItem.getContentPane().add(btnCancel);
+	}
+	
+	/**
+	 * loads the nails
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
+	 */
+	private void loadNails() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	{
+		panel_ListOfItem.removeAll();
+		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		buttonList = new ArrayList<JRadioButton>();
+		
+		List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllNails();	
+		for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+		{
+			Nail nail = new Nail(iiDTO.getId());
+			itemList.add((InventoryItem) nail);
+			
+			JRadioButton jrb = new JRadioButton(nail.toString());
+			buttonList.add(jrb);
+			panel_ListOfItem.add(jrb, gbc_RadioButton);
+		}
+	}
+	
+	/**
+	 * removes the nails from the inventory item table
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void removeNails() throws ClassNotFoundException, SQLException 
+	{
+		for(int index = 0; index < buttonList.size(); index++)
+		{
+			if(buttonList.get(index).isSelected())
+			{
+				Nail nail = (Nail) itemList.get(index);
+				nail.removeFromTable();
+				nail = null;
+			}
+		}
 	}
 }
