@@ -609,13 +609,13 @@ public class UpdateItem {
 	private void manageDisplay() 
 	{
 		btnSubmit.setEnabled(true);
-		panel_nail.setVisible(item.equalsIgnoreCase("Nail"));
-		panel_tool.setVisible(item.equalsIgnoreCase("Tool"));
-		panel_PowerTool.setVisible(item.equalsIgnoreCase("PowerTool"));
-		panel_StripNail.setVisible(item.equalsIgnoreCase("StripNail"));
+		panel_nail.setVisible(item.equals("Nail"));
+		panel_tool.setVisible(item.equals("Tool"));
+		panel_PowerTool.setVisible(item.equals("PowerTool"));
+		panel_StripNail.setVisible(item.equals("StripNail"));
 		label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
 		panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
 		frameUpdateItem.revalidate();
-		frameUpdateItem.revalidate();
+		frameUpdateItem.repaint();
 	}
 }

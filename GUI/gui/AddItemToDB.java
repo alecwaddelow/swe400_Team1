@@ -207,9 +207,11 @@ public class AddItemToDB {
 				panel_tool.setVisible(item.equals("Tool"));
 				panel_PowerTool.setVisible(item.equals("PowerTool"));
 				panel_StripNail.setVisible(item.equals("StripNail"));
+				panel_AddCompatibles.removeAll();
 				label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
 				panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
-				
+				frmAddInventoryItem.revalidate();
+				frmAddInventoryItem.repaint();
 			}
 		});
 		frmAddInventoryItem.getContentPane().setLayout(null);
