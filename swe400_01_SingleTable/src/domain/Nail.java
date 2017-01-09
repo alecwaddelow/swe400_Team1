@@ -109,4 +109,15 @@ public class Nail extends Fastener
 		
 		InventoryItemGateway.updateNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInBox, this.id);		
 	}
+	
+	/**
+	 * removes this nail from the inventory item table
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void removeFromTable() throws ClassNotFoundException, SQLException
+	{
+		InventoryItemGateway.removeItem(this.id);
+	}
 }
