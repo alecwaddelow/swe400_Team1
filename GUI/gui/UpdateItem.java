@@ -36,14 +36,15 @@ import javax.swing.JRadioButton;
 
 import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
+import data_source.LinkTableDTO;
 import data_source.LinkTableGateway;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class AddItemToDB {
+public class UpdateItem {
 
-	private JFrame frmAddInventoryItem;
+	private JFrame frameUpdateItem;
 	private JLabel label_AddCompatibles = new JLabel();
 	
 	private JRadioButton radioButton_True = new JRadioButton("TRUE");
@@ -74,16 +75,21 @@ public class AddItemToDB {
 	private static ArrayList<PowerTool> powerToolList;
 	private static ArrayList<StripNail> stripNailList;
 	private ArrayList<JRadioButton> buttonList;
+	
+	private static InventoryItem itemToUpdate;
+	private static String item = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void addItem() {
+	public static void updateItem(InventoryItem item) {
 		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {
-					AddItemToDB window = new AddItemToDB();
-					window.frmAddInventoryItem.setVisible(true);
+					itemToUpdate = item;
+					UpdateItem window = new UpdateItem();
+					window.frameUpdateItem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -93,20 +99,25 @@ public class AddItemToDB {
 
 	/**
 	 * Create the application.
+	 * @throws ItemNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public AddItemToDB() {
+	public UpdateItem() throws ClassNotFoundException, SQLException, ItemNotFoundException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws ItemNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	private void initialize() {
-		frmAddInventoryItem = new JFrame();
-		frmAddInventoryItem.setTitle("Add Inventory Item");
-		frmAddInventoryItem.setBounds(100, 100, 1079, 509);
-		frmAddInventoryItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+	private void initialize() throws ClassNotFoundException, SQLException, ItemNotFoundException {
+		frameUpdateItem = new JFrame();
+		frameUpdateItem.setTitle("Update Inventory Item");
+		frameUpdateItem.setBounds(100, 100, 1079, 509);
+		frameUpdateItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		sharedItemPanel.setBounds(10, 40, 352, 434);
 		
@@ -118,105 +129,8 @@ public class AddItemToDB {
 		gbc_RadioButton.gridx = 0;
 		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
 		gbc_RadioButton.anchor = GridBagConstraints.WEST;
-		
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 10, 705, 24);
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String item = comboBox.getSelectedItem().toString();
-				
-				manageDisplay(item);
-				if(item.equals("StripNail"))
-				{					
-					powerToolList = new ArrayList<PowerTool>();
-					buttonList = new ArrayList<JRadioButton>();
-					
-					try {
-						
-						List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllPowerTools();
-						for(InventoryItemDTO iiDTO : listInventoryItemDTO)
-						{
-							PowerTool powerTool = new PowerTool(iiDTO.getId());
-							powerToolList.add(powerTool);
-							
-							JRadioButton jrb = new JRadioButton(powerTool.toString());
-							buttonList.add(jrb);
-							panel_AddCompatibles.add(jrb, gbc_RadioButton);
-						}
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ItemNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				else if(item.equals("PowerTool"))
-				{
-					stripNailList = new ArrayList<StripNail>();
-					buttonList = new ArrayList<JRadioButton>();
-					
-					try {
-						
-						List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllStripNails();
-						for(InventoryItemDTO iiDTO : listInventoryItemDTO)
-						{
-							StripNail stripNail = new StripNail(iiDTO.getId());
-							stripNailList.add(stripNail);
-							
-							JRadioButton jrb = new JRadioButton(stripNail.toString());
-							buttonList.add(jrb);
-							panel_AddCompatibles.add(jrb, gbc_RadioButton);
-						}
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ItemNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}				
-			}
-
-			/**
-			 * manages what to display
-			 * @param item
-			 */
-			private void manageDisplay(String item) 
-			{
-				spinner_upc.setValue(0);
-				spinner_manufacturerID.setValue(0);
-				spinner_price.setValue(1);
-				spinner_length.setValue(0);
-				spinner_SNLength.setValue(0);
-				spinner_numberInBox.setValue(1);
-				spinner_numberInStrip.setValue(1);
-				textArea_Description.setText(null);
-				textArea_PT_Description.setText(null);
-				
-				/* manage what to display based on type of item is selected */
-				btnSubmit.setEnabled(!item.equals(""));
-				panel_nail.setVisible(item.equals("Nail"));
-				panel_tool.setVisible(item.equals("Tool"));
-				panel_PowerTool.setVisible(item.equals("PowerTool"));
-				panel_StripNail.setVisible(item.equals("StripNail"));
-				label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
-				panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
-				
-			}
-		});
-		frmAddInventoryItem.getContentPane().setLayout(null);
-		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
-		comboBox.setSelectedIndex(0);
-		frmAddInventoryItem.getContentPane().add(comboBox);
-		frmAddInventoryItem.getContentPane().add(sharedItemPanel);
+		frameUpdateItem.getContentPane().setLayout(null);
+		frameUpdateItem.getContentPane().add(sharedItemPanel);
 		sharedItemPanel.setVisible(true);
 		sharedItemPanel.setLayout(null);
 		
@@ -249,7 +163,7 @@ public class AddItemToDB {
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(368, 40, 347, 432);
-		frmAddInventoryItem.getContentPane().add(layeredPane);
+		frameUpdateItem.getContentPane().add(layeredPane);
 		layeredPane.setVisible(true);
 		panel_nail.setVisible(false);
 		
@@ -324,7 +238,7 @@ public class AddItemToDB {
 		lblNumberInBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_nail.add(lblNumberInBox);
 		
-		btnSubmit.setBounds(116, 393, 117, 39);
+		btnSubmit.setBounds(110, 393, 117, 39);
 		layeredPane.add(btnSubmit);
 		btnSubmit.setEnabled(false);
 		
@@ -343,16 +257,26 @@ public class AddItemToDB {
 		panel_tool.add(textArea_Description);
 		textArea_Description.setColumns(10);
 		
+		JButton btnNewCancel = new JButton("Cancel");
+		btnNewCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frameUpdateItem.dispose();
+			}
+		});
+		btnNewCancel.setBounds(230, 393, 117, 39);
+		layeredPane.add(btnNewCancel);
+		
 		label_AddCompatibles.setText("Add Compatibles");
 		label_AddCompatibles.setHorizontalAlignment(SwingConstants.CENTER);
 		label_AddCompatibles.setFont(new Font("Dialog", Font.BOLD, 20));
 		label_AddCompatibles.setBounds(733, 10, 334, 24);
 		label_AddCompatibles.setVisible(false);
-		frmAddInventoryItem.getContentPane().add(label_AddCompatibles);
+		frameUpdateItem.getContentPane().add(label_AddCompatibles);
 		
 		scrollPane_AddCompatibles.setBounds(727, 40, 340, 430);
 		scrollPane_AddCompatibles.setVisible(true);
-		frmAddInventoryItem.getContentPane().add(scrollPane_AddCompatibles);
+		frameUpdateItem.getContentPane().add(scrollPane_AddCompatibles);
 		
 		scrollPane_AddCompatibles.setViewportView(panel_AddCompatibles);
 		GridBagLayout gbl_panel_AddCompatibles = new GridBagLayout();
@@ -378,6 +302,9 @@ public class AddItemToDB {
 				});
 		
 		
+		updateFields();
+		
+		
 		
 		/**
 		 * add actions listener to the button when it is clicked
@@ -386,14 +313,10 @@ public class AddItemToDB {
 		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
-			{
-				String item = comboBox.getSelectedItem().toString();
-				
+			{					
 				String upc = spinner_upc.getValue().toString();
 				int manufacturerID = (int) spinner_manufacturerID.getValue();
 				int price = (int) spinner_price.getValue();
-				
-				
 			
 				/**
 				 * Create a dialog box for confirmation
@@ -401,7 +324,7 @@ public class AddItemToDB {
 				JDialog dialog = new JDialog();
 				JPanel contentPanel = new JPanel();
 				JLabel itemLabel = new JLabel();
-				JLabel confirmationLabel = new JLabel("Are you sure you want to add this " + item + "?\n");
+				JLabel confirmationLabel = new JLabel("Are you sure you want to update this " + item + "?\n");
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);	
 			
@@ -444,14 +367,9 @@ public class AddItemToDB {
 									case "PowerTool":
 										String powerToolDescription = textArea_PT_Description.getText(); 
 										boolean batteryPowered = (radioButton_True.isSelected()) ? true:false;
-										PowerTool powerTool = new PowerTool(upc, manufacturerID, price, powerToolDescription, batteryPowered, "PowerTool");
-										for(int i = 0; i < buttonList.size(); i++)
-										{
-											if(buttonList.get(i).isSelected())
-											{
-												LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(i).getId());
-											}
-										}
+										PowerTool powerTool = (PowerTool) itemToUpdate;
+										powerTool.update(upc, manufacturerID, price, powerToolDescription, batteryPowered);
+										managePowerToolCompatibles(powerTool);
 										break;
 										
 									case "StripNail":
@@ -475,7 +393,51 @@ public class AddItemToDB {
 								}
 							
 								dialog.dispose();
-								frmAddInventoryItem.dispose();
+								frameUpdateItem.dispose();
+							}
+
+							/**
+							 * manages the powertool compatibles
+							 * 
+							 * @param powerTool
+							 * @throws SQLException 
+							 * @throws ClassNotFoundException 
+							 */
+							private void managePowerToolCompatibles(PowerTool powerTool) throws ClassNotFoundException, SQLException 
+							{
+								List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(powerTool.getId());
+								for(int index = 0; index < buttonList.size(); index++)
+								{
+									/* only adds compatibles that don't already exist within the relationship */
+									if(buttonList.get(index).isSelected())
+									{
+										boolean alreadyExists = false;
+										for(LinkTableDTO ltDTO : listLinkTableDTO)
+										{
+											if(ltDTO.getStripNailID() == stripNailList.get(index).getId())
+											{
+												alreadyExists = true;
+											}
+										}
+										
+										if(!alreadyExists)
+										{
+											LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(index).getId());
+										}
+									}
+									/* removes relations if pre-existing relations' buttons are no longer selected */
+									else
+									{
+										for(LinkTableDTO ltDTO : listLinkTableDTO)
+										{
+											if(ltDTO.getStripNailID() == stripNailList.get(index).getId())
+											{
+												LinkTableGateway.removeRelation(powerTool.getId(), ltDTO.getStripNailID());
+											}
+										}
+									}								
+								}
+								
 							}
 						});
 					
@@ -499,5 +461,122 @@ public class AddItemToDB {
 				}
 			}
 		});
+	}
+
+	/**
+	 * updates the fields from the itemToUpdate to the screen
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
+	 */
+	private void updateFields() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	{
+		spinner_upc.setValue(Long.valueOf(itemToUpdate.getUpc()));
+		spinner_manufacturerID.setValue(itemToUpdate.getManufacturerID());
+		spinner_price.setValue(itemToUpdate.getPrice());
+		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		
+		if(itemToUpdate instanceof Nail)
+		{
+			item = "Nail";
+			Nail nail = (Nail) itemToUpdate;
+			spinner_length.setValue(nail.getLength());
+			spinner_numberInBox.setValue(nail.getNumberInBox());
+		}
+		else if(itemToUpdate instanceof Tool)
+		{
+			item = "Tool";
+			Tool tool = (Tool) itemToUpdate;
+			textArea_Description.setText(tool.getDescription());
+		}
+		else if(itemToUpdate instanceof PowerTool)
+		{
+			item = "PowerTool";
+			PowerTool powerTool = (PowerTool) itemToUpdate;
+			radioButton_True.setSelected(powerTool.isBatteryPowered());
+			radioButton_False.setSelected(!powerTool.isBatteryPowered());
+			textArea_PT_Description.setText(powerTool.getDescription());
+			
+			stripNailList = new ArrayList<StripNail>();
+			buttonList = new ArrayList<JRadioButton>();
+			
+			List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllStripNails();
+			List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(powerTool.getId());
+			
+			for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+			{
+				StripNail stripNail = new StripNail(iiDTO.getId());
+				stripNailList.add(stripNail);
+				
+				JRadioButton jrb = new JRadioButton(stripNail.toString());
+				
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					if(iiDTO.getId() == ltDTO.getStripNailID())
+					{
+						jrb.setSelected(true);
+						break;
+					}
+				}
+				
+				buttonList.add(jrb);
+				panel_AddCompatibles.add(jrb, gbc_RadioButton);
+			}
+		}
+		else if(itemToUpdate instanceof StripNail)
+		{
+			item = "StripNail";
+			StripNail stripNail = (StripNail) itemToUpdate;
+			spinner_SNLength.setValue(stripNail.getLength());
+			spinner_numberInStrip.setValue(stripNail.getNumberInStrip());
+			
+			powerToolList = new ArrayList<PowerTool>();
+			buttonList = new ArrayList<JRadioButton>();
+			
+			List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllPowerTools();
+			List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(stripNail.getId());
+			
+			for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+			{
+				PowerTool powerTool = new PowerTool(iiDTO.getId());
+				powerToolList.add(powerTool);
+				
+				JRadioButton jrb = new JRadioButton(powerTool.toString());
+				
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					if(iiDTO.getId() == ltDTO.getPowerToolID())
+					{
+						jrb.setSelected(true);
+						break;
+					}
+				}
+				
+				buttonList.add(jrb);
+				panel_AddCompatibles.add(jrb, gbc_RadioButton);
+			}			
+		}
+		manageDisplay();
+	}
+
+	/**
+	 * manages what to display
+	 */
+	private void manageDisplay() 
+	{
+		btnSubmit.setEnabled(true);
+		panel_nail.setVisible(item.equalsIgnoreCase("Nail"));
+		panel_tool.setVisible(item.equalsIgnoreCase("Tool"));
+		panel_PowerTool.setVisible(item.equalsIgnoreCase("PowerTool"));
+		panel_StripNail.setVisible(item.equalsIgnoreCase("StripNail"));
+		label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
+		panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
+		frameUpdateItem.revalidate();
+		frameUpdateItem.revalidate();
 	}
 }

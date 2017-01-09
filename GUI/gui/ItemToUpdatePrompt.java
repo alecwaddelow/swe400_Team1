@@ -36,8 +36,11 @@ public class ItemToUpdatePrompt
 	private JScrollPane scrollPane;
 	private JPanel panel_InventoryItem = new JPanel();
 	private ButtonGroup buttonGroup;
+	private JButton btnSubmit = new JButton("Submit");
 	
 	private static List<JRadioButton> buttonList;
+	
+	private static String itemType = null;
 	
 	/* list of items */
 	private static List<Nail> nailsList;
@@ -76,11 +79,13 @@ public class ItemToUpdatePrompt
 		frame.setBounds(100, 100, 426, 464);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		btnSubmit.setEnabled(false);
 		comboBox_InventoryItem = new JComboBox();
 		comboBox_InventoryItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String item = comboBox_InventoryItem.getSelectedItem().toString();
+				itemType = comboBox_InventoryItem.getSelectedItem().toString();
+				btnSubmit.setEnabled(!itemType.equals(""));
 				buttonList = new ArrayList<JRadioButton>();
 				buttonGroup = new ButtonGroup();
 				
@@ -95,7 +100,7 @@ public class ItemToUpdatePrompt
 
 				try {
 					
-					switch(item)
+					switch(itemType)
 					{
 					case "Nail":
 						List<InventoryItemDTO> listInventoryItemDTO_Nail = InventoryItemGateway.getAllNails();
@@ -192,10 +197,38 @@ public class ItemToUpdatePrompt
 		panel_InventoryItem.setLayout(gbl_panel_InventoryItem);
 		panel_InventoryItem.setVisible(true);
 		
-		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				InventoryItem item = null;
+				boolean foundSelected = false;
+				
+				int index = 0;
+				while(!foundSelected)
+				{
+					if(itemType.equals("Nail") && buttonList.get(index).isSelected())
+					{
+						item = (InventoryItem) nailsList.get(index);
+						foundSelected = true;
+					}
+					else if(itemType.equalsIgnoreCase("Tool") && buttonList.get(index).isSelected())
+					{
+						item = (InventoryItem) toolsList.get(index);
+						foundSelected = true;
+					}
+					else if(itemType.equals("PowerTool") && buttonList.get(index).isSelected())
+					{
+						item = (InventoryItem) powerToolsList.get(index);
+						foundSelected = true;
+					}
+					else if(itemType.equals("StripNail") && buttonList.get(index).isSelected())
+					{
+						item = (InventoryItem) stripNailsList.get(index);
+						foundSelected = true;
+					}
+					index++;
+				}
+				UpdateItem.updateItem(item);
 			}
 		});
 		btnSubmit.setBounds(176, 400, 117, 25);
