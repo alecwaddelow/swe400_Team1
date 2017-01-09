@@ -90,6 +90,16 @@ public class Tool extends InventoryItem
 				+ ", description=" + this.description + "]";
 	}
 
+	/**
+	 * Updates the tool to the table
+	 * 
+	 * @param upc
+	 * @param manufacturerIDParse
+	 * @param priceParse
+	 * @param description
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void update(String upc, int manufacturerIDParse, int priceParse, String description) throws ClassNotFoundException, SQLException 
 	{
 		this.upc = upc;
@@ -98,6 +108,16 @@ public class Tool extends InventoryItem
 		this.description = description;
 		
 		InventoryItemGateway.updateToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.id);
+	}
+
+	/**
+	 * removes this tool from the table
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void removeFromTable() throws ClassNotFoundException, SQLException 
+	{
+		InventoryItemGateway.removeItem(this.id);
 	}
 
 }
