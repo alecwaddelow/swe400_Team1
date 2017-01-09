@@ -30,7 +30,7 @@ public class DeleteItem {
 	private JFrame frameDeleteItem;
 	private JPanel panel_ListOfItem = new JPanel();
 	private String itemType = null;
-	private List<InventoryItem> itemList = new ArrayList<InventoryItem>();
+	private List<InventoryItem> itemList;
 	private List<JRadioButton> buttonList;
 	
 	/**
@@ -78,6 +78,9 @@ public class DeleteItem {
 						removeNails();
 						loadNails();
 						break;
+					case "Tool":
+						removeTools();
+						loadTools();
 					}
 					
 				} catch (ClassNotFoundException e) {
@@ -121,6 +124,9 @@ public class DeleteItem {
 					case "Nail":
 						loadNails();
 						break;	
+					case "Tool":
+						loadTools();
+						break;
 					default:
 						panel_ListOfItem.removeAll();
 					}
@@ -173,6 +179,7 @@ public class DeleteItem {
 		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
 		gbc_RadioButton.anchor = GridBagConstraints.WEST;
 		buttonList = new ArrayList<JRadioButton>();
+		itemList = new ArrayList<InventoryItem>();
 		
 		List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllNails();	
 		for(InventoryItemDTO iiDTO : listInventoryItemDTO)
@@ -188,6 +195,7 @@ public class DeleteItem {
 	
 	/**
 	 * removes the nails from the inventory item table
+	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -200,6 +208,56 @@ public class DeleteItem {
 				Nail nail = (Nail) itemList.get(index);
 				nail.removeFromTable();
 				nail = null;
+			}
+		}
+	}
+	
+	/**
+	 * Loads tools from the database
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
+	 */
+	private void loadTools() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	{
+		panel_ListOfItem.removeAll();
+		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		buttonList = new ArrayList<JRadioButton>();
+		itemList = new ArrayList<InventoryItem>();
+		
+		List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllTools();	
+		for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+		{
+			Tool tool= new Tool(iiDTO.getId());
+			itemList.add((InventoryItem) tool);
+			
+			JRadioButton jrb = new JRadioButton(tool.toString());
+			buttonList.add(jrb);
+			panel_ListOfItem.add(jrb, gbc_RadioButton);
+		}
+	}
+	
+	/**
+	 * removes the tools from the inventory item table
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void removeTools() throws ClassNotFoundException, SQLException 
+	{
+		for(int index = 0; index < buttonList.size(); index++)
+		{
+			if(buttonList.get(index).isSelected())
+			{
+				Tool tool = (Tool) itemList.get(index);
+				tool.removeFromTable();
+				tool = null;
 			}
 		}
 	}
