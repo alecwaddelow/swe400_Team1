@@ -81,6 +81,11 @@ public class DeleteItem {
 					case "Tool":
 						removeTools();
 						loadTools();
+						break;
+					case "PowerTool":
+						removePowerTools();
+						loadPowerTools();
+						break;
 					}
 					
 				} catch (ClassNotFoundException e) {
@@ -126,6 +131,9 @@ public class DeleteItem {
 						break;	
 					case "Tool":
 						loadTools();
+						break;
+					case "PowerTool":
+						loadPowerTools();
 						break;
 					default:
 						panel_ListOfItem.removeAll();
@@ -258,6 +266,61 @@ public class DeleteItem {
 				Tool tool = (Tool) itemList.get(index);
 				tool.removeFromTable();
 				tool = null;
+			}
+		}
+	}
+	
+	/**
+	 * Loads tools from the database
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
+	 */
+	private void loadPowerTools() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	{
+		panel_ListOfItem.removeAll();
+		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		buttonList = new ArrayList<JRadioButton>();
+		itemList = new ArrayList<InventoryItem>();
+		
+		List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllPowerTools();	
+		for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+		{
+			PowerTool powerTool = new PowerTool(iiDTO.getId());
+			itemList.add((InventoryItem) powerTool);
+			
+			JRadioButton jrb = new JRadioButton(powerTool.toString());
+			buttonList.add(jrb);
+			panel_ListOfItem.add(jrb, gbc_RadioButton);
+		}
+	}
+	
+	/**
+	 * removes the tools from the inventory item table
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void removePowerTools() throws ClassNotFoundException, SQLException 
+	{
+		for(int index = 0; index < buttonList.size(); index++)
+		{
+			if(buttonList.get(index).isSelected())
+			{
+				PowerTool powerTool = (PowerTool) itemList.get(index);
+				List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(powerTool.getId());
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					powerTool.removeCompatibleStripNail(ltDTO.getStripNailID());
+				}
+				powerTool.removeFromTable();
+				powerTool = null;
 			}
 		}
 	}
