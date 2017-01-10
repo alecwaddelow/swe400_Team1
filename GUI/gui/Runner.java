@@ -80,7 +80,7 @@ public class Runner {
 				frmInvenotryItemManager.dispose();
 			}
 		});
-		btnExit.setIcon(new ImageIcon("Pictures/exit_icon.png"));
+		btnExit.setIcon(new ImageIcon("Pictures/delete_icon.png"));
 		btnExit.setBounds(288, 211, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(btnExit);
 		
