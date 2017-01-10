@@ -73,27 +73,27 @@ public class Runner {
 		button_searchByUPC.setBounds(12, 12, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button_searchByUPC);
 		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addMouseListener(new MouseAdapter() {
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				frmInvenotryItemManager.dispose();
 			}
 		});
-		btnExit.setIcon(new ImageIcon("Pictures/delete_icon.png"));
-		btnExit.setBounds(288, 211, 250, 155);
-		frmInvenotryItemManager.getContentPane().add(btnExit);
+		btnDelete.setIcon(new ImageIcon("Pictures/delete_icon.png"));
+		btnDelete.setBounds(288, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(btnDelete);
 		
-		JButton btnUpdateItem = new JButton("Update Item");
-		btnUpdateItem.addMouseListener(new MouseAdapter() {
+		JButton button_UpdateItem = new JButton("Update Item");
+		button_UpdateItem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				ItemToUpdatePrompt.updateItemPrompt();
 			}
 		});
-		btnUpdateItem.setIcon(new ImageIcon("Pictures/update_item.png"));
-		btnUpdateItem.setBounds(12, 211, 250, 155);
-		frmInvenotryItemManager.getContentPane().add(btnUpdateItem);
+		button_UpdateItem.setIcon(new ImageIcon("Pictures/update_item.png"));
+		button_UpdateItem.setBounds(12, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(button_UpdateItem);
 		
 		JButton button_AddItem = new JButton("Add Item");
 		button_AddItem.addMouseListener(new MouseAdapter() {
@@ -109,6 +109,6 @@ public class Runner {
 		button_AddItem.setIcon(new ImageIcon("Pictures/add_item_icon.png"));
 		button_AddItem.setBounds(288, 12, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button_AddItem);
-		frmInvenotryItemManager.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmInvenotryItemManager.getContentPane(), btnExit, btnUpdateItem, button_AddItem, button_searchByUPC}));
+		frmInvenotryItemManager.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmInvenotryItemManager.getContentPane(), btnDelete, button_UpdateItem, button_AddItem, button_searchByUPC}));
 	}
 }
