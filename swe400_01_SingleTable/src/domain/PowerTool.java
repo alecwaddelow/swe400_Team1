@@ -230,6 +230,17 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		}
 	}
 
+	/**
+	 * Updates this powertool and to the table
+	 * 
+	 * @param upc
+	 * @param manufacturerIDParse
+	 * @param priceParse
+	 * @param description
+	 * @param batteryPowered
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void update(String upc, int manufacturerIDParse, int priceParse, String description, boolean batteryPowered) throws ClassNotFoundException, SQLException 
 	{
 		this.upc = upc;
@@ -239,5 +250,28 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		this.batteryPowered = batteryPowered;
 		
 		InventoryItemGateway.updatePowerToolToDB(this.upc, this.manufacturerID, this.price, this.description, this.batteryPowered, this.id);
+	}
+
+	/**
+	 * removes this powertool from the the InventoryItem table and LinkTable table
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void removeFromTable() throws ClassNotFoundException, SQLException 
+	{
+		InventoryItemGateway.removeItem(this.id);
+	}
+
+	/**
+	 * removes the stripNail associated with it
+	 * 
+	 * @param stripNailID
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void removeCompatibleStripNail(int stripNailID) throws ClassNotFoundException, SQLException 
+	{
+		LinkTableGateway.removeRelation(this.id, stripNailID);
 	}
 }

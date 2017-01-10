@@ -555,7 +555,7 @@ public class InventoryItemGateway
 		preparedStatement.close();
 		return listInventoryItemDTO;
 	}
-	
+
 	/**
 	 * retrieves all nails 
 	 * 
@@ -619,5 +619,21 @@ public class InventoryItemGateway
 		resultSet.close();
 		preparedStatement.close();
 		return listInventoryItemDTO;
+	}
+	
+	/**
+	 * removes an item in the table
+	 * 
+	 * @param itemID
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public static void removeItem(int itemID) throws SQLException, ClassNotFoundException
+	{
+		String sqlStatement = "delete from InventoryItem where id=?";
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		preparedStatement.setInt(1, itemID);
+		preparedStatement.execute();
+		preparedStatement.close();
 	}
 }
