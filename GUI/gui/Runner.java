@@ -73,16 +73,16 @@ public class Runner {
 		button_searchByUPC.setBounds(12, 12, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button_searchByUPC);
 		
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.addMouseListener(new MouseAdapter() {
+		JButton button_Delete = new JButton("Delete");
+		button_Delete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				frmInvenotryItemManager.dispose();
+				DeleteItem.showWindow();
 			}
 		});
-		btnDelete.setIcon(new ImageIcon("Pictures/delete_icon.png"));
-		btnDelete.setBounds(288, 211, 250, 155);
-		frmInvenotryItemManager.getContentPane().add(btnDelete);
+		button_Delete.setIcon(new ImageIcon("Pictures/delete_icon.png"));
+		button_Delete.setBounds(288, 211, 250, 155);
+		frmInvenotryItemManager.getContentPane().add(button_Delete);
 		
 		JButton button_UpdateItem = new JButton("Update Item");
 		button_UpdateItem.addMouseListener(new MouseAdapter() {
@@ -109,6 +109,6 @@ public class Runner {
 		button_AddItem.setIcon(new ImageIcon("Pictures/add_item_icon.png"));
 		button_AddItem.setBounds(288, 12, 250, 155);
 		frmInvenotryItemManager.getContentPane().add(button_AddItem);
-		frmInvenotryItemManager.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmInvenotryItemManager.getContentPane(), btnDelete, button_UpdateItem, button_AddItem, button_searchByUPC}));
+		frmInvenotryItemManager.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmInvenotryItemManager.getContentPane(), button_Delete, button_UpdateItem, button_AddItem, button_searchByUPC}));
 	}
 }
