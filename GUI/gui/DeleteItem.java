@@ -82,6 +82,10 @@ public class DeleteItem {
 						removeTools();
 						loadTools();
 						break;
+					case "StripNail":
+						removeStripNails();
+						loadStripNails();
+						break;
 					case "PowerTool":
 						removePowerTools();
 						loadPowerTools();
@@ -131,6 +135,9 @@ public class DeleteItem {
 						break;	
 					case "Tool":
 						loadTools();
+						break;
+					case "StripNail":
+						loadStripNails();
 						break;
 					case "PowerTool":
 						loadPowerTools();
@@ -271,7 +278,7 @@ public class DeleteItem {
 	}
 	
 	/**
-	 * Loads tools from the database
+	 * Loads powertools from the database
 	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -302,7 +309,7 @@ public class DeleteItem {
 	}
 	
 	/**
-	 * removes the tools from the inventory item table
+	 * removes the powertools from the inventory item table
 	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
@@ -321,6 +328,61 @@ public class DeleteItem {
 				}
 				powerTool.removeFromTable();
 				powerTool = null;
+			}
+		}
+	}
+	
+	/**
+	 * Loads stripNails from the database
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
+	 */
+	private void loadStripNails() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	{
+		panel_ListOfItem.removeAll();
+		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		buttonList = new ArrayList<JRadioButton>();
+		itemList = new ArrayList<InventoryItem>();
+		
+		List<InventoryItemDTO> listInventoryItemDTO = InventoryItemGateway.getAllStripNails();	
+		for(InventoryItemDTO iiDTO : listInventoryItemDTO)
+		{
+			StripNail stripNail = new StripNail(iiDTO.getId());
+			itemList.add((InventoryItem) stripNail);
+			
+			JRadioButton jrb = new JRadioButton(stripNail.toString());
+			buttonList.add(jrb);
+			panel_ListOfItem.add(jrb, gbc_RadioButton);
+		}
+	}
+	
+	/**
+	 * removes the stripNails from the inventory item table
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void removeStripNails() throws ClassNotFoundException, SQLException 
+	{
+		for(int index = 0; index < buttonList.size(); index++)
+		{
+			if(buttonList.get(index).isSelected())
+			{
+				StripNail stripNail = (StripNail) itemList.get(index);
+				List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(stripNail.getId());
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					stripNail.removeCompatiblePowerTool(ltDTO.getPowerToolID());
+				}
+				stripNail.removeFromTable();
+				stripNail = null;
 			}
 		}
 	}

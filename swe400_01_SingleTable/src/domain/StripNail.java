@@ -228,4 +228,27 @@ public class StripNail extends Fastener implements LoadInterface
 		
 		InventoryItemGateway.updateStripNailToDB(this.upc, this.manufacturerID, this.price, this.length, this.numberInStrip, this.id);
 	}
+
+	/**
+	 * removes the stripnail from the table
+	 * 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void removeFromTable() throws ClassNotFoundException, SQLException 
+	{
+		InventoryItemGateway.removeItem(this.id);
+	}
+
+	/**
+	 * removes a compatible powertool
+	 * 
+	 * @param powerToolID
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public void removeCompatiblePowerTool(int powerToolID) throws ClassNotFoundException, SQLException 
+	{
+		LinkTableGateway.removeRelation(powerToolID, this.id);
+	}
 }

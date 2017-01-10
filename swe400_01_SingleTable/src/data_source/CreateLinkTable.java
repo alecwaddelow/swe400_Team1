@@ -59,10 +59,5 @@ public class CreateLinkTable
 		LinkTableGateway.addRelation(20, 14);
 		LinkTableGateway.addRelation(21, 14);
 		LinkTableGateway.addRelation(21, 15);
-		preparedStatement = ConnectionManager.getConnection().prepareStatement("INSERT INTO LinkTable (powerToolID, stripNailID) VALUES (?,?)");
-		preparedStatement.setNull(1, 0);
-		preparedStatement.setInt(2, 13);
-		LinkTableGateway.insertRow(preparedStatement);
-		preparedStatement.close();
 	}
 }
