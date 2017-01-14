@@ -19,7 +19,6 @@ import other.*;
 			TestPowerTool.class,
 			TestStripNail.class,
 			TestTool.class,
-			TestLinkTableMapper.class,
 			TestLinkTableGateway.class,
 			TestDatabaseGateway.class,
 			TestCreateLinkTable.class,
