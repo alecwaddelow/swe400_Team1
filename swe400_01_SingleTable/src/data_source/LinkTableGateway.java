@@ -67,6 +67,31 @@ public class LinkTableGateway
 	}
 	
 	/**
+	 * @return every relation from LinkTableGateway
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static List<LinkTableDTO> getAllRelations() throws SQLException, ClassNotFoundException
+	{
+		String sqlStatement = ("SELECT * FROM LinkTable");
+		PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		List<LinkTableDTO> listLinkTableDTO = new ArrayList<LinkTableDTO>();
+		
+		while(resultSet.next())
+		{
+			LinkTableDTO ltDTO = new LinkTableDTO();
+			ltDTO.setPowerToolID(resultSet.getInt("powerToolID"));
+			ltDTO.setStripNailID(resultSet.getInt("stripNailID"));
+			listLinkTableDTO.add(ltDTO);
+		}
+		
+		resultSet.close();
+		preparedStatement.close();
+		return listLinkTableDTO;
+	}
+	
+	/**
 	 * Inserts an item into the table within the database based on a prepared statement 
 	 * 
 	 * @param PreparedStatement
