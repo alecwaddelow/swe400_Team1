@@ -147,8 +147,7 @@ public class StripNailInput
 				String input = sc.nextLine();
 				int powerToolID = InventoryItemGateway.getID(input, "PowerTool");
 				
-				LinkTableMapper.removeRelation(powerToolID, stripNail.getId());
-				stripNail.removePowerToolFromList(new PowerTool(powerToolID));
+				stripNail.removeCompatiblePowerTool(powerToolID);
 				
 				System.out.println("Would you like to remove another relation? (Y/N)");
 				input = sc.nextLine();
@@ -190,8 +189,7 @@ public class StripNailInput
 			String input = sc.nextLine();
 			int powerToolID = InventoryItemGateway.getID(input, "PowerTool");
 			
-			LinkTableMapper.addRelation(powerToolID, stripNail.getId());
-			stripNail.addPowerToolToList(new PowerTool(powerToolID));
+			stripNail.addCompatiblePowerTool(powerToolID);
 			
 			System.out.println("Would you like to add another relation? (Y/N)");
 			input = sc.nextLine();
