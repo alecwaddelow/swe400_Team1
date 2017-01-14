@@ -313,8 +313,9 @@ public class DeleteItem {
 	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	private void removePowerTools() throws ClassNotFoundException, SQLException 
+	private void removePowerTools() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		for(int index = 0; index < buttonList.size(); index++)
 		{
@@ -368,8 +369,9 @@ public class DeleteItem {
 	 * 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	private void removeStripNails() throws ClassNotFoundException, SQLException 
+	private void removeStripNails() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		for(int index = 0; index < buttonList.size(); index++)
 		{
