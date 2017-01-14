@@ -345,12 +345,12 @@ public class UserInput
 					if(item.getClassName().equalsIgnoreCase("PowerTool"))
 					{
 						stripNail = (StripNail) itemList.get(Integer.parseInt(input)-1);
-						LinkTableMapper.addRelation(item.getId(), stripNail.getId());
+						stripNail.addCompatiblePowerTool(item.getId());
 					}
 					else
 					{
 						powerTool = (PowerTool) itemList.get(Integer.parseInt(input)-1); 
-						LinkTableMapper.addRelation(powerTool.getId(), item.getId());
+						powerTool.addCompatibleStripNail(item.getId());
 					}
 				}
 			}
