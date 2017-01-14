@@ -246,9 +246,25 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @param powerToolID
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public void removeCompatiblePowerTool(int powerToolID) throws ClassNotFoundException, SQLException 
+	public void removeCompatiblePowerTool(int powerToolID) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		LinkTableGateway.removeRelation(powerToolID, this.id);
+		removePowerToolFromList(new PowerTool(powerToolID));
+	}
+	
+	/**
+	 * adds a compatible powertool to the database and to the list
+	 * 
+	 * @param powerToolID
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
+	 */
+	public void addCompatiblePowerTool(int powerToolID) throws ClassNotFoundException, SQLException, ItemNotFoundException
+	{
+		LinkTableGateway.addRelation(powerToolID, this.id);
+		addPowerToolToList(new PowerTool(powerToolID));
 	}
 }

@@ -269,9 +269,25 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 * @param stripNailID
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
+	 * @throws ItemNotFoundException 
 	 */
-	public void removeCompatibleStripNail(int stripNailID) throws ClassNotFoundException, SQLException 
+	public void removeCompatibleStripNail(int stripNailID) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		LinkTableGateway.removeRelation(this.id, stripNailID);
+		removeStripNailFromList(new StripNail(stripNailID));
+	}
+	
+	/**
+	 * adds a stripnail as a compatible item to the database and to the list
+	 * 
+	 * @param stripNailID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws ItemNotFoundException 
+	 */
+	public void addCompatibleStripNail(int stripNailID) throws ClassNotFoundException, SQLException, ItemNotFoundException
+	{
+		LinkTableGateway.addRelation(this.id, stripNailID);
+		addStripNailToList(new StripNail(stripNailID));
 	}
 }
