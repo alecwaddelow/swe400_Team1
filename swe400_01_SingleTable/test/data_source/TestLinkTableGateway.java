@@ -71,22 +71,6 @@ public class TestLinkTableGateway extends DBTest
 	}
 	
 	/**
-	 * Tests InsertRow
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	@Test
-	public void testInsertRow() throws ClassNotFoundException, SQLException
-	{
-		PreparedStatement statement = null;
-		String sqlStatement = "select * from LinkTable";
-		statement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
-		LinkTableGateway.insertRow(statement);
-		assertTrue(statement.isClosed());
-	}
-	
-	/**
 	 * tests adding a relation
 	 * 
 	 * @throws ClassNotFoundException
@@ -95,17 +79,11 @@ public class TestLinkTableGateway extends DBTest
 	@Test
 	public void testAddRelation() throws ClassNotFoundException, SQLException
 	{
+		/* list should now have 8 rows */
 		LinkTableGateway.addRelation(21, 12);
-		int rowCount = 0;
-		PreparedStatement statement = null;
-		String sqlStatement = "select * from LinkTable";
-		statement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
-		ResultSet rs = statement.executeQuery();
-		while(rs.next())
-		{
-			rowCount++;
-		}
-		assertEquals(9, rowCount); 
+		
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.getAllRelations();
+		assertEquals(8, listLinkTableDTO.size());
 	}
 	
 	/**
@@ -117,16 +95,10 @@ public class TestLinkTableGateway extends DBTest
 	@Test
 	public void testAddRelationDuplicate() throws ClassNotFoundException, SQLException
 	{
+		/* should still be 7 rows since a duplicate was added */
 		LinkTableGateway.addRelation(16, 11);
-		int rowCount = 0;
-		PreparedStatement statement = null;
-		String sqlStatement = "select * from LinkTable";
-		statement = ConnectionManager.getConnection().prepareStatement(sqlStatement);
-		ResultSet rs = statement.executeQuery();
-		while(rs.next())
-		{
-			rowCount++;
-		}
-		assertEquals(8, rowCount);
+		
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.getAllRelations();
+		assertEquals(7, listLinkTableDTO.size());
 	}
 }
