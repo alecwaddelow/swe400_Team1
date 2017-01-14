@@ -132,7 +132,7 @@ public class StripNailInput
 		while(!done)
 		{
 			System.out.println("Which one would you like to remove? (enter the UPC only)");
-			ArrayList<PowerTool> powerToolList = stripNail.getPowerToolList();
+			List<PowerTool> powerToolList = stripNail.getPowerToolList();
 			
 			if(!powerToolList.isEmpty())
 			{

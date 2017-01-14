@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -114,7 +115,7 @@ public class SearchByUPC {
 						textArea_Output.setText(item.toString());
 						if(item instanceof PowerTool)
 						{
-							ArrayList<StripNail> stripList = ((PowerTool) item).getStripNailList();
+							List<StripNail> stripList = ((PowerTool) item).getStripNailList();
 							textArea_Output.append("\nWorks With:\n");
 							
 							/* print the array list of what stripnails work with the power tools */
@@ -125,7 +126,7 @@ public class SearchByUPC {
 						}
 						else if(item instanceof StripNail)
 						{
-							ArrayList<PowerTool> powerToolList = ((StripNail) item).getPowerToolList();
+							List<PowerTool> powerToolList = ((StripNail) item).getPowerToolList();
 							textArea_Output.append("\nWorks with:\n");
 							
 							/* print the array list of what powertools work witht eh stripnail */

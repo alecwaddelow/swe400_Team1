@@ -17,7 +17,7 @@ import user_input.UserInput;
  */
 public class Runner
 {
-	static ArrayList<InventoryItem> listOfObjects = new ArrayList<InventoryItem>();
+	static List<InventoryItem> listOfObjects = new ArrayList<InventoryItem>();
 	
 	/**
 	 * Creates the table and calls for the insertion of the objects into the table
@@ -81,7 +81,7 @@ public class Runner
 		{
 			PowerTool powerTool = (PowerTool) item;
 			System.out.println(powerTool.toString());
-			ArrayList<StripNail> stripList = powerTool.getStripNailList();
+			List<StripNail> stripList = powerTool.getStripNailList();
 			
 			if(!stripList.isEmpty())
 			{
@@ -97,7 +97,7 @@ public class Runner
 		{
 			StripNail stripNail = (StripNail) item;
 			System.out.println(stripNail.toString());
-			ArrayList<PowerTool> powerToolList = stripNail.getPowerToolList();
+			List<PowerTool> powerToolList = stripNail.getPowerToolList();
 			
 			if(!powerToolList.isEmpty())
 			{
@@ -145,7 +145,7 @@ public class Runner
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static ArrayList<InventoryItem> getList() throws ClassNotFoundException, SQLException
+	public static List<InventoryItem> getList() throws ClassNotFoundException, SQLException
 	{
 		return listOfObjects;
 	}

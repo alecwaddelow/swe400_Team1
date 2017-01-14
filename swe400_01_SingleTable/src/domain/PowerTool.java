@@ -17,7 +17,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 {
 	protected boolean batteryPowered;
 	protected String description;
-	protected ArrayList <StripNail> stripNailList;
+	protected List<StripNail> stripNailList;
 	
 	/**
 	 * Finder Constructor that calls queries the database for the specified PowerTool by their ID
@@ -124,7 +124,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 * @throws ClassNotFoundException 
 	 * @throws ItemNotFoundException 
 	 */
-	public ArrayList<StripNail> getStripNailList() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	public List<StripNail> getStripNailList() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		if(this.stripNailList == null)
 		{
@@ -165,7 +165,7 @@ public class PowerTool extends InventoryItem implements LoadInterface
 	 */
 	public void removeStripNailFromList(StripNail stripNail)
 	{
-		ArrayList<Object> toRemove = new ArrayList<>();
+		List<Object> toRemove = new ArrayList<>();
 		for(StripNail sNail : this.stripNailList)
 		{
 			if(compareStripNails(sNail, stripNail))

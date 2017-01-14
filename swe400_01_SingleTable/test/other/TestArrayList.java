@@ -2,6 +2,8 @@ package other;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.naming.NamingException;
 import org.junit.Test;
 import data_source.CreateInventoryItemTable;
@@ -60,7 +62,7 @@ public class TestArrayList
 	 */
 	public void testRetrieveNailsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = Runner.getList();
+		List<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < Nails.values().length; i++)
 		{
@@ -83,7 +85,7 @@ public class TestArrayList
 	 */
 	public void testRetrieveToolsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = Runner.getList();
+		List<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < Tools.values().length; i++)
 		{
@@ -106,7 +108,7 @@ public class TestArrayList
 	 */
 	public void testRetrieveStripNailsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = Runner.getList();
+		List<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < StripNails.values().length; i++)
 		{
@@ -129,7 +131,7 @@ public class TestArrayList
 	 */
 	public void testRetrievePowerToolsFromArrayList() throws ClassNotFoundException, SQLException
 	{
-		ArrayList<InventoryItem> returnSet = Runner.getList();
+		List<InventoryItem> returnSet = Runner.getList();
 
 		for(int i = 0; i < PowerTools.values().length; i++)
 		{

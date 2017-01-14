@@ -299,8 +299,8 @@ public class UserInput
 	 */
 	public static void addCompatibles(Scanner sc, InventoryItem item) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
-		ArrayList<InventoryItem> itemList = new ArrayList<InventoryItem>(); 
-		ArrayList<String> inputtedValues = new ArrayList<String>(); 
+		List<InventoryItem> itemList = new ArrayList<InventoryItem>(); 
+		List<String> inputtedValues = new ArrayList<String>(); 
 		boolean run = true;
 		String input = null;
 		PowerTool powerTool = null;
@@ -389,7 +389,7 @@ public class UserInput
 	 * @param inputtedValues
 	 * @return boolean true if duplicates found; else false
 	 */
-	private static boolean checkForDuplicates(String input, ArrayList<String> inputtedValues) 
+	private static boolean checkForDuplicates(String input, List<String> inputtedValues) 
 	{
 		boolean noDuplicates = true;
 		

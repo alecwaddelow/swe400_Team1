@@ -71,9 +71,9 @@ public class AddItemToDB {
 	
 	private JButton btnSubmit = new JButton("Submit");
 
-	private static ArrayList<PowerTool> powerToolList;
-	private static ArrayList<StripNail> stripNailList;
-	private ArrayList<JRadioButton> buttonList;
+	private static List<PowerTool> powerToolList;
+	private static List<StripNail> stripNailList;
+	private List<JRadioButton> buttonList;
 
 	/**
 	 * Launch the application.

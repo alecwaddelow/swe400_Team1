@@ -2,6 +2,8 @@ package domain;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import domain.PowerTool;
 import domain.StripNail;
@@ -150,12 +152,12 @@ public class TestStripNail extends DBTest
 	public void testGetList() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		MockStripNail stripNail = new MockStripNail(11);
-		ArrayList<PowerTool> myList = stripNail.getPowerToolList();
+		List<PowerTool> myList = stripNail.getPowerToolList();
 		
 		/*Asserts that load method is called upon invoking getStripNailList()  */
 		assertEquals(1, this.loadCounter);			
 		
-		ArrayList<PowerTool> ptList = new ArrayList<PowerTool>();
+		List<PowerTool> ptList = new ArrayList<PowerTool>();
 		ptList.add(new PowerTool(16));
 		ptList.add(new PowerTool(17));
 		
@@ -184,12 +186,12 @@ public class TestStripNail extends DBTest
 		PowerTool ptAdd = new PowerTool(16);
 		
 		stripNail.addPowerToolToList(ptAdd);
-		ArrayList<PowerTool> myList = stripNail.getPowerToolList();
+		List<PowerTool> myList = stripNail.getPowerToolList();
 		
 		PowerTool pt = new PowerTool(16);
 		PowerTool pt2 = new PowerTool(17);
 		
-		ArrayList<PowerTool> toolList = new ArrayList<PowerTool>();
+		List<PowerTool> toolList = new ArrayList<PowerTool>();
 		toolList.add(pt);
 		toolList.add(pt2);
 		toolList.add(ptAdd);
@@ -226,7 +228,7 @@ public class TestStripNail extends DBTest
 	public void testRemovePowerTool() throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
 		StripNail stripNail = new StripNail(11);
-		ArrayList<PowerTool> powerTools = stripNail.getPowerToolList();
+		List<PowerTool> powerTools = stripNail.getPowerToolList();
 		assertEquals(2, powerTools.size());
 		
 		PowerTool powerTool = powerTools.get(1);

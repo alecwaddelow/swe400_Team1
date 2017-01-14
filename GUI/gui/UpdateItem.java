@@ -72,9 +72,9 @@ public class UpdateItem {
 	
 	private JButton btnSubmit = new JButton("Submit");
 
-	private static ArrayList<PowerTool> powerToolList;
-	private static ArrayList<StripNail> stripNailList;
-	private ArrayList<JRadioButton> buttonList;
+	private static List<PowerTool> powerToolList;
+	private static List<StripNail> stripNailList;
+	private List<JRadioButton> buttonList;
 	
 	private static InventoryItem itemToUpdate;
 	private static String item = null;

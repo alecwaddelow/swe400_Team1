@@ -16,7 +16,7 @@ import exceptions.ItemNotFoundException;
 public class StripNail extends Fastener implements LoadInterface
 {
 	protected int numberInStrip;
-	protected ArrayList <PowerTool> powerToolList;
+	protected List<PowerTool> powerToolList;
 
 	/**
 	 * Finder Constructor that calls queries the database for the specified strip nail by their ID
@@ -102,7 +102,7 @@ public class StripNail extends Fastener implements LoadInterface
 	 * @throws ClassNotFoundException 
 	 * @throws ItemNotFoundException 
 	 */
-	public ArrayList<PowerTool> getPowerToolList() throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	public List<PowerTool> getPowerToolList() throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
 		if(this.powerToolList == null)
 		{
@@ -173,7 +173,7 @@ public class StripNail extends Fastener implements LoadInterface
 	 */
 	public void removePowerToolFromList(PowerTool powerTool) 
 	{
-		ArrayList<Object> toRemove = new ArrayList<>();
+		List<Object> toRemove = new ArrayList<>();
 		for(PowerTool pTool : this.powerToolList)
 		{
 			if(comparePowerTools(pTool, powerTool))
