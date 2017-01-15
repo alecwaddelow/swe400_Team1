@@ -1,10 +1,8 @@
 package domain;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import data_source.*;
 import exceptions.ItemNotFoundException;
 
@@ -108,7 +106,6 @@ public class StripNail extends Fastener implements LoadInterface
 		{
 			this.load();
 		}
-		
 		return this.powerToolList;
 	}
 	
@@ -126,7 +123,6 @@ public class StripNail extends Fastener implements LoadInterface
 		{
 			this.load();
 		}
-		
 		this.powerToolList.add(tool);
 	}
 

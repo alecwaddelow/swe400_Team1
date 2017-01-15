@@ -1,7 +1,5 @@
 package domain;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import data_source.InventoryItemDTO;
 import data_source.InventoryItemGateway;
 import exceptions.ItemNotFoundException;
@@ -200,7 +198,6 @@ public abstract class InventoryItem
 		{
 			item = InventoryItem.matchClassAndConstruct(dto.getId(), dto.getClassName());
 		}
-		
 		return item;
 	}
 }
