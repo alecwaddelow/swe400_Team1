@@ -129,12 +129,9 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		if(this.stripNailList == null)
 		{
 			this.load();
-			return this.stripNailList;
 		}
-		else
-		{
-			return this.stripNailList;			
-		}
+		
+		return this.stripNailList;
 	}
 		
 	/**
@@ -150,21 +147,26 @@ public class PowerTool extends InventoryItem implements LoadInterface
 		if(this.stripNailList == null)
 		{
 			this.load();
-			this.stripNailList.add(stripNail);			
 		}
-		else
-		{
-			this.stripNailList.add(stripNail);
-		}
+		
+		this.stripNailList.add(stripNail);
 	}
 	
 	/**
 	 * Remove a StripNail from the list 
 	 * 
 	 * @param nail
+	 * @throws ItemNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void removeStripNailFromList(StripNail stripNail)
+	public void removeStripNailFromList(StripNail stripNail) throws ClassNotFoundException, SQLException, ItemNotFoundException
 	{
+		if(this.stripNailList == null)
+		{
+			this.load();
+		}
+		
 		List<Object> toRemove = new ArrayList<>();
 		for(StripNail sNail : this.stripNailList)
 		{

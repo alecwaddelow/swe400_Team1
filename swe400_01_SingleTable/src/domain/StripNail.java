@@ -107,12 +107,9 @@ public class StripNail extends Fastener implements LoadInterface
 		if(this.powerToolList == null)
 		{
 			this.load();
-			return this.powerToolList;
 		}
-		else
-		{
-			return this.powerToolList;
-		}
+		
+		return this.powerToolList;
 	}
 	
 	/**
@@ -129,10 +126,8 @@ public class StripNail extends Fastener implements LoadInterface
 		{
 			this.load();
 		}
-		else
-		{
-			this.powerToolList.add(tool);
-		}
+		
+		this.powerToolList.add(tool);
 	}
 
 	/** 
@@ -170,9 +165,17 @@ public class StripNail extends Fastener implements LoadInterface
 	 * Removes powertool from the list
 	 * 
 	 * @param powerTool
+	 * @throws ItemNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void removePowerToolFromList(PowerTool powerTool) 
+	public void removePowerToolFromList(PowerTool powerTool) throws ClassNotFoundException, SQLException, ItemNotFoundException 
 	{
+		if(this.powerToolList == null)
+		{
+			this.load();
+		}
+		
 		List<Object> toRemove = new ArrayList<>();
 		for(PowerTool pTool : this.powerToolList)
 		{
