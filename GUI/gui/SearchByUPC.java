@@ -32,6 +32,7 @@ public class SearchByUPC {
 	private JTextField textField;
 	private JButton button_submit = new JButton("Submit");
 	private JTextArea textArea_Output = new JTextArea();
+	private JComboBox comboBox = new JComboBox();
 
 	/**
 	 * Launch the application.
@@ -72,7 +73,6 @@ public class SearchByUPC {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(6, 12, 730, 40);
 		comboBox.setFont(new Font("Dialog", Font.BOLD, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Nail", "Tool", "PowerTool", "StripNail"}));
@@ -108,38 +108,7 @@ public class SearchByUPC {
 				
 				String upc = textField.getText();
 				try {
-					/* get the details of the inventory item */
-					InventoryItem item = InventoryItem.getDetails(upc, comboBox.getSelectedItem().toString());
-					if(item != null)
-					{
-						textArea_Output.setText(item.toString());
-						if(item instanceof PowerTool)
-						{
-							List<StripNail> stripList = ((PowerTool) item).getStripNailList();
-							textArea_Output.append("\nWorks With:\n");
-							
-							/* print the array list of what stripnails work with the power tools */
-							for(StripNail stripNail : stripList)
-							{
-								textArea_Output.append(stripNail.toString() + "\n");
-							}							
-						}
-						else if(item instanceof StripNail)
-						{
-							List<PowerTool> powerToolList = ((StripNail) item).getPowerToolList();
-							textArea_Output.append("\nWorks with:\n");
-							
-							/* print the array list of what powertools work witht eh stripnail */
-							for(PowerTool powerTool : powerToolList)
-							{
-								textArea_Output.append(powerTool.toString() + "\n");
-							}
-						}
-					}
-					else
-					{
-						textArea_Output.setText("Error: No Such Item Exists");
-					}
+					getOutput(upc);
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -165,5 +134,49 @@ public class SearchByUPC {
 		frame.getContentPane().add(scrollPane_Output);
 		
 		scrollPane_Output.setViewportView(textArea_Output);
+	}
+	
+	/**
+	 * gets the output by the item's upc
+	 * 
+	 * @param upc
+	 * @throws ItemNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void getOutput(String upc) throws ClassNotFoundException, SQLException, ItemNotFoundException 
+	{
+		/* get the details of the inventory item */
+		InventoryItem item = InventoryItem.getDetails(upc, comboBox.getSelectedItem().toString());
+		if(item != null)
+		{
+			textArea_Output.setText(item.toString());
+			if(item instanceof PowerTool)
+			{
+				List<StripNail> stripList = ((PowerTool) item).getStripNailList();
+				textArea_Output.append("\nWorks With:\n");
+				
+				/* print the array list of what stripnails work with the power tools */
+				for(StripNail stripNail : stripList)
+				{
+					textArea_Output.append(stripNail.toString() + "\n");
+				}							
+			}
+			else if(item instanceof StripNail)
+			{
+				List<PowerTool> powerToolList = ((StripNail) item).getPowerToolList();
+				textArea_Output.append("\nWorks with:\n");
+				
+				/* print the array list of what powertools work witht eh stripnail */
+				for(PowerTool powerTool : powerToolList)
+				{
+					textArea_Output.append(powerTool.toString() + "\n");
+				}
+			}
+		}
+		else
+		{
+			textArea_Output.setText("Error: No Such Item Exists");
+		}
 	}
 }

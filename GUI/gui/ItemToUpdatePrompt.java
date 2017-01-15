@@ -83,89 +83,9 @@ public class ItemToUpdatePrompt
 		comboBox_InventoryItem = new JComboBox();
 		comboBox_InventoryItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				itemType = comboBox_InventoryItem.getSelectedItem().toString();
-				btnSubmit.setEnabled(!itemType.equals(""));
-				buttonList = new ArrayList<JRadioButton>();
-				buttonGroup = new ButtonGroup();
-				
-				panel_InventoryItem.removeAll();
-				
-				GridBagConstraints gbc_RadioButton = new GridBagConstraints();
-				gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
-				gbc_RadioButton.gridx = 0;
-				gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
-				gbc_RadioButton.anchor = GridBagConstraints.WEST;
-				JRadioButton jrb = null;
-
 				try {
-					
-					switch(itemType)
-					{
-					case "Nail":
-						List<InventoryItemDTO> listInventoryItemDTO_Nail = InventoryItemGateway.getAllNails();
-						nailsList = new ArrayList<Nail>();
-						for(InventoryItemDTO iiDTO : listInventoryItemDTO_Nail)
-						{
-							Nail nail = new Nail(iiDTO.getId());
-							nailsList.add(nail);
-							
-							jrb = new JRadioButton(nail.toString());
-							buttonGroup.add(jrb);
-							buttonList.add(jrb);
-							panel_InventoryItem.add(jrb, gbc_RadioButton);
-						}
-						break;
-						
-					case "Tool":
-						List<InventoryItemDTO> listInventoryItemDTO_Tool = InventoryItemGateway.getAllTools();
-						toolsList = new ArrayList<Tool>();
-						for(InventoryItemDTO iiDTO : listInventoryItemDTO_Tool)
-						{
-							Tool tool = new Tool(iiDTO.getId());
-							toolsList.add(tool);
-							
-							jrb = new JRadioButton(tool.toString());
-							buttonGroup.add(jrb);
-							buttonList.add(jrb);
-							panel_InventoryItem.add(jrb, gbc_RadioButton);
-						}
-						break;
-						
-					case "StripNail":
-						List<InventoryItemDTO> listInventoryItemDTO_SN = InventoryItemGateway.getAllStripNails();
-						stripNailsList = new ArrayList<StripNail>();
-						for(InventoryItemDTO iiDTO : listInventoryItemDTO_SN)
-						{
-							StripNail stripNail = new StripNail(iiDTO.getId());
-							stripNailsList.add(stripNail);
-							
-							jrb = new JRadioButton(stripNail.toString());
-							buttonGroup.add(jrb);
-							buttonList.add(jrb);
-							panel_InventoryItem.add(jrb, gbc_RadioButton);
-						}
-						break;
-						
-					case "PowerTool":
-						List<InventoryItemDTO> listInventoryItemDTO_PT = InventoryItemGateway.getAllPowerTools();
-						powerToolsList = new ArrayList<PowerTool>();
-						for(InventoryItemDTO iiDTO : listInventoryItemDTO_PT)
-						{
-							PowerTool powerTool = new PowerTool(iiDTO.getId());
-							powerToolsList.add(powerTool);
-							
-							jrb = new JRadioButton(powerTool.toString());
-							buttonGroup.add(jrb);
-							buttonList.add(jrb);
-							panel_InventoryItem.add(jrb, gbc_RadioButton);
-						}
-						break;
-						
-					}
-					panel_InventoryItem.revalidate();
-					panel_InventoryItem.repaint();
-					
+					managePrompt(itemType);
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -175,8 +95,7 @@ public class ItemToUpdatePrompt
 				} catch (ItemNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}			
-				
+				}
 			}
 		});
 		
@@ -200,35 +119,7 @@ public class ItemToUpdatePrompt
 		btnSubmit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				InventoryItem item = null;
-				boolean foundSelected = false;
-				
-				int index = 0;
-				while(!foundSelected)
-				{
-					if(itemType.equals("Nail") && buttonList.get(index).isSelected())
-					{
-						item = (InventoryItem) nailsList.get(index);
-						foundSelected = true;
-					}
-					else if(itemType.equalsIgnoreCase("Tool") && buttonList.get(index).isSelected())
-					{
-						item = (InventoryItem) toolsList.get(index);
-						foundSelected = true;
-					}
-					else if(itemType.equals("PowerTool") && buttonList.get(index).isSelected())
-					{
-						item = (InventoryItem) powerToolsList.get(index);
-						foundSelected = true;
-					}
-					else if(itemType.equals("StripNail") && buttonList.get(index).isSelected())
-					{
-						item = (InventoryItem) stripNailsList.get(index);
-						foundSelected = true;
-					}
-					index++;
-				}
-				UpdateItem.updateItem(item);
+				initiateUpdate();
 			}
 		});
 		btnSubmit.setBounds(176, 400, 117, 25);
@@ -247,5 +138,131 @@ public class ItemToUpdatePrompt
 		});
 		btnCancel.setBounds(297, 400, 117, 25);
 		frame.getContentPane().add(btnCancel);
+	}
+	
+	/**
+	 * manages what to display
+	 * 
+	 * @param itemType
+	 * @throws ItemNotFoundException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void managePrompt(String itemType) throws ClassNotFoundException, SQLException, ItemNotFoundException
+	{
+		btnSubmit.setEnabled(!itemType.equals(""));
+		buttonList = new ArrayList<JRadioButton>();
+		buttonGroup = new ButtonGroup();
+		
+		panel_InventoryItem.removeAll();
+		
+		GridBagConstraints gbc_RadioButton = new GridBagConstraints();
+		gbc_RadioButton.insets = new Insets(0, 0, 20, 0);
+		gbc_RadioButton.gridx = 0;
+		gbc_RadioButton.gridy = GridBagConstraints.RELATIVE;
+		gbc_RadioButton.anchor = GridBagConstraints.WEST;
+		JRadioButton jrb = null;
+
+		switch(itemType)
+		{
+		case "Nail":
+			List<InventoryItemDTO> listInventoryItemDTO_Nail = InventoryItemGateway.getAllNails();
+			nailsList = new ArrayList<Nail>();
+			for(InventoryItemDTO iiDTO : listInventoryItemDTO_Nail)
+			{
+				Nail nail = new Nail(iiDTO.getId());
+				nailsList.add(nail);
+				
+				jrb = new JRadioButton(nail.toString());
+				buttonGroup.add(jrb);
+				buttonList.add(jrb);
+				panel_InventoryItem.add(jrb, gbc_RadioButton);
+			}
+			break;
+			
+		case "Tool":
+			List<InventoryItemDTO> listInventoryItemDTO_Tool = InventoryItemGateway.getAllTools();
+			toolsList = new ArrayList<Tool>();
+			for(InventoryItemDTO iiDTO : listInventoryItemDTO_Tool)
+			{
+				Tool tool = new Tool(iiDTO.getId());
+				toolsList.add(tool);
+				
+				jrb = new JRadioButton(tool.toString());
+				buttonGroup.add(jrb);
+				buttonList.add(jrb);
+				panel_InventoryItem.add(jrb, gbc_RadioButton);
+			}
+			break;
+			
+		case "StripNail":
+			List<InventoryItemDTO> listInventoryItemDTO_SN = InventoryItemGateway.getAllStripNails();
+			stripNailsList = new ArrayList<StripNail>();
+			for(InventoryItemDTO iiDTO : listInventoryItemDTO_SN)
+			{
+				StripNail stripNail = new StripNail(iiDTO.getId());
+				stripNailsList.add(stripNail);
+				
+				jrb = new JRadioButton(stripNail.toString());
+				buttonGroup.add(jrb);
+				buttonList.add(jrb);
+				panel_InventoryItem.add(jrb, gbc_RadioButton);
+			}
+			break;
+			
+		case "PowerTool":
+			List<InventoryItemDTO> listInventoryItemDTO_PT = InventoryItemGateway.getAllPowerTools();
+			powerToolsList = new ArrayList<PowerTool>();
+			for(InventoryItemDTO iiDTO : listInventoryItemDTO_PT)
+			{
+				PowerTool powerTool = new PowerTool(iiDTO.getId());
+				powerToolsList.add(powerTool);
+				
+				jrb = new JRadioButton(powerTool.toString());
+				buttonGroup.add(jrb);
+				buttonList.add(jrb);
+				panel_InventoryItem.add(jrb, gbc_RadioButton);
+			}
+			break;
+			
+		}
+		panel_InventoryItem.revalidate();
+		panel_InventoryItem.repaint();
+	}
+	
+	/**
+	 * initiates the update
+	 */
+	private void initiateUpdate()
+	{
+		InventoryItem item = null;
+		boolean foundSelected = false;
+		
+		int index = 0;
+		while(!foundSelected)
+		{
+			if(itemType.equals("Nail") && buttonList.get(index).isSelected())
+			{
+				item = (InventoryItem) nailsList.get(index);
+				foundSelected = true;
+			}
+			else if(itemType.equalsIgnoreCase("Tool") && buttonList.get(index).isSelected())
+			{
+				item = (InventoryItem) toolsList.get(index);
+				foundSelected = true;
+			}
+			else if(itemType.equals("PowerTool") && buttonList.get(index).isSelected())
+			{
+				item = (InventoryItem) powerToolsList.get(index);
+				foundSelected = true;
+			}
+			else if(itemType.equals("StripNail") && buttonList.get(index).isSelected())
+			{
+				item = (InventoryItem) stripNailsList.get(index);
+				foundSelected = true;
+			}
+			index++;
+		}
+		UpdateItem.updateItem(item);
 	}
 }

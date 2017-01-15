@@ -184,35 +184,6 @@ public class AddItemToDB {
 					}
 				}				
 			}
-
-			/**
-			 * manages what to display
-			 * @param item
-			 */
-			private void manageDisplay(String item) 
-			{
-				spinner_upc.setValue(0);
-				spinner_manufacturerID.setValue(0);
-				spinner_price.setValue(1);
-				spinner_length.setValue(0);
-				spinner_SNLength.setValue(0);
-				spinner_numberInBox.setValue(1);
-				spinner_numberInStrip.setValue(1);
-				textArea_Description.setText(null);
-				textArea_PT_Description.setText(null);
-				
-				/* manage what to display based on type of item is selected */
-				btnSubmit.setEnabled(!item.equals(""));
-				panel_nail.setVisible(item.equals("Nail"));
-				panel_tool.setVisible(item.equals("Tool"));
-				panel_PowerTool.setVisible(item.equals("PowerTool"));
-				panel_StripNail.setVisible(item.equals("StripNail"));
-				panel_AddCompatibles.removeAll();
-				label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
-				panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
-				frmAddInventoryItem.revalidate();
-				frmAddInventoryItem.repaint();
-			}
 		});
 		frmAddInventoryItem.getContentPane().setLayout(null);
 		comboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"", "Nail", "Tool", "StripNail", "PowerTool"}));
@@ -427,6 +398,7 @@ public class AddItemToDB {
 							@Override
 							public void mouseClicked(MouseEvent e) 
 							{
+					
 								try {
 								
 								
@@ -451,7 +423,7 @@ public class AddItemToDB {
 										{
 											if(buttonList.get(i).isSelected())
 											{
-												LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(i).getId());
+												powerTool.addCompatibleStripNail(stripNailList.get(i).getId());
 											}
 										}
 										break;
@@ -464,7 +436,7 @@ public class AddItemToDB {
 										{
 											if(buttonList.get(i).isSelected())
 											{
-												LinkTableGateway.addRelation(powerToolList.get(i).getId(), stripNail.getId());
+												stripNail.addCompatiblePowerTool(powerToolList.get(i).getId());
 											}
 										}
 										break;
@@ -472,6 +444,9 @@ public class AddItemToDB {
 								
 								
 								} catch (ClassNotFoundException | SQLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								} catch (ItemNotFoundException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
@@ -501,5 +476,34 @@ public class AddItemToDB {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * manages what to display
+	 * @param item
+	 */
+	private void manageDisplay(String item) 
+	{
+		spinner_upc.setValue(0);
+		spinner_manufacturerID.setValue(0);
+		spinner_price.setValue(1);
+		spinner_length.setValue(0);
+		spinner_SNLength.setValue(0);
+		spinner_numberInBox.setValue(1);
+		spinner_numberInStrip.setValue(1);
+		textArea_Description.setText(null);
+		textArea_PT_Description.setText(null);
+		
+		/* manage what to display based on type of item is selected */
+		btnSubmit.setEnabled(!item.equals(""));
+		panel_nail.setVisible(item.equals("Nail"));
+		panel_tool.setVisible(item.equals("Tool"));
+		panel_PowerTool.setVisible(item.equals("PowerTool"));
+		panel_StripNail.setVisible(item.equals("StripNail"));
+		panel_AddCompatibles.removeAll();
+		label_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
+		panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
+		frmAddInventoryItem.revalidate();
+		frmAddInventoryItem.repaint();
 	}
 }

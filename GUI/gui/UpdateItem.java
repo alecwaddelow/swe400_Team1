@@ -350,7 +350,6 @@ public class UpdateItem {
 							{
 								try {
 								
-								
 									switch(item)
 									{
 									case "Nail":
@@ -393,93 +392,9 @@ public class UpdateItem {
 								frameUpdateItem.dispose();
 							}
 
-							/**
-							 * manages the stripnail compatibles 
-							 * 
-							 * @param stripNail
-							 * @throws ClassNotFoundException
-							 * @throws SQLException
-							 */
-							private void manageStripNailCompatibles(StripNail stripNail) throws ClassNotFoundException, SQLException 
-							{
-								List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(stripNail.getId());
-								for(int index = 0; index < buttonList.size(); index++)
-								{
-									/* only adds compatibles that don't already exist within the relationship */
-									if(buttonList.get(index).isSelected())
-									{
-										boolean alreadyExists = false;
-										for(LinkTableDTO ltDTO : listLinkTableDTO)
-										{
-											if(ltDTO.getPowerToolID() == powerToolList.get(index).getId())
-											{
-												alreadyExists = true;
-											}
-										}
-										
-										if(!alreadyExists)
-										{
-											LinkTableGateway.addRelation(powerToolList.get(index).getId(), stripNail.getId());
-										}
-									}
-									/* removes relations if pre-existing relations' buttons are no longer selected */
-									else
-									{
-										for(LinkTableDTO ltDTO : listLinkTableDTO)
-										{
-											if(ltDTO.getPowerToolID() == powerToolList.get(index).getId())
-											{
-												LinkTableGateway.removeRelation(ltDTO.getPowerToolID(), stripNail.getId());												
-											}
-										}
-									}
-								}
-								
-							}
+							
 
-							/**
-							 * manages the powertool compatibles
-							 * 
-							 * @param powerTool
-							 * @throws SQLException 
-							 * @throws ClassNotFoundException 
-							 */
-							private void managePowerToolCompatibles(PowerTool powerTool) throws ClassNotFoundException, SQLException 
-							{
-								List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(powerTool.getId());
-								for(int index = 0; index < buttonList.size(); index++)
-								{
-									/* only adds compatibles that don't already exist within the relationship */
-									if(buttonList.get(index).isSelected())
-									{
-										boolean alreadyExists = false;
-										for(LinkTableDTO ltDTO : listLinkTableDTO)
-										{
-											if(ltDTO.getStripNailID() == stripNailList.get(index).getId())
-											{
-												alreadyExists = true;
-											}
-										}
-										
-										if(!alreadyExists)
-										{
-											LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(index).getId());
-										}
-									}
-									/* removes relations if pre-existing relations' buttons are no longer selected */
-									else
-									{
-										for(LinkTableDTO ltDTO : listLinkTableDTO)
-										{
-											if(ltDTO.getStripNailID() == stripNailList.get(index).getId())
-											{
-												LinkTableGateway.removeRelation(powerTool.getId(), ltDTO.getStripNailID());
-											}
-										}
-									}								
-								}
-								
-							}
+							
 						});
 					
 						okButton.setActionCommand("OK");
@@ -619,5 +534,92 @@ public class UpdateItem {
 		panel_AddCompatibles.setVisible(item.equals("PowerTool") || item.equals("StripNail"));
 		frameUpdateItem.revalidate();
 		frameUpdateItem.repaint();
+	}
+	
+	/**
+	 * manages the stripnail compatibles 
+	 * 
+	 * @param stripNail
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	private void manageStripNailCompatibles(StripNail stripNail) throws ClassNotFoundException, SQLException 
+	{
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForPowerTools(stripNail.getId());
+		for(int index = 0; index < buttonList.size(); index++)
+		{
+			/* only adds compatibles that don't already exist within the relationship */
+			if(buttonList.get(index).isSelected())
+			{
+				boolean alreadyExists = false;
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					if(ltDTO.getPowerToolID() == powerToolList.get(index).getId())
+					{
+						alreadyExists = true;
+					}
+				}
+				
+				if(!alreadyExists)
+				{
+					LinkTableGateway.addRelation(powerToolList.get(index).getId(), stripNail.getId());
+				}
+			}
+			/* removes relations if pre-existing relations' buttons are no longer selected */
+			else
+			{
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					if(ltDTO.getPowerToolID() == powerToolList.get(index).getId())
+					{
+						LinkTableGateway.removeRelation(ltDTO.getPowerToolID(), stripNail.getId());												
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * manages the powertool compatibles
+	 * 
+	 * @param powerTool
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	private void managePowerToolCompatibles(PowerTool powerTool) throws ClassNotFoundException, SQLException 
+	{
+		List<LinkTableDTO> listLinkTableDTO = LinkTableGateway.queryDBForStripNails(powerTool.getId());
+		for(int index = 0; index < buttonList.size(); index++)
+		{
+			/* only adds compatibles that don't already exist within the relationship */
+			if(buttonList.get(index).isSelected())
+			{
+				boolean alreadyExists = false;
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					if(ltDTO.getStripNailID() == stripNailList.get(index).getId())
+					{
+						alreadyExists = true;
+					}
+				}
+				
+				if(!alreadyExists)
+				{
+					LinkTableGateway.addRelation(powerTool.getId(), stripNailList.get(index).getId());
+				}
+			}
+			/* removes relations if pre-existing relations' buttons are no longer selected */
+			else
+			{
+				for(LinkTableDTO ltDTO : listLinkTableDTO)
+				{
+					if(ltDTO.getStripNailID() == stripNailList.get(index).getId())
+					{
+						LinkTableGateway.removeRelation(powerTool.getId(), ltDTO.getStripNailID());
+					}
+				}
+			}								
+		}
+		
 	}
 }
