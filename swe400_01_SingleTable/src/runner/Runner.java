@@ -127,15 +127,6 @@ public class Runner
 		{
 			listOfObjects.add(InventoryItem.matchClassAndConstruct(dto.getId(), dto.getClassName()));
 		}
-//		ResultSet rSet = InventoryItemGateway.createList();
-//		for(int i = 0; rSet.next(); i++)
-//		{
-//			int id  = rSet.getRow();
-//			String className = rSet.getString("className");
-//			listOfObjects.add(i, InventoryItem.matchClassAndConstruct(id, className));
-//		}
-//		rSet.close(); 
-//		InventoryItemGateway.closeStatements();
 	}
 
 	/**
